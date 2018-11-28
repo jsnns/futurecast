@@ -1,4 +1,4 @@
-months = ["Unknown",
+month_name = ["Unknown",
           "January",
           "Febuary",
           "March",
@@ -17,7 +17,7 @@ bal_cols = ["Low", "High", "Change"]
 class MonthData:
     def __init__(self, month, year, bal_data):
         self.number = month
-        self.name = month_names[month]
+        self.name = month_name[month]
         self.year = year
         self.bal_data = bal_data
         

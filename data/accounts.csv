@@ -1,10 +1,12 @@
 account,balance,type
-BW 401(k),3186.00,investment
-Payflex FSA,779.00,savings
-Cash,20.00,liquid
+BW 401(k),3206.00,investment
 Wealthfront,2.99,investment
-Simple,583.00,liquid
-Simple Savings,110.00,savings
-RQapital Savings,48.00,liquid
-JQuapital Spending,860.68,liquid
-JQapital Savings,74.22,savings
+
+Payflex FSA,704.00,savings
+Simple Savings,0.00,savings
+JQapital Savings,0.00,savings
+
+Cash,0.00,liquid
+Simple,507.00,liquid
+RQapital Savings,0.00,liquid
+JQuapital Spending,0.00,liquid

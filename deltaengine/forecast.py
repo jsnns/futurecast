@@ -3,10 +3,8 @@ import datetime
 import math
 import numpy as np
 
-accounts = pd.read_csv("data/accounts.csv")
-expenses = pd.read_csv("data/expenses.csv")
-windfall = pd.read_csv("data/windfalls.csv")
-income = pd.read_csv("data/income.csv")
+def data(file):
+    return pd.read_csv("data/{}.csv".format(file))
 
 def get_forecast(days):
     initial_balance = get_balance()
@@ -27,7 +25,7 @@ def get_forecast(days):
 
 def get_ongoing_expense_burn():
     burn = 0
-    for i, e in expenses.iterrows():
+    for i, e in data("expenses").iterrows():
         if e.date == "-":
             burn += e.amount
     return -math.ceil(burn / 30)
@@ -37,14 +35,14 @@ def get_income_for_day(dt):
     days_since_paycheck = (nov9-dt).days
     change = 0
     if days_since_paycheck % 14 == 13:
-        for i, e in income.iterrows():
+        for i, e in data("income").iterrows():
             change += e.amount
     return change
 
 def get_expenses_for_day(dt):
     day = dt.day
     change = 0
-    for i, e in expenses.iterrows():
+    for i, e in data("expenses").iterrows():
         if e.date == str(day):
             change -= e.amount
     return change
@@ -52,7 +50,7 @@ def get_expenses_for_day(dt):
 def get_windfalls_for_day(dt):
     day = dt.day
     change = 0
-    for i, e in windfall.iterrows():
+    for i, e in data("windfalls").iterrows():
         if (datetime.datetime(e.year, e.month, e.day) - dt).days == -1:
             change += e.amount
     return change
@@ -67,7 +65,7 @@ def change_for_day(dt):
 
 def get_balance():
     change = 0
-    for i, a in accounts.iterrows():
+    for i, a in data("accounts").iterrows():
         if a.type == "liquid":
             change += a.balance
     return change

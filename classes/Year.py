@@ -17,6 +17,6 @@ class YearData:
         df = pd.DataFrame(self.data(), columns=bal_cols)
         indexes = {}
         for i, e in enumerate(self.months_data):
-            indexes[i] = months_data[e.number] + " " + str(e.year)
+            indexes[i] = e.name + " " + str(e.year)
         df = df.rename(index=indexes)
         return df
