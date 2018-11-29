@@ -1,71 +1,65 @@
 import pandas as pd
-import datetime
-import math
-import numpy as np
+import matplotlib.pyplot as plt
+import importlib
+from deltaengine.Data import Data
+from classes.Month import MonthData as Month
+from classes.Year import YearData as Year
 
-def data(file):
-    return pd.read_csv("data/{}.csv".format(file))
+class Forecast:
+    def __init__(self, *, days=1000, scene="reality"):
+        data_set = Data(days=days, scene=scene)
 
-def get_forecast(days):
-    initial_balance = get_balance()
-    
-    balance_array = []
-    date_array = [datetime.datetime.now() + datetime.timedelta(days=i) for i in range(0, days)]
-    change_array = [change_for_day(d) for d in date_array]
-    
-    for i, change in enumerate(change_array):
-        balance = balance_array[i-1] if i > 0 else initial_balance
-        balance += change
-        balance_array.append(balance)
-    
-    cols = ["balance", "date", "change"]
-    forecast_data = np.transpose([balance_array, date_array, change_array])
-    
-    return pd.DataFrame(forecast_data, columns=cols)
+        self.data_set = data_set
+        self.data = data_set.data
+        self.days = days
 
-def get_ongoing_expense_burn():
-    burn = 0
-    for i, e in data("expenses").iterrows():
-        if e.date == "-":
-            burn += e.amount
-    return -math.ceil(burn / 30)
+    def describe_month(self, month_number, year_number):
+        # change in balance
+        # lowest point
+        
+        # filter forecast data
+        fc = [(f if f.date.month == month_number and f.date.year == year_number else None) for i, f in self.data.iterrows()]
+        fc = [f for f in fc if f is not None]
+        
+        # data pieces
+        first_day = fc[0]
+        last_day = fc[-1]
+        
+        # formatted arrays
+        balances = [f.balance for i, f in enumerate(fc)]
+        
+        # calculations
+        balance_low = round(min(balances), 2)
+        balance_high = round(max(balances), 2)
+        balance_change = last_day.balance - first_day.balance
 
-def get_income_for_day(dt):
-    nov9 = datetime.datetime(2018, 11, 23)
-    days_since_paycheck = (nov9-dt).days
-    change = 0
-    if days_since_paycheck % 14 == 13:
-        for i, e in data("income").iterrows():
-            change += e.amount
-    return change
+        bal_data = [balance_low, balance_high, balance_change]
+        month = Month(month_number, year_number, bal_data)
+        
+        return month
 
-def get_expenses_for_day(dt):
-    day = dt.day
-    change = 0
-    for i, e in data("expenses").iterrows():
-        if e.date == str(day):
-            change -= e.amount
-    return change
+    def describe_year(self, year_num):
+        year = Year(year_num, [])
+        
+        for month in range (1,13):   
+            month_data = self.describe_month(month, year_num)
+            
+            year.add(month_data)
+            
+        return year
 
-def get_windfalls_for_day(dt):
-    day = dt.day
-    change = 0
-    for i, e in data("windfalls").iterrows():
-        if (datetime.datetime(e.year, e.month, e.day) - dt).days == -1:
-            change += e.amount
-    return change
+    def describe_years(self, list):
+        data = []
+        index = []
+        for year_num in list:
+            year_data = self.describe_year(year_num)
+            for month_data in year_data.months:
+                data.append(month_data.bal_data)
+                index.append(month_data.name + " " + str(month_data.year))
+        
+        df = pd.DataFrame(data, index=index, columns=bal_cols)
+            
+        return df
 
-def change_for_day(dt):
-    change = 0
-    change += get_income_for_day(dt)
-    change += get_expenses_for_day(dt)
-    change += get_ongoing_expense_burn()
-    change += get_windfalls_for_day(dt)
-    return change
-
-def get_balance():
-    change = 0
-    for i, a in data("accounts").iterrows():
-        if a.type == "liquid":
-            change += a.balance
-    return change
+    def describe_months(self, list):
+        return [self.describe_month(m[0], m[1]) for m in list]
