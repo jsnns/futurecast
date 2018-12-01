@@ -1,4 +1,6 @@
 import pandas as pd
+import calendar
+import datetime
 from deltaengine.DataWithInterest import DataWithInterest
 from deltaengine.Data import Data
 from classes.Month import MonthData as Month
@@ -20,23 +22,11 @@ class Forecast:
         # lowest point
         
         # filter forecast data
-        fc = [(f if f.date.month == month_number and f.date.year == year_number else None) for i, f in self.data.iterrows()]
-        fc = [f for f in fc if f is not None]
-        
-        # data pieces
-        first_day = fc[0]
-        last_day = fc[-1]
-        
-        # formatted arrays
-        balances = [f.balance for i, f in enumerate(fc)]
-        
-        # calculations
-        balance_low = round(min(balances), 2)
-        balance_high = round(max(balances), 2)
-        balance_change = last_day.balance - first_day.balance
+        month_range = calendar.monthrange(year_number, month_number)
+        fc = self.data[(self.data.date >= datetime.datetime(year_number, month_number, month_range[0])) & (self.data.date <= datetime.datetime(year_number, month_number, month_range[1]))]
 
-        bal_data = [balance_low, balance_high, balance_change]
-        month = Month(month_number, year_number, bal_data)
+
+        month = Month(month_number, year_number, raw_data=fc)
         
         return month
 

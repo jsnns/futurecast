@@ -15,11 +15,27 @@ month_name = ["Unknown",
 bal_cols = ["Low", "High", "Change"]
 
 class MonthData:
-    def __init__(self, month, year, bal_data):
+    def __init__(self, month, year, *, raw_data):
         self.number = month
         self.name = month_name[month]
         self.year = year
-        self.bal_data = bal_data
+        self.raw_data = raw_data
+        self.bal_data = self.get_bal_data(self.raw_data)
+
+    def get_bal_data(self, raw_data):
+        # data pieces
+        first_day = raw_data.iloc[0]
+        last_day = raw_data.iloc[-1]
+        
+        # formatted arrays
+        balances = raw_data.balance
+        
+        # calculations
+        balance_low = round(min(balances), 2)
+        balance_high = round(max(balances), 2)
+        balance_change = last_day.balance - first_day.balance
+
+        return [balance_low, balance_high, balance_change]
         
     def __str__(self):
         month_header = " ".join(["="*10, self.name[:3], "="*10]) + "\n"
