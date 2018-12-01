@@ -23,7 +23,8 @@ class Forecast:
         
         # filter forecast data
         month_range = calendar.monthrange(year_number, month_number)
-        fc = self.data[(self.data.date >= datetime.datetime(year_number, month_number, month_range[0])) & (self.data.date <= datetime.datetime(year_number, month_number, month_range[1]))]
+        fc = self.data[(self.data.date >= datetime.datetime(year_number, month_number, 1)) & 
+                       (self.data.date <= datetime.datetime(year_number, month_number, month_range[1]))]
 
 
         month = Month(month_number, year_number, raw_data=fc)
