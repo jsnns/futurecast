@@ -4,18 +4,22 @@ import math
 import numpy as np
 
 class Data:
-    def __init__(self, *, days=365, scene="data"):
+    def __init__(self, *, days=365, scene="reality"):
         self.days = days
         self.scene = scene
+
+        self.get_forecast()
+
+    def init_data(self):
         self.expenses = self.get_expenses_map()
         self.windfalls = self.get_windfalls()
         self.daily_burn = self.get_ongoing_expense_burn()
         self.income = self.data_file("income")
         self.accounts = self.data_file("accounts")
-
-        self.data = self.get_forecast()
     
-    def get_forecast(self):
+    def get_forecast(self, *, new_data=False):
+        self.init_data()
+        
         initial_balance = self.get_balance()
         
         balance_array = []
@@ -29,7 +33,7 @@ class Data:
         cols = ["balance", "date", "change"]
         forecast_data = np.transpose([balance_array, date_array, change_array])
         
-        return pd.DataFrame(forecast_data, columns=cols)
+        self.data = pd.DataFrame(forecast_data, columns=cols)
 
     def change_for_day(self, dt):
         change = 0
@@ -53,7 +57,7 @@ class Data:
         return change
     
     def data_file(self, file):
-        return pd.read_csv("{}/{}.csv".format(self.scene, file))
+        return pd.read_csv("data/{}/{}.csv".format(self.scene, file))
 
     def get_single_balance(self, last_balance, change):
         balance = last_balance

@@ -2,7 +2,7 @@ from deltaengine.Data import Data
 
 class DataWithInterest(Data):
 
-    def __init__(self, *, yearly_interest=0.07, days=365, scene="data"):
+    def __init__(self, *, yearly_interest=0.07, days=365, scene="reality"):
         self.daily_interest = yearly_interest / 365
         
         super().__init__(days=days, scene=scene)

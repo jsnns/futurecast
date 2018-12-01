@@ -7,7 +7,7 @@ from deltaengine.classes.Month import Month
 from deltaengine.classes.Year import Year
 
 class Forecast:
-    def __init__(self, *, days=1000, scene="data", use_interest=False, yearly_interest=0.07):
+    def __init__(self, *, days=1000, scene="reality", use_interest=False, yearly_interest=0.07):
         if use_interest:
             data_set = DataWithInterest(days=days, scene=scene, yearly_interest=yearly_interest)
         else:
