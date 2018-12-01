@@ -1,13 +1,15 @@
 import pandas as pd
-import matplotlib.pyplot as plt
-import importlib
+from deltaengine.DataWithInterest import DataWithInterest
 from deltaengine.Data import Data
 from classes.Month import MonthData as Month
 from classes.Year import YearData as Year
 
 class Forecast:
-    def __init__(self, *, days=1000, scene="reality"):
-        data_set = Data(days=days, scene=scene)
+    def __init__(self, *, days=1000, scene="data", use_interest=False, yearly_interest=0.07):
+        if use_interest:
+            data_set = DataWithInterest(days=days, scene=scene, yearly_interest=yearly_interest)
+        else:
+            data_set = Data(days=days, scene=scene)
 
         self.data_set = data_set
         self.data = data_set.data

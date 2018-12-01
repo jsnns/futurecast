@@ -1,3 +1,3 @@
-name,amount,year,month,day
-Ryan Last Payment,-700.00,2018,12,23
-BofA Check,190,2018,12,01
+name,amount,date
+Ryan Last Payment,-700.00,"2018-12-23"
+BofA Check,190,"2018-12-02"
