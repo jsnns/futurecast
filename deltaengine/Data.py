@@ -4,9 +4,10 @@ import math
 import numpy as np
 
 class Data:
-    def __init__(self, *, days=365, scene="reality"):
+    def __init__(self, *, days=365, scene="reality", props=[]):
         self.days = days
         self.scene = scene
+        self.props = props
 
         self.get_forecast()
 
@@ -57,6 +58,12 @@ class Data:
         return change
     
     def data_file(self, file):
+        if self.props and file == "windfalls":
+            df = pd.read_csv("data/{}/{}.csv".format(self.scene, file))
+            for prop in self.props:
+                df = df.append(pd.read_csv("data/props/{}.csv".format(prop)))
+            return df
+
         return pd.read_csv("data/{}/{}.csv".format(self.scene, file))
 
     def get_single_balance(self, last_balance, change):
