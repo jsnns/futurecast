@@ -2,7 +2,7 @@ import pandas as pd
 
 bal_cols = ["Low", "High", "Change"]
 
-class YearData:
+class Year:
     def __init__(self, year, months_data):
         self.year = year
         self.months_data = months_data

@@ -14,7 +14,7 @@ month_name = ["Unknown",
 
 bal_cols = ["Low", "High", "Change"]
 
-class MonthData:
+class Month:
     def __init__(self, month, year, *, raw_data):
         self.number = month
         self.name = month_name[month]

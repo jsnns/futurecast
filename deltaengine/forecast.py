@@ -3,8 +3,8 @@ import calendar
 import datetime
 from deltaengine.DataWithInterest import DataWithInterest
 from deltaengine.Data import Data
-from classes.Month import MonthData as Month
-from classes.Year import YearData as Year
+from deltaengine.classes.Month import Month
+from deltaengine.classes.Year import Year
 
 class Forecast:
     def __init__(self, *, days=1000, scene="data", use_interest=False, yearly_interest=0.07):
