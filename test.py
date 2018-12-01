@@ -1,7 +1,5 @@
-from deltaengine.Forecast import Forecast
+from deltaengine.Reports import ReportTypes, ReportData
 
-mod = 1
+data = ReportData(report_type=ReportTypes.THREE_MONTHS)
 
-fc = Forecast(days=450*mod)
-
-print(fc.describe_month(12, 2018))
+print(data.describe_month(12, 2018))

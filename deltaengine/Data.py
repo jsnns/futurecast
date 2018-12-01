@@ -11,12 +11,10 @@ class Data:
         self.windfalls = self.get_windfalls()
         self.daily_burn = self.get_ongoing_expense_burn()
         self.income = self.data_file("income")
+        self.accounts = self.data_file("accounts")
 
         self.data = self.get_forecast()
     
-    def data_file(self, file):
-        return pd.read_csv("{}/{}.csv".format(self.scene, file))
-
     def get_forecast(self):
         initial_balance = self.get_balance()
         
@@ -32,40 +30,6 @@ class Data:
         forecast_data = np.transpose([balance_array, date_array, change_array])
         
         return pd.DataFrame(forecast_data, columns=cols)
-
-    def get_single_balance(self, last_balance, change):
-        balance = last_balance
-        balance += change
-        return balance
-
-    def get_ongoing_expense_burn(self):
-        burn = 0
-        df = self.data_file("expenses")
-        burn = df[df.date == "-"].sum(axis=0).amount
-        return -math.ceil(burn / 30)
-
-    def get_income_for_day(self, dt):
-        nov9 = datetime.datetime(2018, 11, 23)
-        days_since_paycheck = (nov9-dt).days
-        if days_since_paycheck % 14 == 13:
-            return self.income.sum(axis=0).amount
-        return 0
-
-    def get_expenses_map(self):
-        emap = {}
-        for i, e in self.data_file("expenses").iterrows():
-            if e.date not in emap:
-                emap[e.date] = 0
-            emap[e.date] -= e.amount
-        return emap
-
-    def get_windfalls(self):
-        wmap = {}
-        for i, e in self.data_file("windfalls").iterrows():
-            if e.date not in wmap:
-                wmap[e.date] = 0
-            wmap[e.date] += e.amount
-        return wmap
 
     def change_for_day(self, dt):
         change = 0
@@ -87,10 +51,43 @@ class Data:
             pass
         
         return change
+    
+    def data_file(self, file):
+        return pd.read_csv("{}/{}.csv".format(self.scene, file))
+
+    def get_single_balance(self, last_balance, change):
+        balance = last_balance
+        balance += change
+        return balance
+
+    def get_income_for_day(self, dt):
+        nov9 = datetime.datetime(2018, 11, 23)
+        days_since_paycheck = (nov9-dt).days
+        if days_since_paycheck % 14 == 13:
+            return self.income.sum(axis=0).amount
+        return 0
+
+    def get_ongoing_expense_burn(self):
+        burn = 0
+        df = self.data_file("expenses")
+        burn = df[df.date == "-"].sum(axis=0).amount
+        return -math.ceil(burn / 30)
+
+    def get_expenses_map(self):
+        emap = {}
+        data = self.data_file("expenses")
+        for i in range(1, 31):
+            emap[str(i)] = -data[data.date == str(i)].sum(axis=0).amount
+        return emap
+
+    def get_windfalls(self):
+        wmap = {}
+        for i, e in self.data_file("windfalls").iterrows():
+            if e.date not in wmap:
+                wmap[e.date] = 0
+            wmap[e.date] += e.amount
+        return wmap
 
     def get_balance(self):
-        bal = 0
-        for i, a in self.data_file("accounts").iterrows():
-            if a.type == "liquid":
-                bal += a.balance
+        bal = self.accounts[self.accounts.type == "liquid"].sum(axis=0).balance
         return bal

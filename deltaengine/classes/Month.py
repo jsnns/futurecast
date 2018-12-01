@@ -41,4 +41,4 @@ class Month:
         month_header = " ".join(["="*10, self.name[:3], "="*10]) + "\n"
         return  month_header + "\n".join([
             "{}: ${:,}".format(bal_cols[i-1], self.bal_data[i-1]) for i in range(len(bal_cols))
-        ])
+        ]) + "\n"
