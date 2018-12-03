@@ -4,7 +4,7 @@ import datetime
 from deltaengine.DataWithInterest import DataWithInterest
 from deltaengine.Data import Data
 from deltaengine.classes.Month import Month
-from deltaengine.classes.Year import Year
+from deltaengine.classes.Year import Year, bal_cols
 
 class Forecast:
     def __init__(self, *, days=1000, scene="reality", props=[], use_interest=False, yearly_interest=0.07):
@@ -46,7 +46,7 @@ class Forecast:
         index = []
         for year_num in list:
             year_data = self.describe_year(year_num)
-            for month_data in year_data.months:
+            for month_data in year_data.months_data:
                 data.append(month_data.bal_data)
                 index.append(month_data.name + " " + str(month_data.year))
         

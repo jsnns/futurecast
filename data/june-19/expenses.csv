@@ -1,0 +1,13 @@
+payee,amount,date,category
+Rent,1500.00,7,Shelter
+Lemonade,30.00,2,Shelter
+
+Eversource,150.00,25,Bills
+Ting,200.00,14,Bills
+Comcast,100.00,15,Bills
+
+Progressive,350.00,25,Transport
+Gas,200.00,-,Transport
+
+Groceries,500.00,-,Food
+Subscriptions,300.00,-,Bills
