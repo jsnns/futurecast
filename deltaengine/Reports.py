@@ -1,4 +1,4 @@
-from deltaengine.Forecast import Forecast
+from deltaengine.forecast import Forecast
 from enum import Enum
 
 class ReportTypes(Enum):
