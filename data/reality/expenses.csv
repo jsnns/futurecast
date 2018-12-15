@@ -1,15 +1,19 @@
 payee,amount,date,category
 1 Kennedy,1767.00,7,Shelter
-Ryan,1750,20,Bills
+Ryan,1750,22,Bills
 Lemonade,30.00,2,Shelter
 
 Eversource,140.00,25,Bills
 Sprint,545.00,21,Bills
 Comcast,100.00,23,Bills
 
-Fair,542.00,1,Transport
-Progressive,578.00,25,Transport
-Gas,150.00,-,Transport
+Transport,440,1,Transport
 
 Groceries,500.00,-,Food
+FastFood,100.00,-,Food
+Restaurants,50.00,-,Food
+
+Personal Care,100.00,-,Life
+Shopping,250.00,-,Shopping
+
 Subscriptions,200.00,-,Bills
