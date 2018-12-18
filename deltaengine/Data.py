@@ -72,11 +72,13 @@ class Data:
         return balance
 
     def get_income_for_day(self, dt):
-        nov9 = datetime.datetime(2018, 11, 23)
-        days_since_paycheck = (nov9-dt).days
-        if days_since_paycheck % 14 == 13:
-            return self.income.sum(axis=0).amount
-        return 0
+        for i, income in self.data_file("income").iterrows():
+            start_date = datetime.datetime(int(income.start[:4]), int(income.start[5:7]), int(income.start[8:10]))
+            
+            days_since_income = (start_date - dt).days
+            if days_since_income % income.interval == 13:
+                return self.income.sum(axis=0).amount
+            return 0
 
     def get_ongoing_expense_burn(self):
         burn = 0
