@@ -2,6 +2,7 @@ import pandas as pd
 import datetime
 import math
 import numpy as np
+from deltaengine.util import to_datetime
 
 class Data:
     def __init__(self, *, days=365, scene="reality", props=[]):
@@ -41,7 +42,7 @@ class Data:
         change += self.get_income_for_day(dt)
         
         try:
-            change += self.expenses[str(dt.day)]
+            change += self.expenses[str(dt.strftime("%Y-%m-%d"))]
         except Exception as error:
             pass
         
@@ -73,24 +74,35 @@ class Data:
 
     def get_income_for_day(self, dt):
         for i, income in self.data_file("income").iterrows():
-            start_date = datetime.datetime(int(income.start[:4]), int(income.start[5:7]), int(income.start[8:10]))
-            
+            start_date = to_datetime(income.start)
+
             days_since_income = (start_date - dt).days
-            if days_since_income % income.interval == 13:
+            if days_since_income % income.interval == income.interval - 1: # TODO: wtf
                 return self.income.sum(axis=0).amount
             return 0
 
     def get_ongoing_expense_burn(self):
         burn = 0
         df = self.data_file("expenses")
-        burn = df[df.date == "-"].sum(axis=0).amount
+        burn = df[df.ongoing == True].sum(axis=0).amount
         return -math.ceil(burn / 30)
 
     def get_expenses_map(self):
         emap = {}
         data = self.data_file("expenses")
-        for i in range(1, 31):
-            emap[str(i)] = -data[data.date == str(i)].sum(axis=0).amount
+        today = datetime.datetime.now()
+
+        for i in range(0, self.days):
+            day = today + datetime.timedelta(days=i)
+            am = 0
+            for i, expense in data.iterrows():
+                a_correct_day = (to_datetime(expense.start) - day).days % expense.interval == expense.interval-1
+                not_after = (to_datetime(expense.end) > day) and (to_datetime(expense.start) < day)
+                
+                if a_correct_day and not_after and not expense.ongoing:
+                    am += expense.amount
+
+            emap[day.strftime("%Y-%m-%d")] = -am
         return emap
 
     def get_windfalls(self):

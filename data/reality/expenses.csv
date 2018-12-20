@@ -1,17 +1,11 @@
-payee,amount,date,category
-1 Kennedy,1767.00,7,Shelter
-Ryan,1750,22,Bills
-Lemonade,30.00,2,Shelter
+name,amount,start,end,interval,category,ongoing
 
-Eversource,140.00,25,Bills
-Sprint,545.00,21,Bills
-Comcast,100.00,23,Bills
+1 Kennedy,1770,2018-12-10,2019-12-10,30,shelter,false
+Ryan,1750,2018-12-21,2019-8-22,30,bills,false
 
-Transport,440,1,Transport
+Eversource,150,2018-12-25,2019-12-22,30,bills,false
+Sprint,545,2018-12-25,2019-12-22,30,bills,false
+Comcast,100,2018-12-25,2019-12-22,30,bills,false
 
-Groceries,500.00,-,Food
-FastFood,100.00,-,Food
-Restaurants,50.00,-,Food
-
-Personal Care,100.00,-,Life
-Subscriptions,200.00,-,Bills
+Groceries,100,2019-1-1,2020-1-1,7,food,false
+Transport,100,2019-1-1,2020-1-1,7,transport,false
