@@ -60,12 +60,12 @@ class Data:
     
     def data_file(self, file):
         if self.props and file == "windfalls":
-            df = pd.read_json("data/{}/{}.csv".format(self.scene, file), convert_dates=False)
+            df = pd.read_json("data/{}/{}.json".format(self.scene, file), convert_dates=False)
             for prop in self.props:
-                df = df.append(pd.read_json("data/props/{}.csv".format(prop), convert_dates=False))
+                df = df.append(pd.read_json("data/props/{}.json".format(prop), convert_dates=False))
             return df
 
-        return pd.read_json("data/{}/{}.csv".format(self.scene, file), convert_dates=False)
+        return pd.read_json("data/{}/{}.json".format(self.scene, file), convert_dates=False)
 
     def get_single_balance(self, last_balance, change):
         balance = last_balance
