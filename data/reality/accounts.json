@@ -1,0 +1,17 @@
+[
+  {
+    "account": "BW 401(k)",
+    "balance": 17344,
+    "type": "investment"
+  },
+  {
+    "account": "Payflex FSA",
+    "balance": 652,
+    "type": "savings"
+  },
+  {
+    "account": "Simple",
+    "balance": 454,
+    "type": "liquid"
+  }
+]

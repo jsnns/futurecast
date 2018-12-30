@@ -1,0 +1,65 @@
+[
+  {
+    "name": "1 Kennedy",
+    "amount": 1770,
+    "start": "2018-12-10",
+    "end": "2019-12-10",
+    "interval": 30,
+    "category": "shelter",
+    "ongoing": false
+  },
+  {
+    "name": "Ryan",
+    "amount": 1750,
+    "start": "2018-12-21",
+    "end": "2019-8-22",
+    "interval": 30,
+    "category": "bills",
+    "ongoing": false
+  },
+  {
+    "name": "Eversource",
+    "amount": 150,
+    "start": "2018-12-25",
+    "end": "2019-12-22",
+    "interval": 30,
+    "category": "bills",
+    "ongoing": false
+  },
+  {
+    "name": "Sprint",
+    "amount": 545,
+    "start": "2018-12-25",
+    "end": "2019-12-22",
+    "interval": 30,
+    "category": "bills",
+    "ongoing": false
+  },
+  {
+    "name": "Comcast",
+    "amount": 100,
+    "start": "2018-12-25",
+    "end": "2019-12-22",
+    "interval": 30,
+    "category": "bills",
+    "ongoing": false
+  },
+  {
+    "name": "Groceries",
+    "amount": 100,
+    "start": "2019-1-1",
+    "end": "2020-1-1",
+    "interval": 7,
+    "category": "food",
+    "ongoing": false
+  },
+  {
+    "name": "Transport",
+    "amount": 100,
+    "start": "2019-1-1",
+    "end": "2020-1-1",
+    "interval": 7,
+    "category": "transport",
+    "ongoing": false
+  }
+]

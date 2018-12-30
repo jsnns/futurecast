@@ -1,0 +1,14 @@
+[
+  {
+    "source": "Bridgewater",
+    "amount": 2750,
+    "interval": 14,
+    "start": "2018-11-9"
+  },
+  {
+    "source": "Chick-Fil-A",
+    "amount": 650,
+    "interval": 14,
+    "start": "2018-11-8"
+  }
+]

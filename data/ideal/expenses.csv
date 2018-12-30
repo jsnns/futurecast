@@ -1,9 +1,0 @@
-payee,amount,date,category
-
-Food, 700, "-", Food
-Property Taxes, 200, "1", Taxes
-Transportation, 500, "1", Transport
-Utilities, 300, "1", Bills
-Internet, 150, "1", Bills
-Insurance, 200, "1", Insurance
-Quality of Life, 1000, "-", Life

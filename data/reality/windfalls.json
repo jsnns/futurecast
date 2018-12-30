@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Fair",
+    "amount": -550,
+    "date": "2019-1-1"
+  },
+  {
+    "name": "Progressive",
+    "amount": -550,
+    "date": "2019-1-1"
+  },
+  {
+    "name": "Comcast",
+    "amount": -500,
+    "date": "2019-1-1"
+  }
+]
