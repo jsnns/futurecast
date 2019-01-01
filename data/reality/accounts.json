@@ -6,12 +6,17 @@
   },
   {
     "account": "Payflex FSA",
-    "balance": 652,
+    "balance": 3150,
     "type": "savings"
   },
   {
     "account": "Simple",
-    "balance": 454,
+    "balance": 1577,
+    "type": "liquid"
+  },
+  {
+    "account": "Cash",
+    "balance": 149,
     "type": "liquid"
   }
 ]

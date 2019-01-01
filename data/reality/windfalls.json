@@ -1,17 +1,17 @@
 [
   {
-    "name": "Fair",
-    "amount": -550,
-    "date": "2019-1-1"
-  },
-  {
     "name": "Progressive",
-    "amount": -550,
-    "date": "2019-1-1"
+    "amount": -680,
+    "date": "2019-1-2"
   },
   {
-    "name": "Comcast",
-    "amount": -500,
-    "date": "2019-1-1"
+    "name": "Google Pay Refund",
+    "amount": 460,
+    "date": "2019-1-2"
+  },
+  {
+    "name": "Accident Cheque",
+    "amount": 250,
+    "date": "2019-1-30"
   }
 ]

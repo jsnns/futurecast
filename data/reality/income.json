@@ -1,13 +1,13 @@
 [
   {
     "source": "Bridgewater",
-    "amount": 2750,
+    "amount": 2500,
     "interval": 14,
     "start": "2018-11-9"
   },
   {
     "source": "Chick-Fil-A",
-    "amount": 650,
+    "amount": 600,
     "interval": 14,
     "start": "2018-11-8"
   }

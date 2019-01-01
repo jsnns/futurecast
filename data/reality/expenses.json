@@ -37,7 +37,7 @@
   },
   {
     "name": "Comcast",
-    "amount": 100,
+    "amount": 119,
     "start": "2018-12-25",
     "end": "2019-12-22",
     "interval": 30,
@@ -58,8 +58,8 @@
     "amount": 100,
     "start": "2019-1-1",
     "end": "2020-1-1",
-    "interval": 7,
+    "interval": 30,
     "category": "transport",
-    "ongoing": false
+    "ongoing": true
   }
 ]
