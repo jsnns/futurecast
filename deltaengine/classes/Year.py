@@ -1,6 +1,6 @@
 import pandas as pd
 
-bal_cols = ["Low", "High", "Change"]
+bal_cols = ["Low", "High"]
 
 class Year:
     def __init__(self, year, months_data):

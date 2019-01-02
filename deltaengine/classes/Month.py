@@ -12,7 +12,7 @@ month_name = ["Unknown",
           "November",
           "December"]
 
-bal_cols = ["Low", "High", "Change"]
+bal_cols = ["Low", "High"]
 
 class Month:
     def __init__(self, month, year, *, raw_data):
@@ -33,9 +33,8 @@ class Month:
         # calculations
         balance_low = round(min(balances), 2)
         balance_high = round(max(balances), 2)
-        balance_change = last_day.balance - first_day.balance
 
-        return [balance_low, balance_high, balance_change]
+        return [balance_low, balance_high]
         
     def __str__(self):
         month_header = " ".join(["="*10, self.name[:3], "="*10]) + "\n"

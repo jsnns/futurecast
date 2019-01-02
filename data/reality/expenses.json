@@ -2,8 +2,8 @@
   {
     "name": "1 Kennedy",
     "amount": 1770,
-    "start": "2018-12-10",
-    "end": "2019-12-10",
+    "start": "2018-12-5",
+    "end": "2020-12-5",
     "interval": 30,
     "category": "shelter",
     "ongoing": false
@@ -12,7 +12,7 @@
     "name": "Ryan",
     "amount": 1750,
     "start": "2018-12-21",
-    "end": "2019-8-22",
+    "end": "2019-7-22",
     "interval": 30,
     "category": "bills",
     "ongoing": false
@@ -28,7 +28,7 @@
   },
   {
     "name": "Sprint",
-    "amount": 545,
+    "amount": 465,
     "start": "2018-12-25",
     "end": "2019-12-22",
     "interval": 30,

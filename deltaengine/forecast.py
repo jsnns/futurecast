@@ -36,7 +36,6 @@ class Forecast:
         
         for month in range (1,13):   
             month_data = self.describe_month(month, year_num)
-            
             year.add(month_data)
             
         return year
