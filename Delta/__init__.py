@@ -1,5 +1,5 @@
-import deltaengine.Reports as Reports
-import deltaengine as engine
+import Delta.Reports as Reports
+import Delta as engine
 
 import plotly
 import plotly.plotly as plt

@@ -1,4 +1,4 @@
-from deltaengine.Data import Data
+from Delta.Data import Data
 
 class DataWithInterest(Data):
 

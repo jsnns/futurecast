@@ -1,10 +1,10 @@
 import pandas as pd
 import calendar
 import datetime
-from deltaengine.DataWithInterest import DataWithInterest
-from deltaengine.Data import Data
-from deltaengine.classes.Month import Month
-from deltaengine.classes.Year import Year, bal_cols
+from Delta.DataWithInterest import DataWithInterest
+from Delta.Data import Data
+from Delta.classes.Month import Month
+from Delta.classes.Year import Year, bal_cols
 
 class Forecast:
     def __init__(self, *, days=1000, scene="reality", props=[], use_interest=False, yearly_interest=0.07):

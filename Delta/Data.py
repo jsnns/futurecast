@@ -2,7 +2,7 @@ import pandas as pd
 import datetime
 import math
 import numpy as np
-from deltaengine.util import to_datetime
+from Delta.util import to_datetime
 
 class Data:
     def __init__(self, *, days=365, scene="reality", props=[]):
@@ -16,7 +16,6 @@ class Data:
         self.expenses = self.get_expenses_map()
         self.windfalls = self.get_windfalls()
         self.daily_burn = self.get_ongoing_expense_burn()
-        self.income = self.data_file("income")
         self.accounts = self.data_file("accounts")
     
     def get_forecast(self, *, new_data=False):
@@ -73,13 +72,15 @@ class Data:
         return balance
 
     def get_income_for_day(self, dt):
-        for i, income in self.data_file("income").iterrows():
+        d_file = self.data_file("income")
+        i = 0
+        for p, income in d_file.iterrows():
             start_date = to_datetime(income.start)
 
             days_since_income = (start_date - dt).days
-            if days_since_income % income.interval == income.interval - 1: # TODO: wtf
-                return self.income.sum(axis=0).amount
-            return 0
+            if days_since_income % income.interval == (income.interval - 1) and days_since_income < 0:
+                i += income.amount
+        return i
 
     def get_ongoing_expense_burn(self):
         burn = 0

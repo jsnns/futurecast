@@ -1,7 +1,7 @@
 [
   {
     "account": "BW 401(k)",
-    "balance": 17489,
+    "balance": 17344,
     "type": "investment"
   },
   {
@@ -11,12 +11,12 @@
   },
   {
     "account": "Simple",
-    "balance": 1180,
+    "balance": 938,
     "type": "liquid"
   },
   {
     "account": "Cash",
-    "balance": 60,
+    "balance": 149,
     "type": "liquid"
   }
 ]
