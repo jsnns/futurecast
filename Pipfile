@@ -12,6 +12,8 @@ jupyter = "*"
 pandas = "*"
 numpy = "*"
 plotly = "*"
+google-cloud-datastore = "*"
+google-cloud-firestore = "*"
 
 [requires]
 python_version = "3.7"

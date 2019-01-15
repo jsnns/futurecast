@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/usr/local/bin/python3",
+    "python.pythonPath": "/Users/jacobsansbury/.local/share/virtualenvs/money-zw6JbhQA/bin/python",
     "python.linting.enabled": false,
     "python.formatting.provider": "yapf"
 }
