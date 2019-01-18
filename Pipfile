@@ -4,16 +4,9 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-yapf = "*"
-rope = "*"
 
 [packages]
-jupyter = "*"
-pandas = "*"
-numpy = "*"
-plotly = "*"
-google-cloud-datastore = "*"
-google-cloud-firestore = "*"
+matplotlib = "*"
 
 [requires]
 python_version = "3.7"
