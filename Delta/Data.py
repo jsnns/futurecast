@@ -6,13 +6,3 @@ db = firestore.Client()
 transactions = db.collection("transactions")
 accounts = db.collection("accounts")
 schedules = db.collection("schedules")
-
-# doc_ref = db.collection(u'users').document(u'alovelace')
-# doc_ref.set({u'first': u'Ada', u'last': u'Lovelace', u'born': 1815})
-
-# # Then query for documents
-# users_ref = db.collection(u'users')
-# docs = users_ref.get()
-
-# for doc in docs:
-#     print(u'{} => {}'.format(doc.id, doc.to_dict()))

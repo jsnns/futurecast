@@ -51,7 +51,7 @@ class BalanceSheet:
         if n == 1:
             return {
                 "day": self.daily_change[0]["day"],
-                "balance": self.accounts + self.daily_change[0]["change"]
+                "balance": self.accounts
             }
         return {
             "day": self.daily_change[n-1]["day"],
