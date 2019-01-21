@@ -31,7 +31,7 @@ Fair = SingleTransaction(date=datetime(2019, 2, 1))
 accounts = [
     Account(name="Simple", balance=845),
     Account(name="360 Checking", balance=191),
-    Account(name="360 Savings", balance=4427),
+    Account(name="360 Savings", balance=2600),
 ]
 
 tx = TransactionSet(
@@ -48,7 +48,6 @@ tx = TransactionSet(
     
     Transaction(name="Fair",            category="transport",    schedule=Fair,             value=-545),
     Transaction(name="Mechanic",        category="transfer",     schedule=Mechanic,         value=-1875),
-    Transaction(name="Tax Return",      category="bonus",        schedule=TaxReturn,        value=1650),
 
     end=datetime.today() + relativedelta(months=5)
 )
@@ -80,7 +79,7 @@ xmin = x[xpos]
 
 plt.annotate(f'${ymin}', xy=(xmin, ymin), xytext=(xmin, ymin-200))
 axes = plt.gca()
-axes.set_ylim([0, None])
+axes.set_ylim([2000, None])
 
 plt.locator_params(numticks=25)
 plt.savefig('plot/plot.png')
