@@ -1,18 +1,23 @@
-from delta import Account
-from delta import Transaction
-from delta import Schedule
-from delta import SingleTransaction
-from delta import TransactionSet
-from delta import BalanceSheet
-
-from dateutil.relativedelta import relativedelta
+# stdlib
+import math
+import warnings
 from datetime import datetime
 
-import matplotlib.pyplot as plt
+# 3rdparty
 import matplotlib.dates as mdates
-import warnings
+import matplotlib.pyplot as plt
+from dateutil.relativedelta import relativedelta
 from tabulate import tabulate
-import math
+
+# local
+from delta import (
+    Account,
+    BalanceSheet,
+    Schedule,
+    SingleTransaction,
+    Transaction,
+    TransactionSet
+)
 
 warnings.filterwarnings("ignore")
 
@@ -83,4 +88,4 @@ axes = plt.gca()
 axes.set_ylim([0, None])
 
 plt.locator_params(numticks=25)
-plt.savefig('plot/plot.png')
+plt.savefig(f'plot/plot-{datetime.now().strftime("%Y-%d-%m")}.png')
