@@ -1,5 +1,3 @@
-from delta.data import accounts
-
 class Account:
     def __init__(self, *args, **kwargs):
         if type(kwargs.get("storage_id")) is str:

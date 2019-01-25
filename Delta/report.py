@@ -2,12 +2,14 @@ from delta import Account
 from delta import Transaction
 from delta import Schedule
 
+import math
+import matplotlib.pyplot as plt
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 class TransactionSet:
     def __init__(self, *args, **kwargs):
-        self.transactions = args
+        self.transactions = kwargs.get("transactions")
         self.end = kwargs.get("end")
         self.date = datetime.now()
         self.date = self.date.replace(hour=0, minute=0, second=0, microsecond=0)
@@ -37,6 +39,13 @@ class BalanceSheet:
     def __init__(self, *args, **kwargs):
         self.log = kwargs.get("log")
         self.accounts = kwargs.get("accounts")
+
+        self._stats = {}
+        self.balances = [o["balance"] for o in self.sheet]
+        self.days = [o["day"].date() for o in self.sheet]
+
+        self._stats["AverageBalance"] = math.floor(min(self.balances))
+        self._stats["MinimumBalance"] = math.floor(sum(self.balances) / float(len(self.balances)))
     
     def daily_change_generator(self):
         for day in self.log:
@@ -51,7 +60,7 @@ class BalanceSheet:
         if n == 1:
             return {
                 "day": self.daily_change[0]["day"],
-                "balance": self.accounts
+                "balance": sum([account.balance for account in self.accounts])
             }
         return {
             "day": self.daily_change[n-1]["day"],
@@ -66,3 +75,26 @@ class BalanceSheet:
     @property
     def daily_change(self):
         return [days_change for days_change in self.daily_change_generator()]
+
+    def create_plot(self):
+        x = self.balances
+        y = self.days
+        plt.plot(x, y)
+        plt.title("Balance over Time")
+        plt.xlabel("Day")
+        plt.ylabel("Balance")
+
+        ymin = min(y)
+        xpos = y.index(ymin)
+        xmin = x[xpos]
+
+        plt.annotate(f'${ymin}', xy=(xmin, ymin), xytext=(xmin, ymin-200))
+        axes = plt.gca()
+        axes.set_ylim([2000, None])
+
+        plt.locator_params(numticks=25)
+        plt.savefig(f'plot/plot-{datetime.now().strftime("%Y-%d-%m")}.png')
+
+    @property
+    def stats(self):
+        return "\n".join([f"{key}: {val}" for key, val in self._stats.iteritems()])

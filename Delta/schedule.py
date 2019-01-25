@@ -1,6 +1,5 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from delta.data import schedules
 
 
 class Schedule:

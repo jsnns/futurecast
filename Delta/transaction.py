@@ -1,4 +1,3 @@
-from delta.data import transactions
 from delta import Schedule
 
 class Transaction:
