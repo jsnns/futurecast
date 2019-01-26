@@ -1,0 +1,1 @@
+python -m cProfile -o performance/$1-program.prof $1
