@@ -39,19 +39,7 @@ class ScheduleTest(unittest.TestCase):
         end = datetime(2019, 6, 1)
         interval = relativedelta(months=1)
 
-        s = Schedule(interval=interval, start=start)
+        s = Schedule(interval=interval, start=start, end=end)
 
-        for o in s.occurances(end):
+        for o in s.occurances:
             self.assertLessEqual(o, end)
-
-    def test_save(self):
-        start = datetime(2019, 1, 1)
-        end = datetime(2019, 1, 8)
-        interval = relativedelta(months=1)
-
-        s = Schedule(interval=interval, start=start, end=end)           
-        document = s.save()
-
-        s_2 = Schedule(storage_id=document.id)
-
-        self.assertEqual(s.interval.days, s_2.interval.days)

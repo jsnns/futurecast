@@ -7,6 +7,8 @@ from datetime import datetime
 # 3rdparty
 from dateutil.relativedelta import relativedelta
 
+from tabulate import tabulate
+
 # local
 from delta import (
     Account,
@@ -22,6 +24,8 @@ warnings.filterwarnings("ignore")
 
 DayOfMonth = lambda day: Schedule(start=datetime(2019,1,day), interval=relativedelta(months=1))
 WeeklyOnSunday = Schedule(start=datetime(2019,1,20), interval=relativedelta(weeks=1))
+
+RyanKautz = Schedule(start=datetime(2019,1,18), interval=relativedelta(months=1), end=datetime(2019,7,1))
 
 Bridgewater = Schedule(start=datetime(2019,1,18), interval=relativedelta(weeks=2))
 ChickFilA = Schedule(start=datetime(2019,1,17), interval=relativedelta(weeks=2))
@@ -40,9 +44,10 @@ accounts = [
 transactions = [
     Transaction(name="Bridgewater",     category="income",  schedule=Bridgewater,      value=2600),
     Transaction(name="ChickFilA",       category="income",  schedule=ChickFilA,        value=200),
+    
+    Transaction(name="Ryan",            category="debt",    schedule=RyanKautz,        value=-1750),
 
     Transaction(name="1KennedyFlats",   category="rent",         schedule=DayOfMonth(1),    value=-1750),
-    Transaction(name="Ryan",            category="debt",         schedule=DayOfMonth(18),   value=-1750),
     Transaction(name="Sprint",          category="bills",        schedule=DayOfMonth(10),   value=-435),
     Transaction(name="Comcast",         category="bills",        schedule=DayOfMonth(17),   value=-190),
     Transaction(name="PrimeStorage",    category="storage",      schedule=DayOfMonth(3),    value=-85),
@@ -57,8 +62,9 @@ transactions = [
 
 
 if __name__ == "__main__":
-    tx_set = TransactionSet(transactions=transactions, end=datetime.today() + relativedelta(months=6))
+    tx_set = TransactionSet(transactions=transactions, end=datetime.today() + relativedelta(months=12))
     bal = BalanceSheet(log=tx_set.log, accounts=accounts)
 
     bal.create_plot()
+    print(tabulate(bal.sheet))
     print(bal.stats)

@@ -9,10 +9,10 @@ from dateutil.relativedelta import relativedelta
 
 class TransactionSet:
     def __init__(self, *args, **kwargs):
-        self.transactions = kwargs.get("transactions")
         self.end = kwargs.get("end")
         self.date = datetime.now()
         self.date = self.date.replace(hour=0, minute=0, second=0, microsecond=0)
+        self.transactions = kwargs.get("transactions")
 
     def day_range(self):
         i = 0
@@ -36,14 +36,19 @@ class TransactionSet:
         return [day for day in self.log_generator()]
 
 class BalanceSheet:
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, interest_rate=0, **kwargs):
         self.log = kwargs.get("log")
         self.accounts = kwargs.get("accounts")
 
-        self._stats = {}
+        self.daily_interest = ((interest_rate / 100) / 365) + 1
+
+        self.daily_change = [days_change for days_change in self.daily_change_generator()]
+        self.sheet = self.balance_on_day()
+
         self.balances = [o["balance"] for o in self.sheet]
         self.days = [o["day"].date() for o in self.sheet]
 
+        self._stats = {}
         self._stats["MinimumBalance"] = math.floor(min(self.balances))
         self._stats["AverageBalance"] = math.floor(sum(self.balances) / float(len(self.balances)))
     
@@ -56,27 +61,22 @@ class BalanceSheet:
                 "change": sum(value_array)
             }
 
-    def balance_on_day(self, n):
-        if n == 1:
-            return {
-                "day": self.daily_change[0]["day"],
-                "balance": sum([account.balance for account in self.accounts])
-            }
-        return {
-            "day": self.daily_change[n-1]["day"],
-            "balance": self.balance_on_day(n-1)["balance"] + self.daily_change[n-1]["change"]
-        }
+    def balance_on_day(self):
+        r = []
+        r.append({
+            "day": self.daily_change[0]["day"],
+            "balance": sum([account.balance for account in self.accounts])
+        })
+        
+        for i in range(2, len(self.daily_change)):
+            r.append({
+                "day": self.daily_change[i-1]["day"],
+                "balance": (r[len(r)-1]["balance"] + self.daily_change[i-1]["change"]) * self.daily_interest
+            })
+        print(r[:2])
+        return r
 
-    @property
-    def sheet(self):
-        return [self.balance_on_day(i+1) for i in range(len(self.log))]
-
-    
-    @property
-    def daily_change(self):
-        return [days_change for days_change in self.daily_change_generator()]
-
-    def create_plot(self):
+    def create_plot(self, *args, name="reality"):
         y = self.balances
         x = self.days
         plt.plot(x, y)
@@ -93,7 +93,7 @@ class BalanceSheet:
         axes.set_ylim([2000, None])
 
         plt.locator_params(numticks=25)
-        plt.savefig(f'plot/plot-{datetime.now().strftime("%Y-%d-%m")}.png')
+        plt.savefig(f'plot/plot-{datetime.now().strftime("%Y-%d-%m")}-{name}.png')
 
     @property
     def stats(self):

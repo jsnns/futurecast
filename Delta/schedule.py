@@ -8,45 +8,48 @@ class Schedule:
         self.start = kwargs.get("start")
         self.end = kwargs.get("end")
 
+        if not self.end:
+            self.end = datetime(2100,1,1)
+
+        self.occurances = self.get_occurances(self.end)
+
     def get_occurance(self, n):
-        occurance = self.start + (self.interval * n)
+        if len(self.occurances) < n+1:
+            return None
+        return self.occurances[n]
+
+    def next_occurance(self, prev):
+        if not self._interval:
+            return None
+
+        occurance = prev + self._interval
 
         if self.end and occurance > self.end:
             return None
 
         return occurance
 
-    def occurances(self, end):
-        i = 0
+    def get_occurances(self, end):
+        i = [self.start]
         while True:
-            occurance = self.get_occurance(i)
-            if not occurance or occurance > end:
+            occurance = self.next_occurance(i[len(i)-1])
+            if not occurance or occurance > self.end:
                 break
-            i += 1
-            yield occurance
+            i.append(occurance)
+        return i
+            
     
     def occurs_on_day(self, day):
-        for occurance in self.occurances(day):
+        for occurance in self.occurances:
             if day == occurance:
                 return True
-
-    @property
-    def interval(self):
-        return self._interval.normalized()
-
-    @interval.setter
-    def interval(self, interval):
-        self._interval = interval
 
 class SingleTransaction(Schedule):
     def __init__(self, *args, **kwargs):
         super().__init__(interval=None, start=kwargs.get("date"), end=None)
+        self.occurances = [self.start]
 
     def get_occurance(self, n):
         if n == 0:
             return self.start
         return None
-    
-    def occurances(self, end):
-        yield self.get_occurance(0)
-        

@@ -18,13 +18,3 @@ class Account:
     @balance.setter
     def balance(self, balance):
         self._balance = balance
-
-    def to_dict(self):
-        return {
-            "name": self.name,
-            "balance": self.balance
-        }
-
-    # TODO: use a decorator
-    def save(self):
-        return accounts.add(self.to_dict())[1]

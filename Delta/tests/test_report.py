@@ -13,12 +13,18 @@ class TransactionSetTest(unittest.TestCase):
         DayOfMonth = lambda day: Schedule(start=datetime(2019,1,day), interval=relativedelta(months=1))
 
         tx = TransactionSet(
-            Transaction(name="test_1", value=100, schedule=DayOfMonth(1)),
-            Transaction(name="test_2", value=-100, schedule=DayOfMonth(1)),
-            Transaction(name="test_3", value=100, schedule=DayOfMonth(2)),
-            Transaction(name="test_4", value=-100, schedule=DayOfMonth(3)),
-            end=datetime(2020,1,1)
+            transactions= [
+                Transaction(name="test_1", value=100, schedule=DayOfMonth(1)),
+                Transaction(name="test_2", value=-100, schedule=DayOfMonth(1)),
+                Transaction(name="test_3", value=100, schedule=DayOfMonth(2)),
+                Transaction(name="test_4", value=-100, schedule=DayOfMonth(3))
+            ],
+            end=datetime.today() + relativedelta(months=6)
         )
 
-        self.assertEqual(True, False) # TODO: write this test
-    
+        first_datetime = datetime.today() + relativedelta(months=1, day=1) # the next month
+
+        first_day_tx = [day["transactions"] for day in tx.log if day["day"].date() == first_datetime.date()][0]
+
+        self.assertEqual(len(first_day_tx), 2)
+        self.assertEqual(first_day_tx[0].value, 100)
