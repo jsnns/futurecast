@@ -44,8 +44,8 @@ class BalanceSheet:
         self.balances = [o["balance"] for o in self.sheet]
         self.days = [o["day"].date() for o in self.sheet]
 
-        self._stats["AverageBalance"] = math.floor(min(self.balances))
-        self._stats["MinimumBalance"] = math.floor(sum(self.balances) / float(len(self.balances)))
+        self._stats["MinimumBalance"] = math.floor(min(self.balances))
+        self._stats["AverageBalance"] = math.floor(sum(self.balances) / float(len(self.balances)))
     
     def daily_change_generator(self):
         for day in self.log:
@@ -77,8 +77,8 @@ class BalanceSheet:
         return [days_change for days_change in self.daily_change_generator()]
 
     def create_plot(self):
-        x = self.balances
-        y = self.days
+        y = self.balances
+        x = self.days
         plt.plot(x, y)
         plt.title("Balance over Time")
         plt.xlabel("Day")
@@ -97,4 +97,4 @@ class BalanceSheet:
 
     @property
     def stats(self):
-        return "\n".join([f"{key}: {val}" for key, val in self._stats.iteritems()])
+        return "\n".join([f"{key}: {val}" for key, val in self._stats.items()])

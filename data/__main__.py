@@ -43,10 +43,11 @@ transactions = [
 
     Transaction(name="1KennedyFlats",   category="rent",         schedule=DayOfMonth(1),    value=-1750),
     Transaction(name="Ryan",            category="debt",         schedule=DayOfMonth(18),   value=-1750),
-    Transaction(name="Sprint",          category="bills",        schedule=DayOfMonth(20),   value=-460),
+    Transaction(name="Sprint",          category="bills",        schedule=DayOfMonth(10),   value=-435),
     Transaction(name="Comcast",         category="bills",        schedule=DayOfMonth(17),   value=-190),
     Transaction(name="PrimeStorage",    category="storage",      schedule=DayOfMonth(3),    value=-85),
-    Transaction(name="Transport",       category="transport",    schedule=WeeklyOnSunday,   value=-100),
+    
+    Transaction(name="Transport",       category="transport",    schedule=WeeklyOnSunday,   value=-132),
     Transaction(name="Food",            category="food",         schedule=WeeklyOnSunday,   value=-100),
     
     Transaction(name="Fair",            category="transport",    schedule=Fair,             value=-545),
@@ -54,12 +55,10 @@ transactions = [
     Transaction(name="Tax Return",      category="bonus",        schedule=TaxReturn,        value=1650)
 ]
 
-tx_set = TransactionSet(
-    transactions=transactions,
-    end=datetime.today() + relativedelta(months=5)
-)
 
-bal = BalanceSheet(log=tx_set.log, accounts=accounts)
-bal.create_plot()
+if __name__ == "__main__":
+    tx_set = TransactionSet(transactions=transactions, end=datetime.today() + relativedelta(months=6))
+    bal = BalanceSheet(log=tx_set.log, accounts=accounts)
 
-print(bal.stats)
+    bal.create_plot()
+    print(bal.stats)
