@@ -44,9 +44,9 @@ class Schedule:
             if day == occurance:
                 return True
 
-class SingleTransaction(Schedule):
+class Once(Schedule):
     def __init__(self, *args, **kwargs):
-        super().__init__(interval=None, start=kwargs.get("date"), end=None)
+        super().__init__(interval=None, start=datetime(args[0], args[1], args[2]), end=None)
         self.occurances = [self.start]
 
     def get_occurance(self, n):

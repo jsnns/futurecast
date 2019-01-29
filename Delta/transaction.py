@@ -7,6 +7,10 @@ class Transaction:
         self._value = kwargs.get("value")
         self.category = kwargs.get("category")
         self.schedule = kwargs.get("schedule")
+        self.monthly_value = kwargs.get("monthly")
+
+        if not self.monthly_value:
+            self.monthly_value = self._value
 
     @property
     def value(self):

@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "/Users/jacob/.local/share/virtualenvs/money-es_klRfL/bin/python",
+    "python.pythonPath": "/Users/jacob/.local/share/virtualenvs/adder-_AP3TlaJ/bin/python",
     "python.linting.enabled": false,
     "python.formatting.provider": "yapf"
 }
