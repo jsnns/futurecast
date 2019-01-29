@@ -73,7 +73,6 @@ class BalanceSheet:
                 "day": self.daily_change[i-1]["day"],
                 "balance": (r[len(r)-1]["balance"] + self.daily_change[i-1]["change"]) * self.daily_interest
             })
-        print(r[:2])
         return r
 
     def create_plot(self, *args, name="reality"):

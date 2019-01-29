@@ -25,7 +25,7 @@ warnings.filterwarnings("ignore")
 DayOfMonth = lambda day: Schedule(start=datetime(2019,1,day), interval=relativedelta(months=1))
 WeeklyOnSunday = Schedule(start=datetime(2019,1,20), interval=relativedelta(weeks=1))
 
-RyanKautz = Schedule(start=datetime(2019,1,18), interval=relativedelta(months=1), end=datetime(2019,7,1))
+RyanKautz = Schedule(start=datetime(2019,1,18), interval=relativedelta(months=1), end=datetime(2019,8,1))
 
 Bridgewater = Schedule(start=datetime(2019,1,18), interval=relativedelta(weeks=2))
 ChickFilA = Schedule(start=datetime(2019,1,17), interval=relativedelta(weeks=2))
@@ -36,16 +36,17 @@ SkyFlixPayment = SingleTransaction(date=datetime(2019, 1, 25))
 Fair = SingleTransaction(date=datetime(2019, 2, 1))
 
 accounts = [
-    Account(name="Simple", balance=845),
-    Account(name="360 Checking", balance=36),
+    Account(name="360 Checking", balance=222),
     Account(name="360 Savings", balance=4427),
 ]
 
+Ryan = Transaction(name="Ryan",            category="debt",    schedule=RyanKautz,        value=-1750)
+
 transactions = [
-    Transaction(name="Bridgewater",     category="income",  schedule=Bridgewater,      value=2600),
+    Transaction(name="Bridgewater",     category="income",  schedule=Bridgewater,      value=2650),
     Transaction(name="ChickFilA",       category="income",  schedule=ChickFilA,        value=200),
     
-    Transaction(name="Ryan",            category="debt",    schedule=RyanKautz,        value=-1750),
+    Ryan,
 
     Transaction(name="1KennedyFlats",   category="rent",         schedule=DayOfMonth(1),    value=-1750),
     Transaction(name="Sprint",          category="bills",        schedule=DayOfMonth(10),   value=-435),
@@ -65,6 +66,22 @@ if __name__ == "__main__":
     tx_set = TransactionSet(transactions=transactions, end=datetime.today() + relativedelta(months=12))
     bal = BalanceSheet(log=tx_set.log, accounts=accounts)
 
+    owed = 15070
+    for o in Ryan.schedule.occurances:
+        owed -= 1750
+        print(f'Payment: {o.date()} ${owed}')
+
+        days_to_pay_off = [line for line in bal.sheet if line["balance"] > owed and line["day"] < o]
+        if len(days_to_pay_off) > 1:
+            print(f'Balance before pay day: ${days_to_pay_off[0]["balance"]}', "\n")
+        else:
+            days_to_pay_off = [line for line in bal.sheet if line["day"] < o]
+            if len(days_to_pay_off) > 1:
+                print(f'Off by ${owed-days_to_pay_off[0]["balance"]}\n')
+            else:
+                print("---------\n")
+
+    print("\n")
     bal.create_plot()
-    print(tabulate(bal.sheet))
+    # print(tabulate(bal.sheet))
     print(bal.stats)
