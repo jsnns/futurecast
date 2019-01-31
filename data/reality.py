@@ -25,7 +25,7 @@ EverySunday = Schedule(start=datetime(2019,1,20), interval=relativedelta(weeks=1
 RyanKautz = Schedule(start=datetime(2019,1,18), interval=relativedelta(months=1), end=datetime(2019,8,1))
 
 accounts = [
-    Account(name="360 Checking", balance=6.46),
+    Account(name="360 Checking", balance=501.46),
     Account(name="360 Savings", balance=5232),
 ]
 
@@ -50,6 +50,7 @@ transactions = [
     Transaction(name="TowCar",          category="once",        schedule=Once(2019,2,15),   value=-200),
     Transaction(name="Mechanic",        category="once",        schedule=Once(2019,2,10),   value=-1875),
     Transaction(name="SkyFlix@",        category="once",        schedule=Once(2019,2,4),    value=500),
+    Transaction(name="CTTaxReturn",     category="once",        schedule=Once(2019,2,14),   value=222),
 ]
 
 def make_html(tx_set, bal):
@@ -77,6 +78,8 @@ def make_html(tx_set, bal):
         {tabulate(budget["budget"], headers=("Category", "$", "% Budget"), tablefmt="html")}
         <br>
         {tabulate(bal.stats, headers=("Stat", "Value"), tablefmt="html")}
+        <br>
+        {input("What changed since you last reported? ")}
     </div>
     """
 
