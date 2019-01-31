@@ -70,8 +70,8 @@ def make_html(tx_set, bal):
     <div>
         <h1>Financial Status as of {datetime.today().date()}</h1>
         <br />
-        <img src="///Users/jacob/personal/adder/plot/{datetime.today().strftime("%Y-%d-%m")}.png" />
-        <img src="///Users/jacob/personal/adder/plot/budget-{datetime.today().strftime("%Y-%d-%m")}.png"/>
+        <img src="///Users/jacob/personal/adder/output/{datetime.today().strftime("%Y-%d-%m")}.png" />
+        <img src="///Users/jacob/personal/adder/output/budget-{datetime.today().strftime("%Y-%d-%m")}.png"/>
     
         {tabulate(budget["budget"], headers=("Category", "$", "% Budget"), tablefmt=OUTPUT_FOMAT)}
         <br>
@@ -94,9 +94,5 @@ if __name__ == "__main__":
     bal.create_plot()
 
     if OUTPUT_FOMAT == "html":
-        print(make_html(tx_set, bal))
-        exit(0)
-
-    
-
-    
+        with open(f"output/html/{datetime.today().strftime('%Y-%d-%m')}.html", "w") as f:
+            f.write(make_html(tx_set, bal))
