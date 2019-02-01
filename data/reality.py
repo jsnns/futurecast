@@ -4,6 +4,7 @@
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from tabulate import tabulate
+from scratchpad.build_html import make_html
 
 # local
 from delta import (
@@ -53,45 +54,13 @@ transactions = [
     Transaction(name="CTTaxReturn",     category="once",        schedule=Once(2019,2,14),   value=222),
 ]
 
-def make_html(tx_set, bal):
-    budget = tx_set.budget
-    css = """
-    th {
-        text-align: "left" !important;
-        padding: 5;
-    }
+REPORT_LEGTH_MONTHS = 6
+SHOW_ROWS = 15
 
-    td {
-        padding: 5;
-    }
-    """
-    return f"""
-    <style>
-        {css}
-    </style>
-    <div>
-        <h1>Financial Status as of {datetime.today().date()}</h1>
-        <br />
-        <img src="///Users/jacob/personal/adder/output/{datetime.today().strftime("%Y-%d-%m")}.png" />
-        <img src="///Users/jacob/personal/adder/output/budget-{datetime.today().strftime("%Y-%d-%m")}.png"/>
-    
-        {tabulate(budget["budget"], headers=("Category", "$", "% Budget"), tablefmt="html")}
-        <br>
-        {tabulate(bal.stats, headers=("Stat", "Value"), tablefmt="html")}
-        <br>
-        {input("What changed since you last reported? ")}
-    </div>
-    """
-
-
+tx_set = TransactionSet(transactions=transactions, end=datetime.today() + relativedelta(months=REPORT_LEGTH_MONTHS))
+bal = BalanceSheet(log=tx_set.log, accounts=accounts)
 
 if __name__ == "__main__":
-
-    REPORT_LEGTH_MONTHS = 6
-    SHOW_ROWS = 15
-    
-    tx_set = TransactionSet(transactions=transactions, end=datetime.today() + relativedelta(months=REPORT_LEGTH_MONTHS))
-    bal = BalanceSheet(log=tx_set.log, accounts=accounts)
 
     tx_set.budget_plot()
     bal.create_plot()
