@@ -26,8 +26,8 @@ EverySunday = Schedule(start=datetime(2019,1,20), interval=relativedelta(weeks=1
 RyanKautz = Schedule(start=datetime(2019,1,18), interval=relativedelta(months=1), end=datetime(2019,8,1))
 
 accounts = [
-    Account(name="360 Checking", balance=501.46),
-    Account(name="360 Savings", balance=5232),
+    Account(name="360 Checking", balance=2771.77),
+    Account(name="360 Savings", balance=5529.07),
 ]
 
 transactions = [
@@ -37,7 +37,7 @@ transactions = [
     
     # Expenses
     Transaction(name="Ryan",            category="debt",         schedule=RyanKautz,        value=-1750),
-    Transaction(name="1KennedyFlats",   category="rent",         schedule=MonthlyOn(1),    value=-1750),
+    Transaction(name="1KennedyFlats",   category="rent",         schedule=MonthlyOn(2),    value=-1750),
     Transaction(name="Sprint",          category="bills",        schedule=MonthlyOn(10),    value=-435),
     Transaction(name="Comcast",         category="bills",        schedule=MonthlyOn(17),    value=-190),
     Transaction(name="Eversource",      category="bills",        schedule=MonthlyOn(4),     value=-219),
