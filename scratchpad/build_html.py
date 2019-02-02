@@ -27,6 +27,8 @@ def make_html(tx_set, bal):
         <br>
         {tabulate(bal.stats, headers=("Stat", "Value"), tablefmt="html")}
         <br>
+        {tabulate([["Expenses", budget["expenses"]], ["Income", budget["income"]]], tablefmt="html")}
+        <br>
         {input("What changed since you last reported? ")}
     </div>
     """
