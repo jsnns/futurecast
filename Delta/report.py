@@ -47,7 +47,7 @@ class TransactionSet:
         ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
                 shadow=True, startangle=90)
         ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-        plt.savefig(f'output/budget-{datetime.now().strftime("%Y-%d-%m")}.png')
+        plt.savefig(f'output/budget-{datetime.now().strftime("%Y-%m-%d")}.png')
         plt.clf()
 
     @property
@@ -137,7 +137,7 @@ class BalanceSheet:
         axes.set_ylim([2000, None])
 
         plt.locator_params(numticks=25)
-        plt.savefig(f'output/{datetime.now().strftime("%Y-%d-%m")}.png')
+        plt.savefig(f'output/{datetime.now().strftime("%Y-%m-%d")}.png')
         plt.clf()
 
     @property
