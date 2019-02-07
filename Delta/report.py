@@ -24,14 +24,14 @@ class TransactionSet:
             day = self.date + relativedelta(days=i)
             if day > self.end:
                 break
-            
+
             i += 1
             yield day
 
     def log_generator(self):
         for day in self.day_range():
             yield {
-                "day": day, 
+                "day": day,
                 "transactions": [transaction for transaction in self.transactions if transaction.schedule.occurs_on_day(day)]
             }
 
@@ -57,7 +57,7 @@ class TransactionSet:
         for tx in self.transactions:
             if tx.value < 0 and tx.category != "once":
                 budget["expenses"] += tx.monthly_value
-            
+
             if tx.category == "income":
                 budget["income"] += tx.monthly_value
             elif tx.category != "once":
@@ -71,7 +71,7 @@ class TransactionSet:
                 f"{val}",
                 str(round(val / budget["expenses"] * 100, 2))
             ])
-        
+
         return budget
 
     @property
@@ -96,7 +96,7 @@ class BalanceSheet:
         self._stats.append(["MinimumBalance", math.floor(min(self.balances))])
         self._stats.append(["AverageBalance", math.floor(sum(self.balances) / float(len(self.balances)))])
         self._stats.append(["DipInCurrentBal", math.floor(self.current_balance - math.floor(min(self.balances)))])
-    
+
     def daily_change_generator(self):
         for day in self.log:
             transactions = day["transactions"]
@@ -112,7 +112,7 @@ class BalanceSheet:
             "day": self.daily_change[0]["day"],
             "balance": self.current_balance
         })
-        
+
         for i in range(2, len(self.daily_change)):
             r.append({
                 "day": self.daily_change[i-1]["day"],

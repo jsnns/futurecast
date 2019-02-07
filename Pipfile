@@ -14,6 +14,13 @@ snakeviz = "*"
 google-api-python-client = "*"
 google-auth-httplib2 = "*"
 google-auth-oauthlib = "*"
+flask = "*"
+autopep8 = "*"
+pylint = "*"
+setuptools = "*"
+networkx = "*"
+flask-cors = "*"
+
 
 [requires]
 python_version = "3.7"

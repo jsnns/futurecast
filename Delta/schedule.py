@@ -13,6 +13,13 @@ class Schedule:
 
         self.occurances = self.get_occurances(self.end)
 
+    def toJSON(self, MONTHS=6):
+        return {
+            "start": self.start,
+            "end": self.end,
+            "occurances": self.occurances[:MONTHS]
+        }
+
     def get_occurance(self, n):
         if len(self.occurances) < n+1:
             return None
@@ -37,8 +44,8 @@ class Schedule:
                 break
             i.append(occurance)
         return i
-            
-    
+
+
     def occurs_on_day(self, day):
         for occurance in self.occurances:
             if day == occurance:
