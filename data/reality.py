@@ -7,14 +7,12 @@ from tabulate import tabulate
 from scratchpad.build_html import make_html
 
 # local
-from delta import (
-    Account,
-    BalanceSheet,
-    Schedule,
-    Once,
-    Transaction,
-    TransactionSet
-)
+from delta import Account
+from delta import BalanceSheet
+from delta import Schedule
+from delta import Once
+from delta import Transaction
+from delta import TransactionSet
 
 # Income
 Bridgewater = Schedule(start=datetime(2019,1,18), interval=relativedelta(weeks=2))
@@ -26,32 +24,31 @@ EverySunday = Schedule(start=datetime(2019,1,20), interval=relativedelta(weeks=1
 RyanKautz = Schedule(start=datetime(2019,1,18), interval=relativedelta(months=1), end=datetime(2019,8,1))
 
 accounts = [
-    Account(name="360 Checking",    balance=572.47),
-    Account(name="360 Savings",     balance=5529.07),
+    Account(name="360 Checking",    balance=118),
+    Account(name="360 Savings",     balance=4179),
 ]
 
 transactions = [
     # Income
     Transaction(name="Bridgewater",     category="income",      schedule=Bridgewater,       value=2650,     monthly=5300),
-    Transaction(name="ChickFilA",       category="income",      schedule=ChickFilA,         value=200,      monthly=400),
-    
+    Transaction(name="ChickFilA",       category="income",      schedule=ChickFilA,         value=100,      monthly=200),
+
     # Expenses
     Transaction(name="Ryan",            category="debt",         schedule=RyanKautz,        value=-1750),
-    Transaction(name="1KennedyFlats",   category="rent",         schedule=MonthlyOn(2),     value=-1800,    autopay=True),
+    Transaction(name="1KennedyFlats",   category="rent",         schedule=MonthlyOn(2),     value=-1899,    autopay=True),
+    Transaction(name="1KF-Utils",       category="rent",         schedule=MonthlyOn(2),     value=-80,      autopay=True),
     Transaction(name="Sprint",          category="bills",        schedule=MonthlyOn(10),    value=-435,     autopay=True),
-    Transaction(name="Comcast",         category="bills",        schedule=MonthlyOn(17),    value=-190),
-    Transaction(name="Eversource",      category="bills",        schedule=MonthlyOn(4),     value=-100,     autopay=True),
+    Transaction(name="Eversource",      category="bills",        schedule=MonthlyOn(4),     value=-70,      autopay=True),
+    Transaction(name="Comcast",         category="bills",        schedule=MonthlyOn(17),    value=-119,     autopay=False),
     Transaction(name="Transport",       category="transport",    schedule=EverySunday,      value=-132,     monthly=-528),
     Transaction(name="Food",            category="food",         schedule=EverySunday,      value=-100,     monthly=-400),
-    
+
     # Windfalls
-    Transaction(name="Fair",            category="once",        schedule=Once(2019,2,5),    value=-545),
+    Transaction(name="Fair",            category="once",        schedule=Once(2019,2,10),   value=-545),
     Transaction(name="HalfFair",        category="once",        schedule=Once(2019,2,15),   value=-280),
     Transaction(name="TowCar",          category="once",        schedule=Once(2019,2,15),   value=-200),
     Transaction(name="Mechanic",        category="once",        schedule=Once(2019,2,10),   value=-1875),
-    Transaction(name="SkyFlix@",        category="once",        schedule=Once(2019,2,6),    value=838),
-    Transaction(name="SellTires",       category="once",        schedule=Once(2019,2,10),   value=650),
-    Transaction(name="CTTaxReturn",     category="once",        schedule=Once(2019,2,14),   value=222),
+    Transaction(name="CTTaxReturn",     category="once",        schedule=Once(2019,2,10),   value=222)
 ]
 
 REPORT_LEGTH_MONTHS = 6
