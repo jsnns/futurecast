@@ -17,6 +17,7 @@ class TransactionSet:
         self.date = datetime.now()
         self.date = self.date.replace(hour=0, minute=0, second=0, microsecond=0)
         self.transactions = kwargs.get("transactions")
+        self.budget = self.get_budget()
 
     def day_range(self):
         i = 0
@@ -37,7 +38,6 @@ class TransactionSet:
 
     def budget_plot(self):
         budget = self.budget["budget"]
-        total = self.budget["expenses"]
         # Pie chart, where the slices will be ordered and plotted counter-clockwise:
         labels = [s[0] for s in budget]
         sizes = [float(s[2]) / 100 for s in budget]
@@ -50,8 +50,7 @@ class TransactionSet:
         plt.savefig(f'output/budget-{datetime.now().strftime("%Y-%m-%d")}.png')
         plt.clf()
 
-    @property
-    def budget(self):
+    def get_budget(self):
         budget = dict(expenses=0, income=0, category={}, budget=[])
 
         for tx in self.transactions:
@@ -69,7 +68,7 @@ class TransactionSet:
             budget["budget"].append([
                 f"{cat}",
                 f"{val}",
-                str(round(val / budget["expenses"] * 100, 2))
+                str(round(abs(val) / abs(budget["income"]) * 100, 2))
             ])
 
         return budget
@@ -134,7 +133,7 @@ class BalanceSheet:
 
         plt.annotate(f'${ymin}', xy=(xmin, ymin), xytext=(xmin, ymin-200))
         axes = plt.gca()
-        axes.set_ylim([2000, None])
+        axes.set_ylim([0, None])
 
         plt.locator_params(numticks=25)
         plt.savefig(f'output/{datetime.now().strftime("%Y-%m-%d")}.png')
