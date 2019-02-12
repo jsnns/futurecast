@@ -1,7 +1,7 @@
 from tabulate import tabulate
 from datetime import datetime
 
-def make_html(tx_set, bal):
+def make_html(tx_set, bal, budgetfig, balancefig):
     budget = tx_set.budget
     css = """
         th {
@@ -21,8 +21,8 @@ def make_html(tx_set, bal):
         <h1>Financial Status as of {datetime.today().date()}</h1>
         <br />
         <div>
-            <img src="///Users/jacob/personal/adder/output/{datetime.today().strftime("%Y-%m-%d")}.png" />
-            <img src="///Users/jacob/personal/adder/output/budget-{datetime.today().strftime("%Y-%m-%d")}.png"/>
+            <img src="///Users/jacob/personal/adder/{balancefig}"/>
+            <img src="///Users/jacob/personal/adder/{budgetfig}"/>
         </div>
         <div>
             {tabulate(budget["budget"], headers=("Category", "$", "% Budget"), tablefmt="html")}
@@ -32,6 +32,5 @@ def make_html(tx_set, bal):
             {tabulate([["Expenses", budget["expenses"]], ["Income", budget["income"]]], tablefmt="html")}
             <br>
         </div>
-        {input("What changed since you last reported? ")}
     </div>
     """

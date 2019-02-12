@@ -11,3 +11,11 @@ def get_balances(report_name):
 def get_transactions(report_name):
     report = get_report(report_name)
     return report.tx_set.log
+
+def get_stats(report_name):
+    report = get_report(report_name)
+    return report.bal.stats
+
+def get_budget(report_name):
+    budget = get_report(report_name).tx_set.budget
+    return [[cat[0], cat[1], round(float(cat[2])/100, 2)] for cat in budget["budget"]]

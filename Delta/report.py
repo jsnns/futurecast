@@ -36,7 +36,7 @@ class TransactionSet:
                 "transactions": [transaction for transaction in self.transactions if transaction.schedule.occurs_on_day(day)]
             }
 
-    def budget_plot(self):
+    def budget_plot(self, filename):
         budget = self.budget["budget"]
         # Pie chart, where the slices will be ordered and plotted counter-clockwise:
         labels = [s[0] for s in budget]
@@ -47,7 +47,7 @@ class TransactionSet:
         ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
                 shadow=True, startangle=90)
         ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-        plt.savefig(f'output/budget-{datetime.now().strftime("%Y-%m-%d")}.png')
+        plt.savefig(filename)
         plt.clf()
 
     def get_budget(self):
@@ -119,7 +119,7 @@ class BalanceSheet:
             })
         return r
 
-    def create_plot(self, *args):
+    def create_plot(self, filename):
         y = self.balances
         x = self.days
         plt.plot(x, y)
@@ -136,7 +136,7 @@ class BalanceSheet:
         axes.set_ylim([0, None])
 
         plt.locator_params(numticks=25)
-        plt.savefig(f'output/{datetime.now().strftime("%Y-%m-%d")}.png')
+        plt.savefig(filename)
         plt.clf()
 
     @property

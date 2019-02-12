@@ -25,7 +25,7 @@ RyanKautz       = Schedule(start=datetime(2019,1,18), interval=relativedelta(mon
 ####### ACCOUNTS
 accounts = [
 
-    Account(name="Checking", balance=60),
+    Account(name="Checking", balance=49),
     Account(name="Savings", balance=4559)
 
 ]
@@ -34,7 +34,7 @@ accounts = [
 txs = [
 
     Transaction(name="Bridgewater",     category="income",  schedule=Bridgewater,       value=2650,     monthly=5300),       ### INCOME
-    Transaction(name="ChickFilA",       category="income",  schedule=ChickFilA,         value=100,      monthly=200),
+    Transaction(name="ChickFilA",       category="income",  schedule=ChickFilA,         value=379,      monthly=758),
     
     Transaction(name="Ryan",            category="debt",    schedule=RyanKautz,         value=-1750,    autopay=False),      ### BILLS
     Transaction(name="1KF",             category="rent",    schedule=Monthly(2),        value=-1899,    autopay=True),
@@ -58,10 +58,10 @@ REPORT_LENGTH = 6
 tx_set = Log(transactions=txs, end=datetime.today() + relativedelta(months=REPORT_LENGTH))
 bal = Report(log=tx_set.log, accounts=accounts)
 
-BUDGETFIG = f'output/budget-{datetime.now().strftime("%Y-%m-%d")}.png'
-BALANCEFIG = f'output/{datetime.now().strftime("%Y-%m-%d")}.png'
-HTML = f'output/html/{datetime.now().strftime("%Y-%m-%d")}.html'
-
+TEST_NAME = "rebecca-20-min-wage"
+BALANCEFIG = f"output/test/{TEST_NAME}.png"
+BUDGETFIG = f"output/test/budget-{TEST_NAME}.png"
+HTML = f"output/test/html/{TEST_NAME}.html"
 
 if __name__ == "__main__":
 
