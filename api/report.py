@@ -4,6 +4,14 @@ from api.lib.report_data import get_balances, get_transactions, get_stats, get_b
 
 import json
 
+def get_json_from(path):
+    with open(path) as jsonfile:
+        return json.load(jsonfile)
+
+def get_json_paths(year, month, day):
+    return {
+        f"{x}": get_json_from(f"history/{year}/{month}/{day}/{x}.json") for x in ["balances", "budget", "stats", "transactions"]
+    }
 
 @app.route("/report/balances/<report>")
 def get_report_balances(report):
@@ -31,3 +39,13 @@ def get_report_budget(report):
 def get_reports_list():
     # TODO: make this list dynamic
     return jsonify(["reality", "test", "target"])
+
+@app.route("/history/<year>/<month>/<day>")
+def get_history(year, month, day):
+    try:
+        return jsonify(get_json_paths(year, month, day))
+    except FileNotFoundError as e:
+        return jsonify({
+            "message": "file not found",
+            "status": 404
+        })

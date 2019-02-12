@@ -25,7 +25,7 @@ RyanKautz       = Schedule(start=datetime(2019,1,18), interval=relativedelta(mon
 ####### ACCOUNTS
 accounts = [
 
-    Account(name="Checking", balance=60),
+    Account(name="Checking", balance=-3),
     Account(name="Savings", balance=4559)
 
 ]
@@ -45,11 +45,11 @@ txs = [
     Transaction(name="Transport",       category="travel",  schedule=Weekly,            value=-132,     monthly=-528),
     Transaction(name="Food",            category="food",    schedule=Weekly,            value=-100,     monthly=-400),
     
-    Transaction(name="Fair",            category="once",    schedule=Once(2019,2,11),   value=-545),                         ### WINDFALLS
-    Transaction(name="HalfFair",        category="once",    schedule=Once(2019,2,11),   value=-280),
-    Transaction(name="TowCar",          category="once",    schedule=Once(2019,2,11),   value=-200),
-    Transaction(name="Mechanic",        category="once",    schedule=Once(2019,2,11),   value=-1875),
-    Transaction(name="CTTaxReturn",     category="once",    schedule=Once(2019,2,11),   value=222)
+    Transaction(name="Fair",            category="once",    schedule=Once(2019,2,13),   value=-545),                         ### WINDFALLS
+    Transaction(name="HalfFair",        category="once",    schedule=Once(2019,2,13),   value=-280),
+    Transaction(name="TowCar",          category="once",    schedule=Once(2019,2,13),   value=-200),
+    Transaction(name="Mechanic",        category="once",    schedule=Once(2019,2,13),   value=-1875),
+    Transaction(name="CTTaxReturn",     category="once",    schedule=Once(2019,2,13),   value=222)
 
 ]
 
