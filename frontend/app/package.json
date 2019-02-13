@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^3.9.2",
     "chart.js": "^1.1.1",
+    "dotenv": "^6.2.0",
     "material-ui": "^0.20.2",
     "react": "^16.8.1",
     "react-chartjs": "^1.2.0",

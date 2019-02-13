@@ -3,7 +3,6 @@ from delta import Transaction
 from delta import Schedule
 
 import math
-import matplotlib.pyplot as plt
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from tabulate import tabulate
@@ -57,6 +56,8 @@ class TransactionSet:
                 str(round(abs(val) / abs(budget["income"]) * 100, 2))
             ])
 
+        print(budget)
+
         return budget
 
     @property
@@ -65,7 +66,8 @@ class TransactionSet:
 
 class BalanceSheet:
     def __init__(self, *args, interest_rate=0, **kwargs):
-        self.log = kwargs.get("log")
+        self.tx_set = kwargs.get("tx_set")
+        self.log = self.tx_set.log
         self.accounts = kwargs.get("accounts")
 
         self.current_balance = sum([account.balance for account in self.accounts])
@@ -77,10 +79,11 @@ class BalanceSheet:
         self.balances = [o["balance"] for o in self.sheet]
         self.days = [o["day"].date() for o in self.sheet]
 
-        self.stats = []
-        self.stats.append(["MinimumBalance", math.floor(min(self.balances))])
-        self.stats.append(["AverageBalance", math.floor(sum(self.balances) / float(len(self.balances)))])
-        self.stats.append(["DipInCurrentBal", math.floor(self.current_balance - math.floor(min(self.balances)))])
+        self.stats = {
+            "Minimum Balance": math.floor(min(self.balances)),
+            "Average Balance": math.floor(sum(self.balances) / float(len(self.balances))),
+            "Monthly Free": self.tx_set.budget["income"] + self.tx_set.budget["expenses"]
+        }
 
     def daily_change_generator(self):
         for day in self.log:

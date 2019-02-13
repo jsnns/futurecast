@@ -8,19 +8,13 @@ yapf = "*"
 rope = "*"
 
 [packages]
-matplotlib = "*"
 tabulate = "*"
-snakeviz = "*"
-google-api-python-client = "*"
-google-auth-httplib2 = "*"
-google-auth-oauthlib = "*"
 flask = "*"
 autopep8 = "*"
 pylint = "*"
 setuptools = "*"
-networkx = "*"
 flask-cors = "*"
-
+python-dateutil = "*"
 
 [requires]
 python_version = "3.7"

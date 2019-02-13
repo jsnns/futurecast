@@ -1,0 +1,72 @@
+.balance {
+    width: 75vw; 
+    margin-left: 10px;
+    height: 750px;
+    float: right;
+}
+
+.budget { 
+    width: 15vw;
+    height: 750px;
+    float: left;
+}
+
+.table {
+    width: 500px;
+    float: left;
+    clear: left;
+}
+
+.tx-table {
+    width: 750px;
+    float: left;
+    clear: right;
+    margin-left: 50px;
+}
+
+html {
+    overflow-x: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 25px;
+}
+
+h1 {
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+h2 {
+    font-weight: 100;
+    text-transform: uppercase;
+}
+
+@media only screen and (max-width: 650px) {
+    html {
+        padding: 5px;
+    }
+    .budget{
+        width: 25vw;
+        float: left;
+        height: auto;
+    }
+    .balance {
+        width: 95vw;
+        float: none;
+        height: auto;
+    }
+    .table {
+        width: 65vw;
+        float: right;
+        clear: none;
+    }
+    .tx-table {
+        width: 100%;
+        float: right;
+        overflow-x: hidden;
+        margin-top: 5px;
+        clear: both;
+    }
+    h2 {
+        font-size: 1.1em;
+    }
+}

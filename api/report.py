@@ -1,6 +1,7 @@
 from api import app
 from flask import jsonify
-from api.lib.report_data import get_balances, get_transactions, get_stats, get_budget
+from api.lib.report_data import get_balances, get_transactions, get_stats, get_budget, get_report
+from data.scratchpad.bills_to_pay import bills_to_pay
 
 import json
 
@@ -27,7 +28,6 @@ def get_report_transactions(report):
 @app.route("/report/stats/<report>")
 def get_report_stats(report):
     stats = get_stats(report)
-    stats = {s[0]: s[1] for s in stats}
     return jsonify(stats)
 
 @app.route("/report/budget/<report>")
@@ -60,3 +60,13 @@ def get_subreport_history(year, month, day, report):
             "message": "file not found",
             "status": 404
         })
+
+@app.route("/report/bills/<report>")
+def get_bills_now(report):
+    report = get_report(report)
+    return jsonify(bills_to_pay(report.tx_set.log, 0))
+
+@app.route("/report/bills/<report>/<days>")
+def get_bills(report, days):
+    report = get_report(report)
+    return jsonify(bills_to_pay(report.tx_set.log, int(days)))

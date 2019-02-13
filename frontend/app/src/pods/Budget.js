@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Doughnut } from "react-chartjs";
+import { Pie } from "react-chartjs";
 
 class Budget extends Component {
   constructor(props) {
@@ -9,28 +9,41 @@ class Budget extends Component {
     };
   }
   componentWillMount() {
-    const { time } = this.props;
-    let url;
-    if (time === "reality") url = "http://10.0.0.41:5000/report/budget/reality";
-    if (time.length === 3) url = `http://10.0.0.41:5000/history/${time[0]}/${time[1]}/${time[2]}/budget`
+    if (window.innerWidth < 500) {
+      this.setState({
+        mobile: true
+      })
+    }
+    let { time, url } = this.props;
+    if (time === "reality") url += "/report/budget/reality";
+    if (time.length === 3) url += `/history/${time[0]}/${time[1]}/${time[2]}/budget`
     console.log(url)
     fetch(url)
       .then(response => response.json())
       .then(data => {
-        const d = data.map(cat => ({
-          value: cat[2],
-          label: cat[0].toUpperCase()
-        }));
+        let total = 0
+        const d = data.map(cat => {
+          total += cat[2]
+          return {
+            value: cat[2],
+            label: cat[0].toUpperCase()
+          }
+        });
+        d.push({
+          value: (1 - total).toFixed(2),
+          label: "FREE",
+          color: "#fff"
+        })
         this.setState({ data: d });
-      });
+      }).catch(err => console.log(err))
   }
   render() {
-    const { data } = this.state;
+    const { data, mobile } = this.state;
 
     return (
-      <div style={{width: 500, float: "left"}}>
+      <div className="budget">
         <h2>Budget</h2>
-        <Doughnut width="500" height="500" options={{ percentageInnerCutout: 50 }} data={data} />
+        <Pie redraw width={mobile ? window.innerWidth * .25 : 500} height={mobile ? window.innerWidth * .25 : 500} data={data} options={{ segmentStrokeWidth: 0 }} />
       </div>
     );
   }

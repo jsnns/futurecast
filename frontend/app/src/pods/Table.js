@@ -4,7 +4,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 
 class StatsTables extends Component {
   constructor(props) {
@@ -14,22 +13,21 @@ class StatsTables extends Component {
     };
   }
   componentWillMount() {
-    const { time } = this.props;
-    let url;
-    if (time === "reality") url = "http://10.0.0.41:5000/report/stats/reality";
-    if (time.length === 3) url = `http://10.0.0.41:5000/history/${time[0]}/${time[1]}/${time[2]}/stats`
+    let { time, url } = this.props;
+    if (time === "reality") url += "/report/stats/reality";
+    if (time.length === 3) url += `/history/${time[0]}/${time[1]}/${time[2]}/stats`
     console.log(url)
     fetch(url)
       .then(response => response.json())
       .then(data => {
-        const d = Object.keys(data).map(key => ({ key, value: data[key] }));
-        this.setState({ data: d });
-      });
+        this.setState({ data });
+      }).catch(err => console.log(err))
   }
   render() {
     const { data } = this.state;
     return (
-      <div style={{width: 500}}>
+      <div className="table">
+        <h2>Stats</h2>
         <Table>
           <TableHead>
             <TableRow>
@@ -38,12 +36,12 @@ class StatsTables extends Component {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map(d => (
-              <TableRow key={d.key}>
+            {Object.keys(data).map(d => (
+              <TableRow key={d}>
                 <TableCell component="th" scope="row">
-                  {d.key}
+                  {d}
                 </TableCell>
-                <TableCell align="right">{d.value}</TableCell>
+                  <TableCell align="right">{data[d]}</TableCell>
               </TableRow>
             ))}
           </TableBody>
