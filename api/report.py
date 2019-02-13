@@ -8,9 +8,9 @@ def get_json_from(path):
     with open(path) as jsonfile:
         return json.load(jsonfile)
 
-def get_json_paths(year, month, day):
+def get_json_paths(year, month, day, paths):
     return {
-        f"{x}": get_json_from(f"history/{year}/{month}/{day}/{x}.json") for x in ["balances", "budget", "stats", "transactions"]
+        f"{x}": get_json_from(f"history/{year}/{month}/{day}/{x}.json") for x in paths
     }
 
 @app.route("/report/balances/<report>")
@@ -42,8 +42,19 @@ def get_reports_list():
 
 @app.route("/history/<year>/<month>/<day>")
 def get_history(year, month, day):
+    paths = ["balances", "budget", "stats", "transactions"]
     try:
-        return jsonify(get_json_paths(year, month, day))
+        return jsonify(get_json_paths(year, month, day, paths))
+    except FileNotFoundError as e:
+        return jsonify({
+            "message": "file not found",
+            "status": 404
+        })
+
+@app.route("/history/<year>/<month>/<day>/<report>")
+def get_subreport_history(year, month, day, report):
+    try:
+        return jsonify(get_json_paths(year, month, day, [report])[report])
     except FileNotFoundError as e:
         return jsonify({
             "message": "file not found",
