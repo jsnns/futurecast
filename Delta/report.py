@@ -36,20 +36,6 @@ class TransactionSet:
                 "transactions": [transaction for transaction in self.transactions if transaction.schedule.occurs_on_day(day)]
             }
 
-    def budget_plot(self, filename):
-        budget = self.budget["budget"]
-        # Pie chart, where the slices will be ordered and plotted counter-clockwise:
-        labels = [s[0] for s in budget]
-        sizes = [float(s[2]) / 100 for s in budget]
-
-        fig1, ax1 = plt.subplots()
-        plt.title("Budget Breakdown")
-        ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
-                shadow=True, startangle=90)
-        ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
-        plt.savefig(filename)
-        plt.clf()
-
     def get_budget(self):
         budget = dict(expenses=0, income=0, category={}, budget=[])
 
@@ -91,10 +77,10 @@ class BalanceSheet:
         self.balances = [o["balance"] for o in self.sheet]
         self.days = [o["day"].date() for o in self.sheet]
 
-        self._stats = []
-        self._stats.append(["MinimumBalance", math.floor(min(self.balances))])
-        self._stats.append(["AverageBalance", math.floor(sum(self.balances) / float(len(self.balances)))])
-        self._stats.append(["DipInCurrentBal", math.floor(self.current_balance - math.floor(min(self.balances)))])
+        self.stats = []
+        self.stats.append(["MinimumBalance", math.floor(min(self.balances))])
+        self.stats.append(["AverageBalance", math.floor(sum(self.balances) / float(len(self.balances)))])
+        self.stats.append(["DipInCurrentBal", math.floor(self.current_balance - math.floor(min(self.balances)))])
 
     def daily_change_generator(self):
         for day in self.log:
@@ -118,27 +104,3 @@ class BalanceSheet:
                 "balance": (r[len(r)-1]["balance"] + self.daily_change[i-1]["change"]) * self.daily_interest
             })
         return r
-
-    def create_plot(self, filename):
-        y = self.balances
-        x = self.days
-        plt.plot(x, y)
-        plt.title("Balance over Time")
-        plt.xlabel("Day")
-        plt.ylabel("Balance")
-
-        ymin = min(y)
-        xpos = y.index(ymin)
-        xmin = x[xpos]
-
-        plt.annotate(f'${ymin}', xy=(xmin, ymin), xytext=(xmin, ymin-200))
-        axes = plt.gca()
-        axes.set_ylim([0, None])
-
-        plt.locator_params(numticks=25)
-        plt.savefig(filename)
-        plt.clf()
-
-    @property
-    def stats(self):
-        return self._stats

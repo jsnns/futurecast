@@ -57,17 +57,5 @@ REPORT_LENGTH = 6
 tx_set = Log(transactions=txs, end=datetime.today() + relativedelta(months=REPORT_LENGTH))
 bal = Report(log=tx_set.log, accounts=accounts)
 
-BUDGETFIG = f'output/budget-{datetime.now().strftime("%Y-%m-%d")}.png'
-BALANCEFIG = f'output/{datetime.now().strftime("%Y-%m-%d")}.png'
-HTML = f'output/html/{datetime.now().strftime("%Y-%m-%d")}.html'
-
-
 if __name__ == "__main__":
-
-    tx_set.budget_plot(BALANCEFIG)
-    bal.create_plot(BUDGETFIG)
-
     print(tabulate(bal.stats, headers=("Stat", "Value")))
-
-    with open(HTML, "w") as f:
-        f.write(make_html(tx_set, bal, BUDGETFIG, BALANCEFIG))
