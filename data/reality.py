@@ -17,9 +17,10 @@ from delta import Monthly
 
 ####### REPORT SCHEDULES
 Bridgewater     = Schedule(start=datetime(2019,1,18), interval=relativedelta(weeks=2))
-ChickFilA       = Schedule(start=datetime(2019,1,17), interval=relativedelta(weeks=2))
 Weekly          = Schedule(start=datetime(2019,1,20), interval=relativedelta(weeks=1))
+ChickFilA       = Schedule(start=datetime(2019,1,17), interval=relativedelta(weeks=2),  end=datetime(2019,3,1))
 RyanKautz       = Schedule(start=datetime(2019,1,18), interval=relativedelta(months=1), end=datetime(2019,6,15))
+SeventhAvenue   = Schedule(start=datetime(2019,3,1),  interval=relativedelta(weeks=1))
 
 ####### ACCOUNTS
 accounts = [
@@ -33,6 +34,7 @@ accounts = [
 txs = [
 
     Transaction(name="Bridgewater",     category="income",  schedule=Bridgewater,       value=2650,     monthly=5300),       ### INCOME
+    Transaction(name="7thAvenue",       category="income",  schedule=SeventhAvenue,     value=250,      monthly=1000),
     Transaction(name="ChickFilA",       category="income",  schedule=ChickFilA,         value=100,      monthly=200),
     
     Transaction(name="Ryan",            category="debt",    schedule=RyanKautz,         value=-1750,    autopay=False),      ### BILLS
@@ -46,9 +48,10 @@ txs = [
     
     Transaction(name="Hair Cut",        category="health",  schedule=Monthly(25),       value=-40),
     
-    Transaction(name="Fair",            category="once",    schedule=Once(2019,2,14),   value=-545),                         ### WINDFALLS
-    Transaction(name="HalfFair",        category="once",    schedule=Once(2019,2,14),   value=-280),
-    Transaction(name="Mechanic",        category="once",    schedule=Once(2019,2,14),   value=-1886.86)
+    Transaction(name="Fair",            category="once",    schedule=Once(2019,3,1),    value=-545),                         ### WINDFALLS
+    Transaction(name="HalfFair",        category="once",    schedule=Once(2019,3,1),    value=-280),
+    Transaction(name="Mechanic",        category="once",    schedule=Once(2019,2,16),   value=-1886.86),
+    Transaction(name="PureRental",      category="once",    schedule=Once(2019,2,20),   value=150),
 
 ]
 

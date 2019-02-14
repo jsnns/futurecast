@@ -11,7 +11,7 @@ def get_json_from(path):
 
 def get_json_paths(year, month, day, paths):
     return {
-        f"{x}": get_json_from(f"history/{year}/{month}/{day}/{x}.json") for x in paths
+        f"{x}": get_json_from(f"frontend/{year}/{month}/{day}/{x}.json") for x in paths
     }
 
 @app.route("/report/balances/<report>")
