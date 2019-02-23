@@ -10,23 +10,20 @@ import "./css.css";
 
 const Report = ({ match, url }) => {
 
-  let report = "reality";
-  let title = "Finances as of Today"
-  if (match.params.year && match.params.month && match.params.day) {
-    report = [match.params.year, match.params.month, match.params.day]
-    title = `Finances as of ${report[0]}/${report[1]}/${report[2]}`
-  }
+  let report = match.params.report;
+  let title = `Finances as of Today: ${report}`
 
   return (
     <div>
       <h1>{title}</h1>
       <div>
-        <Balance url={url} time={report} />
-        <Budget url={url} time={report} />
+        <Balance report={report}/>
+        <Budget report={report}/>
       </div>
-
-      <StatsTables url={url} time={report} />
-      <Bills url={url} time={report} />
+      <div>
+        <StatsTables report={report}/>
+        <Bills report={report}/>
+      </div>
     </div>
   )
 }
@@ -39,8 +36,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div>
-          <Route exact path="/" component={({ match }) => <Report match={match} url={this.state.url}></Report>} />
-          <Route path="/:year/:month/:day" component={({ match }) => <Report match={match} url={this.state.url}></Report>} />
+          <Route exact path="/:report" component={({ match }) => <Report match={match} url={this.state.url}></Report>} />
         </div>
       </BrowserRouter>
     );

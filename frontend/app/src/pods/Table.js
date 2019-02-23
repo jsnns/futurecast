@@ -5,6 +5,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
+import { getStats } from "../api"
+
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -12,20 +14,17 @@ function numberWithCommas(x) {
 class StatsTables extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      data: []
-    };
+    this.state = { data: [] };
   }
   componentWillMount() {
-    let { time, url } = this.props;
-    if (time === "reality") url += "/report/stats/reality";
-    if (time.length === 3) url += `/history/${time[0]}/${time[1]}/${time[2]}/stats`
-    console.log(url)
-    fetch(url)
-      .then(response => response.json())
+    const { report } = this.props
+    getStats(report)
       .then(data => {
         this.setState({ data });
-      }).catch(err => console.log(err))
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
   render() {
     const { data } = this.state;

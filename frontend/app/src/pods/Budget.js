@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Pie } from "react-chartjs";
 
+import { getBudget} from "../api"
+
 class Budget extends Component {
   constructor(props) {
     super(props)
@@ -14,28 +16,32 @@ class Budget extends Component {
         mobile: true
       })
     }
-    let { time, url } = this.props;
-    if (time === "reality") url += "/report/budget/reality";
-    if (time.length === 3) url += `/history/${time[0]}/${time[1]}/${time[2]}/budget`
-    console.log(url)
-    fetch(url)
-      .then(response => response.json())
+    const { report } = this.props
+    getBudget(report)
       .then(data => {
         let total = 0
-        const d = data.map(cat => {
-          total += cat[2]
-          return {
-            value: (cat[2] * 100).toFixed(2),
-            label: cat[0].toUpperCase()
-          }
-        }).sort((a, b) => a.value - b.value);
-        d.push({
+        let budgetCategories = data
+        budgetCategories = budgetCategories.map(category => {
+            total += category[2]
+            return {
+              value: (category[2] * 100).toFixed(2),
+              label: category[0].toUpperCase()
+            }
+          })
+          .sort((a, b) => {
+            return a.value - b.value
+          });
+        
+        budgetCategories.push({
           value: ((1 - total) * 100).toFixed(2),
           label: "FREE",
           color: "#222"
         })
-        this.setState({ data: d });
-      }).catch(err => console.log(err))
+        this.setState({ data: budgetCategories });
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
   render() {
     const { data, mobile } = this.state;

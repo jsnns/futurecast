@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Line } from "react-chartjs";
 
+import { getBalance } from "../api"
+
 class Balance extends Component {
   constructor(props) {
     super(props)
@@ -12,30 +14,34 @@ class Balance extends Component {
   }
 
   getData(days) {
-    let { time, url } = this.props;
-    if (time === "reality") url += "/report/balances/reality";
-    if (time.length === 3) url += `/history/${time[0]}/${time[1]}/${time[2]}/balances`
-    fetch(url)
-    .then(response => response.json())
-    .then(data => {
-      const d = data.map(day => day.balance);
-      const labels = data.map(day => day.day.substr(0, 11)).map((label, i) => i % 2 === 0 ? label : "");
-      this.setState({
-        data: {
-          labels: labels.slice(0, Number(days) || Infinity),
-          datasets: [{
-            label: "Balance",
-            fillColor: "rgba(151,187,205,0.2)",
-            strokeColor: "rgba(151,187,205,1)",
-            pointColor: "rgba(151,187,205,1)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(151,187,205,1)",
-            data: d.slice(0, Number(days) || Infinity)
-          }]
-        }
-      });
-    }).catch(err => console.log(err))
+    const { report } = this.props
+    getBalance(report)
+      .then(data => {
+        const balances = data.map(day => {
+          return day.balance
+        }).slice(0, Number(days) || Infinity);
+        const labels = data.map(day => {
+          return day.day.substr(0, 11)
+        }).slice(0, Number(days) || Infinity)
+        this.setState({
+          data: {
+            labels: labels,
+            datasets: [{
+              label: "Balance",
+              fillColor: "rgba(151,187,205,0.1)",
+              strokeColor: "rgba(151,187,205,1)",
+              pointColor: "rgba(151,187,205,1)",
+              pointStrokeColor: "#fff",
+              pointHighlightFill: "#fff",
+              pointHighlightStroke: "rgba(151,187,205,1)",
+              data: balances
+            }]
+          }
+        });
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   componentWillMount() {
@@ -48,6 +54,7 @@ class Balance extends Component {
     }
     this.getData(days)
   }
+  
   render() {
     const { data, mobile } = this.state;
 
