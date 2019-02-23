@@ -6,7 +6,7 @@ class Balance extends Component {
     super(props)
     this.state = {
       data: {},
-      days: ""
+      days: "180"
     };
     this.getData = this.getData.bind(this)
   }
@@ -19,7 +19,7 @@ class Balance extends Component {
     .then(response => response.json())
     .then(data => {
       const d = data.map(day => day.balance);
-      const labels = data.map(day => day.day.substr(0, 11)).map((label, i) => i % 5 === 0 ? label : "");
+      const labels = data.map(day => day.day.substr(0, 11)).map((label, i) => i % 2 === 0 ? label : "");
       this.setState({
         data: {
           labels: labels.slice(0, Number(days) || Infinity),
@@ -39,9 +39,9 @@ class Balance extends Component {
   }
 
   componentWillMount() {
-    let days = ""
-    if (window.innerWidth < 500) {
-      days = 30
+    let days = "180"
+    if (window.innerWidth < 755) {
+      days = 14
       this.setState({
         mobile: true
       })
@@ -55,10 +55,11 @@ class Balance extends Component {
       <div className="balance">
         <h2>Balances</h2>
         <input onChange={(e) => this.getData(e.target.value)}></input>
-        <Line style={{width: mobile ? window.innerWidth *.9 : window.innerWidth * .75, height: mobile? 200:500}} update redraw height={500} data={data} options={{
+        <Line style={{width: mobile ? window.innerWidth *.95 : window.innerWidth * .75, height: mobile? 200:300}} update redraw data={data} options={{
           pointHitDetectionRadius: 1,
 	        bezierCurve : true,
-	        bezierCurveTension : 0.5,
+          bezierCurveTension: 0.5,
+          scaleBeginAtZero: true
         }} />
       </div>
     );

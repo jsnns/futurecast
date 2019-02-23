@@ -5,6 +5,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
 class BillsTable extends Component {
     constructor(props) {
         super(props)
@@ -32,9 +36,9 @@ class BillsTable extends Component {
                     <TableHead>
                         <TableRow>
                             <TableCell>Name</TableCell>
-                            <TableCell align="right">Type</TableCell>
                             <TableCell align="right">Value</TableCell>
                             <TableCell align="right">Date</TableCell>
+                            <TableCell align="right">Type</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -43,10 +47,10 @@ class BillsTable extends Component {
                             if (dataset.map) {
                                 return dataset.map(tx => {
                                     return <TableRow>
-                                        <TableCell component="th" scope="row">{tx.name}</TableCell>
-                                        <TableCell component="th" scope="row">{set}</TableCell>
-                                        <TableCell component="th" scope="row">{tx.value}</TableCell>
-                                        <TableCell component="th" scope="row">{tx.date}</TableCell>
+                                        <TableCell component="th" scope="row">{tx.name.toUpperCase()}</TableCell>
+                                        <TableCell component="th" scope="row" style={{fontFamily: "monospace", fontSize: 16}}>${numberWithCommas(tx.value)}</TableCell>
+                                        <TableCell component="th" scope="row">{tx.date.substr(0, 16)}</TableCell>
+                                        <TableCell component="th" scope="row">{set.toUpperCase()}</TableCell>
                                     </TableRow>
                                 })
                                 

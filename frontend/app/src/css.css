@@ -1,27 +1,29 @@
 .balance {
     width: 75vw; 
     margin-left: 10px;
-    height: 750px;
     float: right;
+    clear: right;
 }
 
 .budget { 
     width: 15vw;
-    height: 750px;
-    float: left;
-}
-
-.table {
-    width: 500px;
     float: left;
     clear: left;
 }
 
+/* stats */
+.table {
+    width: 25vw;
+    float: left;
+    clear: left;
+}
+
+/* bills */
 .tx-table {
-    width: 750px;
+    width: 65vw;
     float: left;
     clear: right;
-    margin-left: 50px;
+    margin-left: 1vw;
 }
 
 html {
@@ -40,24 +42,23 @@ h2 {
     text-transform: uppercase;
 }
 
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 755px) {
     html {
         padding: 5px;
     }
     .budget{
-        width: 25vw;
-        float: left;
-        height: auto;
+        width: 30vw;
+        height: 30vw;
+        clear: none;
+        float: right;
     }
     .balance {
         width: 95vw;
         float: none;
-        height: auto;
     }
     .table {
         width: 65vw;
-        float: right;
-        clear: none;
+        float: left;
     }
     .tx-table {
         width: 100%;

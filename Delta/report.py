@@ -53,7 +53,7 @@ class TransactionSet:
             budget["budget"].append([
                 f"{cat}",
                 f"{val}",
-                str(round(abs(val) / abs(budget["income"]) * 100, 2))
+                abs(float(val)) / float(budget["income"])
             ])
 
         print(budget)
@@ -81,7 +81,6 @@ class BalanceSheet:
 
         self.stats = {
             "Minimum Balance": math.floor(min(self.balances)),
-            "Average Balance": math.floor(sum(self.balances) / float(len(self.balances))),
             "Monthly Free": self.tx_set.budget["income"] + self.tx_set.budget["expenses"]
         }
 

@@ -25,14 +25,14 @@ class Budget extends Component {
         const d = data.map(cat => {
           total += cat[2]
           return {
-            value: cat[2],
+            value: (cat[2] * 100).toFixed(2),
             label: cat[0].toUpperCase()
           }
-        });
+        }).sort((a, b) => a.value - b.value);
         d.push({
-          value: (1 - total).toFixed(2),
+          value: ((1 - total) * 100).toFixed(2),
           label: "FREE",
-          color: "#fff"
+          color: "#222"
         })
         this.setState({ data: d });
       }).catch(err => console.log(err))
@@ -43,7 +43,12 @@ class Budget extends Component {
     return (
       <div className="budget">
         <h2>Budget</h2>
-        <Pie redraw width={mobile ? window.innerWidth * .25 : 500} height={mobile ? window.innerWidth * .25 : 500} data={data} options={{ segmentStrokeWidth: 0 }} />
+        <Pie
+          redraw
+          width={mobile ? window.innerWidth * .30 : window.innerWidth * .15}
+          height={mobile ? window.innerWidth * .30 : window.innerWidth * .15}
+          data={data}
+          options={{ segmentStrokeWidth: 0, segmentStrokeColor: "#222" }} />
       </div>
     );
   }
