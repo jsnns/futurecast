@@ -59,7 +59,7 @@ TX("Comcast", Monthly(17), -85, "internet")
 TX("Sprint", Monthly(10), -517, "electronics")
 
 # WINDFALLS
-TX("Chick-Fil-A", Once(2019, 3, 1), 120, "once")
+TX("Chick-Fil-A", Oncce(2019, 3, 1), 120, "once")
 TX("Rent-Off", Once(2019,3,1), 80, "once")
 
 REPORT_LENGTH = 24
