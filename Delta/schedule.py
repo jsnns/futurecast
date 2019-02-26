@@ -14,11 +14,18 @@ class Schedule:
         self.occurances = self.get_occurances(self.end)
 
     def toJSON(self, MONTHS=6):
-        return {
-            "start": self.start,
-            "end": self.end,
-            "occurances": self.occurances[:MONTHS]
+        o = {
+            "start": self.start.timestamp(),
+            "end": self.end.timestamp()
         }
+
+        if self._interval:
+            o["interval"] = {
+                "days": self._interval.days,
+                "months": self._interval.months
+            }
+
+        return o
 
     def get_occurance(self, n):
         if len(self.occurances) < n+1:

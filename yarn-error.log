@@ -1,0 +1,26 @@
+Arguments: 
+  /usr/local/Cellar/node/11.6.0/bin/node /usr/local/bin/yarn add --dev electron
+
+PATH: 
+  /Users/jacob/.local/share/virtualenvs/adder-_AP3TlaJ/bin:/Users/jacob/Downloads/google-cloud-sdk/bin:/Users/jacob/.nix-profile/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/bin:/Users/jacob/.local/bin
+
+Yarn version: 
+  1.13.0
+
+Node version: 
+  11.6.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: ENOENT: no such file or directory, scandir '/Users/jacob/personal/adder/node_modules/electron'
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

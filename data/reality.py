@@ -36,7 +36,9 @@ accounts = [
 txs = []
 
 def TX(name, schedule, value, category, *, monthly=None):
-    txs.append(Transaction(name=name, category=category, schedule=schedule, value=value, monthly=monthly))
+    t = Transaction(name=name, category=category, schedule=schedule, value=value, monthly=monthly)
+    txs.append(t)
+    return t
 
 ####### TRANSACTIONS
 # INCOME
@@ -66,9 +68,11 @@ TX("Rent-Off", Once(2019,3,1), 80, "once")
 
 REPORT_LENGTH = 24
 
-tx_set = Log(transactions=txs, end=datetime.today() + relativedelta(months=REPORT_LENGTH))
-bal = Report(tx_set=tx_set, accounts=accounts)
+# tx_set = Log(transactions=txs, end=datetime.today() + relativedelta(months=REPORT_LENGTH))
+# bal = Report(tx_set=tx_set, accounts=accounts)
 
-if __name__ == "__main__":
-    print(tx_set.balance)
-    print(tabulate(bal.stats, headers=("Stat", "Value")))
+# if __name__ == "__main__":
+#     for t in txs:
+#         body = t.toJSON()
+#         print(body)
+#         r = requests.post("http://127.0.0.1:5000/tx", json=body)

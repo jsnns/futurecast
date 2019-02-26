@@ -6,3 +6,4 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 import api.index    # nopep8
 import api.report  # nopep8
+import api.data  # nopep8

@@ -18,7 +18,7 @@ class Transaction:
             "value": self.value,
             "category": self.category,
             "schedule": self.schedule.toJSON(MONTHS),
-            "monthly_value:": self.monthly_value
+            "monthly_value": self.monthly_value
         }
 
     @property

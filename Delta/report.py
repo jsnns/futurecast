@@ -56,8 +56,6 @@ class TransactionSet:
                 abs(float(val)) / float(budget["income"])
             ])
 
-        print(budget)
-
         return budget
 
     @property
@@ -65,13 +63,16 @@ class TransactionSet:
         return [day for day in self.log_generator()]
 
 class BalanceSheet:
-    def __init__(self, *args, interest_rate=0, **kwargs):
+    def __init__(self, *args, **kwargs):
         self.tx_set = kwargs.get("tx_set")
         self.log = self.tx_set.log
         self.accounts = kwargs.get("accounts")
 
         self.current_balance = sum([account.balance for account in self.accounts])
-        self.daily_interest = ((interest_rate / 100) / 365) + 1
+        self.interest_rate = kwargs.get("interest_rate")
+        if not self.interest_rate:
+            self.interest_rate = 0
+        self.daily_interest = ((self.interest_rate / 100) / 365) + 1
 
         self.daily_change = [days_change for days_change in self.daily_change_generator()]
         self.sheet = self.balance_on_day()
