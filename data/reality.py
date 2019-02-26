@@ -20,6 +20,9 @@ Bridgewater     = Schedule(start=datetime(2019,1,18), interval=relativedelta(wee
 SeventhAvenue   = Schedule(start=datetime(2019,3,15), interval=relativedelta(weeks=1))
 RyanKautz       = Schedule(start=datetime(2019,1,19), interval=relativedelta(weeks=4),  end=datetime(2019,6,20))
 Weekly          = Schedule(start=datetime(2019,1,20), interval=relativedelta(weeks=1))
+Daily           = Schedule(start=datetime(2019,1,20), interval=relativedelta(days=1))
+HelloFresh      = Schedule(start=datetime(2019,2,14), interval=relativedelta(weeks=1))
+
 
 ####### ACCOUNTS
 accounts = [
@@ -41,20 +44,21 @@ TX("Bridgewater", Bridgewater, 2650, "income", monthly=5300)
 TX("7thAvenue", SeventhAvenue, 250, "income", monthly=1000)
 
 # BUDGETS
-TX("Uber/Lyft", Weekly, 0, "transport/rideshare", monthly=0)
-TX("Food", Weekly, -100, "food", monthly=-400)
+TX("Hello Fresh", HelloFresh, -75, "food", monthly=-300)
+TX("Small Groceries", Weekly, -25, "food", monthly=-100)
+TX("Uber/Lyft", Daily, -15, "transport", monthly=-450)
 TX("The DPZ Haircut", Monthly(20), -40, "health/fitness")
 
 # BILLS
 TX("Ryan Kautz", RyanKautz, -1750, "debt")
-TX("MTA", Monthly(25), -90, "transport/train")
-TX("KennedyFlats", Monthly(2), -1899, "rent")
-TX("KennedyFlats", Monthly(2), -80, "health/fitness")
+TX("MTA", Monthly(25), -50, "transport")
+TX("KennedyFlats", Monthly(10), -1899, "rent")
+TX("KennedyFlats", Monthly(10), -80, "health/fitness")
 TX("Eversource", Monthly(4), -190, "utilities")
 TX("Comcast", Monthly(17), -85, "internet")
 
 # SPRINT
-TX("Sprint", Monthly(10), -517, "electronics")
+TX("Sprint", Monthly(21), -475, "electronics")
 
 # WINDFALLS
 TX("Chick-Fil-A", Once(2019, 3, 1), 120, "once")

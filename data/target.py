@@ -41,15 +41,17 @@ TX("Bridgewater", Bridgewater, 2650, "income", monthly=5300)
 TX("7thAvenue", SeventhAvenue, 250, "income", monthly=1000)
 
 # BUDGETS
-TX("Uber/Lyft", Weekly, 0, "transport/rideshare", monthly=0)
-TX("Food", Weekly, -100, "food", monthly=-400)
+TX("Food", Weekly, -130, "food", monthly=-520)
 TX("The DPZ Haircut", Monthly(20), -40, "health/fitness")
 
+# CAR
+TX("Insurance", Monthly(15), -200, "transport")
+TX("Gasoline", Weekly, -50, "transport", monthly=-200)
+TX("Maintance", Weekly, -25, "transport", monthly=-100)
+
 # BILLS
-TX("Ryan Kautz", RyanKautz, -1750, "debt")
-TX("MTA", Monthly(25), -90, "transport/train")
-TX("KennedyFlats", Monthly(2), -1899, "rent")
-TX("KennedyFlats", Monthly(2), -80, "health/fitness")
+TX("KennedyFlats", Monthly(10), -1899, "rent")
+TX("KennedyFlats", Monthly(10), -80, "health/fitness")
 TX("Eversource", Monthly(4), -190, "utilities")
 TX("Comcast", Monthly(17), -85, "internet")
 

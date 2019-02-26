@@ -64,7 +64,7 @@ def get_subreport_history(year, month, day, report):
 @app.route("/report/bills/<report>")
 def get_bills_now(report):
     report = get_report(report)
-    return jsonify(bills_to_pay(report.tx_set.log, 0))
+    return jsonify(bills_to_pay(report.tx_set.log, -1))
 
 @app.route("/report/bills/<report>/<days>")
 def get_bills(report, days):

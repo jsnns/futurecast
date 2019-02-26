@@ -61,13 +61,27 @@ class Balance extends Component {
     return (
       <div className="balance">
         <h2>Balances</h2>
+        <select onChange={e => this.getData(e.target.value)}>
+          <option value={0}></option>
+          <option value={14}>2 Weeks</option>
+          <option value={30}>1 Month</option>
+          <option value={60}>2 Months</option>
+          <option value={365}>1 Year</option>
+        </select>
         <input onChange={(e) => this.getData(e.target.value)}></input>
-        <Line style={{width: mobile ? window.innerWidth *.95 : window.innerWidth * .75, height: mobile? 200:300}} update redraw data={data} options={{
-          pointHitDetectionRadius: 1,
-	        bezierCurve : true,
-          bezierCurveTension: 0.5,
-          scaleBeginAtZero: true
-        }} />
+        <Line
+          update
+          redraw
+          data={data}
+          style={{
+            width: mobile ? window.innerWidth * .95 : window.innerWidth * .75,
+            height: mobile ? 200 : 300
+          }}
+          options={{
+            pointHitDetectionRadius: 1,
+            bezierCurve: false,
+            scaleBeginAtZero: true
+          }} />
       </div>
     );
   }
