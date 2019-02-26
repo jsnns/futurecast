@@ -5,17 +5,19 @@ import Budget from "./pods/Budget";
 import Balance from "./pods/Balance";
 import StatsTables from "./pods/Table";
 import Bills from "./pods/Bills";
+import Edit from "./edit";
 
 import "./css.css";
 
 const Report = ({ match, url }) => {
 
   let report = match.params.report;
-  let title = `Finances as of Today: ${report}`
+  let title = `Finances as of Today`
 
   return (
     <div>
       <h1>{title}</h1>
+      <a href="/edit">Edit</a>
       <div>
         <Balance report={report}/>
         <Budget report={report}/>
@@ -36,7 +38,8 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div>
-          <Route exact path="/:report" component={({ match }) => <Report match={match} url={this.state.url}></Report>} />
+          <Route exact path="/" component={({ match }) => <Report match={match} url={this.state.url}></Report>} />
+          <Route exact path="/edit" component={Edit} />
         </div>
       </BrowserRouter>
     );

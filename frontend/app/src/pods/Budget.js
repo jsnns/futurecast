@@ -47,14 +47,16 @@ class Budget extends Component {
     const { data, mobile } = this.state;
 
     return (
-      <div className="budget">
+      <div>
         <h2>Budget</h2>
-        <Pie
-          redraw
-          width={mobile ? window.innerWidth * .30 : window.innerWidth * .15}
-          height={mobile ? window.innerWidth * .30 : window.innerWidth * .15}
-          data={data}
-          options={{ segmentStrokeWidth: 0, segmentStrokeColor: "#222" }} />
+        <div className="budget">
+          <Pie
+            redraw
+            width={mobile ? window.innerWidth * .70 : window.innerWidth * .15}
+            height={mobile ? window.innerWidth * .70 : window.innerWidth * .15}
+            data={data}
+            options={{ segmentStrokeWidth: 0, segmentStrokeColor: "#222" }} />
+        </div>
       </div>
     );
   }

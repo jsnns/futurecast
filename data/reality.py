@@ -14,6 +14,9 @@ from delta import Transaction
 from delta import Log
 from delta import Monthly
 
+import requests
+import json
+
 
 ####### REPORT SCHEDULES
 Bridgewater     = Schedule(start=datetime(2019,1,18), interval=relativedelta(weeks=2))
@@ -71,8 +74,5 @@ REPORT_LENGTH = 24
 # tx_set = Log(transactions=txs, end=datetime.today() + relativedelta(months=REPORT_LENGTH))
 # bal = Report(tx_set=tx_set, accounts=accounts)
 
-# if __name__ == "__main__":
-#     for t in txs:
-#         body = t.toJSON()
-#         print(body)
-#         r = requests.post("http://127.0.0.1:5000/tx", json=body)
+if __name__ == "__main__":
+    print(json.dumps(TX("Bridgewater", Bridgewater, 2650, "income", monthly=5300).toJSON()))

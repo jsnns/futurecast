@@ -1,6 +1,5 @@
 .balance {
     width: 75vw; 
-    margin-left: 10px;
     float: right;
     clear: right;
 }
@@ -23,13 +22,31 @@
     width: 65vw;
     float: left;
     clear: right;
-    margin-left: 1vw;
 }
 
 html {
     overflow-x: hidden;
     font-family: Arial, Helvetica, sans-serif;
     padding: 25px;
+    color: white;
+    background-color: #222
+}
+
+th, td {
+    color: white !important;
+}
+
+a {
+    color: yellow;
+    text-decoration: none
+}
+
+input, select {
+    color: white;
+    background: #222;
+    border: 1px solid #eee;
+    padding: 2px 8px;
+    margin: 4px;
 }
 
 h1 {
@@ -47,22 +64,18 @@ h2 {
         padding: 5px;
     }
     .budget{
-        width: 30vw;
-        height: 30vw;
-        clear: none;
-        float: right;
+        width: 70vw;
+        margin-left: 15vw;
     }
     .balance {
         width: 95vw;
         float: none;
     }
     .table {
-        width: 65vw;
-        float: left;
+        width: 95vw;
     }
     .tx-table {
-        width: 100%;
-        float: right;
+        width: 95vw;
         overflow-x: hidden;
         margin-top: 5px;
         clear: both;
