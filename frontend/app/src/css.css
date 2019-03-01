@@ -38,7 +38,8 @@ th, td {
 
 a {
     color: yellow;
-    text-decoration: none
+    text-decoration: none;
+    text-transform: uppercase;
 }
 
 input, select {
@@ -77,8 +78,11 @@ h2 {
     .tx-table {
         width: 95vw;
         overflow-x: hidden;
-        margin-top: 5px;
+        margin-top: 45px;
         clear: both;
+    }
+    .tx-group {
+        padding-top: 15px !important;
     }
     h2 {
         font-size: 1.1em;

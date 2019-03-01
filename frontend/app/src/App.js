@@ -17,7 +17,7 @@ const Report = ({ match, url }) => {
   return (
     <div>
       <h1>{title}</h1>
-      <a href="/edit">Edit</a>
+      <a style={{float: "right"}} href="/edit">Edit</a>
       <div>
         <Balance report={report}/>
         <Budget report={report}/>

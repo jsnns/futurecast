@@ -26,7 +26,7 @@ class Edit extends Component {
         this.setState({ txs: data, accounts: acs })
     }
 
-    async componentWillMount() {
+    async componentDidMount() {
         this.getData()
     }
 
@@ -81,21 +81,22 @@ class Edit extends Component {
         
         return <div>
             <h1>Edit</h1>
-            <a href="/">Home</a>
+            <a style={{float: "right"}} href="/">Home</a>
             <button onClick={() => {
                 newTransaction({}).then(this.getData)
             }}>Add</button>
             <div style={{ marginTop: 10 }}>
                 {this.state.txs.map((tx, i) => {
                     tx = txs[i]
-                    return <div style={{ padding: "0px 10px" }}>
+                    return <div style={{ padding: "0px 10px", clear: "both" }} className="tx-group">
                         <input style={{ display: "block", float: "left" }} placeholder="name" value={tx.name} onChange={this.changeTx(i, "name")}></input>
                         <input style={{ display: "block", float: "left" }} placeholder="value" type="number" value={tx.value} onChange={this.changeTx(i, "value")}></input>
                         <input style={{ display: "block", float: "left" }} placeholder="monthly value" type="number" value={tx["monthly_value"]} onChange={this.changeTx(i, "monthly_value")}></input>
                         <input style={{ display: "block", float: "left" }} placeholder="category" value={tx.category} onChange={this.changeTx(i, "category")}></input>
+                        
                         <button onClick={() => this.setState({ selected: tx })}>Schedule</button>
                         <button style={{ margin: 0 }} onClick={() => {
-                            deleteTransaction(tx._id.$oid).then(this.getData)
+                            if(window.confirm("Are you sure?")) deleteTransaction(tx._id.$oid).then(this.getData)
                         }}>Delete</button>
                     </div>
                 })}
@@ -103,7 +104,7 @@ class Edit extends Component {
             <h1>Accounts</h1>
             <div style={{ marginTop: 10 }}>
                 {this.state.accounts.map((ac, i) => {
-                    return <div style={{ padding: 10 }}>
+                    return <div style={{ padding: 10, clear: "both" }}>
                         <input style={{ display: "block", float: "left" }} placeholder="name" value={ac.name} onChange={this.changeAc(i, "name")}></input>
                         <input style={{ display: "block", float: "left" }} placeholder="balance" type="number" value={ac.balance} onChange={this.changeAc(i, "balance")}></input>
                     </div>
@@ -114,7 +115,7 @@ class Edit extends Component {
                 onClose={() => this.setState({ selected: false, schedule: {} })} open={selected || false}
             >
                 <Paper style={{padding: 25}}>
-                    {selected && selected.schedule && <div>
+                    {selected && selected.schedule && <div style={{clear: "both"}}>
                         <h1>{selected.name}</h1>
                         <DatePicker
                             selected={new Date(selected.schedule.start * 1000)}
