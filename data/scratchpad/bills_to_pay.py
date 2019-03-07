@@ -4,10 +4,13 @@ from tabulate import tabulate
 
 def bills_to_pay(log, adjustment):
 
-    next_paycheck = datetime.today() + relativedelta(days=adjustment+30)
+    today = datetime.today()
 
-    bill_sets = [tx["transactions"] for tx in log if tx["day"] < next_paycheck]
+    bill_sets = [tx["transactions"] for tx in log if tx["day"] > today and tx["day"] < today + relativedelta(days=14)]
+
     bills = []
+
+    print(bill_sets)
 
     for bill_set in bill_sets:
         bills += bill_set
@@ -17,7 +20,7 @@ def bills_to_pay(log, adjustment):
         bill_obj = {
             "name": bill.name,
             "value": bill.value,
-            "date": [o for o in bill.schedule.occurances if o < next_paycheck][0]
+            "date": [o for o in bill.schedule.occurances if o > today][0]
         }
         if bill.value < 0:
             if bill.category is not "once":
@@ -31,5 +34,7 @@ def bills_to_pay(log, adjustment):
                 output["windfalls"].append(bill_obj)
         else:
             output["income"].append(bill_obj)
+
+    output["payments"] = sorted(output["payments"], key = lambda i: i['date'])
 
     return output

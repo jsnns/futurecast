@@ -14,7 +14,7 @@ def TX_JSON(j):
             s = Once(day.year, day.month, day.day)
         t = Transaction(name=j["name"], category=j["category"], schedule=s, value=j["value"], monthly=j["monthly_value"])
         return t
-    return {}
+    return None
 
 def AC_JSON(j):
     return Account(name=j["name"], balance=j["balance"])
@@ -23,7 +23,7 @@ class R:
     def __init__(self):
         self.accounts = [AC_JSON(ac) for ac in ac_collection.find({})]
         self.txs = [TX_JSON(tx) for tx in tx_collection.find({})]
-        self.tx_set = Log(transactions=self.txs, end=datetime.today() + relativedelta(months=24))
+        self.tx_set = Log(transactions=self.txs, end=(datetime.today() + relativedelta(months=24)))
         self.bal = Report(tx_set=self.tx_set, accounts=self.accounts)
 
     def update(self):

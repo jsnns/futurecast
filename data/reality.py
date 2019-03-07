@@ -75,4 +75,7 @@ REPORT_LENGTH = 24
 # bal = Report(tx_set=tx_set, accounts=accounts)
 
 if __name__ == "__main__":
-    print(json.dumps(TX("Bridgewater", Bridgewater, 2650, "income", monthly=5300).toJSON()))
+    print(len(txs))
+    for tx in txs:
+        res = requests.post("http://localhost:5000/tx", json=tx.toJSON())
+        print(res)

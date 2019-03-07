@@ -1,3 +1,0 @@
-rm -rf frontend/app/node_modules
-heroku container:push web -a adder-api
-heroku container:release web -a adder-api

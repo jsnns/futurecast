@@ -5,7 +5,8 @@ from api import app
 MONGODB_HOST = 'localhost'
 MONGODB_PORT = 27017
 
-app.config["MONGO_URI"] = "mongodb://localhost:27017/test-tx"
+app.config["MONGO_URI"] = "mongodb+srv://adder-api:6%23L%409WR%21*ZdX2Q%3DBc%29Tm@sansburymoney-vwerh.mongodb.net/test?retryWrites=true"
+
 mongo = PyMongo(app)
 
 tx_collection = mongo.db.txs

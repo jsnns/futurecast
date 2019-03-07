@@ -49,9 +49,8 @@ class Schedule:
             occurance = self.next_occurance(i[len(i)-1])
             if not occurance or occurance > self.end:
                 break
-            i.append(occurance)
+            i.append(occurance.replace(hour=0,minute=0,second=0))
         return i
-
 
     def occurs_on_day(self, day):
         for occurance in self.occurances:

@@ -69,9 +69,10 @@ class BalanceSheet:
         self.accounts = kwargs.get("accounts")
 
         self.current_balance = sum([account.balance for account in self.accounts])
+
         self.interest_rate = kwargs.get("interest_rate")
         if not self.interest_rate:
-            self.interest_rate = 0
+            self.interest_rate = 1
         self.daily_interest = ((self.interest_rate / 100) / 365) + 1
 
         self.daily_change = [days_change for days_change in self.daily_change_generator()]
