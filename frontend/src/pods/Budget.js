@@ -1,11 +1,63 @@
 import React, { Component } from "react";
-import { Pie } from "react-chartjs";
+import { Pie } from "react-chartjs-2";
 
-import { getBudget} from "../api"
+import { getBudget } from "../api";
+
+var colorArray = [
+  "#FF6633",
+  "#FFB399",
+  "#FFFF99",
+  "#E6B333",
+  "#00B3E6",
+  "#3366E6",
+  "#FF33FF",
+  "#99FF99",
+  "#B34D4D",
+  "#80B300",
+  "#809900",
+  "#E6B3B3",
+  "#6680B3",
+  "#66991A",
+  "#FF99E6",
+  "#CCFF1A",
+  "#FF1A66",
+  "#E6331A",
+  "#33FFCC",
+  "#66994D",
+  "#B366CC",
+  "#4D8000",
+  "#B33300",
+  "#CC80CC",
+  "#66664D",
+  "#991AFF",
+  "#E666FF",
+  "#4DB3FF",
+  "#1AB399",
+  "#E666B3",
+  "#33991A",
+  "#CC9999",
+  "#B3B31A",
+  "#00E680",
+  "#4D8066",
+  "#809980",
+  "#E6FF80",
+  "#1AFF33",
+  "#999933",
+  "#FF3380",
+  "#CCCC00",
+  "#66E64D",
+  "#4D80CC",
+  "#9900B3",
+  "#E64D66",
+  "#4DB380",
+  "#FF4D4D",
+  "#99E6E6",
+  "#6666FF"
+];
 
 class Budget extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       data: []
     };
@@ -14,34 +66,40 @@ class Budget extends Component {
     if (window.innerWidth < 500) {
       this.setState({
         mobile: true
-      })
+      });
     }
-    const { report } = this.props
+    const { report } = this.props;
     getBudget(report)
       .then(data => {
-        let total = 0
-        let budgetCategories = data
-        budgetCategories = budgetCategories.map(category => {
-            total += category[2]
-            return {
-              value: (category[2] * 100).toFixed(2),
-              label: category[0].toUpperCase()
-            }
-          })
+        let total = 0;
+        let budgetCategories = data;
+        let labels = [];
+        let values = [];
+        let colors = [];
+        budgetCategories = budgetCategories
           .sort((a, b) => {
-            return a.value - b.value
+            return a[2] - b[2];
+          })
+          .forEach((category, i) => {
+            total += category[2];
+            values.push(Number((category[2] * 100).toFixed(2)));
+            labels.push(category[0].toUpperCase());
+            colors.push(colorArray[i]);
           });
-        
-        budgetCategories.push({
-          value: ((1 - total) * 100).toFixed(2),
-          label: "FREE",
-          color: "#222"
-        })
-        this.setState({ data: budgetCategories });
+
+        values.push(Number(((1 - total) * 100).toFixed(2)));
+        labels.push("FREE");
+        colors.push("#fff");
+        this.setState({
+          data: {
+            labels,
+            datasets: [{ data: values, backgroundColor: colors }]
+          }
+        });
       })
       .catch(err => {
-        console.log(err)
-      })
+        console.log(err);
+      });
   }
   render() {
     const { data, mobile } = this.state;
@@ -51,11 +109,11 @@ class Budget extends Component {
         <h2>Budget</h2>
         <div className="budget">
           <Pie
-            redraw
-            width={mobile ? window.innerWidth * .70 : window.innerWidth * .15}
-            height={mobile ? window.innerWidth * .70 : window.innerWidth * .15}
+            width={mobile ? window.innerWidth * 0.7 : window.innerWidth * 0.15}
+            height={mobile ? window.innerWidth * 0.7 : 400}
             data={data}
-            options={{ segmentStrokeWidth: 0, segmentStrokeColor: "#222" }} />
+            options={{ segmentStrokeWidth: 0 }}
+          />
         </div>
       </div>
     );
