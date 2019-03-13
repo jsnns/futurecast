@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
 
 import { getBalance } from "../api";
-import { Select, MenuItem, Input } from "@material-ui/core";
+import { Box, Heading, Select, TextInput } from "grommet";
 
 class Balance extends Component {
   constructor(props) {
@@ -38,7 +38,7 @@ class Balance extends Component {
                 label: "Balance",
                 backgroundColor: "#1AB399",
                 borderColor: "#99E6E6",
-                pointRadius: 2,
+                pointRadius: 1,
                 fill: false,
                 lineTension: 0,
                 data: balances
@@ -67,29 +67,33 @@ class Balance extends Component {
     const { data, mobile, days } = this.state;
 
     return (
-      <div className="balance">
-        <h2>Balances</h2>
-        <Select value={days || 60} onChange={e => this.getData(e.target.value)}>
-          <MenuItem value={60}>2 Months</MenuItem>
-          <MenuItem value={14}>2 Weeks</MenuItem>
-          <MenuItem value={30}>1 Month</MenuItem>
-          <MenuItem value={365}>1 Year</MenuItem>
-        </Select>
-        <Input
-          style={{ marginLeft: 10 }}
-          onChange={e => this.getData(e.target.value)}
-        />
-        <Line
-          data={data}
-          width={mobile ? window.innerWidth * 0.95 : window.innerWidth * 0.75}
-          height={mobile ? 200 : 300}
-          options={{
-            pointHitDetectionRadius: 1,
-            bezierCurve: false,
-            scaleBeginAtZero: true
-          }}
-        />
-      </div>
+      <Box basis="full" direction="column">
+        <Box pad="none" height="none" direction="row">
+          <Heading margin="none">Balance</Heading>
+        </Box>
+        <Box pad="small" height="none" direction="row">
+          <Select
+            options={[14, 30, 60, 365]}
+            value={days || 60}
+            onChange={e => this.getData(e.value)}
+          />
+          <TextInput
+            style={{ marginLeft: 10 }}
+            onChange={e => this.getData(e.target.value)}
+          />
+        </Box>
+        <Box basis="full" direction="row" pad="small" height="medium">
+          <Line
+            data={data}
+            options={{
+              pointHitDetectionRadius: 1,
+              bezierCurve: false,
+              scaleBeginAtZero: true,
+              maintainAspectRatio: false
+            }}
+          />
+        </Box>
+      </Box>
     );
   }
 }

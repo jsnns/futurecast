@@ -1,76 +1,12 @@
-.balance {
-  width: 75vw;
-  float: right;
-  clear: right;
-}
-
-.budget {
-  width: 15vw;
-  float: left;
-  clear: left;
-}
-
-/* stats */
-.table {
-  width: 25vw;
-  float: left;
-  clear: left;
-}
-
-/* bills */
-.tx-table {
-  width: 65vw;
-  float: left;
-  clear: right;
-}
-
 html {
   overflow-x: hidden;
+  padding: 0;
+  margin: 0;
   font-family: Arial, Helvetica, sans-serif;
-  padding: 25px;
 }
 
 a {
   color: blue;
   text-decoration: none;
   text-transform: uppercase;
-}
-
-h1 {
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-h2 {
-  font-weight: 100;
-  text-transform: uppercase;
-}
-
-@media only screen and (max-width: 755px) {
-  html {
-    padding: 5px;
-  }
-  .budget {
-    width: 70vw;
-    margin-left: 15vw;
-  }
-  .balance {
-    width: 95vw;
-    float: none;
-  }
-  .table {
-    width: 95vw;
-  }
-  .tx-table {
-    width: 95vw;
-    overflow-x: hidden;
-    margin-top: 45px;
-    clear: both;
-  }
-  .tx-group {
-    padding-top: 15px !important;
-  }
-  h2 {
-    font-size: 1.1em;
-  }
 }

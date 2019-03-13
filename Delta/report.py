@@ -50,11 +50,12 @@ class TransactionSet:
                 budget["category"][tx.category] += tx.monthly_value
 
         for cat, val in budget["category"].items():
-            budget["budget"].append([
-                f"{cat}",
-                f"{val}",
-                abs(float(val)) / float(budget["income"])
-            ])
+            if budget["income"] != 0:
+                budget["budget"].append([
+                    f"{cat}",
+                    f"{val}",
+                    abs(float(val)) / float(budget["income"])
+                ])
 
         return budget
 

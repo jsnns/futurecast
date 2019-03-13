@@ -7,19 +7,24 @@ import {
   getAccounts,
   updateAccount
 } from "../api";
-import {
-  Modal,
-  Paper,
-  Button,
-  IconButton,
-  TextField,
-  InputAdornment,
-  Input
-} from "@material-ui/core";
-import AddIcon from "@material-ui/icons/AddRounded";
-import HomeIcon from "@material-ui/icons/HomeRounded";
+
+import { Modal, IconButton } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/DeleteRounded";
 import TimeIcon from "@material-ui/icons/TimerRounded";
+
+import {
+  Box,
+  Button,
+  Heading,
+  TextInput,
+  Calendar,
+  TableBody,
+  TableHeader,
+  TableRow,
+  TableCell,
+  Table
+} from "grommet";
+import { Home, Add, Edit as EditIcon } from "grommet-icons";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -29,7 +34,8 @@ class Edit extends Component {
   state = {
     txs: [],
     schedule: {},
-    accounts: []
+    accounts: [],
+    edit: 0
   };
 
   constructor(props) {
@@ -43,7 +49,12 @@ class Edit extends Component {
   async getData() {
     let data = await getTransactions();
     let acs = await getAccounts();
-    this.setState({ txs: data, accounts: acs });
+    let txs = data.sort((a, b) => {
+      const aBigger = a.category.toLowerCase() > b.category.toLowerCase();
+      if (aBigger) return 1;
+      else return -1;
+    });
+    this.setState({ txs, accounts: acs });
   }
 
   async componentDidMount() {
@@ -76,12 +87,15 @@ class Edit extends Component {
     if (interval) {
       return value => {
         const { selected } = this.state;
-        selected.schedule["interval"][key] = Number(value.target.value);
+        if (!selected.schedule.interval) selected.schedule.interval = {};
+
+        selected.schedule.interval[key] = Number(value.target.value);
         this.setState({ selected });
       };
     }
     return value => {
       const { selected } = this.state;
+      if (!selected.schedule) selected.schedule = {};
       selected.schedule[key] = value;
       this.setState({ selected });
     };
@@ -90,6 +104,8 @@ class Edit extends Component {
   render() {
     const { txs } = this.state;
     const { selected } = this.state;
+    const getData = this.getData;
+
     if (selected) {
       if (!selected.schedule) {
         selected.schedule = {};
@@ -99,173 +115,163 @@ class Edit extends Component {
       }
     }
 
-    const mobile = window.innerWidth < 500;
-
     return (
-      <div>
-        <Button
-          variant="fab"
-          color="primary"
-          href="/"
-          style={{ zIndex: 10000, position: "fixed", right: 20, bottom: 20 }}
+      <Box>
+        <Box direction="row-responsive">
+          <Button margin="small" icon={<Home />} label="Home" href="/" />
+          <Button
+            margin="small"
+            icon={<Add />}
+            label={"Transaction"}
+            onClick={() => {
+              newTransaction({}).then(() => {
+                getData();
+              });
+            }}
+          />
+          <Button
+            margin="small"
+            icon={<Add />}
+            label={"Account"}
+            onClick={() => {
+              getData();
+            }}
+          />
+        </Box>
+        <Box
+          margin={{ top: "small", bottom: "small" }}
+          direction="row-responsive"
         >
-          <HomeIcon />
-        </Button>
-        <IconButton
-          variant="fab"
-          color="primary"
-          style={{ zIndex: 10000, position: "fixed", right: 25, bottom: 85 }}
-          onClick={() => {
-            newTransaction({}).then(this.getData);
-          }}
-        >
-          <AddIcon />
-        </IconButton>
-        <h1>Accounts</h1>
-        <div style={{ marginTop: 10 }}>
+          <Heading margin="none">Accounts</Heading>
           {this.state.accounts.map((ac, i) => {
             return (
-              <div style={{ padding: 10, clear: "both" }}>
-                <Input
-                  style={style}
-                  label="Name"
-                  value={ac.name}
-                  onChange={this.changeAc(i, "name")}
-                />
-                <Input
-                  startAdornment={
-                    <InputAdornment position="start">$</InputAdornment>
-                  }
-                  label="Balance"
-                  value={ac.balance}
-                  onChange={this.changeAc(i, "balance")}
-                />
-              </div>
+              <Box pad={{ top: "small" }} direction="row">
+                <Box pad={{ left: "small", right: "small" }} direction="row">
+                  <TextInput
+                    value={ac.name}
+                    onChange={this.changeAc(i, "name")}
+                  />
+                </Box>
+                <Box pad={{ left: "small", right: "small" }} direction="row">
+                  <TextInput
+                    value={ac.balance}
+                    onChange={this.changeAc(i, "balance")}
+                  />
+                </Box>
+              </Box>
             );
           })}
-        </div>
+        </Box>
 
-        <h1>Transactions</h1>
-        <div style={{ marginTop: 10, paddingBottom: 125 }}>
-          {this.state.txs.map((tx, i) => {
-            tx = txs[i];
-            return (
-              <div
-                style={{
-                  padding: "0px 10px",
-                  clear: "both",
-                  marginTop: 25
-                }}
-                className="tx-group"
-              >
-                <TextField
-                  style={style}
-                  label="Name"
-                  defaultValue={tx.name}
-                  onChange={this.changeTx(i, "name")}
-                />
-                <Input
-                  startAdornment={
-                    <InputAdornment position="start">$</InputAdornment>
-                  }
-                  style={{
-                    float: "left",
-                    marginRight: 10,
-                    marginTop: 16,
-                    width: mobile ? "25vw" : undefined
-                  }}
-                  label="Value"
-                  defaultValue={tx.value}
-                  onChange={this.changeTx(i, "value")}
-                />
-                {!mobile && (
-                  <div>
-                    <Input
-                      startAdornment={
-                        <InputAdornment position="start">$</InputAdornment>
-                      }
-                      style={{ float: "left", marginRight: 10, marginTop: 16 }}
-                      label="Monthly Value"
-                      defaultValue={tx["monthly_value"]}
+        <Box>
+          <Heading margin="none">Transactions</Heading>
+          <Table>
+            {this.state.txs.map((tx, i) => {
+              tx = txs[i];
+              if (this.state.edit !== i) {
+                return (
+                  <TableRow direction="row-responsive">
+                    <TableCell>{tx.name}</TableCell>
+                    <TableCell>{tx.value}</TableCell>
+                    <TableCell>{tx.category}</TableCell>
+                    <TableCell>
+                      <Button
+                        icon={<EditIcon />}
+                        onClick={() => this.setState({ edit: i })}
+                      />
+                    </TableCell>
+                  </TableRow>
+                );
+              }
+              return (
+                <TableRow
+                  pad="small"
+                  className="tx-group"
+                  direction="row-responsive"
+                >
+                  <TableCell>
+                    <TextInput
+                      value={tx.name}
+                      placeholder="Name"
+                      onChange={this.changeTx(i, "name")}
+                    />
+                  </TableCell>
+                  <TableCell direction="row">
+                    <TextInput
+                      placeholder="Value"
+                      value={tx.value}
+                      onChange={this.changeTx(i, "value")}
+                    />
+                  </TableCell>
+                  <TableCell direction="row">
+                    <TextInput
+                      placeholder="Monthly Value"
+                      value={tx["monthly_value"]}
                       onChange={this.changeTx(i, "monthly_value")}
                     />
-                    <TextField
-                      style={style}
-                      label={mobile ? "" : "Category"}
-                      defaultValue={tx.category}
+                  </TableCell>
+                  <TableCell direction="row">
+                    <TextInput
+                      placeholder="Category"
+                      value={tx.category}
                       onChange={this.changeTx(i, "category")}
                     />
-                  </div>
-                )}
-                <div style={{ paddingTop: 6 }}>
-                  <IconButton onClick={() => this.setState({ selected: tx })}>
-                    <TimeIcon />
-                  </IconButton>
-                  <IconButton
-                    color="secondary"
-                    style={{ margin: 0 }}
-                    onClick={() => {
-                      if (window.confirm("Are you sure?"))
-                        deleteTransaction(tx._id.$oid).then(this.getData);
-                    }}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+                  </TableCell>
+                  <TableCell direction="row">
+                    <IconButton onClick={() => this.setState({ selected: tx })}>
+                      <TimeIcon />
+                    </IconButton>
+                    <IconButton
+                      color="secondary"
+                      style={{ margin: 0 }}
+                      onClick={() => {
+                        if (window.confirm("Are you sure?"))
+                          deleteTransaction(tx._id.$oid).then(this.getData);
+                      }}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </Table>
+        </Box>
         <Modal
           style={{
-            width: mobile ? "80vw" : "50vw",
-            postiion: "fixed",
-            left: mobile ? "10vw" : "25vw",
-            top: 150
+            position: "fixed",
+            left: "12.5vw",
+            top: "10vh"
           }}
           onClose={() => this.setState({ selected: false, schedule: {} })}
           open={selected || false}
         >
-          <Paper style={{ padding: 25 }}>
+          <Box
+            round
+            width="75vw"
+            style={{ maxHeight: "80vh" }}
+            pad="large"
+            background="brand"
+            elevation="small"
+          >
             {selected && selected.schedule && (
-              <div>
-                <h1>{selected.name}</h1>
-                <div style={{ clear: "both" }}>
-                  <TextField
-                    style={{ marginRight: 10 }}
-                    type="date"
-                    label="Start Date"
-                    defaultValue={
-                      new Date(selected.schedule.start * 1000)
-                        .toISOString()
-                        .split("T")[0]
-                    }
-                    onChange={e => {
-                      const dateArr = e.target.value.split("-").map(Number);
-                      this.changeSchedule("start")(
-                        Math.round(
-                          new Date(
-                            dateArr[0],
-                            dateArr[1] - 1,
-                            dateArr[2]
-                          ).getTime() / 1000
-                        )
-                      );
-                    }}
-                  />
-                  {selected.category !== "once" && (
-                    <TextField
-                      style={{ marginRight: 10 }}
-                      type="date"
-                      label="End Date"
-                      defaultValue={
-                        new Date(selected.schedule.end * 1000)
-                          .toISOString()
-                          .split("T")[0]
+              <Box>
+                <Heading margin="none">{selected.name}</Heading>
+                <Box direction="row-responsive">
+                  <Box direction="row-responsive">
+                    <Calendar
+                      margin={{ right: "medium" }}
+                      size="small"
+                      date={
+                        selected.schedule.start
+                          ? new Date(selected.schedule.start).toISOString() *
+                            1000
+                          : Date.now()
                       }
                       onChange={e => {
-                        const dateArr = e.target.value.split("-");
-                        this.changeSchedule("end")(
+                        debugger;
+                        const dateArr = e.target.value.split("-").map(Number);
+                        this.changeSchedule("start")(
                           Math.round(
                             new Date(
                               dateArr[0],
@@ -276,44 +282,75 @@ class Edit extends Component {
                         );
                       }}
                     />
+                  </Box>
+                  {selected.category !== "once" && (
+                    <Box direction="row-responsive">
+                      <Calendar
+                        size="small"
+                        date={
+                          selected.schedule.start
+                            ? new Date(selected.schedule.start).toISOString() *
+                              1000
+                            : Date.now()
+                        }
+                        onChange={e => {
+                          debugger;
+                          const dateArr = e.target.value.split("-");
+                          this.changeSchedule("end")(
+                            Math.round(
+                              new Date(
+                                dateArr[0],
+                                dateArr[1] - 1,
+                                dateArr[2]
+                              ).getTime() / 1000
+                            )
+                          );
+                        }}
+                      />
+                    </Box>
                   )}
-                </div>
-                {selected.category !== "once" && (
-                  <div style={{ clear: "both", marginTop: 15 }}>
-                    <TextField
-                      style={{ marginRight: 10 }}
-                      label="Days"
-                      value={selected.schedule.interval.days}
+                </Box>
+                <Box direction="row-responsive">
+                  <Box margin="small">
+                    <TextInput
+                      placeholder="Days"
+                      value={
+                        selected.schedule.interval
+                          ? selected.schedule.interval.days
+                          : ""
+                      }
                       onChange={this.changeSchedule("days", true)}
                     />
-                    <TextField
-                      style={{ marginRight: 10 }}
-                      label="Months"
-                      value={selected.schedule.interval.months}
+                  </Box>
+                  <Box margin="small">
+                    <TextInput
+                      placeholder="Months"
+                      value={
+                        selected.schedule.interval
+                          ? selected.schedule.interval.months
+                          : ""
+                      }
                       onChange={this.changeSchedule("months", true)}
                     />
-                  </div>
-                )}
-              </div>
+                  </Box>
+                </Box>
+              </Box>
             )}
 
-            <div style={{ marginTop: 20 }}>
+            <Box pad="small">
               <Button
-                color="primary"
-                variant="contained"
+                label="Update Schedule"
                 onClick={() => {
                   updateTransaction(selected._id.$oid, {
                     schedule: this.state.selected.schedule
                   });
                   this.setState({ selected: false, schedule: {} });
                 }}
-              >
-                Update
-              </Button>
-            </div>
-          </Paper>
+              />
+            </Box>
+          </Box>
         </Modal>
-      </div>
+      </Box>
     );
   }
 }

@@ -5,16 +5,37 @@ from delta import Schedule, Transaction, Account, Once, Log, Report
 from api.lib.mongo import tx_collection, ac_collection
 
 def TX_JSON(j):
-    if "schedule" in j:
-        js = j["schedule"]
-        if "interval" in js:
-            s = Schedule(start=datetime.fromtimestamp(js["start"]), end=datetime.fromtimestamp(js["end"]), interval=relativedelta(days=js["interval"]["days"], months=js["interval"]["months"]))
-        else:
-            day = datetime.fromtimestamp(js["start"])
-            s = Once(day.year, day.month, day.day)
-        t = Transaction(name=j["name"], category=j["category"], schedule=s, value=j["value"], monthly=j["monthly_value"])
-        return t
-    return None
+    if not j:
+        j = {}
+
+    if "schedule" not in j:
+        j["schedule"] = {
+            "start": 0,
+            "end": 0,
+        }
+
+    if "category" not in j:
+        j["category"] = ""
+
+    if "monthly_value" not in j:
+        j["monthly_value"] = 0
+
+    if "name" not in j:
+        j["name"] = ""
+
+    if "value" not in j:
+        j["value"] = 0
+
+    js = j["schedule"]
+
+    if "interval" in js:
+        s = Schedule(start=datetime.fromtimestamp(js["start"]), end=datetime.fromtimestamp(js["end"]), interval=relativedelta(days=js["interval"]["days"], months=js["interval"]["months"]))
+    else:
+        day = datetime.fromtimestamp(js["start"])
+        s = Once(day.year, day.month, day.day)
+
+    t = Transaction(name=j["name"], category=j["category"], schedule=s, value=j["value"], monthly=j["monthly_value"])
+    return t
 
 def AC_JSON(j):
     return Account(name=j["name"], balance=j["balance"])

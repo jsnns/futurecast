@@ -61,12 +61,7 @@ def get_subreport_history(year, month, day, report):
             "status": 404
         })
 
-@app.route("/report/bills/<report>")
-def get_bills_now(report):
+@app.route("/report/bills/<days>")
+def get_bills(days):
     report = get_report()
-    return jsonify(bills_to_pay(report.tx_set.log, -1))
-
-@app.route("/report/bills/<report>/<days>")
-def get_bills(report, days):
-    report = get_report()
-    return jsonify(bills_to_pay(report.tx_set.log, int(days)))
+    return jsonify(bills_to_pay(report.txs, int(days)))

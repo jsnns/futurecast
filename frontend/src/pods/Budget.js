@@ -2,6 +2,15 @@ import React, { Component } from "react";
 import { Pie } from "react-chartjs-2";
 
 import { getBudget } from "../api";
+import {
+  Box,
+  Heading,
+  Table,
+  TableBody,
+  TableHeader,
+  TableRow,
+  TableCell
+} from "grommet";
 
 var colorArray = [
   "#FF6633",
@@ -59,7 +68,8 @@ class Budget extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
+      table: []
     };
   }
   componentWillMount() {
@@ -94,7 +104,8 @@ class Budget extends Component {
           data: {
             labels,
             datasets: [{ data: values, backgroundColor: colors }]
-          }
+          },
+          table: data
         });
       })
       .catch(err => {
@@ -102,20 +113,50 @@ class Budget extends Component {
       });
   }
   render() {
-    const { data, mobile } = this.state;
+    const { data, table } = this.state;
 
     return (
-      <div>
-        <h2>Budget</h2>
-        <div className="budget">
-          <Pie
-            width={mobile ? window.innerWidth * 0.7 : window.innerWidth * 0.15}
-            height={mobile ? window.innerWidth * 0.7 : 400}
-            data={data}
-            options={{ segmentStrokeWidth: 0 }}
-          />
-        </div>
-      </div>
+      <Box basis="full" direction="column">
+        <Heading>Budget</Heading>
+        <Box wrap basis="full" direction="row-responsive">
+          <Box
+            pad="small"
+            margin="none"
+            basis="2/3"
+            alignSelf="start"
+            height="medium"
+          >
+            <Pie
+              data={data}
+              options={{ segmentStrokeWidth: 0, maintainAspectRatio: false }}
+            />
+          </Box>
+          <Box
+            pad="medium"
+            margin="none"
+            direction="row"
+            basis="1/3"
+            justify="center"
+          >
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableCell>Category</TableCell>
+                  <TableCell>Monthly Expense</TableCell>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {table.map(row => (
+                  <TableRow>
+                    <TableCell>{row[0]}</TableCell>
+                    <TableCell>{Math.abs(Number(row[1]))}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Box>
+        </Box>
+      </Box>
     );
   }
 }

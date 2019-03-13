@@ -9,8 +9,8 @@ export async function getData(url) {
   return response.data;
 }
 
-export async function getBills(report) {
-  return await getData(`/report/bills/${report}`);
+export async function getBills(days) {
+  return await getData(`/report/bills/${days}`);
 }
 
 export async function getBudget(report) {

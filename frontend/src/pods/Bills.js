@@ -1,78 +1,100 @@
 import React, { Component } from "react";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
 
 import { getBills } from "../api";
+import {
+  Box,
+  Table,
+  TableHeader,
+  TableBody,
+  TableCell,
+  TableRow,
+  Text,
+  Heading,
+  RangeInput
+} from "grommet";
 
 function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const isNegative = x < 0;
+  const sign = isNegative ? "$ -" : "$ ";
+  x = Math.abs(x);
+  return sign + x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
 class BillsTable extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
+      days: 14
     };
+
+    this.getData = this.getData.bind(this);
   }
+
+  async getData(days) {
+    this.setState({ days });
+    let data = await getBills(days);
+    data = data.sort((a, b) => {
+      return a.date - b.date;
+    });
+    this.setState({ data });
+  }
+
   componentWillMount() {
-    const { report } = this.props;
-    getBills(report)
-      .then(data => {
-        this.setState({ data });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.getData(14);
   }
+
   render() {
     const { data } = this.state;
     return (
-      <div className="tx-table">
-        <h2>Transactions</h2>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Value</TableCell>
-              <TableCell align="right">Date</TableCell>
-              <TableCell align="right">Type</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {Object.keys(data).map(set => {
-              let dataset = data[set];
-              if (dataset.map) {
-                return dataset.map(tx => {
-                  return (
-                    <TableRow>
-                      <TableCell component="th" scope="row">
-                        {tx.name}
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        style={{ fontFamily: "monospace", fontSize: 16 }}
+      <Box>
+        <Heading>Transactions</Heading>
+        <Box pad="small">
+          <Text>Number of Days</Text>
+          <RangeInput
+            min={14}
+            max={50}
+            value={this.state.days}
+            onChange={e => this.getData(e.target.value)}
+          />
+        </Box>
+        <Box pad="small">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell align="right">Value</TableCell>
+                <TableCell align="right">Date</TableCell>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {data.map(tx => {
+                return (
+                  <TableRow>
+                    <TableCell component="th" scope="row">
+                      {tx.name}
+                    </TableCell>
+                    <TableCell
+                      component="th"
+                      scope="row"
+                      style={{ fontFamily: "monospace", fontSize: 16 }}
+                    >
+                      <Text
+                        color={tx.value < 0 ? "status-critical" : "status-ok"}
                       >
-                        ${numberWithCommas(tx.value)}
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        {tx.date.substr(0, 16)}
-                      </TableCell>
-                      <TableCell component="th" scope="row">
-                        {set.toUpperCase()}
-                      </TableCell>
-                    </TableRow>
-                  );
-                });
-              } else return [];
-            })}
-          </TableBody>
-        </Table>
-      </div>
+                        {numberWithCommas(tx.value)}
+                      </Text>
+                    </TableCell>
+                    <TableCell component="th" scope="row">
+                      {new Date(tx.date * 1000).toDateString()}
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </Box>
+      </Box>
     );
   }
 }
