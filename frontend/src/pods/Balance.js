@@ -2,54 +2,93 @@ import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
 
 import { getBalance } from "../api";
-import { Box, Heading, Select, TextInput } from "grommet";
+import { Box, Heading, Select, TextInput, Text } from "grommet";
 
 class Balance extends Component {
   constructor(props) {
     super(props);
     this.state = {
       data: {},
-      days: "180"
+      mins: [],
+      labels: [],
+      days: "180",
+      balanceQuery: null
     };
     this.getData = this.getData.bind(this);
+    this.queryBalanceValue = this.queryBalanceValue.bind(this);
   }
 
-  getData(days) {
+  queryBalanceValue(value) {
+    let mins = this.state.mins.filter(bal => bal >= Number(value));
+    let index = this.state.mins.indexOf(mins[0]);
+
+    if (index === -1) return this.setState({ balanceQuery: null });
+    if (!value) return this.setState({ balanceQuery: null });
+
+    this.setState({ balanceQuery: this.state.labels[index] });
+  }
+
+  async getData(days) {
     const { report } = this.props;
-    getBalance(report)
-      .then(data => {
-        const balances = data
-          .map(day => {
-            return day.balance;
-          })
-          .slice(0, Number(days) || Infinity)
-          .map(bal => bal.toFixed(0));
-        const labels = data
-          .map(day => {
-            return day.day.substr(0, 11);
-          })
-          .slice(0, Number(days) || Infinity);
-        this.setState({
-          days,
-          data: {
-            labels: labels,
-            datasets: [
-              {
-                label: "Balance",
-                backgroundColor: "#1AB399",
-                borderColor: "#99E6E6",
-                pointRadius: 1,
-                fill: false,
-                lineTension: 0,
-                data: balances
-              }
-            ]
+
+    const data = await getBalance(report);
+
+    const balances = data
+      .map(day => day.balance)
+      .slice(0, Number(days) || Infinity)
+      .map(bal => bal.toFixed(0));
+
+    const mins = data
+      .map(day => day.minimum)
+      .slice(0, Number(days) || Infinity)
+      .map(bal => bal.toFixed(0));
+
+    const zeros = data
+      .map(day => day.zero_balance)
+      .slice(0, Number(days) || Infinity)
+      .map(bal => bal.toFixed(0));
+
+    const labels = data
+      .map(day => day.day.substr(0, 11))
+      .slice(0, Number(days) || Infinity);
+
+    this.setState({
+      days,
+      mins,
+      labels,
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "Minimum Balances",
+            backgroundColor: "#FF1A66",
+            borderColor: "#FF1A66",
+            pointRadius: 1,
+            fill: false,
+            lineTension: 0,
+            data: mins
+          },
+          {
+            label: "Balance",
+            backgroundColor: "#1AB399",
+            borderColor: "#1AB399",
+            pointRadius: 1,
+            fill: false,
+            lineTension: 0,
+            data: balances
+          },
+          {
+            label: "Zero Balances",
+            backgroundColor: "#E6FF80",
+            borderColor: "#E6FF80",
+            pointRadius: 1,
+            fill: false,
+            lineTension: 0,
+            data: zeros
           }
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
+        ]
+      }
+    });
   }
 
   componentWillMount() {
@@ -64,7 +103,7 @@ class Balance extends Component {
   }
 
   render() {
-    const { data, mobile, days } = this.state;
+    const { data, days } = this.state;
 
     return (
       <Box basis="full" direction="column">
@@ -72,15 +111,27 @@ class Balance extends Component {
           <Heading margin="none">Balance</Heading>
         </Box>
         <Box pad="small" height="none" direction="row">
-          <Select
-            options={[14, 30, 60, 365]}
-            value={days || 60}
-            onChange={e => this.getData(e.value)}
-          />
-          <TextInput
-            style={{ marginLeft: 10 }}
-            onChange={e => this.getData(e.target.value)}
-          />
+          <Box direction="row" pad={{ right: "medium" }}>
+            <Select
+              options={[14, 30, 60, 365]}
+              value={days || 60}
+              onChange={e => this.getData(e.value)}
+            />
+            <TextInput
+              style={{ marginLeft: 10 }}
+              onChange={e => this.getData(e.target.value)}
+            />
+          </Box>
+          <Box direction="row">
+            <TextInput
+              width="small"
+              placeholder="Balance on Day"
+              onChange={e => this.queryBalanceValue(e.target.value)}
+            />
+            <Text margin={{ left: "small" }}>
+              {this.state.balanceQuery || ""}
+            </Text>
+          </Box>
         </Box>
         <Box basis="full" direction="row" pad="small" height="medium">
           <Line

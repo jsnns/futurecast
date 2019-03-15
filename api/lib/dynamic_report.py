@@ -29,6 +29,10 @@ def TX_JSON(j):
     js = j["schedule"]
 
     if "interval" in js:
+        if "days" not in js["interval"]:
+            js["interval"]["days"] = 0
+        if "months" not in js["interval"]:
+            js["interval"]["months"] = 0
         s = Schedule(start=datetime.fromtimestamp(js["start"]), end=datetime.fromtimestamp(js["end"]), interval=relativedelta(days=js["interval"]["days"], months=js["interval"]["months"]))
     else:
         day = datetime.fromtimestamp(js["start"])

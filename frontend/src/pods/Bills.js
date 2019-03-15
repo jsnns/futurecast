@@ -51,12 +51,21 @@ class BillsTable extends Component {
         <Heading>Transactions</Heading>
         <Box pad="small">
           <Text>Number of Days</Text>
-          <RangeInput
-            min={14}
-            max={50}
-            value={this.state.days}
-            onChange={e => this.getData(e.target.value)}
-          />
+          <Box
+            pad={{
+              left: "medium",
+              right: "medium",
+              top: "small",
+              bottom: "medium"
+            }}
+          >
+            <RangeInput
+              min={14}
+              max={50}
+              value={this.state.days}
+              onChange={e => this.getData(e.target.value)}
+            />
+          </Box>
         </Box>
         <Box pad="small">
           <Table>

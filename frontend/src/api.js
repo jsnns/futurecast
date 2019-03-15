@@ -1,7 +1,8 @@
 import axios from "axios";
+import config from "./config";
 
 export const api = axios.create({
-  baseURL: process.env["REACT_APP_API_HOST"]
+  baseURL: config.apiUrl
 });
 
 export async function getData(url) {

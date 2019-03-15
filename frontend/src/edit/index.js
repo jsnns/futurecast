@@ -22,7 +22,8 @@ import {
   TableHeader,
   TableRow,
   TableCell,
-  Table
+  Table,
+  Text
 } from "grommet";
 import { Home, Add, Edit as EditIcon } from "grommet-icons";
 
@@ -50,7 +51,7 @@ class Edit extends Component {
     let data = await getTransactions();
     let acs = await getAccounts();
     let txs = data.sort((a, b) => {
-      const aBigger = a.category.toLowerCase() > b.category.toLowerCase();
+      const aBigger = a.category > b.category;
       if (aBigger) return 1;
       else return -1;
     });
@@ -75,7 +76,8 @@ class Edit extends Component {
   changeTx(i, key) {
     return e => {
       let value = e.target.value;
-      if (["value", "monthly_value"].includes(key)) value = Number(value);
+      if (["value", "monthly_value"].includes(key))
+        value = Number(value) || value;
       const { txs } = this.state;
       txs[i][key] = value;
       this.setState({ txs });
@@ -138,11 +140,8 @@ class Edit extends Component {
             }}
           />
         </Box>
-        <Box
-          margin={{ top: "small", bottom: "small" }}
-          direction="row-responsive"
-        >
-          <Heading margin="none">Accounts</Heading>
+        <Heading margin="none">Accounts</Heading>
+        <Box margin={{ top: "small", bottom: "small" }}>
           {this.state.accounts.map((ac, i) => {
             return (
               <Box pad={{ top: "small" }} direction="row">
@@ -172,10 +171,17 @@ class Edit extends Component {
                 return (
                   <TableRow direction="row-responsive">
                     <TableCell>{tx.name}</TableCell>
-                    <TableCell>{tx.value}</TableCell>
+                    <TableCell>
+                      <Text
+                        color={tx.value > 0 ? "status-ok" : "status-critical"}
+                      >
+                        {tx.value}
+                      </Text>
+                    </TableCell>
                     <TableCell>{tx.category}</TableCell>
                     <TableCell>
                       <Button
+                        style={{ margin: 0, padding: 0 }}
                         icon={<EditIcon />}
                         onClick={() => this.setState({ edit: i })}
                       />
@@ -264,21 +270,14 @@ class Edit extends Component {
                       size="small"
                       date={
                         selected.schedule.start
-                          ? new Date(selected.schedule.start).toISOString() *
-                            1000
+                          ? new Date(
+                              selected.schedule.start * 1000
+                            ).toISOString()
                           : Date.now()
                       }
-                      onChange={e => {
-                        debugger;
-                        const dateArr = e.target.value.split("-").map(Number);
+                      onSelect={e => {
                         this.changeSchedule("start")(
-                          Math.round(
-                            new Date(
-                              dateArr[0],
-                              dateArr[1] - 1,
-                              dateArr[2]
-                            ).getTime() / 1000
-                          )
+                          Math.round(new Date(e).getTime() / 1000)
                         );
                       }}
                     />
@@ -288,22 +287,15 @@ class Edit extends Component {
                       <Calendar
                         size="small"
                         date={
-                          selected.schedule.start
-                            ? new Date(selected.schedule.start).toISOString() *
-                              1000
+                          selected.schedule.end
+                            ? new Date(
+                                selected.schedule.end * 1000
+                              ).toISOString()
                             : Date.now()
                         }
-                        onChange={e => {
-                          debugger;
-                          const dateArr = e.target.value.split("-");
+                        onSelect={e => {
                           this.changeSchedule("end")(
-                            Math.round(
-                              new Date(
-                                dateArr[0],
-                                dateArr[1] - 1,
-                                dateArr[2]
-                              ).getTime() / 1000
-                            )
+                            Math.round(new Date(e).getTime() / 1000)
                           );
                         }}
                       />

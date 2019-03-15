@@ -128,7 +128,13 @@ class Budget extends Component {
           >
             <Pie
               data={data}
-              options={{ segmentStrokeWidth: 0, maintainAspectRatio: false }}
+              options={{
+                segmentStrokeWidth: 0,
+                maintainAspectRatio: false,
+                legend: {
+                  position: "left"
+                }
+              }}
             />
           </Box>
           <Box
