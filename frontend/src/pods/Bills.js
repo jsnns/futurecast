@@ -48,7 +48,7 @@ class BillsTable extends Component {
     const { data } = this.state;
     return (
       <Box>
-        <Heading>Transactions</Heading>
+        <Heading level={2}>Transactions</Heading>
         <Box pad="small">
           <Text>Number of Days</Text>
           <Box

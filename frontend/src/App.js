@@ -18,13 +18,11 @@ const Report = ({ match, url }) => {
 
   return (
     <Grommet plain>
-      <Box direction="column" basis="full">
-        <Box>
-          <Heading margin="none">Finances as of Today</Heading>
-
-          <Box direction="column" margin="small">
+      <Box pad="none" margin="none" direction="column" basis="full">
+        <Box pad="none" margin="none">
+          <Box direction="column" margin="none" pad="none">
             <StatsTables report={report} />
-            <Box pad={{ top: "small" }} direction="row">
+            <Box pad="small" direction="row">
               <Button icon={<EditIcon />} label="Edit" href="/edit" />
             </Box>
           </Box>

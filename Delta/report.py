@@ -71,6 +71,7 @@ class BalanceSheet:
 
         self.current_balance = sum([account.balance for account in self.accounts])
 
+        self.emergency_fund = abs(self.tx_set.budget["expenses"])
         self.interest_rate = kwargs.get("interest_rate")
         if not self.interest_rate:
             self.interest_rate = 1
@@ -80,14 +81,14 @@ class BalanceSheet:
         self.sheet = self.balance_on_day()
 
         self.balances = [o["balance"] for o in self.sheet]
+        self.mins = [o["minimum"] for o in self.sheet]
         self.days = [o["day"].date() for o in self.sheet]
 
-        self.minimum_balances = []
-
         self.stats = {
-            "Minimum Balance": math.floor(min(self.balances)),
-            "Unallocated": self.tx_set.budget["income"] + self.tx_set.budget["expenses"],
-            "Don't go below": self.current_balance - math.floor(min(self.balances))
+            "Min Balance": f"${math.floor(min(self.balances))}",
+            "Min On-hand": f"${self.current_balance - math.floor(min(self.balances))}",
+            "Unallocated": f"${self.tx_set.budget['income'] + self.tx_set.budget['expenses']}",
+            "Runway Length": f"{round((self.current_balance / self.emergency_fund), 2)} mo"
         }
 
     def daily_change_generator(self):
@@ -109,13 +110,15 @@ class BalanceSheet:
         for i in range(2, len(self.daily_change)):
             r.append({
                 "day": self.daily_change[i-1]["day"],
-                "balance": (r[len(r)-1]["balance"] + self.daily_change[i-1]["change"]) * self.daily_interest
+                "balance": (r[len(r)-1]["balance"] + self.daily_change[i-1]["change"]) * self.daily_interest,
+                "emergency_fund": self.emergency_fund
             })
 
         for i, day in enumerate(r):
             days = r[i:]
             balances = [day["balance"] for day in days]
             r[i]["minimum"] = math.floor(min(balances))
-            r[i]["zero_balance"] = day["balance"] - math.floor(min(balances))
+            r[i]["min_onhand"] = day["balance"] - math.floor(min(balances))
+            r[i]["runway_length"] = round(day["balance"] / self.emergency_fund, 2)
 
         return r
