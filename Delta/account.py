@@ -1,5 +1,5 @@
 class Account:
-    def __init__(self, *args, **kwargs):    
+    def __init__(self, *args, **kwargs):
         self._balance = kwargs.get("balance")
         self.name = kwargs.get("name")
 

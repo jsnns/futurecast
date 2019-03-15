@@ -82,9 +82,12 @@ class BalanceSheet:
         self.balances = [o["balance"] for o in self.sheet]
         self.days = [o["day"].date() for o in self.sheet]
 
+        self.minimum_balances = []
+
         self.stats = {
             "Minimum Balance": math.floor(min(self.balances)),
-            "Monthly Free": self.tx_set.budget["income"] + self.tx_set.budget["expenses"]
+            "Unallocated": self.tx_set.budget["income"] + self.tx_set.budget["expenses"],
+            "Don't go below": self.current_balance - math.floor(min(self.balances))
         }
 
     def daily_change_generator(self):
@@ -108,4 +111,11 @@ class BalanceSheet:
                 "day": self.daily_change[i-1]["day"],
                 "balance": (r[len(r)-1]["balance"] + self.daily_change[i-1]["change"]) * self.daily_interest
             })
+
+        for i, day in enumerate(r):
+            days = r[i:]
+            balances = [day["balance"] for day in days]
+            r[i]["minimum"] = math.floor(min(balances))
+            r[i]["zero_balance"] = day["balance"] - math.floor(min(balances))
+
         return r
