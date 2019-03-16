@@ -84,6 +84,8 @@ class BalanceSheet:
         self.mins = [o["minimum"] for o in self.sheet]
         self.days = [o["day"].date() for o in self.sheet]
 
+        self.minimum_balances = []
+
         self.stats = {
             "Min Balance": f"${math.floor(min(self.balances))}",
             "Min On-hand": f"${self.current_balance - math.floor(min(self.balances))}",
