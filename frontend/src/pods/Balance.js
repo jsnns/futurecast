@@ -9,6 +9,7 @@ class Balance extends Component {
     super(props);
     this.state = {
       data: {},
+      runwayData: {},
       mins: [],
       labels: [],
       days: "180",
@@ -17,6 +18,10 @@ class Balance extends Component {
     this.getData = this.getData.bind(this);
     this.queryBalanceValue = this.queryBalanceValue.bind(this);
   }
+
+  questionFuncs = {
+    "When can we spend?": e => this.queryBalanceValue(e.target.value)
+  };
 
   queryBalanceValue(value) {
     let mins = this.state.mins.filter(bal => bal >= Number(value));
@@ -44,9 +49,13 @@ class Balance extends Component {
       .map(bal => bal.toFixed(0));
 
     const zeros = data
-      .map(day => day.zero_balance)
+      .map(day => day.min_onhand)
       .slice(0, Number(days) || Infinity)
       .map(bal => bal.toFixed(0));
+
+    const runway = data
+      .map(day => day.runway_length)
+      .slice(0, Number(days) || Infinity);
 
     const labels = data
       .map(day => day.day.substr(0, 11))
@@ -56,11 +65,25 @@ class Balance extends Component {
       days,
       mins,
       labels,
+      runwayData: {
+        labels: labels,
+        datasets: [
+          {
+            label: "Runway mos.",
+            backgroundColor: "#FF1A66",
+            borderColor: "#FF1A66",
+            pointRadius: 1,
+            fill: false,
+            lineTension: 0,
+            data: runway
+          }
+        ]
+      },
       data: {
         labels: labels,
         datasets: [
           {
-            label: "Minimum Balances",
+            label: "Min Balance",
             backgroundColor: "#FF1A66",
             borderColor: "#FF1A66",
             pointRadius: 1,
@@ -78,7 +101,7 @@ class Balance extends Component {
             data: balances
           },
           {
-            label: "Zero Balances",
+            label: "Min Onhand",
             backgroundColor: "#E6FF80",
             borderColor: "#E6FF80",
             pointRadius: 1,
@@ -103,39 +126,64 @@ class Balance extends Component {
   }
 
   render() {
-    const { data, days } = this.state;
+    const { data, days, runwayData } = this.state;
 
     return (
       <Box basis="full" direction="column">
         <Box pad="none" height="none" direction="row">
-          <Heading margin="none">Balance</Heading>
+          <Heading level={2} margin="none">
+            Balance
+          </Heading>
         </Box>
         <Box pad="small" height="none" direction="row">
           <Box direction="row" pad={{ right: "medium" }}>
             <Select
+              style={{ width: 200 }}
               options={[14, 30, 60, 365]}
               value={days || 60}
               onChange={e => this.getData(e.value)}
             />
+            <Box width={200} pad={{ left: "small" }}>
+              <TextInput
+                placeholder="Days to Show"
+                onChange={e => this.getData(e.target.value)}
+              />
+            </Box>
+          </Box>
+        </Box>
+        <Box pad="small" direction="row-responsive">
+          <Select
+            style={{ width: 200 }}
+            options={["When can we spend?"]}
+            value={this.state.questionFunc}
+            onChange={e => this.setState({ questionFunc: e.value })}
+          />
+          <Box width={200} pad={{ left: "small" }}>
             <TextInput
-              style={{ marginLeft: 10 }}
-              onChange={e => this.getData(e.target.value)}
+              placeholder="Balance on Day"
+              onChange={
+                this.questionFuncs[this.state.questionFunc] || (() => {})
+              }
             />
           </Box>
-          <Box direction="row">
-            <TextInput
-              width="small"
-              placeholder="Balance on Day"
-              onChange={e => this.queryBalanceValue(e.target.value)}
-            />
-            <Text margin={{ left: "small" }}>
-              {this.state.balanceQuery || ""}
-            </Text>
+          <Box pad="small">
+            <Text margin={{ left: "small" }}>{this.state.balanceQuery}</Text>
           </Box>
         </Box>
         <Box basis="full" direction="row" pad="small" height="medium">
           <Line
             data={data}
+            options={{
+              pointHitDetectionRadius: 1,
+              bezierCurve: false,
+              scaleBeginAtZero: true,
+              maintainAspectRatio: false
+            }}
+          />
+        </Box>
+        <Box>
+          <Line
+            data={runwayData}
             options={{
               pointHitDetectionRadius: 1,
               bezierCurve: false,

@@ -26,16 +26,16 @@ class StatsTables extends Component {
     const { data } = this.state;
     const stats = Object.keys(data).map(key => ({
       label: key,
-      value: Number(data[key])
+      value: data[key]
     }));
 
     return (
       <Box className="table">
-        <Box direction="row" background="brand" pad="medium" round>
+        <Box direction="row" background="brand" pad="medium">
           {stats.map(stat => (
             <Box direction="column" basis="small">
               <Heading level={3} margin="none">
-                ${stat.value}
+                {stat.value}
               </Heading>
               <Text margin="none">{stat.label}</Text>
             </Box>

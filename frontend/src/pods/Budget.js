@@ -117,7 +117,7 @@ class Budget extends Component {
 
     return (
       <Box basis="full" direction="column">
-        <Heading>Budget</Heading>
+        <Heading level={2}>Budget</Heading>
         <Box wrap basis="full" direction="row-responsive">
           <Box
             pad="small"
