@@ -1,7 +1,7 @@
 from api import app
 from flask import jsonify
 from api.lib.report_data import get_balances, get_transactions, get_stats, get_budget, get_report
-from data.scratchpad.bills_to_pay import bills_to_pay
+from api.lib.bills_to_pay import bills_to_pay
 
 import json
 
