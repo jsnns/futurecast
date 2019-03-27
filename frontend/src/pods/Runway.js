@@ -4,7 +4,7 @@ import { Line } from "react-chartjs-2";
 import { getBalance } from "../api";
 import { Box, Heading, Select, TextInput, Text } from "grommet";
 
-class Balance extends Component {
+class Runway extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -23,15 +23,9 @@ class Balance extends Component {
 
     const data = await getBalance(report);
 
-    const balances = data
-      .map(day => day.balance)
-      .slice(0, Number(days) || Infinity)
-      .map(bal => bal.toFixed(0));
-
-    const mins = data
-      .map(day => day.minimum)
-      .slice(0, Number(days) || Infinity)
-      .map(bal => bal.toFixed(0));
+    const runway = data
+      .map(day => day.runway_length)
+      .slice(0, Number(days) || Infinity);
 
     const labels = data
       .map(day => day.day.substr(0, 11))
@@ -39,28 +33,18 @@ class Balance extends Component {
 
     this.setState({
       days,
-      mins,
       labels,
-      data: {
+      runwayData: {
         labels: labels,
         datasets: [
           {
-            label: "Min Balance",
-            backgroundColor: "#FF1A66",
-            borderColor: "#FF1A66",
+            label: "Runway mos.",
+            backgroundColor: "#3466e7",
+            borderColor: "#3466e7",
             pointRadius: 1,
             fill: false,
             lineTension: 0,
-            data: mins
-          },
-          {
-            label: "Balance",
-            backgroundColor: "#1AB399",
-            borderColor: "#1AB399",
-            pointRadius: 1,
-            fill: false,
-            lineTension: 0,
-            data: balances
+            data: runway
           }
         ]
       }
@@ -79,7 +63,7 @@ class Balance extends Component {
   }
 
   render() {
-    const { data, days } = this.state;
+    const { data, days, runwayData } = this.state;
 
     return (
       <Box>
@@ -99,9 +83,9 @@ class Balance extends Component {
             </Box>
           </Box>
         </Box>
-        <Box height="medium" pad={{ left: "small" }}>
+        <Box height="medium">
           <Line
-            data={data}
+            data={runwayData}
             options={{
               pointHitDetectionRadius: 5,
               bezierCurve: false,
@@ -115,4 +99,4 @@ class Balance extends Component {
   }
 }
 
-export default Balance;
+export default Runway;

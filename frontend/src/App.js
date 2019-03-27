@@ -8,26 +8,27 @@ import StatsTables from "./pods/Stats";
 import Bills from "./pods/Bills";
 import Edit from "./edit";
 
-import { Box, Grommet, Heading, Button } from "grommet";
+import { Box, Grommet, Button } from "grommet";
 import { Edit as EditIcon, Refresh } from "grommet-icons";
 import { update } from "./api";
 
 import "./css.css";
 import DashboardWidget from "./components/DashboardWidget";
+import Ask from "./pods/Ask";
+import Runway from "./pods/Runway";
 
 const Report = ({ match, url }) => {
   let report = match.params.report;
 
   return (
     <Grommet plain={true} full>
-      <Box pad="none" margin="none" direction="column">
-        <Box pad="none" margin="none">
-          <Box direction="column" margin="none" pad="none">
+      <Box pad="none" direction="column">
+        <Box>
+          <Box direction="column" pad="none">
             <StatsTables report={report} />
-            <Box pad="small" direction="row">
+            <Box pad="small" direction="row" gap="small">
               <Button icon={<EditIcon />} label="Edit" href="/edit" />
               <Button
-                margin={{ left: "small" }}
                 icon={<Refresh />}
                 label="Refresh"
                 onClick={() => {
@@ -37,15 +38,27 @@ const Report = ({ match, url }) => {
             </Box>
           </Box>
         </Box>
-        <Box margin="small" direction="row-responsive" wrap>
-          <DashboardWidget title="Balance" basis="auto">
-            <Balance report={report} />
-          </DashboardWidget>
+        <Box pad="small" direction="row-responsive" wrap>
+          <Box>
+            <DashboardWidget title="Balance" basis="auto">
+              <Balance />
+            </DashboardWidget>
+            <DashboardWidget title="Runway" basis="auto">
+              <Runway />
+            </DashboardWidget>
+          </Box>
+
+          <Box>
+            <DashboardWidget title="Ask" basis="1/4">
+              <Ask />
+            </DashboardWidget>
+            <DashboardWidget title="Bills" basis="auto">
+              <Bills />
+            </DashboardWidget>
+          </Box>
+
           <DashboardWidget title="Budget" basis="auto">
-            <Budget report={report} />
-          </DashboardWidget>
-          <DashboardWidget title="Bills" basis="auto">
-            <Bills report={report} />
+            <Budget />
           </DashboardWidget>
         </Box>
       </Box>

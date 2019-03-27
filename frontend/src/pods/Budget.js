@@ -105,7 +105,9 @@ class Budget extends Component {
         this.setState({
           data: {
             labels,
-            datasets: [{ data: values, backgroundColor: colors }]
+            datasets: [
+              { data: values, backgroundColor: colors, borderWidth: 0 }
+            ]
           },
           table: data.sort((a, b) => Number(a[1]) - Number(b[1]))
         });
@@ -119,44 +121,44 @@ class Budget extends Component {
 
     return (
       <Box>
-        <Box wrap direction="row-responsive">
-          <Box pad="small" basis="1/2" alignSelf="start" height="medium">
-            <Pie
-              data={data}
-              options={{
-                segmentStrokeWidth: 0,
-                maintainAspectRatio: false,
-                legend: {
-                  position: "bottom"
+        <Box pad={{ left: "large", top: "small" }} height="medium">
+          <Pie
+            data={data}
+            options={{
+              maintainAspectRatio: false,
+              legend: {
+                position: "top",
+                labels: {
+                  boxWidth: 12
                 }
-              }}
-            />
-          </Box>
-          <Box pad="medium" direction="row" basis="1/2" justify="center">
-            <Table>
-              <TableBody>
-                {table.map(row => (
-                  <TableRow>
-                    <TableCell
-                      style={{
-                        fontFamily: "Lato",
-                        fontSize: "12pt",
-                        textTransform: "uppercase",
-                        opacity: 0.6
-                      }}
-                    >
-                      {row[0]}
-                    </TableCell>
-                    <TableCell
-                      style={{ fontFamily: "Abril Fatface", fontSize: "14pt" }}
-                    >
-                      {Math.abs(Number(row[1]))}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Box>
+              }
+            }}
+          />
+        </Box>
+        <Box pad="medium" direction="row" justify="center">
+          <Table>
+            <TableBody>
+              {table.map(row => (
+                <TableRow>
+                  <TableCell
+                    style={{
+                      fontFamily: "Lato",
+                      fontSize: "12pt",
+                      textTransform: "uppercase",
+                      opacity: 0.6
+                    }}
+                  >
+                    {row[0]}
+                  </TableCell>
+                  <TableCell
+                    style={{ fontFamily: "Abril Fatface", fontSize: "14pt" }}
+                  >
+                    {Math.abs(Number(row[1]))}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </Box>
       </Box>
     );

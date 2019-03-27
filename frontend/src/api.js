@@ -5,6 +5,10 @@ export const api = axios.create({
   baseURL: config.apiUrl
 });
 
+export async function ask(question, parameter) {
+  return await getData(`/ask/${question}/${parameter}`);
+}
+
 export async function getData(url) {
   const response = await api.get(url);
   return response.data;

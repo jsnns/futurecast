@@ -30,15 +30,14 @@ class AsyncButton extends Component {
       <Button
         onClick={this.click}
         icon={icon}
-        margin="xsmall"
         primary={true}
         color={this.state.loading ? "light-1" : "brand"}
         style={{
           position: "absolute",
           width: 50,
           height: 50,
-          right: -30,
-          top: -30,
+          right: -15,
+          top: -15,
           marginBottom: -10
         }}
       />

@@ -1,7 +1,19 @@
 from api import app
 from flask import jsonify
+
 from api.lib.report_data import get_balances, get_transactions, get_stats, get_budget, get_report
 from api.delta.analysis.bills_to_pay import bills_to_pay
+
+@app.route("/ask/can_spend/<amount>")
+def ask_can_spend(amount):
+    balances = get_balances()
+    balances = [b for b in balances if b["balance"] > int(amount)]
+    if len(balances) < 1:
+        return jsonify({"message": "Not in the near future."})
+
+    first = balances[0]
+    message = f"{first['day'].strftime('%B %d, %Y')[:14]} will be the first day you have more than ${amount}. You'll have ${round(first['balance'])}."
+    return jsonify({"message": message, "data": first})
 
 @app.route("/report/balances")
 def get_report_balances():
