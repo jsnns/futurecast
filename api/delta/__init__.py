@@ -2,8 +2,8 @@ from api.delta.account import Account
 from api.delta.schedule import Schedule
 from api.delta.schedule import Once
 from api.delta.transaction import Transaction
-from api.delta.report import TransactionSet as Log
-from api.delta.report import BalanceSheet as Report
+from api.delta.report import Report
+from api.delta.transaction_set import TransactionSet as Log
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
