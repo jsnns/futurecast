@@ -10,3 +10,5 @@ $(aws ecr get-login --no-include-email --region us-east-1)
 docker build -t adder/api .
 docker tag adder/api:latest 286824668660.dkr.ecr.us-east-1.amazonaws.com/adder/api:latest
 docker push 286824668660.dkr.ecr.us-east-1.amazonaws.com/adder/api:latest
+
+aws ecs update-service --force-new-deployment --service Adder --cluster Adder

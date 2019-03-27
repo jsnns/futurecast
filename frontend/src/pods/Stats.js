@@ -3,10 +3,6 @@ import React, { Component } from "react";
 import { getStats } from "../api";
 import { Box, Heading, Text } from "grommet";
 
-function numberWithCommas(x) {
-  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
 class StatsTables extends Component {
   constructor(props) {
     super(props);

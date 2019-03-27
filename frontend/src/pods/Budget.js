@@ -2,15 +2,7 @@ import React, { Component } from "react";
 import { Pie } from "react-chartjs-2";
 
 import { getBudget } from "../api";
-import {
-  Box,
-  Heading,
-  Table,
-  TableBody,
-  TableHeader,
-  TableRow,
-  TableCell
-} from "grommet";
+import { Box, Table, TableBody, TableRow, TableCell } from "grommet";
 
 var colorArray = [
   "#FF6633",
@@ -81,18 +73,15 @@ class Budget extends Component {
     const { report } = this.props;
     getBudget(report)
       .then(data => {
-        let total = 0;
-        let budgetCategories = data;
         let labels = [];
         let values = [];
         let colors = [];
 
-        budgetCategories = budgetCategories
+        data
           .sort((a, b) => {
             return a[2] - b[2];
           })
           .forEach((category, i) => {
-            total += category[2];
             values.push(Number((category[2] * 100).toFixed(2)));
             labels.push(category[0].toUpperCase());
             colors.push(colorArray[i]);

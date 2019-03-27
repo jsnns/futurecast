@@ -9,7 +9,6 @@ import {
   TableCell,
   TableRow,
   Text,
-  Heading,
   RangeInput
 } from "grommet";
 

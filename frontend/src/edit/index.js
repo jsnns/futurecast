@@ -1,13 +1,12 @@
 import React, { Component } from "react";
 
 import { Box, Button } from "grommet";
-import { Home, Add } from "grommet-icons";
+import { Home } from "grommet-icons";
 
 import "react-datepicker/dist/react-datepicker.css";
 import EditTxs from "./Transactions";
 import EditAccounts from "./Accounts";
-
-const style = { display: "block", float: "left", marginRight: 10 };
+import DashboardWidget from "../components/DashboardWidget";
 
 class Edit extends Component {
   state = {
@@ -16,10 +15,6 @@ class Edit extends Component {
     accounts: [],
     edit: 0
   };
-
-  constructor(props) {
-    super(props);
-  }
 
   changeSchedule(key, interval) {
     if (interval) {
@@ -40,9 +35,7 @@ class Edit extends Component {
   }
 
   render() {
-    const { txs } = this.state;
     const { selected } = this.state;
-    const getData = this.getData;
 
     if (selected) {
       if (!selected.schedule) {
@@ -58,8 +51,14 @@ class Edit extends Component {
         <Box direction="row-responsive">
           <Button margin="small" icon={<Home />} label="Home" href="/" />
         </Box>
-        <EditAccounts />
-        <EditTxs />
+        <Box direction="row">
+          <DashboardWidget title="Transactions" basis="1/2">
+            <EditTxs />
+          </DashboardWidget>
+          <DashboardWidget title="Accounts" basis="1/2">
+            <EditAccounts />
+          </DashboardWidget>
+        </Box>
       </Box>
     );
   }

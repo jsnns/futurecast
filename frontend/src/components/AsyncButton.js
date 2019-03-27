@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Box, Text, Button } from "grommet";
+import { Button } from "grommet";
 import PropTypes from "prop-types";
 
 class AsyncButton extends Component {
@@ -22,7 +22,7 @@ class AsyncButton extends Component {
   }
 
   render() {
-    const { icon, top, left, shown } = this.props;
+    const { icon, shown } = this.props;
 
     if (!shown) return <div />;
 
@@ -31,13 +31,13 @@ class AsyncButton extends Component {
         onClick={this.click}
         icon={icon}
         primary={true}
-        color={this.state.loading ? "light-1" : "brand"}
+        color={this.state.loading ? "light-3" : "dark-1"}
         style={{
           position: "absolute",
           width: 50,
           height: 50,
           right: -15,
-          top: -15,
+          top: -20,
           marginBottom: -10
         }}
       />
@@ -49,9 +49,7 @@ AsyncButton.propTypes = {
   onClick: PropTypes.func.isRequired,
   done: PropTypes.func.isRequired,
   shown: PropTypes.bool.isRequired,
-  icon: PropTypes.element,
-  top: PropTypes.number,
-  left: PropTypes.number
+  icon: PropTypes.element
 };
 
 export default AsyncButton;

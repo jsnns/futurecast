@@ -18,14 +18,11 @@ import Ask from "./pods/Ask";
 import Runway from "./pods/Runway";
 
 const Report = ({ match, url }) => {
-  let report = match.params.report;
-
   return (
-    <Grommet plain={true} full>
+    <Box>
       <Box pad="none" direction="column">
         <Box>
           <Box direction="column" pad="none">
-            <StatsTables report={report} />
             <Box pad="small" direction="row" gap="small">
               <Button icon={<EditIcon />} label="Edit" href="/edit" />
               <Button
@@ -62,7 +59,7 @@ const Report = ({ match, url }) => {
           </DashboardWidget>
         </Box>
       </Box>
-    </Grommet>
+    </Box>
   );
 };
 
@@ -73,7 +70,8 @@ class App extends Component {
     console.log(this.state.url);
     return (
       <BrowserRouter>
-        <div>
+        <Grommet plain={true} full>
+          <StatsTables />
           <Route
             exact
             path="/"
@@ -82,7 +80,7 @@ class App extends Component {
             )}
           />
           <Route exact path="/edit" component={Edit} />
-        </div>
+        </Grommet>
       </BrowserRouter>
     );
   }

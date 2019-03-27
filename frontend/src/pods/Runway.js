@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
 
 import { getBalance } from "../api";
-import { Box, Heading, Select, TextInput, Text } from "grommet";
+import { Box, Text, RangeInput } from "grommet";
 
 class Runway extends Component {
   constructor(props) {
@@ -63,24 +63,27 @@ class Runway extends Component {
   }
 
   render() {
-    const { data, days, runwayData } = this.state;
+    const { runwayData } = this.state;
 
     return (
-      <Box>
-        <Box direction="row-responsive" wrap>
-          <Box pad="small" direction="row">
-            <Select
-              style={{ width: 200 }}
-              options={[14, 30, 60, 365]}
-              value={days || 60}
-              onChange={e => this.getData(e.value)}
+      <Box style={{ minWidth: 500 }}>
+        <Box pad="small">
+          <Text>Number of Days</Text>
+          <Box
+            pad={{
+              left: "medium",
+              right: "medium",
+              top: "small",
+              bottom: "small"
+            }}
+          >
+            <RangeInput
+              min={2}
+              max={600}
+              step={10}
+              value={this.state.days}
+              onChange={e => this.getData(e.target.value)}
             />
-            <Box width={200} pad={{ left: "small" }}>
-              <TextInput
-                placeholder="Days to Show"
-                onChange={e => this.getData(e.target.value)}
-              />
-            </Box>
           </Box>
         </Box>
         <Box height="medium">

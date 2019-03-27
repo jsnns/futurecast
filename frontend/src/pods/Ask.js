@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Box, Heading, Select, TextInput, Text } from "grommet";
+import { Box, Select, TextInput, Text } from "grommet";
 import { ask } from "../api";
 
 class Ask extends Component {
@@ -14,7 +14,7 @@ class Ask extends Component {
   }
 
   updateParameter(e) {
-    const { question, parameter } = this.state;
+    const { question } = this.state;
     this.setState({ parameter: e.target.value });
     ask(this.questionsToSlugs[question], e.target.value).then(result => {
       this.setState({ result: result.message });

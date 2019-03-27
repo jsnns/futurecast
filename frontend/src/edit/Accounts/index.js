@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { getAccounts, updateAccount } from "../../api";
-import { Box, Heading, TextInput, Text, Button } from "grommet";
+import { Box, TextInput, Text } from "grommet";
 import { Checkmark } from "grommet-icons";
 import AsyncButton from "../../components/AsyncButton";
 
@@ -41,7 +41,7 @@ class EditAccounts extends Component {
   changeAc(i, key) {
     return e => {
       let value = e.target.value;
-      const { acs, updatedAcs } = this.state;
+      let { acs, updatedAcs } = this.state;
       if (["balance"].includes(key)) value = Number(value);
 
       acs[i][key] = value;
@@ -51,7 +51,7 @@ class EditAccounts extends Component {
   }
 
   markAccountDoneUpdating(i) {
-    const { updatedAcs } = this.state;
+    let { updatedAcs } = this.state;
     updatedAcs = updatedAcs.filter(ii => i !== ii);
     this.setState({ updatedAcs });
   }
@@ -64,13 +64,11 @@ class EditAccounts extends Component {
   render() {
     return (
       <Box pad="medium">
-        <Heading style={{ fontFamily: "Alegreya" }} margin="none">
-          Accounts
-        </Heading>
         <Box direction="row" wrap>
           {this.state.acs.map((ac, i) => {
             return (
               <Box
+                style={{ position: "relative" }}
                 pad={{
                   top: "small",
                   bottom: "small",
@@ -79,9 +77,15 @@ class EditAccounts extends Component {
                 }}
                 background="neutral-3"
                 elevation="small"
-                round
                 margin="small"
+                round
               >
+                <AsyncButton
+                  icon={<Checkmark />}
+                  done={this.markAccountDoneUpdating}
+                  onClick={this.push(i)}
+                  shown={this.state.updatedAcs.includes(i)}
+                />
                 <Box direction="row" pad={{ left: "small", right: "small" }}>
                   <Text
                     style={{
@@ -118,12 +122,6 @@ class EditAccounts extends Component {
                     paddingBottom: 0
                   }}
                   onChange={this.changeAc(i, "name")}
-                />
-                <AsyncButton
-                  icon={<Checkmark />}
-                  done={this.markAccountDoneUpdating}
-                  onClick={this.push(i)}
-                  shown={this.state.updatedAcs.includes(i)}
                 />
               </Box>
             );

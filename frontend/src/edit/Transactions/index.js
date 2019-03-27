@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { getTransactions, updateTransaction, newTransaction } from "../../api";
 
-import { Box, Button, Heading, TextInput } from "grommet";
+import { Box, Button, TextInput } from "grommet";
 import SingleTx from "./ViewSingleTx";
 import { Add } from "grommet-icons";
 import EditTransactionModal from "./EditTransactionModal";
@@ -98,9 +98,6 @@ class EditTxs extends Component {
           transaction={selectedTx}
         />
         <Box>
-          <Heading style={{ fontFamily: "Alegreya" }} margin="none">
-            Transactions
-          </Heading>
           <Box direction="row-responsive">
             <Box margin="small">
               <Button

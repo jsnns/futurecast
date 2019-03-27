@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { deleteTransaction } from "../../api";
-import { Box, Text, Button } from "grommet";
+import { Box, Text } from "grommet";
 import { Close } from "grommet-icons";
 import OutsideAlerter from "../../components/OutsideClickAlerter";
 
@@ -67,8 +67,6 @@ class ViewSingleTx extends Component {
             shown={this.state.wiggleDelete}
             onClick={this.trashTransaction}
             done={refresh}
-            top={-125}
-            left={90}
           />
           <Text
             margin={{ bottom: "xsmall" }}
