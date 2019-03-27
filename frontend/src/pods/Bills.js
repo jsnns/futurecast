@@ -70,14 +70,14 @@ class BillsTable extends Component {
             <TableHeader>
               <TableRow>
                 <TableCell>Name</TableCell>
-                <TableCell align="right">Value</TableCell>
-                <TableCell align="right">Date</TableCell>
+                <TableCell>Value</TableCell>
+                <TableCell>Date</TableCell>
               </TableRow>
             </TableHeader>
             <TableBody>
               {data.map(tx => {
                 return (
-                  <TableRow>
+                  <TableRow key={tx.name + tx.date}>
                     <TableCell component="th" scope="row">
                       {tx.name}
                     </TableCell>

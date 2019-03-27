@@ -60,7 +60,6 @@ class Budget extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [],
       table: []
     };
   }
@@ -111,24 +110,26 @@ class Budget extends Component {
     return (
       <Box>
         <Box pad={{ left: "large", top: "small" }} height="medium">
-          <Pie
-            data={data}
-            options={{
-              maintainAspectRatio: false,
-              legend: {
-                position: "top",
-                labels: {
-                  boxWidth: 12
+          {data && (
+            <Pie
+              data={data}
+              options={{
+                maintainAspectRatio: false,
+                legend: {
+                  position: "top",
+                  labels: {
+                    boxWidth: 12
+                  }
                 }
-              }
-            }}
-          />
+              }}
+            />
+          )}
         </Box>
         <Box pad="medium" direction="row" justify="center">
           <Table>
             <TableBody>
               {table.map(row => (
-                <TableRow>
+                <TableRow key={row[0] + row[1]}>
                   <TableCell
                     style={{
                       fontFamily: "Lato",

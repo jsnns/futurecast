@@ -63,8 +63,6 @@ class EditTxs extends Component {
     tx.value = Number(tx.value);
     tx.monthly_value = Number(tx.monthly_value);
 
-    console.log(tx.schedule);
-
     updateTransaction(tx._id.$oid, tx).then(() =>
       this.setState({ selectedTx: null })
     );

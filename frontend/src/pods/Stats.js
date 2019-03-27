@@ -29,7 +29,7 @@ class StatsTables extends Component {
       <Box className="table">
         <Box direction="row" background="brand" pad="medium">
           {stats.map(stat => (
-            <Box direction="column" basis="small">
+            <Box key={stat.label} direction="column" basis="small">
               <Heading
                 style={{ fontFamily: "Abril Fatface", fontSize: "21pt" }}
                 level={3}

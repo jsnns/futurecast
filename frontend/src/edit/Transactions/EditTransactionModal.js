@@ -79,7 +79,7 @@ class EditTransactionModal extends Component {
 }
 
 EditTransactionModal.propTypes = {
-  transaction: PropTypes.object.isRequired,
+  transaction: PropTypes.object,
   onClose: PropTypes.func.isRequired
 };
 

@@ -79,6 +79,7 @@ class EditAccounts extends Component {
                 elevation="small"
                 margin="small"
                 round
+                key={ac.name}
               >
                 <AsyncButton
                   icon={<Checkmark />}
