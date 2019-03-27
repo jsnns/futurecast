@@ -1,14 +1,11 @@
 from flask_pymongo import PyMongo, ObjectId
 from api import app
 
-# configuration
-MONGODB_HOST = 'localhost'
-MONGODB_PORT = 27017
+PROD = "mongodb+srv://adder-api:6%23L%409WR%21*ZdX2Q%3DBc%29Tm@sansburymoney-vwerh.mongodb.net/test?retryWrites=true"
 
-app.config["MONGO_URI"] = "mongodb+srv://adder-api:6%23L%409WR%21*ZdX2Q%3DBc%29Tm@sansburymoney-vwerh.mongodb.net/test?retryWrites=true"
+LOCAL = "mongodb://localhost:27017/new"
 
-
-#"mongodb://localhost:27017/new"
+app.config["MONGO_URI"] = PROD
 
 mongo = PyMongo(app)
 

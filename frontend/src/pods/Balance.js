@@ -48,11 +48,6 @@ class Balance extends Component {
       .slice(0, Number(days) || Infinity)
       .map(bal => bal.toFixed(0));
 
-    const zeros = data
-      .map(day => day.min_onhand)
-      .slice(0, Number(days) || Infinity)
-      .map(bal => bal.toFixed(0));
-
     const runway = data
       .map(day => day.runway_length)
       .slice(0, Number(days) || Infinity);
@@ -99,15 +94,6 @@ class Balance extends Component {
             fill: false,
             lineTension: 0,
             data: balances
-          },
-          {
-            label: "Min Onhand",
-            backgroundColor: "#E6FF80",
-            borderColor: "#E6FF80",
-            pointRadius: 1,
-            fill: false,
-            lineTension: 0,
-            data: zeros
           }
         ]
       }
@@ -130,13 +116,8 @@ class Balance extends Component {
 
     return (
       <Box basis="full" direction="column">
-        <Box pad="none" height="none" direction="row">
-          <Heading level={2} margin="none">
-            Balance
-          </Heading>
-        </Box>
-        <Box pad="small" height="none" direction="row">
-          <Box direction="row" pad={{ right: "medium" }}>
+        <Box direction="row-responsive" wrap>
+          <Box pad="small" direction="row">
             <Select
               style={{ width: 200 }}
               options={[14, 30, 60, 365]}
@@ -150,42 +131,41 @@ class Balance extends Component {
               />
             </Box>
           </Box>
-        </Box>
-        <Box pad="small" direction="row-responsive">
-          <Select
-            style={{ width: 200 }}
-            options={["When can we spend?"]}
-            value={this.state.questionFunc}
-            onChange={e => this.setState({ questionFunc: e.value })}
-          />
-          <Box width={200} pad={{ left: "small" }}>
-            <TextInput
-              placeholder="Balance on Day"
-              onChange={
-                this.questionFuncs[this.state.questionFunc] || (() => {})
-              }
+          <Box pad="small" direction="row">
+            <Select
+              options={["When can we spend?"]}
+              value={this.state.questionFunc}
+              onChange={e => this.setState({ questionFunc: e.value })}
             />
-          </Box>
-          <Box pad="small">
-            <Text margin={{ left: "small" }}>{this.state.balanceQuery}</Text>
+            <Box pad={{ left: "small" }}>
+              <TextInput
+                placeholder="Balance on Day"
+                onChange={
+                  this.questionFuncs[this.state.questionFunc] || (() => {})
+                }
+              />
+            </Box>
+            <Box pad="small">
+              <Text margin={{ left: "small" }}>{this.state.balanceQuery}</Text>
+            </Box>
           </Box>
         </Box>
-        <Box basis="full" direction="row" pad="small" height="medium">
+        <Box height="medium" pad={{ left: "small" }}>
           <Line
             data={data}
             options={{
-              pointHitDetectionRadius: 1,
+              pointHitDetectionRadius: 5,
               bezierCurve: false,
               scaleBeginAtZero: true,
               maintainAspectRatio: false
             }}
           />
         </Box>
-        <Box>
+        <Box height="small" pad={{ left: "small" }}>
           <Line
             data={runwayData}
             options={{
-              pointHitDetectionRadius: 1,
+              pointHitDetectionRadius: 5,
               bezierCurve: false,
               scaleBeginAtZero: true,
               maintainAspectRatio: false

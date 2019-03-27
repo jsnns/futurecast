@@ -48,7 +48,6 @@ class BillsTable extends Component {
     const { data } = this.state;
     return (
       <Box>
-        <Heading level={2}>Transactions</Heading>
         <Box pad="small">
           <Text>Number of Days</Text>
           <Box
@@ -56,7 +55,7 @@ class BillsTable extends Component {
               left: "medium",
               right: "medium",
               top: "small",
-              bottom: "medium"
+              bottom: "small"
             }}
           >
             <RangeInput
@@ -67,7 +66,7 @@ class BillsTable extends Component {
             />
           </Box>
         </Box>
-        <Box pad="small">
+        <Box pad="small" fill>
           <Table>
             <TableHeader>
               <TableRow>

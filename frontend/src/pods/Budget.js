@@ -86,6 +86,7 @@ class Budget extends Component {
         let labels = [];
         let values = [];
         let colors = [];
+
         budgetCategories = budgetCategories
           .sort((a, b) => {
             return a[2] - b[2];
@@ -97,15 +98,16 @@ class Budget extends Component {
             colors.push(colorArray[i]);
           });
 
-        values.push(Number(((1 - total) * 100).toFixed(2)));
-        labels.push("FREE");
-        colors.push("#fff");
+        // values.push(Number(((1 - total) * 100).toFixed(2)));
+        // labels.push("FREE");
+        // colors.push("#fff");
+
         this.setState({
           data: {
             labels,
             datasets: [{ data: values, backgroundColor: colors }]
           },
-          table: data
+          table: data.sort((a, b) => Number(a[1]) - Number(b[1]))
         });
       })
       .catch(err => {
@@ -116,46 +118,40 @@ class Budget extends Component {
     const { data, table } = this.state;
 
     return (
-      <Box basis="full" direction="column">
-        <Heading level={2}>Budget</Heading>
-        <Box wrap basis="full" direction="row-responsive">
-          <Box
-            pad="small"
-            margin="none"
-            basis="2/3"
-            alignSelf="start"
-            height="medium"
-          >
+      <Box>
+        <Box wrap direction="row-responsive">
+          <Box pad="small" basis="1/2" alignSelf="start" height="medium">
             <Pie
               data={data}
               options={{
                 segmentStrokeWidth: 0,
                 maintainAspectRatio: false,
                 legend: {
-                  position: "left"
+                  position: "bottom"
                 }
               }}
             />
           </Box>
-          <Box
-            pad="medium"
-            margin="none"
-            direction="row"
-            basis="1/3"
-            justify="center"
-          >
+          <Box pad="medium" direction="row" basis="1/2" justify="center">
             <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableCell>Category</TableCell>
-                  <TableCell>Monthly Expense</TableCell>
-                </TableRow>
-              </TableHeader>
               <TableBody>
                 {table.map(row => (
                   <TableRow>
-                    <TableCell>{row[0]}</TableCell>
-                    <TableCell>{Math.abs(Number(row[1]))}</TableCell>
+                    <TableCell
+                      style={{
+                        fontFamily: "Lato",
+                        fontSize: "12pt",
+                        textTransform: "uppercase",
+                        opacity: 0.6
+                      }}
+                    >
+                      {row[0]}
+                    </TableCell>
+                    <TableCell
+                      style={{ fontFamily: "Abril Fatface", fontSize: "14pt" }}
+                    >
+                      {Math.abs(Number(row[1]))}
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

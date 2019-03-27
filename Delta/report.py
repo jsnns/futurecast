@@ -72,9 +72,14 @@ class BalanceSheet:
         self.current_balance = sum([account.balance for account in self.accounts])
 
         self.emergency_fund = abs(self.tx_set.budget["expenses"])
+        if self.emergency_fund <= 0:
+            self.emergency_fund = 1
+
         self.interest_rate = kwargs.get("interest_rate")
+
         if not self.interest_rate:
             self.interest_rate = 1
+
         self.daily_interest = ((self.interest_rate / 100) / 365) + 1
 
         self.daily_change = [days_change for days_change in self.daily_change_generator()]
@@ -88,8 +93,7 @@ class BalanceSheet:
 
         self.stats = {
             "Min Balance": f"${math.floor(min(self.balances))}",
-            "Min On-hand": f"${self.current_balance - math.floor(min(self.balances))}",
-            "Unallocated": f"${self.tx_set.budget['income'] + self.tx_set.budget['expenses']}",
+            "Budget Difference": f"${self.tx_set.budget['income'] + self.tx_set.budget['expenses']}",
             "Runway Length": f"{round((self.current_balance / self.emergency_fund), 2)} mo"
         }
 

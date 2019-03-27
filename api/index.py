@@ -1,10 +1,16 @@
 from api import app
 from flask import jsonify
 from api.lib.report_data import get_balances, get_transactions
+from api.lib.dynamic_report import report
 
 params = {
     "report_name": {"name": "report", "type": "str", "where": "in-url"}
 }
+
+@app.route("/update")
+def update_report():
+    report.update()
+    return jsonify({"success": True})
 
 @app.route("/")
 def manifest():

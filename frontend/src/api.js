@@ -10,6 +10,10 @@ export async function getData(url) {
   return response.data;
 }
 
+export async function update() {
+  return await getData(`/update`);
+}
+
 export async function getBills(days) {
   return await getData(`/report/bills/${days}`);
 }

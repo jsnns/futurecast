@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import { getStats } from "../api";
-import { Box, Meter, Heading, Text } from "grommet";
+import { Box, Heading, Text } from "grommet";
 
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -34,10 +34,16 @@ class StatsTables extends Component {
         <Box direction="row" background="brand" pad="medium">
           {stats.map(stat => (
             <Box direction="column" basis="small">
-              <Heading level={3} margin="none">
+              <Heading
+                style={{ fontFamily: "Abril Fatface", fontSize: "21pt" }}
+                level={3}
+                margin="none"
+              >
                 {stat.value}
               </Heading>
-              <Text margin="none">{stat.label}</Text>
+              <Text margin="none" style={{ fontFamily: "Lato" }}>
+                {stat.label}
+              </Text>
             </Box>
           ))}
         </Box>
