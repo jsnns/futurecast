@@ -1,5 +1,5 @@
 import unittest
-from delta.account import Account
+from api.delta.account import Account
 
 
 class AccountTest(unittest.TestCase):

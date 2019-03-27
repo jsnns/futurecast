@@ -1,4 +1,4 @@
-from delta import Schedule
+from api.delta import Schedule
 
 class Transaction:
     def __init__(self, *args, **kwargs):
@@ -12,6 +12,14 @@ class Transaction:
         if not self.monthly_value:
             self.monthly_value = self._value
 
+    @property
+    def value(self):
+        return self._value
+
+    @value.setter
+    def value(self, value):
+        self._value = value
+
     def toJSON(self, MONTHS=6):
         return {
             "name": self.name,
@@ -21,10 +29,3 @@ class Transaction:
             "monthly_value": self.monthly_value
         }
 
-    @property
-    def value(self):
-        return self._value
-
-    @value.setter
-    def value(self, value):
-        self._value = value

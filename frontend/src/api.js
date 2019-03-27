@@ -19,15 +19,15 @@ export async function getBills(days) {
 }
 
 export async function getBudget(report) {
-  return await getData(`/report/budget/${report}`);
+  return await getData(`/report/budget`);
 }
 
 export async function getBalance(report) {
-  return await getData(`/report/balances/${report}`);
+  return await getData(`/report/balances`);
 }
 
 export async function getStats(report) {
-  return await getData(`/report/stats/${report}`);
+  return await getData(`/report/stats`);
 }
 
 export async function getTransactions() {

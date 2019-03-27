@@ -1,8 +1,8 @@
 import unittest
-from delta import TransactionSet
-from delta import BalanceSheet
-from delta import Transaction
-from delta import Schedule
+from api.delta import TransactionSet
+from api.delta import BalanceSheet
+from api.delta import Transaction
+from api.delta import Schedule
 
 from datetime import datetime
 from dateutil.relativedelta import relativedelta

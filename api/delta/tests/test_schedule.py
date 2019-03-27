@@ -1,5 +1,5 @@
 import unittest
-from delta.schedule import Schedule
+from api.delta.schedule import Schedule
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from datetime import timedelta

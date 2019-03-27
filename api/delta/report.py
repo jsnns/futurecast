@@ -1,6 +1,6 @@
-from delta import Account
-from delta import Transaction
-from delta import Schedule
+from api.delta import Account
+from api.delta import Transaction
+from api.delta import Schedule
 
 import math
 from datetime import datetime
@@ -16,7 +16,24 @@ class TransactionSet:
         self.date = datetime.now()
         self.date = self.date.replace(hour=0, minute=0, second=0, microsecond=0)
         self.transactions = kwargs.get("transactions")
-        self.budget = self.get_budget()
+        self.log = [day for day in self.log_generator()]
+
+    @property
+    def income(self):
+        total_income = 0
+        for tx in self.transactions:
+            if tx.category == "income":
+                total_income += tx.monthly_value
+        return total_income
+
+
+    @property
+    def expenses(self):
+        total_expenses = 0
+        for tx in self.transactions:
+            if tx.value < 0 and tx.category != "once":
+                total_expenses += tx.monthly_value
+        return total_expenses
 
     def day_range(self):
         i = 0
@@ -35,34 +52,6 @@ class TransactionSet:
                 "transactions": [transaction for transaction in self.transactions if transaction.schedule.occurs_on_day(day)]
             }
 
-    def get_budget(self):
-        budget = dict(expenses=0, income=0, category={}, budget=[])
-
-        for tx in self.transactions:
-            if tx.value < 0 and tx.category != "once":
-                budget["expenses"] += tx.monthly_value
-
-            if tx.category == "income":
-                budget["income"] += tx.monthly_value
-            elif tx.category != "once":
-                if tx.category not in budget["category"]:
-                    budget["category"][tx.category] = 0
-                budget["category"][tx.category] += tx.monthly_value
-
-        for cat, val in budget["category"].items():
-            if budget["income"] != 0:
-                budget["budget"].append([
-                    f"{cat}",
-                    f"{val}",
-                    abs(float(val)) / float(budget["income"])
-                ])
-
-        return budget
-
-    @property
-    def log(self):
-        return [day for day in self.log_generator()]
-
 class BalanceSheet:
     def __init__(self, *args, **kwargs):
         self.tx_set = kwargs.get("tx_set")
@@ -71,9 +60,7 @@ class BalanceSheet:
 
         self.current_balance = sum([account.balance for account in self.accounts])
 
-        self.emergency_fund = abs(self.tx_set.budget["expenses"])
-        if self.emergency_fund <= 0:
-            self.emergency_fund = 1
+        self.emergency_fund = abs(self.tx_set.expenses)
 
         self.interest_rate = kwargs.get("interest_rate")
 
@@ -88,14 +75,6 @@ class BalanceSheet:
         self.balances = [o["balance"] for o in self.sheet]
         self.mins = [o["minimum"] for o in self.sheet]
         self.days = [o["day"].date() for o in self.sheet]
-
-        self.minimum_balances = []
-
-        self.stats = {
-            "Min Balance": f"${math.floor(min(self.balances))}",
-            "Budget Difference": f"${self.tx_set.budget['income'] + self.tx_set.budget['expenses']}",
-            "Runway Length": f"{round((self.current_balance / self.emergency_fund), 2)} mo"
-        }
 
     def daily_change_generator(self):
         for day in self.log:
