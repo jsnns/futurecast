@@ -11,6 +11,6 @@ def get_stats(report):
 
   return {
     "Min Balance": f"${min_balance}",
-    "Budget Difference": f"${budget_difference}",
+    "Leftover": f"${budget_difference}",
     "Runway Length": f"{runway_length} mo"
   }

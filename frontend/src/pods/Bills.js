@@ -49,14 +49,7 @@ class BillsTable extends Component {
       <Box>
         <Box pad="small">
           <Text>Number of Days</Text>
-          <Box
-            pad={{
-              left: "medium",
-              right: "medium",
-              top: "small",
-              bottom: "small"
-            }}
-          >
+          <Box pad="small">
             <RangeInput
               min={14}
               max={50}

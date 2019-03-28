@@ -81,17 +81,10 @@ class Balance extends Component {
     const { data, days } = this.state;
 
     return (
-      <Box style={{ minWidth: 500 }}>
+      <Box>
         <Box pad="small">
           <Text>Number of Days</Text>
-          <Box
-            pad={{
-              left: "medium",
-              right: "medium",
-              top: "small",
-              bottom: "small"
-            }}
-          >
+          <Box pad="small">
             <RangeInput
               min={2}
               max={600}
@@ -101,7 +94,7 @@ class Balance extends Component {
             />
           </Box>
         </Box>
-        <Box height="medium" pad={{ left: "small" }}>
+        <Box pad="small" height="medium" style={{ position: "relative" }}>
           <Line
             data={data}
             options={{

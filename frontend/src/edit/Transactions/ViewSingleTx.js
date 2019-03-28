@@ -48,16 +48,11 @@ class ViewSingleTx extends Component {
     return (
       <OutsideAlerter onClick={this.clearWiggle}>
         <Box
-          pad={{
-            top: "medium",
-            bottom: "small",
-            left: "medium",
-            right: "medium"
-          }}
+          pad="medium"
+          elevation="small"
+          margin="7px"
           className={wiggleDelete ? "wiggle" : ""}
           background={tx.value > 0 ? "status-ok" : "status-critical"}
-          elevation="small"
-          margin="small"
           onMouseDown={this.handleButtonPress}
           onMouseUp={this.handleButtonRelease}
           round

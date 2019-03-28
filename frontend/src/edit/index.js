@@ -51,7 +51,7 @@ class Edit extends Component {
         <Box direction="row-responsive">
           <Button margin="small" icon={<Home />} label="Home" href="/" />
         </Box>
-        <Box direction="row">
+        <Box direction="row-responsive">
           <DashboardWidget title="Transactions" basis="1/2">
             <EditTxs />
           </DashboardWidget>

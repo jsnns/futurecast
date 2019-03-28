@@ -64,66 +64,62 @@ class EditAccounts extends Component {
   render() {
     return (
       <Box pad="medium">
-        <Box direction="row" wrap>
+        <Box direction="row-responsive" wrap>
           {this.state.acs.map((ac, i) => {
             return (
-              <Box
-                style={{ position: "relative" }}
-                pad={{
-                  top: "small",
-                  bottom: "small",
-                  left: "small",
-                  right: "small"
-                }}
-                background="neutral-3"
-                elevation="small"
-                margin="small"
-                round
-                key={ac.name}
-              >
-                <AsyncButton
-                  icon={<Checkmark />}
-                  done={this.markAccountDoneUpdating}
-                  onClick={this.push(i)}
-                  shown={this.state.updatedAcs.includes(i)}
-                />
-                <Box direction="row" pad={{ left: "small", right: "small" }}>
-                  <Text
-                    style={{
-                      fontFamily: "Abril Fatface",
-                      fontSize: "18pt",
-                      opacity: 0.99,
-                      marginTop: 3,
-                      marginRight: 4
-                    }}
-                  >
-                    $
-                  </Text>
+              <Box pad="small" basis="1/2">
+                <Box
+                  style={{ position: "relative" }}
+                  pad="small"
+                  background="neutral-3"
+                  elevation="small"
+                  key={ac.name}
+                  round
+                >
+                  <AsyncButton
+                    icon={<Checkmark />}
+                    done={this.markAccountDoneUpdating}
+                    onClick={this.push(i)}
+                    shown={this.state.updatedAcs.includes(i)}
+                  />
+                  <Box direction="row" pad={{ left: "small", right: "small" }}>
+                    <Text
+                      style={{
+                        fontFamily: "Abril Fatface",
+                        fontSize: "18pt",
+                        opacity: 0.99,
+                        marginTop: 3,
+                        marginRight: 4
+                      }}
+                    >
+                      $
+                    </Text>
+                    <TextInput
+                      plain
+                      defaultValue={ac.balance}
+                      style={{
+                        fontFamily: "Abril Fatface",
+                        fontSize: "22pt",
+                        opacity: 0.99,
+                        padding: 0,
+                        width: 100
+                      }}
+                      onChange={this.changeAc(i, "balance")}
+                    />
+                  </Box>
                   <TextInput
                     plain
-                    defaultValue={ac.balance}
+                    defaultValue={ac.name}
                     style={{
-                      fontFamily: "Abril Fatface",
-                      fontSize: "22pt",
-                      opacity: 0.99,
-                      padding: 0,
-                      width: 100
+                      fontFamily: "Alegreya",
+                      fontSize: "16pt",
+                      width: 200,
+                      paddingTop: 0,
+                      paddingBottom: 0
                     }}
-                    onChange={this.changeAc(i, "balance")}
+                    onChange={this.changeAc(i, "name")}
                   />
                 </Box>
-                <TextInput
-                  plain
-                  defaultValue={ac.name}
-                  style={{
-                    fontFamily: "Alegreya",
-                    fontSize: "16pt",
-                    width: 200,
-                    paddingTop: 0,
-                    paddingBottom: 0
-                  }}
-                  onChange={this.changeAc(i, "name")}
-                />
               </Box>
             );
           })}

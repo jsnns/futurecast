@@ -66,17 +66,10 @@ class Runway extends Component {
     const { runwayData } = this.state;
 
     return (
-      <Box style={{ minWidth: 500 }}>
+      <Box>
         <Box pad="small">
           <Text>Number of Days</Text>
-          <Box
-            pad={{
-              left: "medium",
-              right: "medium",
-              top: "small",
-              bottom: "small"
-            }}
-          >
+          <Box pad="small">
             <RangeInput
               min={2}
               max={600}
@@ -86,7 +79,7 @@ class Runway extends Component {
             />
           </Box>
         </Box>
-        <Box height="medium">
+        <Box pad="small" height="medium" style={{ position: "relative" }}>
           <Line
             data={runwayData}
             options={{

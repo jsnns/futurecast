@@ -108,7 +108,7 @@ class Budget extends Component {
     const { data, table } = this.state;
 
     return (
-      <Box>
+      <Box flex="shrink" direction="row-responsive" wrap>
         <Box pad={{ left: "large", top: "small" }} height="medium">
           {data && (
             <Pie
