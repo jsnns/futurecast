@@ -32,7 +32,7 @@ def TX_JSON(j):
         js["start"] = 0
 
     if j["category"] is not "once":
-        if "end" not in js:
+        if "end" not in js or not js["end"]:
             js["end"] = 0
 
         if "days" not in js:
