@@ -18,8 +18,10 @@ function toTimeStamp(date) {
 
 class EditTxs extends Component {
   state = {
-    txs: [],
-    allTxs: [],
+    income: [],
+    expenses: [],
+    allIncome: [],
+    allExpenses: [],
     selectedTx: null
   };
 
@@ -39,8 +41,9 @@ class EditTxs extends Component {
 
   async getData() {
     let data = await getTransactions();
-    let txs = data.sort((a, b) => b.value - a.value);
-    this.setState({ txs, allTxs: txs });
+    let income = data.filter(tx => tx.value > 0).sort((a, b) => a.value - b.value);
+    let expenses = data.filter(tx => tx.value <= 0).sort((a, b) => a.value - b.value);
+    this.setState({ income, expenses, allIncome: income, allExpenses: expenses });
   }
 
   openEditModal(tx) {
@@ -69,11 +72,12 @@ class EditTxs extends Component {
   }
 
   filterTxs(e) {
-    const { allTxs } = this.state;
-    if (e.target.value !== "") this.setState({ txs: allTxs });
-    const search = e.target.value;
-    let txs = allTxs.filter(tx => tx.name && tx.name.indexOf(search) > -1);
-    this.setState({ txs });
+    const { allIncome, allExpenses } = this.state;
+    if (e.target.value !== "") this.setState({ income: allIncome, expenses: allExpenses });
+    const search = e.target.value.toLowerCase();
+    let income = allIncome.filter(tx => tx.name && tx.name.toLowerCase().indexOf(search) > -1);
+    let expenses = allExpenses.filter(tx => tx.name && tx.name.toLowerCase().indexOf(search) > -1);
+    this.setState({ income, expenses });
   }
 
   updateTx(key) {
@@ -115,8 +119,18 @@ class EditTxs extends Component {
               <TextInput placeholder="Search" onChange={this.filterTxs} />
             </Box>
           </Box>
+          <Box direction="row-responsive" wrap margin={{bottom: "medium"}}>
+            {this.state.income.map(tx => (
+              <SingleTx
+                tx={tx}
+                key={tx.name}
+                openEditModal={this.openEditModal}
+                refresh={this.getData}
+              />
+            ))}
+          </Box>
           <Box direction="row-responsive" wrap>
-            {this.state.txs.map(tx => (
+            {this.state.expenses.map(tx => (
               <SingleTx
                 tx={tx}
                 key={tx.name}
