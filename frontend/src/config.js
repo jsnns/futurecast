@@ -1,3 +1,3 @@
 export default {
-  apiUrl: "http://money.sansburyhome.com:5000"
+  apiUrl: `http://${window.location.hostname}:5000`
 };

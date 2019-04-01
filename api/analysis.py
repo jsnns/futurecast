@@ -4,6 +4,13 @@ from flask import jsonify
 from api.lib.report_data import get_balances, get_transactions, get_stats, get_budget, get_report
 from api.delta.analysis.bills_to_pay import bills_to_pay
 
+
+@app.route("/ask/run_length/<desired_runway>")
+def size_of_emrg_fund_for_length(desired_runway):
+    report = get_report()
+    needed_money = int(desired_runway) * report.bal.emergency_fund
+    return jsonify({"message": f"To have a runway {desired_runway} month(s) long you will need ${needed_money:,d}."})
+
 @app.route("/ask/can_spend/<amount>")
 def ask_can_spend(amount):
     balances = get_balances()
@@ -12,7 +19,7 @@ def ask_can_spend(amount):
         return jsonify({"message": "Not in the near future."})
 
     first = balances[0]
-    message = f"{first['day'].strftime('%B %d, %Y')[:14]} will be the first day you have more than ${amount}. You'll have ${round(first['balance'])}."
+    message = f"{first['day'].strftime('%B %d, %Y')[:14]} will be the first day you have more than ${int(amount):,d}. You'll have ${round(first['balance']):,d}."
     return jsonify({"message": message, "data": first})
 
 @app.route("/report/balances")

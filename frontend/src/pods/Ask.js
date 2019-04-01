@@ -10,7 +10,7 @@ class Ask extends Component {
   }
 
   updateQuestion(e) {
-    this.setState({ question: e.target.value });
+    this.setState({ question: e.value });
   }
 
   updateParameter(e) {
@@ -28,7 +28,8 @@ class Ask extends Component {
   };
 
   questionsToSlugs = {
-    "When can we spend?": "can_spend"
+    "When can we spend?": "can_spend",
+    "How much would this runway cost?": "run_length"
   };
 
   render() {
