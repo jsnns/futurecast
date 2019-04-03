@@ -31,12 +31,17 @@ def TX_JSON(j):
     if "start" not in js:
         js["start"] = 0
 
-    if j["category"] is not "once":
+    if j["category"] == "once":
+        day = datetime.fromtimestamp(js["start"])
+        s = Once(day.year, day.month, day.day)
+
+    else:
         if "end" not in js or not js["end"]:
             js["end"] = 0
 
         if "days" not in js:
             js["days"] = None
+
         if "months" not in js:
             js["months"] = None
 
@@ -44,10 +49,8 @@ def TX_JSON(j):
                     end=datetime.fromtimestamp(js["end"]),
                     interval=relativedelta(
                         days=js["days"] or 0,
-                        months=js["months"] or 0))
-    else:
-        day = datetime.fromtimestamp(js["start"])
-        s = Once(day.year, day.month, day.day)
+                        months=js["months"] or 0)
+                    )
 
     t = Transaction(name=j["name"], category=j["category"], schedule=s, value=j["value"], monthly=j["monthly_value"])
     return t
@@ -57,12 +60,10 @@ def AC_JSON(j):
 
 class R:
     def __init__(self):
-        self.accounts = [AC_JSON(ac) for ac in ac_collection.find({})]
-        self.txs = [TX_JSON(tx) for tx in tx_collection.find({})]
-        self.tx_set = Log(transactions=self.txs, end=(datetime.today() + relativedelta(months=24)))
-        self.bal = Report(tx_set=self.tx_set, accounts=self.accounts)
+        self.update()
 
     def update(self):
+        print("updating")
         self.accounts = [AC_JSON(ac) for ac in ac_collection.find({})]
         self.txs = [TX_JSON(tx) for tx in tx_collection.find({})]
         self.tx_set = Log(transactions=self.txs, end=datetime.today() + relativedelta(months=24))

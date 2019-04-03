@@ -52,7 +52,13 @@ class ViewSingleTx extends Component {
           elevation="small"
           margin="7px"
           className={wiggleDelete ? "wiggle" : ""}
-          background={tx.value > 0 ? "status-ok" : "status-critical"}
+          background={
+            !tx.value
+              ? "dark-2"
+              : tx.value > 0
+              ? "status-ok"
+              : "status-critical"
+          }
           onMouseDown={this.handleButtonPress}
           onMouseUp={this.handleButtonRelease}
           round

@@ -9,10 +9,8 @@ services:
     volumes:
       - ./frontend/src:/app/src
   api:
-    build: ./
+    build: .
     ports:
       - "5000:5000"
     volumes:
       - ./api:/app/api
-      - ./delta:/app/delta
-      - ./data:/app/data

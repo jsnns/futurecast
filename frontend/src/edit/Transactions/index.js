@@ -22,6 +22,7 @@ class EditTxs extends Component {
     expenses: [],
     allIncome: [],
     allExpenses: [],
+    nullTxs: [],
     selectedTx: null
   };
 
@@ -40,10 +41,22 @@ class EditTxs extends Component {
   }
 
   async getData() {
+    console.log("getting data");
     let data = await getTransactions();
-    let income = data.filter(tx => tx.value > 0).sort((a, b) => a.value - b.value);
-    let expenses = data.filter(tx => tx.value <= 0).sort((a, b) => a.value - b.value);
-    this.setState({ income, expenses, allIncome: income, allExpenses: expenses });
+    let income = data
+      .filter(tx => tx.value > 0)
+      .sort((a, b) => a.value - b.value);
+    let expenses = data
+      .filter(tx => tx.value <= 0)
+      .sort((a, b) => a.value - b.value);
+    let nullTxs = data.filter(tx => !tx.value);
+    this.setState({
+      income,
+      expenses,
+      allIncome: income,
+      allExpenses: expenses,
+      nullTxs: nullTxs
+    });
   }
 
   openEditModal(tx) {
@@ -73,10 +86,15 @@ class EditTxs extends Component {
 
   filterTxs(e) {
     const { allIncome, allExpenses } = this.state;
-    if (e.target.value !== "") this.setState({ income: allIncome, expenses: allExpenses });
+    if (e.target.value !== "")
+      this.setState({ income: allIncome, expenses: allExpenses });
     const search = e.target.value.toLowerCase();
-    let income = allIncome.filter(tx => tx.name && tx.name.toLowerCase().indexOf(search) > -1);
-    let expenses = allExpenses.filter(tx => tx.name && tx.name.toLowerCase().indexOf(search) > -1);
+    let income = allIncome.filter(
+      tx => tx.name && tx.name.toLowerCase().indexOf(search) > -1
+    );
+    let expenses = allExpenses.filter(
+      tx => tx.name && tx.name.toLowerCase().indexOf(search) > -1
+    );
     this.setState({ income, expenses });
   }
 
@@ -109,6 +127,7 @@ class EditTxs extends Component {
                 onClick={() => {
                   newTransaction({})
                     .then(() => {
+                      console.log("getting new data.");
                       this.getData();
                     })
                     .catch(() => console.log("Error getting new Txs"));
@@ -119,7 +138,17 @@ class EditTxs extends Component {
               <TextInput placeholder="Search" onChange={this.filterTxs} />
             </Box>
           </Box>
-          <Box direction="row-responsive" wrap margin={{bottom: "medium"}}>
+          <Box direction="row-responsive" wrap margin={{ bottom: "medium" }}>
+            {this.state.nullTxs.map(tx => (
+              <SingleTx
+                tx={tx}
+                key={tx.name}
+                openEditModal={this.openEditModal}
+                refresh={this.getData}
+              />
+            ))}
+          </Box>
+          <Box direction="row-responsive" wrap margin={{ bottom: "medium" }}>
             {this.state.income.map(tx => (
               <SingleTx
                 tx={tx}

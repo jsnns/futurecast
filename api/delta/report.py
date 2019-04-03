@@ -7,8 +7,6 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from tabulate import tabulate
 
-import warnings
-warnings.filterwarnings("ignore")
 
 class Report:
     def __init__(self, *args, **kwargs):
