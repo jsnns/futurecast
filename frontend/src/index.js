@@ -1,6 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
-require('dotenv').config()
+import ReactDOM from "react-dom";
+import { makeMainRoutes } from "./routes";
+const routes = makeMainRoutes();
 
-ReactDOM.render(<App />, document.getElementById('root'));
+require("dotenv").config();
+
+ReactDOM.render(routes, document.getElementById("root"));

@@ -1,5 +1,3 @@
-from api.delta import Schedule
-
 class Transaction:
     def __init__(self, *args, **kwargs):
 

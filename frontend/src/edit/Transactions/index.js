@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 
-import { getTransactions, updateTransaction, newTransaction } from "../../api";
+import gql from "graphql-tag";
+import { Query, Subscription } from "react-apollo";
 
 import { Box, Button, TextInput } from "grommet";
 import SingleTx from "./ViewSingleTx";
 import { Add } from "grommet-icons";
 import EditTransactionModal from "./EditTransactionModal";
+import { client, auth } from "../../routes";
 
 function toTimeStamp(date) {
   if (date && date.split) {
@@ -15,6 +17,20 @@ function toTimeStamp(date) {
   }
   return date;
 }
+
+const GET_TRANSACTIONS = gql`
+  subscription {
+    transactions {
+      id
+      value
+      name
+      start
+      end
+      interval_days
+      interval_months
+    }
+  }
+`;
 
 class EditTxs extends Component {
   state = {
@@ -28,35 +44,9 @@ class EditTxs extends Component {
 
   constructor(props) {
     super(props);
-    this.getData = this.getData.bind(this);
     this.openEditModal = this.openEditModal.bind(this);
-    this.pushTx = this.pushTx.bind(this);
-    this.filterTxs = this.filterTxs.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.updateTx = this.updateTx.bind(this);
-  }
-
-  componentWillMount() {
-    this.getData();
-  }
-
-  async getData() {
-    console.log("getting data");
-    let data = await getTransactions();
-    let income = data
-      .filter(tx => tx.value > 0)
-      .sort((a, b) => a.value - b.value);
-    let expenses = data
-      .filter(tx => tx.value <= 0)
-      .sort((a, b) => a.value - b.value);
-    let nullTxs = data.filter(tx => !tx.value);
-    this.setState({
-      income,
-      expenses,
-      allIncome: income,
-      allExpenses: expenses,
-      nullTxs: nullTxs
-    });
   }
 
   openEditModal(tx) {
@@ -67,40 +57,22 @@ class EditTxs extends Component {
     this.setState({ selectedTx: null });
   }
 
-  pushTx(tx) {
-    if (tx.schedule) {
-      tx.schedule.start = toTimeStamp(tx.schedule.start);
-      tx.schedule.end = toTimeStamp(tx.schedule.end);
-
-      tx.schedule.days = Number(tx.schedule.days);
-      tx.schedule.months = Number(tx.schedule.months);
-    }
-
-    tx.value = Number(tx.value);
-    tx.monthly_value = Number(tx.monthly_value);
-
-    updateTransaction(tx._id.$oid, tx).then(() =>
-      this.setState({ selectedTx: null })
-    );
-  }
-
-  filterTxs(e) {
-    const { allIncome, allExpenses } = this.state;
-    if (e.target.value !== "")
-      this.setState({ income: allIncome, expenses: allExpenses });
-    const search = e.target.value.toLowerCase();
-    let income = allIncome.filter(
-      tx => tx.name && tx.name.toLowerCase().indexOf(search) > -1
-    );
-    let expenses = allExpenses.filter(
-      tx => tx.name && tx.name.toLowerCase().indexOf(search) > -1
-    );
-    this.setState({ income, expenses });
-  }
-
   updateTx(key) {
+    const { selectedTx } = this.state;
     return e => {
-      const { selectedTx } = this.state;
+      const UPDATE_TRANSACTION = gql`
+        mutation {
+          update_transactions(where: {id: {_eq: "${
+            selectedTx.id
+          }"}}, _set: {${key}: "${e.target.value}"}) {
+            returning {
+              id
+            }
+          }
+        }`;
+      client
+        .mutate({ mutation: UPDATE_TRANSACTION })
+        .then(transaction => this.setState({ selectedTx }));
       selectedTx[key] = e.target.value;
       this.setState({ selectedTx });
     };
@@ -125,48 +97,41 @@ class EditTxs extends Component {
                 style={{ width: 50 }}
                 primary
                 onClick={() => {
-                  newTransaction({})
-                    .then(() => {
-                      console.log("getting new data.");
-                      this.getData();
+                  client
+                    .mutate({
+                      mutation: gql`
+                        mutation {
+                          insert_transactions(
+                            objects: { owner: "${auth.user_id}" }
+                          ) {
+                            returning {
+                              id
+                            }
+                          }
+                        }
+                      `
                     })
-                    .catch(() => console.log("Error getting new Txs"));
+                    .then(() => console.log("made new tx"));
                 }}
               />
             </Box>
-            <Box margin="small" fill>
-              <TextInput placeholder="Search" onChange={this.filterTxs} />
-            </Box>
-          </Box>
-          <Box direction="row-responsive" wrap margin={{ bottom: "medium" }}>
-            {this.state.nullTxs.map(tx => (
-              <SingleTx
-                tx={tx}
-                key={tx.name}
-                openEditModal={this.openEditModal}
-                refresh={this.getData}
-              />
-            ))}
-          </Box>
-          <Box direction="row-responsive" wrap margin={{ bottom: "medium" }}>
-            {this.state.income.map(tx => (
-              <SingleTx
-                tx={tx}
-                key={tx.name}
-                openEditModal={this.openEditModal}
-                refresh={this.getData}
-              />
-            ))}
           </Box>
           <Box direction="row-responsive" wrap>
-            {this.state.expenses.map(tx => (
-              <SingleTx
-                tx={tx}
-                key={tx.name}
-                openEditModal={this.openEditModal}
-                refresh={this.getData}
-              />
-            ))}
+            <Subscription subscription={GET_TRANSACTIONS}>
+              {({ loading, error, data, networkStatus }) => {
+                if (loading) return "loading";
+                if (error) return `Error! ${error.message}`;
+
+                return data.transactions.map(transaction => {
+                  return (
+                    <SingleTx
+                      transaction={transaction}
+                      openEditModal={this.openEditModal}
+                    />
+                  );
+                });
+              }}
+            </Subscription>
           </Box>
         </Box>
       </Box>

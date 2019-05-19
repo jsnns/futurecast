@@ -6,30 +6,6 @@ from api.lib.dynamic_report import report
 from api.lib.mongo import tx_collection, ac_collection
 from flask_pymongo import PyMongo, ObjectId
 
-@app.route("/ac", methods=["POST"])
-def new_ac():
-    body = request.json
-    ac_id = ac_collection.insert_one(body).inserted_id
-    report.update()
-    return jsonify({"id": str(ac_id)})
-
-
-@app.route("/ac", methods=["PUT"])
-def update_ac():
-    body = request.json
-    if "_id" in body["update"]:
-        del body["update"]["_id"]
-    ac_collection.find_one_and_update({"_id": ObjectId(body['_id'])}, {"$set": body["update"]})
-    report.update()
-    return jsonify({"success": True})
-    
-
-@app.route("/ac", methods=["GET"])
-def get_all_acs():
-    acs = [ac for ac in ac_collection.find({})]
-    return jsonify(json.loads(dumps(acs)))
-
-
 @app.route("/tx", methods=["POST"])
 def new_tx():
     body = request.json
@@ -46,7 +22,7 @@ def update_tx():
     tx_collection.find_one_and_update({"_id": ObjectId(body['_id'])}, {"$set": body["update"]})
     report.update()
     return jsonify({"success": True})
-    
+
 
 @app.route("/tx", methods=["GET"])
 def get_all_txs():

@@ -3,15 +3,19 @@ import React, { Component } from "react";
 import { deleteTransaction } from "../../api";
 import { Box, Text } from "grommet";
 import { Close } from "grommet-icons";
-import OutsideAlerter from "../../components/OutsideClickAlerter";
 
 import "../../wiggle.css";
+import OutsideAlerter from "../../components/OutsideClickAlerter";
 import AsyncButton from "../../components/AsyncButton";
 
 class ViewSingleTx extends Component {
-  constructor() {
-    super();
-    this.state = { wiggleDelete: false };
+  constructor(props) {
+    super(props);
+    this.state = {
+      wiggleDelete: false,
+      error: null
+    };
+
     this.handleButtonPress = this.handleButtonPress.bind(this);
     this.handleButtonRelease = this.handleButtonRelease.bind(this);
     this.clearWiggle = this.clearWiggle.bind(this);
@@ -32,30 +36,33 @@ class ViewSingleTx extends Component {
   handleButtonRelease() {
     clearTimeout(this.buttonPressTimer);
     if (!this.state.wiggleDelete) {
-      this.props.openEditModal(this.props.tx);
+      this.props.openEditModal(this.props.transaction);
     }
   }
 
   async trashTransaction() {
-    const { tx } = this.props;
-    return deleteTransaction(tx._id.$oid);
+    const { transaction } = this.props;
+    return deleteTransaction(transaction._id.$oid);
   }
 
   render() {
-    const { tx, refresh } = this.props;
-    const { wiggleDelete } = this.state;
+    const { refresh, transaction } = this.props;
+    const { wiggleDelete, error } = this.state;
+
+    if (error) return JSON.stringify(error);
+    if (transaction === null) return "loading";
 
     return (
       <OutsideAlerter onClick={this.clearWiggle}>
         <Box
           pad="medium"
-          elevation="small"
+          elevation="medium"
           margin="7px"
           className={wiggleDelete ? "wiggle" : ""}
           background={
-            !tx.value
+            !transaction.value
               ? "dark-2"
-              : tx.value > 0
+              : transaction.value > 0
               ? "status-ok"
               : "status-critical"
           }
@@ -77,13 +84,13 @@ class ViewSingleTx extends Component {
               opacity: 0.99
             }}
           >
-            ${Math.abs(tx.value)}
+            ${Math.abs(transaction.value)}
           </Text>
           <Text style={{ fontFamily: "Alegreya", fontSize: "16pt" }}>
-            {tx.name}
+            {transaction.name}
           </Text>
           <Text style={{ fontFamily: "Lato", fontSize: "10pt", opacity: 0.7 }}>
-            {(tx.category || "").toUpperCase()}
+            {(transaction.category || "").toUpperCase()}
           </Text>
         </Box>
       </OutsideAlerter>

@@ -4,67 +4,68 @@ from dateutil.relativedelta import relativedelta
 from api.delta import Schedule, Transaction, Account, Once, Log, Report
 from api.lib.mongo import tx_collection, ac_collection
 
-def TX_JSON(j):
-    if not j:
-        j = {}
+from api.db import Account as AccountDB
 
-    if "schedule" not in j:
-        j["schedule"] = {
+def TX_JSON(tx_body):
+    if not tx_body:
+        tx_body = {}
+
+    if "schedule" not in tx_body:
+        tx_body["schedule"] = {
             "start": 0,
             "end": 0,
         }
 
-    if "category" not in j:
-        j["category"] = ""
+    if "category" not in tx_body:
+        tx_body["category"] = ""
 
-    if "monthly_value" not in j:
-        j["monthly_value"] = 0
+    if "monthly_value" not in tx_body:
+        tx_body["monthly_value"] = 0
 
-    if "name" not in j:
-        j["name"] = ""
+    if "name" not in tx_body:
+        tx_body["name"] = ""
 
-    if "value" not in j:
-        j["value"] = 0
+    if "value" not in tx_body:
+        tx_body["value"] = 0
 
-    js = j["schedule"]
+    schedule_body = tx_body["schedule"]
 
-    if "start" not in js:
-        js["start"] = 0
+    if "start" not in schedule_body:
+        schedule_body["start"] = 0
 
-    if j["category"] == "once":
-        day = datetime.fromtimestamp(js["start"])
+    if tx_body["category"] == "once":
+        day = datetime.fromtimestamp(schedule_body["start"])
         s = Once(day.year, day.month, day.day)
 
     else:
-        if "end" not in js or not js["end"]:
-            js["end"] = 0
+        if "end" not in schedule_body or not schedule_body["end"]:
+            schedule_body["end"] = 0
 
-        if "days" not in js:
-            js["days"] = None
+        if "days" not in schedule_body:
+            schedule_body["days"] = None
 
-        if "months" not in js:
-            js["months"] = None
+        if "months" not in schedule_body:
+            schedule_body["months"] = None
 
-        s = Schedule(start=datetime.fromtimestamp(js["start"]),
-                    end=datetime.fromtimestamp(js["end"]),
+        s = Schedule(start=datetime.fromtimestamp(schedule_body["start"]),
+                    end=datetime.fromtimestamp(schedule_body["end"]),
                     interval=relativedelta(
-                        days=js["days"] or 0,
-                        months=js["months"] or 0)
+                        days=schedule_body["days"] or 0,
+                        months=schedule_body["months"] or 0)
                     )
 
-    t = Transaction(name=j["name"], category=j["category"], schedule=s, value=j["value"], monthly=j["monthly_value"])
+    t = Transaction(name=tx_body["name"], category=tx_body["category"], schedule=s, value=tx_body["value"], monthly=tx_body["monthly_value"])
     return t
 
-def AC_JSON(j):
-    return Account(name=j["name"], balance=j["balance"])
+def ToAccount(account):
+    return Account(name=account["name"], balance=account["balance"])
 
 class R:
     def __init__(self):
         self.update()
 
     def update(self):
-        print("updating")
-        self.accounts = [AC_JSON(ac) for ac in ac_collection.find({})]
+        self.accounts = [ToAccount(account) for account in AccountDB.objects]
         self.txs = [TX_JSON(tx) for tx in tx_collection.find({})]
         self.tx_set = Log(transactions=self.txs, end=datetime.today() + relativedelta(months=24))
         self.bal = Report(tx_set=self.tx_set, accounts=self.accounts)

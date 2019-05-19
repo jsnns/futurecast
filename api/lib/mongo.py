@@ -5,7 +5,7 @@ PROD = "mongodb+srv://adder-api:6%23L%409WR%21*ZdX2Q%3DBc%29Tm@sansburymoney-vwe
 
 LOCAL = "mongodb://localhost:27017/new"
 
-app.config["MONGO_URI"] = PROD
+app.config["MONGO_URI"] = LOCAL
 
 mongo = PyMongo(app)
 
