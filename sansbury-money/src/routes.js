@@ -1,24 +1,22 @@
 import React from "react";
 import { Route, Router } from "react-router-dom";
-
-import AuthenticatedRoute from "./AuthenticatedRoute/AuthenticatedRoute";
-import Callback from "./Callback/Callback";
-import Report from "./Report";
-import Stats from "./Widgit/Stats";
-import history from "./history";
-import Auth from "./Auth/Auth";
 import ApolloClient from "apollo-client";
 import { WebSocketLink } from "apollo-link-ws";
 import { setContext } from "apollo-link-context";
 import { ApolloProvider } from "react-apollo";
 import { InMemoryCache } from "apollo-cache-inmemory";
-
-import { GRAPHQL_URL, GRAPHQL_URL_WS } from "./constants/constants";
-import Edit from "./edit";
-
 import { split } from "apollo-link";
 import { HttpLink } from "apollo-link-http";
 import { getMainDefinition } from "apollo-utilities";
+
+import AuthenticatedRoute from "./AuthenticatedRoute/AuthenticatedRoute";
+import Callback from "./Callback/Callback";
+import Report from "./Report";
+import history from "./history";
+import Auth from "./Auth/Auth";
+import Edit from "./Edit/Edit";
+
+import { GRAPHQL_URL, GRAPHQL_URL_WS } from "./constants/constants";
 
 // Create an http link:
 const httpLink = new HttpLink({
@@ -94,12 +92,6 @@ export const makeMainRoutes = () => {
 	return (
 		<Router history={history}>
 			<div className="container">
-				<Route
-					path="/"
-					render={props =>
-						authenticatedRoute(provideClient(<Stats />))
-					}
-				/>
 				<Route
 					path="/"
 					exact

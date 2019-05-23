@@ -5,19 +5,21 @@ import Balance from "./Widgit/Balance";
 import Bills from "./Widgit/Bills";
 import Ask from "./Widgit/Ask";
 import Runway from "./Widgit/Runway";
+import Stats from "./Widgit/Stats";
 
 import { Box, Button } from "grommet";
 import { Edit as EditIcon, Refresh } from "grommet-icons";
 import { update } from "./api";
 
 import "./css.css";
-import DashboardWidget from "./components/DashboardWidget";
+import DashboardWidget from "./shared/DashboardWidget";
 
 const Report = () => {
 	const reload = () => window.location.reload();
 
 	return (
 		<Box>
+			<Stats />
 			<Box pad="small" direction="column">
 				<Box direction="row" gap="small">
 					<Button icon={<EditIcon />} label="Edit" href="/edit" />

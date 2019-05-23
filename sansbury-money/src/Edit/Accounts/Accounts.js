@@ -1,11 +1,14 @@
 import React, { Component } from "react";
-import { getAccounts, updateAccount } from "../../api";
+import { Subscription } from "react-apollo";
 import { Box, TextInput, Text, Button } from "grommet";
 import { Checkmark, Add } from "grommet-icons";
-import AsyncButton from "../../components/AsyncButton";
-import { client, auth } from "../../routes";
+
+import AsyncButton from "../../shared/AsyncButton";
+
 import gql from "graphql-tag";
-import { Subscription } from "react-apollo";
+
+import { client, auth } from "../../routes";
+import { getAccounts, updateAccount } from "../../api";
 
 const GET_ACCOUNTS = gql`
 	subscription {

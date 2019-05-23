@@ -2,14 +2,10 @@ import React, { Component } from "react";
 
 import gql from "graphql-tag";
 import { client } from "../routes";
-import {
-	getBalances,
-	getTotalBalance,
-	toCurrency,
-	getKey,
-	getMinimum
-} from "../logic";
 import { Box, Heading, Text } from "grommet";
+
+import { getBalances } from "../logic";
+import * as _ from "../helpers";
 
 class StatsTables extends Component {
 	state = { stats: [] };
@@ -40,7 +36,9 @@ class StatsTables extends Component {
 				if (error) console.log(`Error! ${error}`);
 				if (data) {
 					const { transactions, accounts } = data.users[0];
-					const currentBalance = getTotalBalance(accounts);
+					const currentBalance = _.sumArray(
+						_.getKey(accounts, "balance")
+					);
 					const balances = getBalances(
 						transactions,
 						currentBalance,
@@ -49,13 +47,13 @@ class StatsTables extends Component {
 					const stats = [
 						{
 							label: "Minimum Balance",
-							value: toCurrency(
-								getMinimum(getKey(balances, "balance"))
+							value: _.toCurrency(
+								_.getMinimum(_.getKey(balances, "balance"))
 							)
 						},
 						{
 							label: "Current Balance",
-							value: toCurrency(currentBalance)
+							value: _.toCurrency(currentBalance)
 						}
 					];
 

@@ -3,7 +3,9 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { Box, DataTable, Text } from "grommet";
 
-import { toCurrency, sortAscendingByKey, getInstancesArray } from "../logic";
+import { getInstancesArray } from "../logic";
+import { sortAscendingByKey } from "../helpers/array";
+import { toCurrency } from "../helpers/format";
 
 const GET_TRANSACTIONS = gql`
 	{

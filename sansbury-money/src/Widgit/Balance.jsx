@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Line } from "react-chartjs-2";
-import { client } from "../routes";
 import gql from "graphql-tag";
 import { Box, Text, RangeInput } from "grommet";
-import { getBalances, getTotalBalance } from "../logic";
+
+import { client } from "../routes";
+import { getBalances } from "../logic";
+import * as _ from "../helpers";
 
 class Balance extends Component {
 	state = {
@@ -63,12 +65,12 @@ class Balance extends Component {
 	getData = (transactions, accounts, days) => {
 		this.setState({ days });
 
-		const startingBalance = getTotalBalance(accounts);
+		const startingBalance = _.sumArray(_.getKey(accounts, "balance"));
 		const data = getBalances(transactions, startingBalance, days);
 
-		const balances = data.map(day => day.balance);
-		const mins = data.map(day => day.minimum);
-		const labels = data.map(day => day.date);
+		const balances = _.getKey(data, "balance");
+		const mins = _.getKey(data, "minimum");
+		const labels = _.getKey(data, "date");
 
 		const chartData = {
 			mins,
@@ -101,8 +103,13 @@ class Balance extends Component {
 		this.setState({ accounts, transactions, ...chartData });
 	};
 
+	updateData = e => {
+		const { transactions, accounts } = this.state;
+		this.getData(transactions, accounts, Number(e.target.value));
+	};
+
 	render() {
-		const { data, days, transactions, accounts } = this.state;
+		const { data, days } = this.state;
 
 		return (
 			<Box>
@@ -114,13 +121,7 @@ class Balance extends Component {
 							max={600}
 							step={10}
 							value={days}
-							onChange={e =>
-								this.getData(
-									transactions,
-									accounts,
-									Number(e.target.value)
-								)
-							}
+							onChange={this.updateData}
 						/>
 					</Box>
 				</Box>

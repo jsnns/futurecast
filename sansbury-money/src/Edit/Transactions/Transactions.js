@@ -4,9 +4,9 @@ import gql from "graphql-tag";
 import { Subscription } from "react-apollo";
 
 import { Box, Button } from "grommet";
-import Transaction from "./Transaction";
+import Transaction from "./TransactionTile";
 import { Add } from "grommet-icons";
-import EditTransactionModal from "./EditTransactionModal";
+import EditTransactionModal from "./EditTransaction";
 import { client, auth } from "../../routes";
 
 function toTimeStamp(date) {
