@@ -3,6 +3,8 @@ import { Route, Router } from "react-router-dom";
 
 import AuthenticatedRoute from "./AuthenticatedRoute/AuthenticatedRoute";
 import Callback from "./Callback/Callback";
+import Report from "./Report";
+import Stats from "./Widgit/Stats";
 import history from "./history";
 import Auth from "./Auth/Auth";
 import ApolloClient from "apollo-client";
@@ -13,7 +15,6 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 
 import { GRAPHQL_URL, GRAPHQL_URL_WS } from "./constants/constants";
 import Edit from "./edit";
-import Report from "./Report";
 
 import { split } from "apollo-link";
 import { HttpLink } from "apollo-link-http";
@@ -93,6 +94,12 @@ export const makeMainRoutes = () => {
 	return (
 		<Router history={history}>
 			<div className="container">
+				<Route
+					path="/"
+					render={props =>
+						authenticatedRoute(provideClient(<Stats />))
+					}
+				/>
 				<Route
 					path="/"
 					exact

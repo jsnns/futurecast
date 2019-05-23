@@ -37,3 +37,7 @@ export default function getInstances(days, transaction) {
 export function mapGetInstances(days) {
 	return transaction => getInstances(days, transaction);
 }
+
+export function getInstancesArray(transactions, days) {
+	return transactions.flatMap(mapGetInstances(days));
+}
