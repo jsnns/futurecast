@@ -1,7 +1,7 @@
-import { authDomain, authClientId } from "../constants";
+import { AUTH0_AUTH_DOMAIN, AUTH0_CLIENT_ID } from "../constants";
 
 export const AUTH_CONFIG = {
-  domain: authDomain,
-  clientId: authClientId,
-  callbackUrl: "http://localhost:3000/callback"
+	domain: AUTH0_AUTH_DOMAIN,
+	clientId: AUTH0_CLIENT_ID,
+	callbackUrl: "http://localhost:3000/callback"
 };

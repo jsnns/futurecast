@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 
-import { deleteTransaction } from "../../api";
 import { Box, Text } from "grommet";
 import { Close } from "grommet-icons";
 
 import "../../wiggle.css";
 import OutsideAlerter from "../../components/OutsideClickAlerter";
 import AsyncButton from "../../components/AsyncButton";
+import { client } from "../../routes";
+import gql from "graphql-tag";
 
 class ViewSingleTx extends Component {
   constructor(props) {
@@ -42,7 +43,16 @@ class ViewSingleTx extends Component {
 
   async trashTransaction() {
     const { transaction } = this.props;
-    return deleteTransaction(transaction._id.$oid);
+    const DELETE_TRANSACTION = gql`
+      mutation {
+        delete_transactions(where: { id: { _eq: "${transaction.id}" } }) {
+          returning {
+            id
+          }
+        }
+      }
+    `;
+    return client.mutate({ mutation: DELETE_TRANSACTION });
   }
 
   render() {
@@ -74,7 +84,6 @@ class ViewSingleTx extends Component {
             icon={<Close />}
             shown={this.state.wiggleDelete}
             onClick={this.trashTransaction}
-            done={refresh}
           />
           <Text
             margin={{ bottom: "xsmall" }}
