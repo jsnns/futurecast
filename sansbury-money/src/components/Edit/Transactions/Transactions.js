@@ -7,7 +7,7 @@ import { Box, Button } from "grommet";
 import Transaction from "./TransactionTile";
 import { Add } from "grommet-icons";
 import EditTransactionModal from "./EditTransaction";
-import { client, auth } from "../../routes";
+import { client, auth } from "../../../routes";
 
 function toTimeStamp(date) {
 	if (date && date.split) {
@@ -64,8 +64,8 @@ class EditTxs extends Component {
 			const UPDATE_TRANSACTION = gql`
         mutation {
           update_transactions(where: {id: {_eq: "${
-				selectedTx.id
-			}"}}, _set: {${key}: "${e.target.value}"}) {
+					selectedTx.id
+				}"}}, _set: {${key}: "${e.target.value}"}) {
             returning {
               id
             }

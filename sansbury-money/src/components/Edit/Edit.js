@@ -19,8 +19,7 @@ class Edit extends Component {
 		if (interval) {
 			return value => {
 				const { selected } = this.state;
-				if (!selected.schedule.interval)
-					selected.schedule.interval = {};
+				if (!selected.schedule.interval) selected.schedule.interval = {};
 
 				selected.schedule.interval[key] = Number(value.target.value);
 				this.setState({ selected });
@@ -49,12 +48,7 @@ class Edit extends Component {
 		return (
 			<Box>
 				<Box direction="row-responsive">
-					<Button
-						margin="small"
-						icon={<Home />}
-						label="Home"
-						href="/"
-					/>
+					<Button margin="small" icon={<Home />} label="Home" href="/" />
 				</Box>
 				<Box direction="row-responsive">
 					<DashboardWidget title="Transactions" basis="1/2">

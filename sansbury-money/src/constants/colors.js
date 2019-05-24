@@ -1,4 +1,6 @@
-export var colors = [
+export const minimumBalance = "#FF1A66";
+export const balance = "#1AB399";
+export const colors = [
 	"#FF6633",
 	"#FFB399",
 	"#FFFF99",
@@ -8,22 +10,17 @@ export var colors = [
 	"#FF33FF",
 	"#99FF99",
 	"#B34D4D",
-	"#80B300",
-	"#809900",
 	"#E6B3B3",
 	"#6680B3",
-	"#66991A",
 	"#FF99E6",
-	"#CCFF1A",
 	"#FF1A66",
-	"#E6331A",
 	"#33FFCC",
-	"#66994D",
+	"#E6331A",
 	"#B366CC",
-	"#4D8000",
 	"#B33300",
 	"#CC80CC",
 	"#66664D",
+	"#66994D",
 	"#991AFF",
 	"#E666FF",
 	"#4DB3FF",

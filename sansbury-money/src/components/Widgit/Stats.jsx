@@ -1,34 +1,33 @@
 import React, { Component } from "react";
-
-import gql from "graphql-tag";
-import { client } from "../routes";
 import { Box, Heading, Text } from "grommet";
 
-import { getBalances } from "../logic";
-import * as _ from "../helpers";
+import { client } from "../../routes";
+import { getBalances } from "../../data/logic";
+import gql from "graphql-tag";
+import * as _ from "../../data/helpers";
+
+const GET_TRANSACTIONS = gql`
+	{
+		users {
+			transactions {
+				id
+				value
+				start
+				end
+				interval_days
+				interval_months
+			}
+			accounts {
+				balance
+			}
+		}
+	}
+`;
 
 class StatsTables extends Component {
 	state = { stats: [] };
 
 	componentWillMount = async () => {
-		const GET_TRANSACTIONS = gql`
-			{
-				users {
-					transactions {
-						id
-						value
-						start
-						end
-						interval_days
-						interval_months
-					}
-					accounts {
-						balance
-					}
-				}
-			}
-		`;
-
 		client
 			.query({ query: GET_TRANSACTIONS })
 			.then(({ data, loading, error }) => {
@@ -36,14 +35,9 @@ class StatsTables extends Component {
 				if (error) console.log(`Error! ${error}`);
 				if (data) {
 					const { transactions, accounts } = data.users[0];
-					const currentBalance = _.sumArray(
-						_.getKey(accounts, "balance")
-					);
-					const balances = getBalances(
-						transactions,
-						currentBalance,
-						365
-					);
+					const currentBalance = _.sumArray(_.getKey(accounts, "balance"));
+					const balances = getBalances(transactions, currentBalance, 365);
+
 					const stats = [
 						{
 							label: "Minimum Balance",

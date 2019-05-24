@@ -1,4 +1,4 @@
-import { AUTH0_AUTH_DOMAIN, AUTH0_CLIENT_ID } from "../constants";
+import { AUTH0_AUTH_DOMAIN, AUTH0_CLIENT_ID } from "../../constants";
 
 export const AUTH_CONFIG = {
 	domain: AUTH0_AUTH_DOMAIN,

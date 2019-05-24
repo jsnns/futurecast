@@ -1,35 +1,25 @@
 import React from "react";
 
-import Budget from "./Widgit/Budget";
-import Balance from "./Widgit/Balance";
-import Bills from "./Widgit/Bills";
-import Ask from "./Widgit/Ask";
-import Runway from "./Widgit/Runway";
-import Stats from "./Widgit/Stats";
+import Budget from "./components/Widgit/Budget";
+import Balance from "./components/Widgit/Balance";
+import Bills from "./components/Widgit/Bills";
+import Ask from "./components/Widgit/Ask";
+import Stats from "./components/Widgit/Stats";
 
 import { Box, Button } from "grommet";
 import { Edit as EditIcon, Refresh } from "grommet-icons";
-import { update } from "./api";
 
-import "./css.css";
-import DashboardWidget from "./shared/DashboardWidget";
+import "./styles/fonts.css";
+import DashboardWidget from "./components/shared/DashboardWidget";
 
 const Report = () => {
-	const reload = () => window.location.reload();
-
 	return (
 		<Box>
 			<Stats />
 			<Box pad="small" direction="column">
 				<Box direction="row" gap="small">
 					<Button icon={<EditIcon />} label="Edit" href="/edit" />
-					<Button
-						icon={<Refresh />}
-						label="Refresh"
-						onClick={() => {
-							update().then(reload);
-						}}
-					/>
+					<Button icon={<Refresh />} label="Refresh" onClick={() => {}} />
 				</Box>
 
 				<Box direction="row-responsive" wrap>
@@ -37,8 +27,8 @@ const Report = () => {
 						<DashboardWidget title="Balance" basis="auto">
 							<Balance />
 						</DashboardWidget>
-						<DashboardWidget title="Runway" basis="auto">
-							<Runway />
+						<DashboardWidget title="Bills" basis="auto">
+							<Bills />
 						</DashboardWidget>
 					</Box>
 
@@ -48,9 +38,6 @@ const Report = () => {
 						</DashboardWidget>
 						<DashboardWidget title="Budget" basis="auto">
 							<Budget />
-						</DashboardWidget>
-						<DashboardWidget title="Bills" basis="auto">
-							<Bills />
 						</DashboardWidget>
 					</Box>
 				</Box>

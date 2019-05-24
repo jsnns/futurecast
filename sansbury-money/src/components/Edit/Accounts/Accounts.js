@@ -7,8 +7,7 @@ import AsyncButton from "../../shared/AsyncButton";
 
 import gql from "graphql-tag";
 
-import { client, auth } from "../../routes";
-import { getAccounts, updateAccount } from "../../api";
+import { client, auth } from "../../../routes";
 
 const GET_ACCOUNTS = gql`
 	subscription {
@@ -37,23 +36,6 @@ class EditAccounts extends Component {
 		this.getData();
 	}
 
-	push(i) {
-		return () => {
-			this.setState({ updating: i });
-			let { acs, updatedAcs } = this.state;
-			const ac = acs[i];
-
-			if (ac._id)
-				return updateAccount(ac._id.$oid, ac).then(() => {
-					updatedAcs = updatedAcs.filter(ii => ii !== i);
-					this.setState({
-						updatedAcs,
-						updating: null
-					});
-				});
-		};
-	}
-
 	changeAc = (id, key) => {
 		return e => {
 			const UPDATE_TRANSACTION = gql`
@@ -77,11 +59,6 @@ class EditAccounts extends Component {
 		let { updatedAcs } = this.state;
 		updatedAcs = updatedAcs.filter(ii => i !== ii);
 		this.setState({ updatedAcs });
-	}
-
-	async getData() {
-		const data = await getAccounts();
-		this.setState({ acs: data });
 	}
 
 	render() {
@@ -130,13 +107,9 @@ class EditAccounts extends Component {
 										>
 											<AsyncButton
 												icon={<Checkmark />}
-												done={
-													this.markAccountDoneUpdating
-												}
+												done={this.markAccountDoneUpdating}
 												onClick={this.push(i)}
-												shown={this.state.updatedAcs.includes(
-													i
-												)}
+												shown={this.state.updatedAcs.includes(i)}
 											/>
 											<Box
 												direction="row"
@@ -147,8 +120,7 @@ class EditAccounts extends Component {
 											>
 												<Text
 													style={{
-														fontFamily:
-															"Abril Fatface",
+														fontFamily: "Abril Fatface",
 														fontSize: "18pt",
 														opacity: 0.99,
 														marginTop: 3,
@@ -161,17 +133,13 @@ class EditAccounts extends Component {
 													plain
 													defaultValue={ac.balance}
 													style={{
-														fontFamily:
-															"Abril Fatface",
+														fontFamily: "Abril Fatface",
 														fontSize: "22pt",
 														opacity: 0.99,
 														padding: 0,
 														width: 100
 													}}
-													onChange={this.changeAc(
-														i,
-														"balance"
-													)}
+													onChange={this.changeAc(i, "balance")}
 												/>
 											</Box>
 											<TextInput
@@ -184,10 +152,7 @@ class EditAccounts extends Component {
 													paddingTop: 0,
 													paddingBottom: 0
 												}}
-												onChange={this.changeAc(
-													i,
-													"name"
-												)}
+												onChange={this.changeAc(i, "name")}
 											/>
 										</Box>
 									</Box>

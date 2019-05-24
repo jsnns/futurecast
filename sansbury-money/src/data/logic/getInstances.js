@@ -1,28 +1,34 @@
-export default function getInstances(days, transaction) {
-	if (!days) days = 30;
-
+export default function getInstances(days = 30, transaction) {
 	const instances = [];
-	const endDate = new Date();
-	const today = new Date();
-	let date = new Date(transaction.start);
 
+	const today = new Date();
+	const endDate = new Date();
 	endDate.setDate(endDate.getDate() + days);
+
+	let date = new Date(transaction.start);
 
 	if (
 		transaction.start &&
 		!transaction.end &&
 		transaction.interval_days === 0 &&
 		transaction.interval_months === 0
-	)
+	) {
 		return [{ ...transaction, date: new Date(transaction.start) }];
+	}
 
+	// generate list of instances
 	while (true) {
+		// break if past requested days
 		if (date > endDate) break;
+
+		// break if no interval since it would go forever
 		if (!transaction.interval_days && !transaction.interval_months) break;
+
+		// break if the transaction should end
 		if (date > new Date(transaction.end) && transaction.end) break;
 
-		if (date > today) {
-			// make sure we don't include instances from before today
+		// only include instances from after today
+		if (date >= today) {
 			instances.push({ ...transaction, date: new Date(date) });
 		}
 

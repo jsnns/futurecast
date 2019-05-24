@@ -3,10 +3,10 @@ import React, { Component } from "react";
 import { Box, Text } from "grommet";
 import { Close } from "grommet-icons";
 
-import "../../wiggle.css";
+import "../../../styles/wiggle.css";
 import OutsideAlerter from "../../shared/OutsideClickAlerter";
 import AsyncButton from "../../shared/AsyncButton";
-import { client } from "../../routes";
+import { client } from "../../../routes";
 import gql from "graphql-tag";
 
 class ViewSingleTx extends Component {

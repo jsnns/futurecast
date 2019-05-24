@@ -9,12 +9,12 @@ import { split } from "apollo-link";
 import { HttpLink } from "apollo-link-http";
 import { getMainDefinition } from "apollo-utilities";
 
-import AuthenticatedRoute from "./AuthenticatedRoute/AuthenticatedRoute";
-import Callback from "./Callback/Callback";
+import AuthenticatedRoute from "./components/Auth/AuthenticatedRoute/AuthenticatedRoute";
+import Callback from "./components/Auth/Callback/Callback";
 import Report from "./Report";
 import history from "./history";
-import Auth from "./Auth/Auth";
-import Edit from "./Edit/Edit";
+import Auth from "./components/Auth/Auth";
+import Edit from "./components/Edit/Edit";
 
 import { GRAPHQL_URL, GRAPHQL_URL_WS } from "./constants/constants";
 
@@ -30,9 +30,7 @@ const wsLink = new WebSocketLink({
 		reconnect: true,
 		connectionParams: {
 			headers: {
-				authorization: `Bearer ${localStorage.getItem(
-					"auth0:id_token"
-				)}`
+				authorization: `Bearer ${localStorage.getItem("auth0:id_token")}`
 			}
 		}
 	}
@@ -95,15 +93,11 @@ export const makeMainRoutes = () => {
 				<Route
 					path="/"
 					exact
-					render={props =>
-						authenticatedRoute(provideClient(<Report />))
-					}
+					render={props => authenticatedRoute(provideClient(<Report />))}
 				/>
 				<Route
 					path="/edit"
-					render={props =>
-						authenticatedRoute(provideClient(<Edit />))
-					}
+					render={props => authenticatedRoute(provideClient(<Edit />))}
 				/>
 				<Route
 					path="/callback"
