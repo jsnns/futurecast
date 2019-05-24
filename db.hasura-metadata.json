@@ -1,0 +1,113 @@
+{
+  "functions": [],
+  "remote_schemas": [],
+  "query_collections": [],
+  "allowlist": [],
+  "tables": [
+    {
+      "table": { "schema": "public", "name": "user_reports" },
+      "object_relationships": [],
+      "array_relationships": [],
+      "insert_permissions": [],
+      "select_permissions": [],
+      "update_permissions": [],
+      "delete_permissions": [],
+      "event_triggers": []
+    },
+    {
+      "table": { "schema": "public", "name": "transactions" },
+      "object_relationships": [
+        {
+          "using": { "foreign_key_constraint_on": "owner" },
+          "name": "user",
+          "comment": null
+        }
+      ],
+      "array_relationships": [],
+      "insert_permissions": [],
+      "select_permissions": [],
+      "update_permissions": [],
+      "delete_permissions": [],
+      "event_triggers": []
+    },
+    {
+      "table": { "schema": "public", "name": "reports" },
+      "object_relationships": [],
+      "array_relationships": [
+        {
+          "using": {
+            "foreign_key_constraint_on": {
+              "column": "report",
+              "table": { "schema": "public", "name": "user_reports" }
+            }
+          },
+          "name": "user_reports",
+          "comment": null
+        }
+      ],
+      "insert_permissions": [],
+      "select_permissions": [],
+      "update_permissions": [],
+      "delete_permissions": [],
+      "event_triggers": []
+    },
+    {
+      "table": { "schema": "public", "name": "accounts" },
+      "object_relationships": [
+        {
+          "using": { "foreign_key_constraint_on": "owner" },
+          "name": "user",
+          "comment": null
+        }
+      ],
+      "array_relationships": [],
+      "insert_permissions": [],
+      "select_permissions": [],
+      "update_permissions": [],
+      "delete_permissions": [],
+      "event_triggers": []
+    },
+    {
+      "table": { "schema": "public", "name": "users" },
+      "object_relationships": [],
+      "array_relationships": [
+        {
+          "using": {
+            "foreign_key_constraint_on": {
+              "column": "user",
+              "table": { "schema": "public", "name": "user_reports" }
+            }
+          },
+          "name": "user_reports",
+          "comment": null
+        },
+        {
+          "using": {
+            "foreign_key_constraint_on": {
+              "column": "owner",
+              "table": { "schema": "public", "name": "accounts" }
+            }
+          },
+          "name": "accounts",
+          "comment": null
+        },
+        {
+          "using": {
+            "foreign_key_constraint_on": {
+              "column": "owner",
+              "table": { "schema": "public", "name": "transactions" }
+            }
+          },
+          "name": "transactions",
+          "comment": null
+        }
+      ],
+      "insert_permissions": [],
+      "select_permissions": [],
+      "update_permissions": [],
+      "delete_permissions": [],
+      "event_triggers": []
+    }
+  ],
+  "query_templates": []
+}
