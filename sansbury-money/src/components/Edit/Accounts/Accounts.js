@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { Subscription } from "react-apollo";
 import { Box, TextInput, Text, Button } from "grommet";
-import { Checkmark, Add } from "grommet-icons";
-
-import AsyncButton from "../../shared/AsyncButton";
+import { Add } from "grommet-icons";
 
 import gql from "graphql-tag";
 
@@ -20,21 +18,11 @@ const GET_ACCOUNTS = gql`
 `;
 
 class EditAccounts extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			acs: [],
-			updatedAcs: [],
-			updating: null
-		};
-		this.getData = this.getData.bind(this);
-		this.push = this.push.bind(this);
-		this.markAccountDoneUpdating = this.markAccountDoneUpdating.bind(this);
-	}
-
-	componentWillMount() {
-		this.getData();
-	}
+	state = {
+		acs: [],
+		updatedAcs: [],
+		updating: null
+	};
 
 	changeAc = (id, key) => {
 		return e => {
@@ -105,12 +93,6 @@ class EditAccounts extends Component {
 											key={ac.name}
 											round
 										>
-											<AsyncButton
-												icon={<Checkmark />}
-												done={this.markAccountDoneUpdating}
-												onClick={this.push(i)}
-												shown={this.state.updatedAcs.includes(i)}
-											/>
 											<Box
 												direction="row"
 												pad={{
