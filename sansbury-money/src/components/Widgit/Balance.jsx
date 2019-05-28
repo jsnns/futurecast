@@ -67,7 +67,7 @@ class Balance extends Component {
 				datasets: [
 					{
 						label: "Min Balance",
-						backgroundColor: colors.minimumBalance,
+						backgroundColor: null,
 						borderColor: colors.minimumBalance,
 						lineTension: 0,
 						pointRadius: 1,
@@ -76,7 +76,7 @@ class Balance extends Component {
 					},
 					{
 						label: "Balance",
-						backgroundColor: colors.balance,
+						backgroundColor: null,
 						borderColor: colors.balance,
 						pointRadius: 1,
 						lineTension: 0,

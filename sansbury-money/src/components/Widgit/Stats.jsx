@@ -63,8 +63,8 @@ class StatsTables extends Component {
 		const { stats } = this.state;
 
 		return (
-			<Box className="table">
-				<Box direction="row" background="#1B998B" pad="medium">
+			<Box pad='none'>
+				<Box pad="none" direction="row" background="#1B998B" pad="medium">
 					{stats.map(stat => (
 						<Box key={stat.label} direction="column" basis="small">
 							<Heading
@@ -83,9 +83,8 @@ class StatsTables extends Component {
 						</Box>
 
 					))}
-					<Box direction="row" gap="small" padding='small' align='center'>
+					<Box direction="row" padding='small' align='end'>
 						<Button icon={<EditIcon />} label="Edit" href="/edit" />
-						<Button icon={<Refresh />} label="Refresh" onClick={() => { }} />
 					</Box>
 				</Box>
 			</Box>

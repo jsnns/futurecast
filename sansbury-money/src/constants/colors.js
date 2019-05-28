@@ -1,5 +1,5 @@
-export const minimumBalance = "#E71D36";
-export const balance = "#41387C";
+export const minimumBalance = "#F46036";
+export const balance = "#1B998B";
 export const colors = [
 	"#F46036",
 	"#41387C",

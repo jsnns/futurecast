@@ -9,6 +9,7 @@ function DashboardWidget({ children, title, color, basis }) {
         elevation="small"
         style={{ fontFamily: "Alegreya" }}
         direction="row"
+        background="light-1"
         round
       >
         <Box pad="small" fill>

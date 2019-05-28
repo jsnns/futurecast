@@ -6,15 +6,14 @@ import Bills from "./components/Widgit/Bills";
 import Ask from "./components/Widgit/Ask";
 import Stats from "./components/Widgit/Stats";
 
-import { Box, Button } from "grommet";
-import { Edit as EditIcon, Refresh } from "grommet-icons";
+import { Box } from "grommet";
 
 import "./styles/fonts.css";
 import DashboardWidget from "./components/shared/DashboardWidget";
 
 const Report = () => {
 	return (
-		<Box>
+		<Box pad="none">
 			<Stats />
 
 			<Box direction="row-responsive" wrap>
