@@ -37,7 +37,7 @@ class Budget extends Component {
 		for (let i in budget) {
 			let { value, category } = budget[i];
 			labels.push(category);
-			values.push(value);
+			values.push(value * -1);
 			table.push({ value, category });
 		}
 

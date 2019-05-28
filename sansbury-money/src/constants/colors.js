@@ -1,11 +1,11 @@
-export const minimumBalance = "#FF1A66";
-export const balance = "#1AB399";
+export const minimumBalance = "#E71D36";
+export const balance = "#41387C";
 export const colors = [
-	"#FF6633",
-	"#FFB399",
-	"#FFFF99",
-	"#E6B333",
-	"#00B3E6",
+	"#F46036",
+	"#41387C",
+	"#1B998B",
+	"#E71D36",
+	"#C5D86D",
 	"#3366E6",
 	"#FF33FF",
 	"#99FF99",
