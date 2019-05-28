@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import { Box, Heading, Text } from "grommet";
+import { Box, Heading, Text, Button } from "grommet";
 
 import { client } from "../../routes";
 import { getBalances } from "../../data/logic";
 import gql from "graphql-tag";
 import * as _ from "../../data/helpers";
+
+import { Edit as EditIcon, Refresh } from "grommet-icons";
+
 
 const GET_TRANSACTIONS = gql`
 	{
@@ -61,7 +64,7 @@ class StatsTables extends Component {
 
 		return (
 			<Box className="table">
-				<Box direction="row" background="brand" pad="medium">
+				<Box direction="row" background="#1B998B" pad="medium">
 					{stats.map(stat => (
 						<Box key={stat.label} direction="column" basis="small">
 							<Heading
@@ -78,7 +81,12 @@ class StatsTables extends Component {
 								{stat.label}
 							</Text>
 						</Box>
+
 					))}
+					<Box direction="row" gap="small" padding='small' align='center'>
+						<Button icon={<EditIcon />} label="Edit" href="/edit" />
+						<Button icon={<Refresh />} label="Refresh" onClick={() => { }} />
+					</Box>
 				</Box>
 			</Box>
 		);

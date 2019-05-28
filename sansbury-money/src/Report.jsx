@@ -16,30 +16,24 @@ const Report = () => {
 	return (
 		<Box>
 			<Stats />
-			<Box pad="small" direction="column">
-				<Box direction="row" gap="small">
-					<Button icon={<EditIcon />} label="Edit" href="/edit" />
-					<Button icon={<Refresh />} label="Refresh" onClick={() => {}} />
+
+			<Box direction="row-responsive" wrap>
+				<Box basis="2/3" flex="grow" >
+					<DashboardWidget title="Balance" basis="auto" >
+						<Balance />
+					</DashboardWidget>
+					<DashboardWidget title="Bills" basis="auto">
+						<Bills />
+					</DashboardWidget>
 				</Box>
 
-				<Box direction="row-responsive" wrap>
-					<Box basis="2/3" flex="grow">
-						<DashboardWidget title="Balance" basis="auto">
-							<Balance />
-						</DashboardWidget>
-						<DashboardWidget title="Bills" basis="auto">
-							<Bills />
-						</DashboardWidget>
-					</Box>
-
-					<Box basis="1/3">
-						<DashboardWidget title="Ask" basis="auto">
-							<Ask />
-						</DashboardWidget>
-						<DashboardWidget title="Budget" basis="auto">
-							<Budget />
-						</DashboardWidget>
-					</Box>
+				<Box basis="1/3" >
+					<DashboardWidget title="Ask" basis="auto">
+						<Ask />
+					</DashboardWidget>
+					<DashboardWidget title="Budget" basis="auto">
+						<Budget />
+					</DashboardWidget>
 				</Box>
 			</Box>
 		</Box>
