@@ -1,0 +1,14 @@
+image: node:4.2.2
+
+pages:
+  cache:
+    paths:
+      - sansbury-money/node_modules/
+
+  script:
+    - (cd sansbury-money && yarn && yarn run build)
+  artifacts:
+    paths:
+      - sansbury-money/public
+  only:
+    - master
