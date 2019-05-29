@@ -59,7 +59,7 @@ class StatsTables extends Component {
 
 		return (
 			<Box pad='none'>
-				<Box pad='none' direction='row' background='#1B998B' pad='medium'>
+				<Box direction='row' background='#1B998B' pad='medium'>
 					{stats.map(stat => (
 						<Box key={stat.label} direction='column' basis='small'>
 							<Heading
