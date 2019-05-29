@@ -10,6 +10,6 @@ pages:
     - (cd sansbury-money && yarn && yarn run build)
   artifacts:
     paths:
-      - sansbury-money/public
+      - sansbury-money/build
   only:
     - master
