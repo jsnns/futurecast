@@ -1,16 +1,7 @@
 image: node:11.6.0
 
-pages:
-  cache:
-    paths:
-      - sansbury-money/node_modules/
-
+heroku:
   script:
-    - npm install -g yarn
-    - (cd sansbury-money && yarn && yarn run build)
-    - mv sansbury-money/build public
-  artifacts:
-    paths:
-      - public
+    - git push heroku master
   only:
     - master
