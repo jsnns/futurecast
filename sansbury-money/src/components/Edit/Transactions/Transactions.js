@@ -1,22 +1,13 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 
-import gql from "graphql-tag";
-import { Subscription } from "react-apollo";
+import gql from 'graphql-tag';
+import { Subscription } from 'react-apollo';
 
-import { Box, Button } from "grommet";
-import Transaction from "./TransactionTile";
-import { Add } from "grommet-icons";
-import EditTransactionModal from "./EditTransaction";
-import { client, auth } from "../../../routes";
-
-function toTimeStamp(date) {
-	if (date && date.split) {
-		let vals = date.split("/").map(Number);
-		let ts = new Date(vals[2], vals[0] - 1, vals[1]);
-		return ts.getTime() / 1000;
-	}
-	return date;
-}
+import { Box, Button } from 'grommet';
+import Transaction from './TransactionTile';
+import { Add } from 'grommet-icons';
+import EditTransactionModal from './EditTransaction';
+import { client, auth } from '../../../routes';
 
 const GET_TRANSACTIONS = gql`
 	subscription {
@@ -63,9 +54,9 @@ class EditTxs extends Component {
 		return e => {
 			const UPDATE_TRANSACTION = gql`
         mutation {
-          update_transactions(where: {id: {_eq: "${
-					selectedTx.id
-				}"}}, _set: {${key}: "${e.target.value}"}) {
+          update_transactions(where: {id: {_eq: "${selectedTx.id}"}}, _set: {${key}: "${
+				e.target.value
+			}"}) {
             returning {
               id
             }
@@ -83,7 +74,7 @@ class EditTxs extends Component {
 		const { selectedTx } = this.state;
 
 		return (
-			<Box pad="medium">
+			<Box pad='medium'>
 				<EditTransactionModal
 					onClose={this.closeModal}
 					onSubmit={this.pushTx}
@@ -91,8 +82,8 @@ class EditTxs extends Component {
 					transaction={selectedTx}
 				/>
 				<Box>
-					<Box direction="row-responsive">
-						<Box margin="small">
+					<Box direction='row-responsive'>
+						<Box margin='small'>
 							<Button
 								icon={<Add />}
 								style={{ width: 50 }}
@@ -112,15 +103,15 @@ class EditTxs extends Component {
                         }
                       `
 										})
-										.then(() => console.log("made new tx"));
+										.then(() => console.log('made new tx'));
 								}}
 							/>
 						</Box>
 					</Box>
-					<Box direction="row-responsive" wrap>
+					<Box direction='row-responsive' wrap>
 						<Subscription subscription={GET_TRANSACTIONS}>
 							{({ loading, error, data, networkStatus }) => {
-								if (loading) return "loading";
+								if (loading) return 'loading';
 								if (error) return `Error! ${error.message}`;
 
 								return data.transactions.map(transaction => {

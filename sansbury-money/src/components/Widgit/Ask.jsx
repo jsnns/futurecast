@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Box, Select, TextInput, Text } from "grommet";
+import React, { Component } from 'react';
+import { Box, Select, TextInput, Text } from 'grommet';
 
 class Ask extends Component {
 	constructor(props) {
@@ -13,7 +13,6 @@ class Ask extends Component {
 	}
 
 	updateParameter(e) {
-		const { question } = this.state;
 		this.setState({ parameter: e.target.value });
 		// ask(this.questionsToSlugs[question], e.target.value).then(result => {
 		// 	this.setState({ result: result.message });
@@ -21,34 +20,31 @@ class Ask extends Component {
 	}
 
 	state = {
-		question: "When can we spend?",
+		question: 'When can we spend?',
 		parameter: null,
 		result: null
 	};
 
 	questionsToSlugs = {
-		"When can we spend?": "can_spend",
-		"How much would this runway cost?": "run_length"
+		'When can we spend?': 'can_spend',
+		'How much would this runway cost?': 'run_length'
 	};
 
 	render() {
 		const questions = Object.keys(this.questionsToSlugs);
 
 		return (
-			<Box pad="small" >
-				<Box gap="small">
+			<Box pad='small'>
+				<Box gap='small'>
 					<Select
 						value={this.state.question || questions[0]}
 						options={questions}
 						onChange={this.updateQuestion}
 					/>
-					<TextInput
-						placeholder="Parameter"
-						onChange={this.updateParameter}
-					/>
+					<TextInput placeholder='Parameter' onChange={this.updateParameter} />
 				</Box>
-				<Box width="medium" direction="row" pad="small">
-					<Text style={{ fontFamily: "Lato" }}>{this.state.result}</Text>
+				<Box width='medium' direction='row' pad='small'>
+					<Text style={{ fontFamily: 'Lato' }}>{this.state.result}</Text>
 				</Box>
 			</Box>
 		);
