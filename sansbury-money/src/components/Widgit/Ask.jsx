@@ -35,7 +35,7 @@ class Ask extends Component {
 		const questions = Object.keys(this.questionsToSlugs);
 
 		return (
-			<Box pad="small">
+			<Box pad="small" >
 				<Box gap="small">
 					<Select
 						value={this.state.question || questions[0]}

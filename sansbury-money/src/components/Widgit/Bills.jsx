@@ -48,7 +48,7 @@ const BillsTable = () => {
 	];
 	return (
 		<Box>
-			<Box pad="small" fill>
+			<Box pad="small" fill >
 				<Query query={GET_TRANSACTIONS}>
 					{({ loading, error, data }) => {
 						if (loading) return "Loading...";
