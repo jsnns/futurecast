@@ -8,8 +8,9 @@ pages:
   script:
     - npm install -g yarn
     - (cd sansbury-money && yarn && yarn run build)
+    - mv sansbury-money/build public
   artifacts:
     paths:
-      - sansbury-money/build
+      - public
   only:
     - master
