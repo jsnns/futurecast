@@ -1,0 +1,206 @@
+- args:
+    allowlist: []
+    functions: []
+    query_collections: []
+    query_templates: []
+    remote_schemas: []
+    tables:
+    - array_relationships:
+      - comment: null
+        name: user_reports
+        using:
+          foreign_key_constraint_on:
+            column: report
+            table: user_reports
+      delete_permissions: []
+      event_triggers: []
+      insert_permissions: []
+      object_relationships: []
+      select_permissions: []
+      table: reports
+      update_permissions: []
+    - array_relationships:
+      - comment: null
+        name: user_reports
+        using:
+          foreign_key_constraint_on:
+            column: user
+            table: user_reports
+      - comment: null
+        name: accounts
+        using:
+          foreign_key_constraint_on:
+            column: owner
+            table: accounts
+      - comment: null
+        name: transactions
+        using:
+          foreign_key_constraint_on:
+            column: owner
+            table: transactions
+      delete_permissions: []
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            id:
+              _eq: X-Hasura-User-Id
+          columns:
+          - email
+          - id
+          - password
+          set: {}
+        role: user
+      object_relationships: []
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - id
+          filter:
+            id:
+              _eq: X-Hasura-User-Id
+        role: user
+      table: users
+      update_permissions: []
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            user:
+              id:
+                _eq: X-Hasura-User-Id
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            user:
+              id:
+                _eq: X-Hasura-User-Id
+          columns:
+          - id
+          - name
+          - category
+          - monthly_occurrences
+          - start
+          - end
+          - interval_days
+          - interval_months
+          - owner
+          - vaule
+          set: {}
+        role: user
+      object_relationships:
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: owner
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - category
+          - end
+          - id
+          - interval_days
+          - interval_months
+          - monthly_occurrences
+          - name
+          - owner
+          - start
+          - value
+          filter:
+            user:
+              id:
+                _eq: X-Hasura-User-Id
+        role: user
+      table: transactions
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - category
+          - end
+          - id
+          - interval_days
+          - interval_months
+          - monthly_occurrences
+          - name
+          - owner
+          - start
+          - value
+          filter:
+            user:
+              id:
+                _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+    - array_relationships: []
+      delete_permissions: []
+      event_triggers: []
+      insert_permissions: []
+      object_relationships: []
+      select_permissions: []
+      table: user_reports
+      update_permissions: []
+    - array_relationships: []
+      delete_permissions:
+      - comment: null
+        permission:
+          filter:
+            owner:
+              _eq: X-Hasura-User-Id
+        role: user
+      event_triggers: []
+      insert_permissions:
+      - comment: null
+        permission:
+          check:
+            owner:
+              _eq: X-Hasura-User-Id
+          columns:
+          - id
+          - balance
+          - name
+          - owner
+          set: {}
+        role: user
+      object_relationships:
+      - comment: null
+        name: user
+        using:
+          foreign_key_constraint_on: owner
+      select_permissions:
+      - comment: null
+        permission:
+          allow_aggregations: false
+          columns:
+          - balance
+          - id
+          - name
+          - owner
+          filter:
+            owner:
+              _eq: X-Hasura-User-Id
+        role: user
+      table: accounts
+      update_permissions:
+      - comment: null
+        permission:
+          columns:
+          - balance
+          - id
+          - name
+          - owner
+          filter:
+            owner:
+              _eq: X-Hasura-User-Id
+          set: {}
+        role: user
+  type: replace_metadata
