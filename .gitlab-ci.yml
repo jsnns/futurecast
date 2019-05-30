@@ -1,7 +1,7 @@
 image: node:11.6.0
 
 heroku:
-  script:
-    - git push heroku master
-  only:
-    - master
+   script:
+      - git push https://heroku:90acff48-d364-4480-b42f-7fb56866cb71@git.heroku.com/secure-plains-49647.git master
+   only:
+      - master
