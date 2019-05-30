@@ -1,11 +1,15 @@
 import React from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import { Box, DataTable, Text } from "grommet";
+import { Box, DataTable, Text, Button } from "grommet";
+import { Download } from "grommet-icons";
 
 import { getInstancesArray } from "../../data/logic";
 import { sortAscendingByKey } from "../../data/helpers/array";
 import { toCurrency } from "../../data/helpers/format";
+
+import { client } from "../../routes";
+import { appendCsvFileType, createCsvFromData } from "../../data/helpers";
 
 const GET_TRANSACTIONS = gql`
 	{
@@ -20,6 +24,28 @@ const GET_TRANSACTIONS = gql`
 		}
 	}
 `;
+
+const downloadTransactions = () => {
+	client
+		.query({ query: GET_TRANSACTIONS })
+		.then(({ data, error, loading }) => {
+			let { transactions } = data;
+
+			transactions = sortAscendingByKey(
+				getInstancesArray(transactions, 60),
+				"date"
+			);
+			const transactionsCsv = appendCsvFileType(
+				createCsvFromData(transactions)
+			);
+
+			let link = document.createElement("a");
+			link.setAttribute("href", transactionsCsv);
+			link.setAttribute("download", "transactions.csv");
+			link.click();
+			link.remove(); // clean up the DOM
+		});
+};
 
 const BillsTable = () => {
 	const dataTableColumns = [
@@ -48,7 +74,17 @@ const BillsTable = () => {
 	];
 	return (
 		<Box>
-			<Box pad="small" fill >
+			<Box
+				direction="row"
+				style={{ position: "fixed", right: 10, bottom: 10 }}
+			>
+				<Button
+					onClick={downloadTransactions}
+					icon={<Download />}
+					primary
+				/>
+			</Box>
+			<Box pad="small" fill>
 				<Query query={GET_TRANSACTIONS}>
 					{({ loading, error, data }) => {
 						if (loading) return "Loading...";
