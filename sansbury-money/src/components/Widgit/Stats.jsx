@@ -5,8 +5,9 @@ import { client } from "../../routes";
 import { getBalances } from "../../data/logic";
 import gql from "graphql-tag";
 import * as _ from "../../data/helpers";
+import { auth } from "../../routes"
 
-import { Edit as EditIcon, Refresh } from "grommet-icons";
+import { Edit as EditIcon, UserSettings, Logout } from "grommet-icons";
 
 
 const GET_TRANSACTIONS = gql`
@@ -83,8 +84,10 @@ class StatsTables extends Component {
 						</Box>
 
 					))}
-					<Box direction="row" padding='small' align='end'>
+					<Box direction="row" padding='large' align='end'>
 						<Button icon={<EditIcon />} label="Edit" href="/edit" />
+						<Button icon={<UserSettings />} label='Profile' href='/profile' />
+						<Button icon={<Logout />} label='logout' onClick={auth.logout} />
 					</Box>
 				</Box>
 			</Box>

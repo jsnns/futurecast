@@ -51,7 +51,7 @@ export default class Auth {
 
 	getProfile() {
 		return new Promise((resolve, reject) => {
-			this.auth0.client.userInfo(this.accessToken, function(err, profile) {
+			this.auth0.client.userInfo(this.accessToken, function (err, profile) {
 				if (err) reject(err);
 				if (profile) {
 					resolve(profile);
@@ -100,7 +100,7 @@ export default class Auth {
 		localStorage.removeItem("auth0:expires_at");
 		localStorage.removeItem("auth0:id_token:sub");
 		// navigate to the home route
-		history.replace("/home");
+		history.replace("/");
 	}
 
 	isAuthenticated() {

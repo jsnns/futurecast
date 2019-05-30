@@ -15,6 +15,7 @@ import Report from "./Report";
 import history from "./history";
 import Auth from "./components/Auth/Auth";
 import Edit from "./components/Edit/Edit";
+import Profile from "./components/Profile/Profile"
 
 import { GRAPHQL_URL, GRAPHQL_URL_WS } from "./constants/constants";
 
@@ -106,6 +107,11 @@ export const makeMainRoutes = () => {
 						return <Callback {...props} />;
 					}}
 				/>
+				<Route
+					path='/profile'
+					render={props => authenticatedRoute(provideClient(<Profile />))}
+				/>
+
 			</div>
 		</Router>
 	);
