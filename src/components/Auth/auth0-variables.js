@@ -6,5 +6,5 @@ export const AUTH_CONFIG = {
 	callbackUrl:
 		process.env.NODE_ENV === "dev"
 			? "http://localhost:3000/callback"
-			: "https://futurecast.sansburyhome.com"
+			: "https://futurecast.sansburyhome.com/callback"
 };
