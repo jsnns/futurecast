@@ -64,10 +64,10 @@ class StatsTables extends Component {
 		const { stats } = this.state;
 
 		return (
-			<Box pad='none'>
-				<Box pad="none" direction="row" background="#1B998B" pad="medium">
+			<Box pad='none' gap={"small"}>
+				<Box direction="row-responsive" gap={"medium"}>
 					{stats.map(stat => (
-						<Box key={stat.label} direction="column" basis="small">
+						<Box key={stat.label} direction="column">
 							<Heading
 								style={{
 									fontFamily: "Abril Fatface",
@@ -84,11 +84,6 @@ class StatsTables extends Component {
 						</Box>
 
 					))}
-					<Box direction="row" padding='large' align='end'>
-						<Button icon={<EditIcon />} label="Edit" href="/edit" />
-						<Button icon={<UserSettings />} label='Profile' href='/profile' />
-						<Button icon={<Logout />} label='logout' onClick={auth.logout} />
-					</Box>
 				</Box>
 			</Box>
 		);

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import gql from "graphql-tag";
 
 import PieWithTable from "../shared/PieWithTable";
+import { Box } from "grommet";
 import { colors } from "../../constants";
 import { client } from "../../routes";
 import { getBudget } from "../../data/logic";
@@ -69,7 +70,9 @@ class Budget extends Component {
 
 	render() {
 		const { data, table } = this.state;
-		return <PieWithTable pieData={data} tableData={table} />;
+		return <Box alignSelf={"center"}>
+			<PieWithTable pieData={data} tableData={table} />
+		</Box>
 	}
 }
 

@@ -8,6 +8,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { split } from 'apollo-link';
 import { HttpLink } from 'apollo-link-http';
 import { getMainDefinition } from 'apollo-utilities';
+import { Grommet } from "grommet";
 
 import AuthenticatedRoute from './components/Auth/AuthenticatedRoute/AuthenticatedRoute';
 import Callback from './components/Auth/Callback/Callback';
@@ -89,28 +90,30 @@ const handleAuthentication = ({ location }) => {
 export const makeMainRoutes = () => {
 	return (
 		<Router history={history}>
-			<div className='container'>
-				<Route
-					path='/'
-					exact
-					render={props => authenticatedRoute(provideClient(<Report />))}
-				/>
-				<Route
-					path='/edit'
-					render={props => authenticatedRoute(provideClient(<Edit />))}
-				/>
-				<Route
-					path='/callback'
-					render={props => {
-						handleAuthentication(props);
-						return <Callback {...props} />;
-					}}
-				/>
-				<Route
-					path='/profile'
-					render={props => authenticatedRoute(provideClient(<Profile />))}
-				/>
-			</div>
+			<Grommet theme={{global: {colors: {brand: "#000"}, font: {family: "Lato"}}}}>
+				<div className='container'>
+					<Route
+						path='/'
+						exact
+						render={props => authenticatedRoute(provideClient(<Report />))}
+					/>
+					<Route
+						path='/edit'
+						render={props => authenticatedRoute(provideClient(<Edit />))}
+					/>
+					<Route
+						path='/callback'
+						render={props => {
+							handleAuthentication(props);
+							return <Callback {...props} />;
+						}}
+					/>
+					<Route
+						path='/profile'
+						render={props => authenticatedRoute(provideClient(<Profile />))}
+					/>
+				</div>
+			</Grommet>
 		</Router>
 	);
 };

@@ -60,7 +60,7 @@ const BillsTable = () => {
 			render: datum => (
 				<Text
 					color={datum.value > 0 ? "status-ok" : "status-critical"}
-					style={{ fontFamily: "monospace" }}
+					style={{ fontFamily: "Roboto Mono" }}
 					children={toCurrency(datum.value)}
 				/>
 			)
@@ -72,16 +72,18 @@ const BillsTable = () => {
 			render: datum => new Date(datum.date).toDateString()
 		}
 	];
+
 	return (
 		<Box>
 			<Box
 				direction="row"
-				style={{ position: "fixed", right: 10, bottom: 10 }}
+				style={{ position: "fixed", right: 25, bottom: 25 }}
 			>
 				<Button
 					onClick={downloadTransactions}
 					icon={<Download />}
 					primary
+					style={{borderRadius: 1}}
 				/>
 			</Box>
 			<Box pad="small" fill>

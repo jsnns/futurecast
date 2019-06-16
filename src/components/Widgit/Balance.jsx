@@ -42,13 +42,13 @@ class Balance extends Component {
 				if (data) {
 					// get the first user since it will be the only user
 					const { accounts, transactions } = data.users[0];
-					this.setState({ accounts, transactions }, this.getData());
+					this.setState({ accounts, transactions }, this.getData);
 				}
 			});
 	};
 
 	updateData = e => {
-		this.setState({ days: Number(e.target.value) }, this.getData());
+		this.setState({ days: Number(e.target.value) }, this.getData);
 	};
 
 	getData = () => {
@@ -67,7 +67,7 @@ class Balance extends Component {
 				datasets: [
 					{
 						label: "Min Balance",
-						backgroundColor: colors.balance2,
+						backgroundColor: 'rgba(1,1,1,0)',
 						borderColor: colors.minimumBalance,
 						lineTension: 0,
 						pointRadius: 1,
@@ -76,7 +76,7 @@ class Balance extends Component {
 					},
 					{
 						label: "Balance",
-						backgroundColor: colors.balance2,
+						backgroundColor: 'rgba(1,1,1,0)',
 						borderColor: colors.balance,
 						pointRadius: 1,
 						lineTension: 0,

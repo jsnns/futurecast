@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import gql from 'graphql-tag';
 import { Subscription } from 'react-apollo';
 
-import { Box, Button } from 'grommet';
+import { Box, Button, DataTable, Text, Anchor } from 'grommet';
 import Transaction from './TransactionTile';
 import { Add } from 'grommet-icons';
 import EditTransactionModal from './EditTransaction';
@@ -47,6 +47,19 @@ class EditTxs extends Component {
 
 	closeModal() {
 		this.setState({ selectedTx: null });
+	}
+
+	async trashTransaction(id) {
+		const DELETE_TRANSACTION = gql`
+		  mutation {
+			delete_transactions(where: { id: { _eq: "${id}" } }) {
+			  returning {
+				id
+			  }
+			}
+		  }
+		`;
+		return client.mutate({ mutation: DELETE_TRANSACTION });
 	}
 
 	updateTx(key) {
@@ -114,14 +127,38 @@ class EditTxs extends Component {
 								if (loading) return 'loading';
 								if (error) return `Error! ${error.message}`;
 
-								return data.transactions.map(transaction => {
-									return (
-										<Transaction
-											transaction={transaction}
-											openEditModal={this.openEditModal}
-										/>
-									);
-								});
+								return <DataTable
+									size={"medium"}
+									primaryKey={"id"}
+									sortable={true}
+									columns={[
+										{
+											header: "Name",
+											property: "name"
+										},
+										{
+											header: "Value",
+											property: "value"
+										},
+										{
+											header: "Category",
+											property: "category"
+										},
+										{
+											header: "",
+											render: datum => <Text>
+												<Anchor onClick={() => this.openEditModal(datum)} label={"Edit"} />
+											</Text>
+										},
+										{
+											header: "",
+											render: datum => <Text>
+												<Anchor onClick={() => this.trashTransaction(datum.id)} label={"Delete"} />
+											</Text>
+										}
+									]}
+									data={data.transactions}
+								/>
 							}}
 						</Subscription>
 					</Box>

@@ -1,10 +1,11 @@
 import React from "react";
 import { Box, Table, TableBody, TableRow, TableCell } from "grommet";
 import { Pie } from "react-chartjs-2";
+import {toCurrency} from "../../data/helpers"
 
 const PieWithTable = ({ pieData, tableData }) => (
-	<Box flex="shrink" direction="row-responsive" wrap>
-		<Box pad={{ left: "large", top: "small" }} height="medium">
+	<Box>
+		<Box pad={{ top: "small" }} height="medium">
 			{pieData && (
 				<Pie
 					data={pieData}
@@ -37,11 +38,11 @@ const PieWithTable = ({ pieData, tableData }) => (
 							</TableCell>
 							<TableCell
 								style={{
-									fontFamily: "Abril Fatface",
+									fontFamily: "Roboto Mono",
 									fontSize: "14pt"
 								}}
 							>
-								{Math.abs(row.value)}
+								{toCurrency(Math.abs(row.value))}
 							</TableCell>
 						</TableRow>
 					))}
