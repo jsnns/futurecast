@@ -1,5 +1,5 @@
 export const addCommas = int =>
-	Math.abs(int)
+	(int > 0 ? "" : "-") + Math.abs(int)
 		.toString()
 		.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 

@@ -5,10 +5,6 @@ import { client } from "../../routes";
 import { getBalances } from "../../data/logic";
 import gql from "graphql-tag";
 import * as _ from "../../data/helpers";
-import { auth } from "../../routes"
-
-import { Edit as EditIcon, UserSettings, Logout } from "grommet-icons";
-
 
 const GET_TRANSACTIONS = gql`
 	{

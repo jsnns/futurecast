@@ -5,8 +5,10 @@ export function getBudget(transactions) {
 		let category = transaction.category;
 
 		if (!budget[category]) budget[category] = 0;
+
 		let occurrence_scaler =
 			transaction.interval_months * 28 + transaction.interval_days;
+
 		occurrence_scaler = 28 / occurrence_scaler;
 
 		budget[transaction.category] += Math.floor(
@@ -14,7 +16,10 @@ export function getBudget(transactions) {
 		);
 	});
 
-	return Object.keys(budget).map(category => {
-		return { category, value: budget[category] };
-	});
+	return Object.keys(budget).map(category => (
+		{
+			category,
+			value: budget[category]
+		}
+	));
 }

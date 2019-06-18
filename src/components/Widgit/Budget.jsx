@@ -6,6 +6,7 @@ import { Box } from "grommet";
 import { colors } from "../../constants";
 import { client } from "../../routes";
 import { getBudget } from "../../data/logic";
+import {getKey, sumArray} from "../../data/helpers";
 
 const GET_TRANSACTIONS = gql`
 	{
@@ -28,15 +29,24 @@ class Budget extends Component {
 	chartDataFromBudget = budget => {
 		budget = budget
 			.sort((a, b) => a.value - b.value)
-			.filter(a => a.value < 0)
 			.filter(a => a.category !== "once");
 
 		let labels = [];
 		let values = [];
 		let table = [];
+		let sliceColors = [];
 
 		for (let i in budget) {
 			let { value, category } = budget[i];
+
+			if (category === "income") {
+				category = "leftover";
+				value = Math.abs(sumArray(getKey(budget, "value")));
+				sliceColors.push("#f8f8f8")
+			} else {
+				sliceColors.push(colors[i])
+			}
+
 			labels.push(category);
 			values.push(Math.abs(value)); // makes piechart show postive numbers
 			table.push({ value, category });
@@ -48,7 +58,7 @@ class Budget extends Component {
 				datasets: [
 					{
 						data: values,
-						backgroundColor: colors.slice(0, values.length).reverse(),
+						backgroundColor: sliceColors,
 						borderWidth: 0
 					}
 				]
