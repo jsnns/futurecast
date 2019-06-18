@@ -80,7 +80,7 @@ class Budget extends Component {
 
 	render() {
 		const { data, table } = this.state;
-		return <Box alignSelf={"center"}>
+		return <Box flex={"grow"}>
 			<PieWithTable pieData={data} tableData={table} />
 		</Box>
 	}

@@ -74,7 +74,7 @@ const BillsTable = () => {
 	];
 
 	return (
-		<Box>
+		<Box >
 			<Box
 				direction="row"
 				style={{ position: "fixed", right: 25, bottom: 25 }}
@@ -86,7 +86,7 @@ const BillsTable = () => {
 					style={{borderRadius: 1}}
 				/>
 			</Box>
-			<Box pad="small" fill>
+			<Box fill>
 				<Query query={GET_TRANSACTIONS}>
 					{({ loading, error, data }) => {
 						if (loading) return "Loading...";

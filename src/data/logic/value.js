@@ -1,0 +1,1 @@
+export const valueScore = (durability, cost, effectiveness) => (durability/cost) * effectiveness;

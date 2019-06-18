@@ -1,6 +1,7 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
 import { Box, Text, RangeInput } from "grommet";
+import {toCurrency} from "../../data/helpers";
 
 const InteractiveLineChart = ({ value, updateValue, data }) => (
 	<Box>
@@ -16,14 +17,32 @@ const InteractiveLineChart = ({ value, updateValue, data }) => (
 				/>
 			</Box>
 		</Box>
-		<Box pad="small" height="medium" style={{ position: "relative" }}>
+		<Box height="medium" style={{ position: "relative" }}>
 			<Line
 				data={data}
 				options={{
 					pointHitDetectionRadius: 5,
 					bezierCurve: false,
 					scaleBeginAtZero: true,
-					maintainAspectRatio: false
+					maintainAspectRatio: false,
+					tooltips: {
+
+					},
+					scales: {
+						xAxes: [{
+							type: 'time',
+							time: {
+								unit: 'month'
+							}
+						}],
+						yAxes: [{
+							ticks: {
+								// Include a dollar sign in the ticks
+								callback: toCurrency,
+
+							}
+						}]
+					}
 				}}
 			/>
 		</Box>

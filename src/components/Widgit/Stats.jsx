@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Box, Heading, Text, Button } from "grommet";
+import { Box, Heading, Text } from "grommet";
 
 import { client } from "../../routes";
 import { getBalances } from "../../data/logic";

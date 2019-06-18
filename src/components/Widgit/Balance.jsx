@@ -59,7 +59,7 @@ class Balance extends Component {
 
 		const balances = _.getKey(data, "balance");
 		const mins = _.getKey(data, "minimum");
-		const labels = _.getKey(data, "date");
+		const labels = _.getKey(data, "date").map(date => new Date(date));
 
 		this.setState({
 			data: {

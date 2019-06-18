@@ -6,6 +6,8 @@ import { Home } from "grommet-icons";
 import EditTxs from "./Transactions/Transactions";
 import EditAccounts from "./Accounts/Accounts";
 import DashboardWidget from "../shared/DashboardWidget";
+import Subscriptions from "./Subscriptions/Subscriptions";
+
 
 class Edit extends Component {
 	state = {
@@ -56,6 +58,11 @@ class Edit extends Component {
 					</DashboardWidget>
 					<DashboardWidget title="Accounts" basis="1/2">
 						<EditAccounts />
+					</DashboardWidget>
+				</Box>
+				<Box direction="row-responsive">
+					<DashboardWidget title="Subscriptions" basis={"1/2"}>
+						<Subscriptions />
 					</DashboardWidget>
 				</Box>
 			</Box>

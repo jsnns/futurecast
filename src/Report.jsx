@@ -12,6 +12,7 @@ import "./styles/fonts.css";
 import DashboardWidget from "./components/shared/DashboardWidget";
 import {Edit as EditIcon, Logout, UserSettings} from "grommet-icons/es6";
 import {auth} from "./routes";
+import Subscriptions from "./components/Widgit/Subscriptions";
 
 const Report = () => {
 	return (
@@ -44,6 +45,9 @@ const Report = () => {
 					</DashboardWidget>
 					<DashboardWidget title="Budget" basis="auto">
 						<Budget />
+					</DashboardWidget>
+					<DashboardWidget title="Subscriptions" basis="auto">
+						<Subscriptions />
 					</DashboardWidget>
 				</Box>
 			</Box>

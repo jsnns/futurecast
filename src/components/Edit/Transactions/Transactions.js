@@ -1,13 +1,12 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import gql from 'graphql-tag';
-import { Subscription } from 'react-apollo';
+import {Subscription} from 'react-apollo';
 
-import { Box, Button, DataTable, Text, Anchor } from 'grommet';
-import Transaction from './TransactionTile';
-import { Add } from 'grommet-icons';
+import {Anchor, Box, Button, DataTable, Text} from 'grommet';
+import {Edit, Trash} from 'grommet-icons';
 import EditTransactionModal from './EditTransaction';
-import { client, auth } from '../../../routes';
+import {auth, client} from '../../../routes';
 
 const GET_TRANSACTIONS = gql`
 	subscription {
@@ -25,32 +24,32 @@ const GET_TRANSACTIONS = gql`
 `;
 
 class EditTxs extends Component {
-	state = {
-		income: [],
-		expenses: [],
-		allIncome: [],
-		allExpenses: [],
-		nullTxs: [],
-		selectedTx: null
-	};
+    state = {
+        income: [],
+        expenses: [],
+        allIncome: [],
+        allExpenses: [],
+        nullTxs: [],
+        selectedTx: null
+    };
 
-	constructor(props) {
-		super(props);
-		this.openEditModal = this.openEditModal.bind(this);
-		this.closeModal = this.closeModal.bind(this);
-		this.updateTx = this.updateTx.bind(this);
-	}
+    constructor(props) {
+        super(props);
+        this.openEditModal = this.openEditModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.updateTx = this.updateTx.bind(this);
+    }
 
-	openEditModal(tx) {
-		this.setState({ selectedTx: tx });
-	}
+    openEditModal(tx) {
+        this.setState({selectedTx: tx});
+    }
 
-	closeModal() {
-		this.setState({ selectedTx: null });
-	}
+    closeModal() {
+        this.setState({selectedTx: null});
+    }
 
-	async trashTransaction(id) {
-		const DELETE_TRANSACTION = gql`
+    async trashTransaction(id) {
+        const DELETE_TRANSACTION = gql`
 		  mutation {
 			delete_transactions(where: { id: { _eq: "${id}" } }) {
 			  returning {
@@ -59,113 +58,105 @@ class EditTxs extends Component {
 			}
 		  }
 		`;
-		return client.mutate({ mutation: DELETE_TRANSACTION });
-	}
+        return client.mutate({mutation: DELETE_TRANSACTION});
+    }
 
-	updateTx(key) {
-		const { selectedTx } = this.state;
-		return e => {
-			const UPDATE_TRANSACTION = gql`
-        mutation {
-          update_transactions(where: {id: {_eq: "${selectedTx.id}"}}, _set: {${key}: "${
-				e.target.value
-			}"}) {
-            returning {
-              id
-            }
-          }
-        }`;
-			client
-				.mutate({ mutation: UPDATE_TRANSACTION })
-				.then(transaction => this.setState({ selectedTx }));
-			selectedTx[key] = e.target.value;
-			this.setState({ selectedTx });
-		};
-	}
+    updateTx(key) {
+        const {selectedTx} = this.state;
+        return e => {
+            const UPDATE_TRANSACTION = gql`
+				mutation {
+				  update_transactions(where: {id: {_eq: "${selectedTx.id}"}}, _set: {${key}: "${
+                e.target.value
+                }"}) {
+					returning {
+					  id
+					}
+				  }
+				}
+			`;
+            client
+                .mutate({mutation: UPDATE_TRANSACTION})
+                .then(transaction => this.setState({selectedTx}));
+            selectedTx[key] = e.target.value;
+            this.setState({selectedTx});
+        };
+    }
 
-	render() {
-		const { selectedTx } = this.state;
+    render() {
+        const {selectedTx} = this.state;
 
-		return (
-			<Box pad='medium'>
-				<EditTransactionModal
-					onClose={this.closeModal}
-					onSubmit={this.pushTx}
-					onEdit={this.updateTx}
-					transaction={selectedTx}
-				/>
-				<Box>
-					<Box direction='row-responsive'>
-						<Box margin='small'>
-							<Button
-								icon={<Add />}
-								style={{ width: 50 }}
-								primary
-								onClick={() => {
-									client
-										.mutate({
-											mutation: gql`
-                        mutation {
-                          insert_transactions(
-                            objects: { owner: "${auth.user_id}" }
-                          ) {
-                            returning {
-                              id
-                            }
-                          }
-                        }
-                      `
-										})
-										.then(() => console.log('made new tx'));
-								}}
-							/>
-						</Box>
-					</Box>
-					<Box direction='row-responsive' wrap>
-						<Subscription subscription={GET_TRANSACTIONS}>
-							{({ loading, error, data, networkStatus }) => {
-								if (loading) return 'loading';
-								if (error) return `Error! ${error.message}`;
-
-								return <DataTable
-									size={"medium"}
-									primaryKey={"id"}
-									sortable={true}
-									columns={[
-										{
-											header: "Name",
-											property: "name"
-										},
-										{
-											header: "Value",
-											property: "value"
-										},
-										{
-											header: "Category",
-											property: "category"
-										},
-										{
-											header: "",
-											render: datum => <Text>
-												<Anchor onClick={() => this.openEditModal(datum)} label={"Edit"} />
-											</Text>
-										},
-										{
-											header: "",
-											render: datum => <Text>
-												<Anchor onClick={() => this.trashTransaction(datum.id)} label={"Delete"} />
-											</Text>
+        return (
+            <Box pad='none' margin={"none"}>
+                <EditTransactionModal
+                    onClose={this.closeModal}
+                    onSubmit={this.pushTx}
+                    onEdit={this.updateTx}
+                    transaction={selectedTx}
+                />
+                <Button
+                    label={"New"}
+                    onClick={() => {
+                        client
+                            .mutate({
+                                mutation: gql`
+									mutation {
+									  insert_transactions(
+										objects: { owner: "${auth.user_id}" }
+									  ) {
+										returning {
+										  id
 										}
-									]}
-									data={data.transactions}
-								/>
-							}}
-						</Subscription>
-					</Box>
-				</Box>
-			</Box>
-		);
-	}
+									  }
+									}
+								`
+                            })
+                            .then(() => console.log('made new tx'));
+                    }}
+                />
+                <Box pad={"none"} margin={"none"}>
+                    <Subscription subscription={GET_TRANSACTIONS}>
+                        {({loading, error, data, networkStatus}) => {
+                            if (loading) return 'loading';
+                            if (error) return `Error! ${error.message}`;
+
+                            return <DataTable
+                                primaryKey={"id"}
+                                sortable={true}
+                                columns={[
+                                    {
+                                        header: "Name",
+                                        property: "name"
+                                    },
+                                    {
+                                        header: "Value",
+                                        property: "value"
+                                    },
+                                    {
+                                        header: "Category",
+                                        property: "category"
+                                    },
+                                    {
+                                        header: "",
+                                        render: datum => <Text>
+                                            <Anchor onClick={() => this.openEditModal(datum)} label={<Edit/>}/>
+                                        </Text>
+                                    },
+                                    {
+                                        header: "",
+                                        render: datum => <Text>
+                                            <Anchor onClick={() => this.trashTransaction(datum.id)} label={<Trash/>}/>
+                                        </Text>
+                                    }
+                                ]}
+                                data={data.transactions}
+                            />
+                        }}
+                    </Subscription>
+                </Box>
+            </Box>
+        );
+    }
 }
 
 export default EditTxs;
