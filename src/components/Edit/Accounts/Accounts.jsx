@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import {Anchor, Box, Button, DataTable, Text} from "grommet";
-import { client, auth }from "../../../routes"
+import { Anchor, Box, Button, DataTable, Text } from "grommet";
+import { client, auth } from "../../../routes"
 import gql from "graphql-tag";
-import {Subscription} from "react-apollo";
+import { Subscription } from "react-apollo";
 import EditAccountModal from "./EditAccountModal";
-import {Edit} from "grommet-icons";
+import { Edit, Trash } from "grommet-icons";
 
 const GET_SUBSCRIPTIONS = gql`
 	subscription {
@@ -46,7 +46,13 @@ class Accounts extends Component {
                                 {
                                     header: "",
                                     render: datum => <Text>
-                                        <Anchor onClick={() => this.openModal(datum)} label={<Edit/>} />
+                                        <Anchor onClick={() => this.openModal(datum)} label={<Edit />} />
+                                    </Text>
+                                },
+                                {
+                                    header: "",
+                                    render: datum => <Text>
+                                        <Anchor onClick={() => this.deleteAccount(datum.id)} label={<Trash />} />
                                     </Text>
                                 }
                             ]}
@@ -58,21 +64,33 @@ class Accounts extends Component {
         )
     };
 
-    openModal = account => this.setState({account});
+    openModal = account => this.setState({ account });
 
-    closeModal = () => this.setState({account: null});
+    closeModal = () => this.setState({ account: null });
+
+    deleteAccount = async id => client.mutate({
+        mutation: gql`
+    mutation {
+      delete_accounts(where: { id: { _eq: "${id}" } }) {
+        returning {
+          id
+        }
+      }
+    }
+  `});
 
     edit = key => {
         const { account } = this.state;
 
         return e => {
             account[key] = e.target.value;
-            this.setState({account});
+            this.setState({ account });
             this.updateAccount(account.id, key, e.target.value);
         };
     };
 
-    updateAccount = (id, key, value) => client.mutate({mutation: gql`
+    updateAccount = (id, key, value) => client.mutate({
+        mutation: gql`
         mutation {
           update_accounts(where: {id: {_eq: "${id}"}}, _set: {${key}: "${value}"}) {
             returning {
@@ -82,7 +100,8 @@ class Accounts extends Component {
         }
     `});
 
-    newAccount = () => client.mutate({mutation: gql`
+    newAccount = () => client.mutate({
+        mutation: gql`
         mutation {
           insert_accounts(objects: {owner: "${auth.user_id}"}) {
             returning {
