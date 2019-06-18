@@ -27,35 +27,6 @@ const GET_TRANSACTIONS = gql`
 class StatsTables extends Component {
 	state = { stats: [] };
 
-	componentWillMount = async () => {
-		client
-			.query({ query: GET_TRANSACTIONS })
-			.then(({ data, loading, error }) => {
-				if (loading) console.log("Loading...");
-				if (error) console.log(`Error! ${error}`);
-				if (data) {
-					const { transactions, accounts } = data.users[0];
-					const currentBalance = _.sumArray(_.getKey(accounts, "balance"));
-					const balances = getBalances(transactions, currentBalance, 365);
-
-					const stats = [
-						{
-							label: "Minimum Balance",
-							value: _.toCurrency(
-								_.getMinimum(_.getKey(balances, "balance"))
-							)
-						},
-						{
-							label: "Current Balance",
-							value: _.toCurrency(currentBalance)
-						}
-					];
-
-					this.setState({ stats });
-				}
-			});
-	};
-
 	render() {
 		const { stats } = this.state;
 
@@ -74,6 +45,7 @@ class StatsTables extends Component {
 							>
 								{stat.value}
 							</Heading>
+
 							<Text margin="none" style={{ fontFamily: "Lato" }}>
 								{stat.label}
 							</Text>
@@ -84,6 +56,42 @@ class StatsTables extends Component {
 			</Box>
 		);
 	}
+
+	componentWillMount = async () => {
+		client
+			.query({ query: GET_TRANSACTIONS })
+			.then(({ data, loading, error }) => {
+				if (loading) console.log("Loading...");
+				if (error) console.log(`Error! ${error}`);
+				if (data) {
+					const { transactions, accounts } = data.users[0];
+					const currentBalance = _.sumArray(_.getKey(accounts, "balance"));
+					const balances = getBalances(transactions, currentBalance, 365);
+
+					debugger;
+
+					const stats = [
+						{
+							label: "Minimum Balance",
+							value: _.toCurrency(
+								_.getMinimum(
+									_.getKey(
+										balances,
+										"balance"
+									)
+								)
+							)
+						},
+						{
+							label: "Current Balance",
+							value: _.toCurrency(currentBalance)
+						}
+					];
+
+					this.setState({ stats });
+				}
+			});
+	};
 }
 
 export default StatsTables;

@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Box, Button } from "grommet";
 import { Home } from "grommet-icons";
 
-import EditTxs from "./Transactions/Transactions";
+import EditTransactions from "./Transactions/Transactions";
 import EditAccounts from "./Accounts/Accounts";
 import DashboardWidget from "../shared/DashboardWidget";
 import Subscriptions from "./Subscriptions/Subscriptions";
@@ -54,7 +54,7 @@ class Edit extends Component {
 				</Box>
 				<Box direction="row-responsive">
 					<DashboardWidget title="Transactions" basis="1/2">
-						<EditTxs />
+						<EditTransactions />
 					</DashboardWidget>
 					<DashboardWidget title="Accounts" basis="1/2">
 						<EditAccounts />

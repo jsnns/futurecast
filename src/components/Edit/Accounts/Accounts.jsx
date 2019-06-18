@@ -17,9 +17,7 @@ const GET_SUBSCRIPTIONS = gql`
 `;
 
 class Accounts extends Component {
-    state = {
-        account: null
-    };
+    state = { account: null };
 
     render = () => {
         return (
@@ -29,11 +27,9 @@ class Accounts extends Component {
                 <Button onClick={this.newAccount} label="New" />
 
                 <Subscription subscription={GET_SUBSCRIPTIONS}>
-                    {({ loading, error, data, networkStatus }) => {
-                        if (loading) return 'loading';
+                    {({ loading, error, data }) => {
+                        if (loading) return 'Loading...';
                         if (error) return `Error! ${error.message}`;
-
-                        console.log(data)
 
                         return <DataTable
                             primaryKey={"id"}
@@ -63,6 +59,7 @@ class Accounts extends Component {
     };
 
     openModal = account => this.setState({account});
+
     closeModal = () => this.setState({account: null});
 
     edit = key => {
@@ -72,7 +69,6 @@ class Accounts extends Component {
             account[key] = e.target.value;
             this.setState({account});
             this.updateAccount(account.id, key, e.target.value);
-
         };
     };
 

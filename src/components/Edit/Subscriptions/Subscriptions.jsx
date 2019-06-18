@@ -21,42 +21,22 @@ const GET_SUBSCRIPTIONS = gql`
 `;
 
 class Subscriptions extends Component {
-    state = {
-        subscription: null
-    };
-
-    edit = key => {
-        const { subscription } = this.state;
-
-        return e => {
-            const UPDATE_TRANSACTION = gql`
-				mutation {
-				  update_subscriptions(where: {id: {_eq: "${subscription.id}"}}, _set: {${key}: "${
-                e.target.value
-                }"}) {
-					returning {
-					  id
-					}
-				  }
-				}
-			`;
-            subscription[key] = e.target.value;
-            client
-                .mutate({ mutation: UPDATE_TRANSACTION })
-                .then(transaction => this.setState({ subscription }));
-            this.setState({ subscription });
-        };
-    }
+    state = { subscription: null };
 
     render = () => {
         return (
             <Box>
-                <EditSubscriptionModal edit={this.edit} onClose={this.closeModal} subscription={this.state.subscription} />
+                <EditSubscriptionModal
+                    edit={this.edit}
+                    onClose={this.closeModal}
+                    subscription={this.state.subscription}
+                />
 
-                <Button onClick={this.newSubscription} label="New"></Button>
+                <Button onClick={this.newSubscription} label="New" />
+
                 <Subscription subscription={GET_SUBSCRIPTIONS}>
                     {({ loading, error, data, networkStatus }) => {
-                        if (loading) return 'loading';
+                        if (loading) return 'Loading...';
                         if (error) return `Error! ${error.message}`;
 
                         console.log(data)
@@ -96,9 +76,6 @@ class Subscriptions extends Component {
         )
     };
 
-    openModal = subscription => this.setState({subscription});
-    closeModal = () => this.setState({subscription: null});
-
     updateSubscription = (id, key, value) => client.mutate({mutation: gql`
         mutation {
           update_subscriptions(where: {id: {_eq: "${id}"}}, _set: {${key}: "${value}"}) {
@@ -118,6 +95,20 @@ class Subscriptions extends Component {
           }
         }
     `})
+
+    edit = key => {
+        const { subscription } = this.state;
+
+        return e => {
+            subscription[key] = e.target.value;
+            this.setState({selectedTx: subscription});
+            this.updateSubscription(subscription.id, key, e.target.value);
+        };
+    };
+
+    openModal = subscription => this.setState({subscription});
+
+    closeModal = () => this.setState({subscription: null});
 }
 
 export default Subscriptions;

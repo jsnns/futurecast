@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-
 import gql from 'graphql-tag';
-import {Subscription} from 'react-apollo';
-
-import {Anchor, Box, Button, DataTable, Text} from 'grommet';
+import { Subscription } from 'react-apollo';
+import { Anchor, Box, Button, DataTable, Text } from 'grommet';
 import {Edit, Trash} from 'grommet-icons';
+
+import { auth, client } from '../../../routes';
 import EditTransactionModal from './EditTransaction';
-import {auth, client} from '../../../routes';
 
 const GET_TRANSACTIONS = gql`
 	subscription {
@@ -23,7 +22,7 @@ const GET_TRANSACTIONS = gql`
 	}
 `;
 
-class EditTxs extends Component {
+class EditTransactions extends Component {
     state = {
         income: [],
         expenses: [],
@@ -33,56 +32,6 @@ class EditTxs extends Component {
         selectedTx: null
     };
 
-    constructor(props) {
-        super(props);
-        this.openEditModal = this.openEditModal.bind(this);
-        this.closeModal = this.closeModal.bind(this);
-        this.updateTx = this.updateTx.bind(this);
-    }
-
-    openEditModal(tx) {
-        this.setState({selectedTx: tx});
-    }
-
-    closeModal() {
-        this.setState({selectedTx: null});
-    }
-
-    async trashTransaction(id) {
-        const DELETE_TRANSACTION = gql`
-		  mutation {
-			delete_transactions(where: { id: { _eq: "${id}" } }) {
-			  returning {
-				id
-			  }
-			}
-		  }
-		`;
-        return client.mutate({mutation: DELETE_TRANSACTION});
-    }
-
-    updateTx(key) {
-        const {selectedTx} = this.state;
-        return e => {
-            const UPDATE_TRANSACTION = gql`
-				mutation {
-				  update_transactions(where: {id: {_eq: "${selectedTx.id}"}}, _set: {${key}: "${
-                e.target.value
-                }"}) {
-					returning {
-					  id
-					}
-				  }
-				}
-			`;
-            client
-                .mutate({mutation: UPDATE_TRANSACTION})
-                .then(transaction => this.setState({selectedTx}));
-            selectedTx[key] = e.target.value;
-            this.setState({selectedTx});
-        };
-    }
-
     render() {
         const {selectedTx} = this.state;
 
@@ -90,34 +39,16 @@ class EditTxs extends Component {
             <Box pad='none' margin={"none"}>
                 <EditTransactionModal
                     onClose={this.closeModal}
-                    onSubmit={this.pushTx}
-                    onEdit={this.updateTx}
+                    onSubmit={() => {}}
+                    update={this.edit}
                     transaction={selectedTx}
                 />
-                <Button
-                    label={"New"}
-                    onClick={() => {
-                        client
-                            .mutate({
-                                mutation: gql`
-									mutation {
-									  insert_transactions(
-										objects: { owner: "${auth.user_id}" }
-									  ) {
-										returning {
-										  id
-										}
-									  }
-									}
-								`
-                            })
-                            .then(() => console.log('made new tx'));
-                    }}
-                />
+
+                <Button label={"New"} onClick={this.newTransaction} />
                 <Box pad={"none"} margin={"none"}>
                     <Subscription subscription={GET_TRANSACTIONS}>
                         {({loading, error, data, networkStatus}) => {
-                            if (loading) return 'loading';
+                            if (loading) return 'Loading...';
                             if (error) return `Error! ${error.message}`;
 
                             return <DataTable
@@ -145,7 +76,7 @@ class EditTxs extends Component {
                                     {
                                         header: "",
                                         render: datum => <Text>
-                                            <Anchor onClick={() => this.trashTransaction(datum.id)} label={<Trash/>}/>
+                                            <Anchor onClick={() => this.deleteTransaction(datum.id)} label={<Trash/>}/>
                                         </Text>
                                     }
                                 ]}
@@ -157,6 +88,50 @@ class EditTxs extends Component {
             </Box>
         );
     }
+
+    openEditModal = tx => this.setState({selectedTx: tx});
+
+    closeModal = () => this.setState({selectedTx: null});
+
+    deleteTransaction = async id => client.mutate({mutation: gql`
+      mutation {
+        delete_transactions(where: { id: { _eq: "${id}" } }) {
+          returning {
+            id
+          }
+        }
+      }
+    `});
+
+    updateTransaction = (id, key, value) => client.mutate({mutation: gql`
+        mutation {
+          update_transaction(where: {id: {_eq: "${id}"}}, _set: {${key}: "${value}"}) {
+            returning {
+              id
+            }
+          }
+        }
+    `});
+
+    edit = key => {
+        const { selectedTx } = this.state;
+
+        return e => {
+            selectedTx[key] = e.target.value;
+            this.setState({selectedTx});
+            this.updateTransaction(selectedTx.id, key, e.target.value);
+        };
+    };
+
+    newTransaction = () => client.mutate({mutation: gql`
+        mutation {
+          insert_transactions(objects: { owner: "${auth.user_id}" }) {
+            returning {
+              id
+            }
+          }
+        }
+    `});
 }
 
-export default EditTxs;
+export default EditTransactions;

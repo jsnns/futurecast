@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Box, Button, Heading } from "grommet";
 
 class AuthenticatedRoute extends Component {
 	login() {
@@ -13,17 +14,27 @@ class AuthenticatedRoute extends Component {
 		}
 
 		return (
-			<div className="container">
-				<h4>
-					You are not logged in! Please Log In to continue.
-					<button
-						style={{ cursor: "pointer" }}
+			<Box pad={"large"}>
+				<Box>
+					<Heading level={1} margin={{bottom: "none"}}>
+						Futurecast
+					</Heading>
+				</Box>
+				<Box fill direction={"row"}>
+					<Heading level={4}>
+						Welcome to Futurecast. You are not logged in!
+						<br />
+						Please login to continue.
+					</Heading>
+				</Box>
+				<Box>
+					<Button
+						primary
+						label={"Login \\ Create Account"}
 						onClick={this.login.bind(this)}
-					>
-						Log In
-					</button>
-				</h4>
-			</div>
+					/>
+				</Box>
+			</Box>
 		);
 	}
 }
