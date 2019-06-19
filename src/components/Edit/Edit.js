@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 
-import { Box, Button } from "grommet";
-import { Home } from "grommet-icons";
+import { Box } from "grommet";
 
 import EditTransactions from "./Transactions/Transactions";
 import EditAccounts from "./Accounts/Accounts";
 import DashboardWidget from "../shared/DashboardWidget";
 import Subscriptions from "./Subscriptions/Subscriptions";
+import Header from "../shared/Header";
 
 
 class Edit extends Component {
@@ -49,9 +49,7 @@ class Edit extends Component {
 
 		return (
 			<Box>
-				<Box direction="row-responsive">
-					<Button margin="small" icon={<Home />} label="Home" href="/" />
-				</Box>
+				<Header></Header>
 				<Box direction="row-responsive">
 					<DashboardWidget title="Transactions" basis="1/2">
 						<EditTransactions />
