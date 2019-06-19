@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import {Anchor, Box, Button, DataTable, Text} from "grommet";
-import { client, auth }from "../../../routes"
+import { Anchor, Box, Button, DataTable, Text } from "grommet";
+import { client, auth } from "../../../routes"
 import gql from "graphql-tag";
-import {Subscription} from "react-apollo";
+import { Subscription } from "react-apollo";
 import EditSubscriptionModal from "./EditSubscriptionModal";
-import {Edit} from "grommet-icons";
+import { Edit, Trash } from "grommet-icons";
 
 const GET_SUBSCRIPTIONS = gql`
 	subscription {
@@ -64,7 +64,13 @@ class Subscriptions extends Component {
                                 {
                                     header: "",
                                     render: datum => <Text>
-                                        <Anchor onClick={() => this.openModal(datum)} label={<Edit/>} />
+                                        <Anchor onClick={() => this.openModal(datum)} label={<Edit />} />
+                                    </Text>
+                                },
+                                {
+                                    header: "",
+                                    render: datum => <Text>
+                                        <Anchor onClick={() => this.deleteSubscription(datum.id)} label={<Trash />} />
                                     </Text>
                                 }
                             ]}
@@ -76,7 +82,8 @@ class Subscriptions extends Component {
         )
     };
 
-    updateSubscription = (id, key, value) => client.mutate({mutation: gql`
+    updateSubscription = (id, key, value) => client.mutate({
+        mutation: gql`
         mutation {
           update_subscriptions(where: {id: {_eq: "${id}"}}, _set: {${key}: "${value}"}) {
             returning {
@@ -86,7 +93,8 @@ class Subscriptions extends Component {
         }
     `});
 
-    newSubscription = () => client.mutate({mutation: gql`
+    newSubscription = () => client.mutate({
+        mutation: gql`
         mutation {
           insert_subscriptions(objects: {owner: "${auth.user_id}"}) {
             returning {
@@ -101,14 +109,25 @@ class Subscriptions extends Component {
 
         return e => {
             subscription[key] = e.target.value;
-            this.setState({selectedTx: subscription});
+            this.setState({ selectedTx: subscription });
             this.updateSubscription(subscription.id, key, e.target.value);
         };
     };
 
-    openModal = subscription => this.setState({subscription});
+    deleteSubscription = async id => client.mutate({
+        mutation: gql`
+    mutation {
+      delete_subscriptions(where: { id: { _eq: "${id}" } }) {
+        returning {
+          id
+        }
+      }
+    }
+  `});
 
-    closeModal = () => this.setState({subscription: null});
+    openModal = subscription => this.setState({ subscription });
+
+    closeModal = () => this.setState({ subscription: null });
 }
 
 export default Subscriptions;

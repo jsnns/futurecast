@@ -69,8 +69,6 @@ class StatsTables extends Component {
 					const currentBalance = _.sumArray(_.getKey(accounts, "balance"));
 					const balances = getBalances(transactions, currentBalance, 365);
 
-					debugger;
-
 					const stats = [
 						{
 							label: "Minimum Balance",
