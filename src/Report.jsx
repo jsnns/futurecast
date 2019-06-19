@@ -11,37 +11,38 @@ import "./styles/fonts.css";
 import DashboardWidget from "./components/shared/DashboardWidget";
 import Subscriptions from "./components/Widgit/Subscriptions";
 import Header from "./components/shared/Header";
+import DashboardSection from "./components/shared/DashboardSection";
 
 const Report = () => {
-	return (
-		<Box pad="none">
-			<Header></Header>
+  return (
+    <Box pad="none">
+      <Header/>
+      <Box direction="row-responsive" wrap>
+        <DashboardWidget title="Ask" basis="full">
+          <Ask/>
+        </DashboardWidget>
 
+        <DashboardSection direction={"column"} basis={"1/3"}>
+          <DashboardWidget title="Budget" basis="1/1">
+            <Budget/>
+          </DashboardWidget>
 
-			<Box direction="row-responsive" wrap>
-				<Box basis="2/3" flex="grow" >
-					<DashboardWidget title="Balance" basis="auto" >
-						<Balance />
-					</DashboardWidget>
-					<DashboardWidget title="Bills" basis="auto">
-						<Bills />
-					</DashboardWidget>
-				</Box>
+          <DashboardWidget title="Subscriptions" basis="1/1">
+            <Subscriptions/>
+          </DashboardWidget>
+        </DashboardSection>
 
-				<Box basis="1/3" >
-					<DashboardWidget title="Ask" basis="auto">
-						<Ask />
-					</DashboardWidget>
-					<DashboardWidget title="Budget" basis="auto">
-						<Budget />
-					</DashboardWidget>
-					<DashboardWidget title="Subscriptions" basis="auto">
-						<Subscriptions />
-					</DashboardWidget>
-				</Box>
-			</Box>
-		</Box>
-	);
+        <DashboardSection direction={"column"} basis={"2/3"}>
+          <DashboardWidget title="Balance" basis="1/1">
+            <Balance/>
+          </DashboardWidget>
+          <DashboardWidget title="Bills" basis="1/1">
+            <Bills/>
+          </DashboardWidget>
+        </DashboardSection>
+      </Box>
+    </Box>
+  );
 };
 
 export default Report;

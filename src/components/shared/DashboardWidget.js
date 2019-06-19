@@ -1,21 +1,27 @@
 import React from "react";
-import { Heading, Box } from "grommet";
+import { Box, Heading } from "grommet";
 
 function DashboardWidget({ children, title, color, basis }) {
   return (
-    <Box basis={basis} pad="small">
+    <Box pad="small" direction="row" basis={basis}>
       <Box
         color={color || "light-2"}
         elevation="small"
-        style={{ fontFamily: "Alegreya" }}
-        direction="row"
         background="light-1"
+        pad={"small"}
+        flex={"grow"}
+        animation={{
+          "type": "fadeIn",
+          "delay": 100,
+          "duration": 1000,
+          "size": "xsmall"
+        }}
       >
-        <Box pad="small" fill>
-          <Heading margin="none" level={1}>
-            {title}
-          </Heading>
-          <Box>{children}</Box>
+        <Heading style={{ fontFamily: "Alegreya" }} margin="none" level={1}>
+          {title}
+        </Heading>
+        <Box>
+          {children}
         </Box>
       </Box>
     </Box>

@@ -1,25 +1,25 @@
 export function getBudget(transactions) {
-	let budget = {};
+  let budget = {};
 
-	transactions.forEach(transaction => {
-		let category = transaction.category;
+  transactions.forEach(transaction => {
+    let category = transaction.category;
 
-		if (!budget[category]) budget[category] = 0;
+    if (!budget[category]) budget[category] = 0;
 
-		let occurrence_scaler =
-			transaction.interval_months * 28 + transaction.interval_days;
+    let occurrence_scaler =
+      transaction.interval_months * 28 + transaction.interval_days;
 
-		occurrence_scaler = 28 / occurrence_scaler;
+    occurrence_scaler = 28 / occurrence_scaler;
 
-		budget[transaction.category] += Math.floor(
-			transaction.value * occurrence_scaler
-		);
-	});
+    budget[transaction.category] += Math.floor(
+      transaction.value * occurrence_scaler
+    );
+  });
 
-	return Object.keys(budget).map(category => (
-		{
-			category,
-			value: budget[category]
-		}
-	));
+  return Object.keys(budget).map(category => (
+    {
+      category,
+      value: budget[category]
+    }
+  ));
 }

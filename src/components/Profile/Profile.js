@@ -6,33 +6,31 @@ import { auth } from "../../routes";
 import { Query } from "react-apollo";
 
 class Profile extends Component {
-    render() {
-        return (
-            <Box>
-                <Header />
-                <Box>
-                    <Query query={this.QUERY}>
-                        {({ data, loading, error }) => {
-                            if (loading) return "Loading..."
+  QUERY = gql`{
+      users(where: {id: {_eq: "${auth.user_id}"}}) {
+          email
+          id
+      }
+  }`;
 
-                            let user = data.users[0];
+  render() {
+    return (
+      <Box>
+        <Header/>
+        <Box>
+          <Query query={this.QUERY}>
+            {({ data, loading, error }) => {
+              if (loading) return "Loading...";
 
-                            return <Box>
-                                {user.id}
-                            </Box>
-                        }}
-                    </Query>
-                </Box>
-            </Box>
-        );
-    }
+              let user = data.users[0];
 
-    QUERY = gql`{
-        users(where: {id: {_eq: "${auth.user_id}"}}) {
-            email 
-            id
-        }
-    }`;
-};
+              return <Box>{user.id}</Box>;
+            }}
+          </Query>
+        </Box>
+      </Box>
+    );
+  }
+}
 
-export default Profile; 
+export default Profile;

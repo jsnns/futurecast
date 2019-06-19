@@ -1,19 +1,19 @@
 .wiggle {
-  animation-name: keyframes;
-  animation-delay: -0.75s;
-  animation-duration: 0.25s;
-  animation-iteration-count: infinite;
-  animation-direction: alternate;
-  transform-origin: 30% 5%;
+    animation-name: keyframes;
+    animation-delay: -0.75s;
+    animation-duration: 0.25s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    transform-origin: 30% 5%;
 }
 
 @keyframes keyframes {
-  0% {
-    transform: rotate(1deg);
-    animation-timing-function: ease-in;
-  }
-  50% {
-    transform: rotate(-1.5deg);
-    animation-timing-function: ease-out;
-  }
+    0% {
+        transform: rotate(1deg);
+        animation-timing-function: ease-in;
+    }
+    50% {
+        transform: rotate(-1.5deg);
+        animation-timing-function: ease-out;
+    }
 }

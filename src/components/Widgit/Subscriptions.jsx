@@ -1,155 +1,140 @@
 import React, { Component } from "react";
-import {Box, DataTable, Tab, Meter, Text} from "grommet";
+import { Box, DataTable, Meter, Tab, Text } from "grommet";
 import gql from "graphql-tag";
 import PieWithTable from "../shared/PieWithTable";
-import {colors} from "../../constants";
-import {getKey, sortAscendingByKey, sortDecendingByKey, normalizeArray, sumArray, toCurrency} from "../../data/helpers";
+import { colors } from "../../constants";
 import { valueScore } from "../../data/logic";
-import {client} from "../../routes";
+import { client } from "../../routes";
+import _ from "lodash";
+import { toCurrency } from "../../data/helpers";
 
 const GET_SUBSCRIPTIONS = gql`
-	{
-		subscriptions {
-			id
-			name
-			price
-			category
-			yearly
-			owner
-			usefulness
-		}
-	}
+    {
+        subscriptions {
+            id
+            name
+            price
+            category
+            yearly
+            owner
+            usefulness
+        }
+    }
 `;
 
 class Subscriptions extends Component {
-    state = {data: null, valueAnalysisData: null, saved: null, parsedData: null};
+  state = {
+    totalSaved: 0,
+    valueTableData: [],
+    table: [],
+    pie: {}
+  };
 
-    render = () => {
-        let { valueAnalysisData, saved, parsedData} = this.state;
+  render = () => {
+    let {
+      totalSaved,
+      valueTableData,
+      table,
+      pie
+    } = this.state;
 
-        if (!valueAnalysisData || !saved || !parsedData) return <div/>;
-
-        return <Box flex={"grow"}>
-            <PieWithTable
-                pieData={parsedData.pie}
-                tableData={parsedData.table}
-                tabs={[
-                    <Tab title="Value Analysis">
-                        If you remove the bottom 30% you will save {toCurrency(saved.toFixed(2))}
-                        /mo.
-                        <DataTable
-                            primaryKey={"id"}
-                            columns={[
-                                {
-                                    header: "Name",
-                                    property: "name"
-                                },
-                                {
-                                    header: "Value",
-                                    render: datum => <Text>
-                                        {(datum.relative_value * 100).toFixed(2)}%
-                                    </Text>
-                                },
-                                {
-                                    header: "Value",
-                                    property: 'relative_value',
-                                    render: datum => (
-                                        <Box pad={{ vertical: 'xsmall' }}>
-                                            <Meter
-                                                values={[{ value: datum.relative_value * 100 }]}
-                                                thickness="small"
-                                                size="small"
-                                            />
-                                        </Box>
-                                    ),
-                                }
-                            ]}
-                            data={valueAnalysisData}
-                        />
-                    </Tab>
-                ]}
-            />
-        </Box>
-    };
-
-    componentWillMount = () => {
-        client.query({query: GET_SUBSCRIPTIONS})
-            .then(({data}) => {
-                if (data) {
-                    let parsedData = this.buildPieData(data.subscriptions);
-                    let valueAnalysisData = data.subscriptions.map(sub => {
-                        if (sub.yearly === true) {
-                            sub.price /= 12;
-                        }
-                        sub.relative_value = valueScore(1, sub.price, sub.usefulness);
-
-                        return sub;
-                    });
-
-                    valueAnalysisData = sortDecendingByKey(
-                        normalizeArray(
-                            valueAnalysisData,
-                            "relative_value"
-                        ),
-                        "relative_value"
-                    );
-
-                    let saved = sumArray(
-                        getKey(
-                            valueAnalysisData.filter(sub => {
-                                return sub.relative_value <= .30;
-                            }),
-                            "price"
-                        )
-                    );
-                    this.setState({data, valueAnalysisData, saved, parsedData});
+    return <Box>
+      <PieWithTable
+        pieData={pie}
+        tableData={table}
+        tabs={[
+          <Tab key={"value-analysis-tab-subs"} title="Value Analysis">
+            <Text margin={{ top: "medium", bottom: "medium" }}>
+              If you remove the bottom 30% you will save {toCurrency(totalSaved)}/mo.
+            </Text>
+            <DataTable
+              primaryKey={"id"}
+              columns={[
+                {
+                  header: "Name",
+                  property: "name"
+                },
+                {
+                  header: "Value",
+                  render: datum => <Text>
+                    {(datum.relative_value * 100).toFixed(2)}%
+                  </Text>
+                },
+                {
+                  header: "Value",
+                  property: "relative_value",
+                  render: datum => (
+                    <Box pad={{ vertical: "xsmall" }}>
+                      <Meter
+                        values={[{ value: datum.relative_value * 100 }]}
+                        thickness="small"
+                        size="small"
+                      />
+                    </Box>
+                  )
                 }
-            })
+              ]}
+              data={valueTableData}
+            />
+          </Tab>
+        ]}
+      />
+    </Box>;
+  };
+
+  componentWillMount = () => {
+    client.query({ query: GET_SUBSCRIPTIONS }).then(({ data }) => {
+      if (data) {
+        this.setState(this.parseData(data.subscriptions));
+      }
+    });
+  };
+
+  parseData = subscriptions => {
+
+    // key is a category name, value is the sum of transactions with that category
+    let data = _.chain(subscriptions)
+      .reduce((result, subscription) => {
+        if (!result[subscription.category]) result[subscription.category] = 0;
+
+        result[subscription.category] += subscription.price;
+        return result;
+      }, {})
+      .mapValues(value => value.toFixed(2))
+      .toPairs()
+      .map(([key, value]) => ({ value: Number(value), category: key }))
+      .sortBy(["value"])
+      .value();
+
+    let scoreSubscription = s => valueScore(s.yearly ? 12 : 1, s.price, s.usefulness);
+
+    let valueTableData = _(subscriptions)
+      .setKey("relative_value", scoreSubscription)
+      .normalizeOn("relative_value")
+      .sortBy(["relative_value"])
+      .reverse()
+      .value();
+
+    let totalSaved = _(valueTableData)
+      .filter(sub => sub.relative_value <= .30)
+      .sumBy("price");
+
+    return {
+      totalSaved,
+      valueTableData,
+      table: data,
+      pie: {
+        labels: _(data).map("category").value(),
+        datasets: [
+          {
+            data: _(data).map("value").value(),
+            backgroundColor: colors,
+            borderWidth: 0
+          }
+        ]
+      }
     };
-
-    buildPieData = subscriptions => {
-        let labels = [];
-        let values = [];
-        let table = [];
-        let categories = {};
-
-        for (let i in subscriptions) {
-            let sub = subscriptions[i];
-            if (!categories.hasOwnProperty(sub.category)) {
-                categories[sub.category] = 0;
-            }
-
-            categories[sub.category] += Number(sub.price)
-        }
-
-        categories = Object.keys(categories)
-            .map(key => ({value: categories[key], category: key}));
-        categories = sortAscendingByKey(categories, "value");
-
-        for (let i in categories) {
-            if(categories.hasOwnProperty(i)) {
-                let { value, category } = categories[i];
-                value = value.toFixed(2);
-                labels.push(category);
-                values.push(value);
-                table.push({category, value})
-            }
-        }
-
-        return {
-            pie: {
-                labels,
-                datasets: [
-                    {
-                        data: values,
-                        backgroundColor: colors,
-                        borderWidth: 0
-                    }
-                ]
-            },
-            table
-        }
-    }
+  };
 }
 
-export default Subscriptions
+export default Subscriptions;

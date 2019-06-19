@@ -3,18 +3,18 @@
  * @param {Array<Object>} data
  */
 export function getCsvKeys(data) {
-	if (!(data instanceof Array)) {
-		throw Error("getCsvKeys requires an array");
-	}
+  if (!(data instanceof Array)) {
+    throw Error("getCsvKeys requires an array");
+  }
 
-	let keys = [];
-	data.forEach(row => {
-		for (let key in row) {
-			if (keys.includes(key)) return;
-			else keys.push(key);
-		}
-	});
-	return keys;
+  let keys = [];
+  data.forEach(row => {
+    for (let key in row) {
+      if (keys.includes(key)) return;
+      else keys.push(key);
+    }
+  });
+  return keys;
 }
 
 /**
@@ -23,17 +23,17 @@ export function getCsvKeys(data) {
  * @param {Array<Object>} data
  */
 export function createCsvFromData(data) {
-	const keys = sortKeys(getCsvKeys(data));
-	const rows = data.map(row => {
-		row = keys.map(key => {
-			let value = row[key];
-			if (value instanceof Date) return value.toDateString();
-			return value || "";
-		});
-		return row.join(",");
-	});
+  const keys = sortKeys(getCsvKeys(data));
+  const rows = data.map(row => {
+    row = keys.map(key => {
+      let value = row[key];
+      if (value instanceof Date) return value.toDateString();
+      return value || "";
+    });
+    return row.join(",");
+  });
 
-	return [keys.join(","), ...rows].join("\n");
+  return [keys.join(","), ...rows].join("\n");
 }
 
 /**
@@ -42,7 +42,7 @@ export function createCsvFromData(data) {
  * @param {String} csv
  */
 export function appendCsvFileType(csv) {
-	return "data:text/csv;charset=utf-8," + csv;
+  return "data:text/csv;charset=utf-8," + csv;
 }
 
 /**
@@ -50,12 +50,12 @@ export function appendCsvFileType(csv) {
  * @param {Array<*>} keys
  */
 export function sortKeys(keys) {
-	const keyOrder = ["id", "display", "category", "subcategory"];
-	return keys.sort((a, b) => {
-		if (keyOrder.indexOf(a) === -1) return 1;
-		if (keyOrder.indexOf(b) === -1) return -1;
-		return keyOrder.indexOf(a) - keyOrder.indexOf(b);
-	});
+  const keyOrder = ["id", "display", "category", "subcategory"];
+  return keys.sort((a, b) => {
+    if (keyOrder.indexOf(a) === -1) return 1;
+    if (keyOrder.indexOf(b) === -1) return -1;
+    return keyOrder.indexOf(a) - keyOrder.indexOf(b);
+  });
 }
 
 export default createCsvFromData;

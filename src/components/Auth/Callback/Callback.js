@@ -15,7 +15,7 @@ class Callback extends Component {
       backgroundColor: "white"
     };
 
-    return <div style={style} />;
+    return <div style={style}/>;
   }
 }
 
