@@ -6,6 +6,6 @@ class Profile extends Component {
             <h1>Tester</h1>
         );
     }
-};
+}
 
-export default Profile; 
+export default Profile;

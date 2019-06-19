@@ -1,7 +1,6 @@
-image: node:11.6.0
-
 heroku:
    script:
-      - git push https://heroku:90acff48-d364-4480-b42f-7fb56866cb71@git.heroku.com/secure-plains-49647.git master
+      - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/secure-plains-49647.git
+      - git push -f heroku master
    only:
       - master

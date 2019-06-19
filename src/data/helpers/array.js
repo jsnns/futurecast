@@ -1,24 +1,33 @@
-export const compareAscending = (a, b) => {
-	if (a > b) return 1;
-	else if (b > a) return -1;
-	return 0;
+// comparison functions for Array.prototype.sort
+// docs on Mozilla's website
+export const cmp = {
+	ascending: (a, b) => {
+		if (a > b) return 1;
+		else if (b > a) return -1;
+		return 0;
+	},
+
+	descending: (a, b) => {
+		if (a > b) return -1;
+		else if (b > a) return 1;
+		return 0;
+	}
 };
 
-export const compareDecending = (a, b) => {
-	if (a > b) return -1;
-	else if (b > a) return 1;
-	return 0;
+export const math = {
+
 };
+
 
 export const sortAscendingByKey = (array, key) =>
-	array.sort((a, b) => compareAscending(a[key], b[key]));
+	array.sort((a, b) => cmp.ascending(a[key], b[key]));
 
 export const sortDecendingByKey = (array, key) =>
-	array.sort((a, b) => compareDecending(a[key], b[key]));
+	array.sort((a, b) => cmp.descending(a[key], b[key]));
 
-export const sortAscending = array => array.sort(compareAscending);
+export const sortAscending = array => array.sort(cmp.ascending);
 
-export const sortDecending = array => array.sort(compareDecending);
+export const sortDecending = array => array.sort(cmp.descending);
 
 export const getMinimum = array => sortAscending(array)[0];
 

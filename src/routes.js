@@ -18,7 +18,7 @@ import Auth from './components/Auth/Auth';
 import Edit from './components/Edit/Edit';
 import Profile from './components/Profile/Profile';
 
-import { GRAPHQL_URL, GRAPHQL_URL_WS } from './constants/constants';
+import { GRAPHQL_URL, GRAPHQL_URL_WS } from './constants';
 
 // Create an http link:
 const httpLink = new HttpLink({

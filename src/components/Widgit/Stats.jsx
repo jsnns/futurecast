@@ -64,6 +64,7 @@ class StatsTables extends Component {
 				if (loading) console.log("Loading...");
 				if (error) console.log(`Error! ${error}`);
 				if (data) {
+
 					const { transactions, accounts } = data.users[0];
 					const currentBalance = _.sumArray(_.getKey(accounts, "balance"));
 					const balances = getBalances(transactions, currentBalance, 365);
