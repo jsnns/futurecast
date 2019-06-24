@@ -26,6 +26,9 @@ class WishHelp extends Component {
     render = () => {
         return (
             <Box>
+                <Button
+                    label="Calculate"
+                ></Button>
                 <EditWishHelpModal
                     edit={this.edit}
                     onClose={this.closeModal}
