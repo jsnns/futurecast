@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import PieWithTable from "../shared/PieWithTable";
 import { Box } from "grommet";
 import { colors } from "../../constants";
-import { client } from "../../routes";
+import { client } from "../../apollo";
 import { getBudget } from "../../data/logic";
 import { getKey, sumArray } from "../../data/helpers";
 

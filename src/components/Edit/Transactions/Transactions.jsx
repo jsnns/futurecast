@@ -4,7 +4,8 @@ import { Subscription } from "react-apollo";
 import { Anchor, Box, Button, DataTable, Text } from "grommet";
 import { Edit, Trash } from "grommet-icons";
 
-import { auth, client } from "../../../routes";
+import { auth } from "../../../routes";
+import { client } from "../../../apollo";
 import EditTransactionModal from "./EditTransaction";
 
 const GET_TRANSACTIONS = gql`

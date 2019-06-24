@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import PieWithTable from "../shared/PieWithTable";
 import { colors } from "../../constants";
 import { valueScore } from "../../data/logic";
-import { client } from "../../routes";
+import { client } from "../../apollo";
 import _ from "lodash";
 import { toCurrency } from "../../data/helpers";
 

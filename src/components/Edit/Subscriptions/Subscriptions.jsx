@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Anchor, Box, Button, DataTable, Text } from "grommet";
-import { auth, client } from "../../../routes";
+import { auth } from "../../../routes";
+import { client } from "../../../apollo";
 import gql from "graphql-tag";
 import { Subscription } from "react-apollo";
 import EditSubscriptionModal from "./EditSubscriptionModal";

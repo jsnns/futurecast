@@ -1,7 +1,7 @@
 import history from "../../history";
 import auth0 from "auth0-js";
 import { AUTH_CONFIG } from "./auth0-variables";
-import { client } from "../../routes";
+import { client } from "../../apollo";
 import gql from "graphql-tag";
 
 export default class Auth {
@@ -88,7 +88,7 @@ export default class Auth {
     localStorage.setItem("auth0:expires_at", expiresAt);
     localStorage.setItem("auth0:id_token:sub", authResult.idTokenPayload.sub);
     // navigate to the home route
-    history.replace("/home");
+    window.location.replace("/")
   }
 
   logout() {

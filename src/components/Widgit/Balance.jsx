@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
 
-import { client } from "../../routes";
+import { client } from "../../apollo";
 import { getBalances } from "../../data/logic";
 import * as colors from "../../constants/colors";
 import * as _ from "../../data/helpers";
