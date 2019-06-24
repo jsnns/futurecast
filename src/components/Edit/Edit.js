@@ -7,6 +7,7 @@ import EditAccounts from "./Accounts/Accounts";
 import DashboardWidget from "../shared/DashboardWidget";
 import Subscriptions from "./Subscriptions/Subscriptions";
 import Header from "../shared/Header";
+import Wishes from "./Wishlist/Wishlist";
 
 
 class Edit extends Component {
@@ -52,15 +53,18 @@ class Edit extends Component {
         <Header></Header>
         <Box direction="row-responsive">
           <DashboardWidget title="Transactions" basis="1/2">
-            <EditTransactions/>
+            <EditTransactions />
           </DashboardWidget>
           <DashboardWidget title="Accounts" basis="1/2">
-            <EditAccounts/>
+            <EditAccounts />
           </DashboardWidget>
         </Box>
         <Box direction="row-responsive">
           <DashboardWidget title="Subscriptions" basis={"1/2"}>
-            <Subscriptions/>
+            <Subscriptions />
+          </DashboardWidget>
+          <DashboardWidget title="wishes" basis={"1/2"}>
+            <Wishes />
           </DashboardWidget>
         </Box>
       </Box>

@@ -3,7 +3,9 @@ import React from "react";
 import Budget from "./components/Widgit/Budget";
 import Balance from "./components/Widgit/Balance";
 import Bills from "./components/Widgit/Bills";
-import Ask from "./components/Decisions/WishHelp/Ask";
+import Ask from "./components/Widgit/Ask";
+import Wishlist from "./components/Widgit/WishList";
+
 
 import { Box } from "grommet";
 
@@ -38,6 +40,9 @@ const Report = () => {
           </DashboardWidget>
           <DashboardWidget title="Bills" basis="1/1">
             <Bills />
+          </DashboardWidget>
+          <DashboardWidget title="WishList" basis="1/1">
+            <Wishlist />
           </DashboardWidget>
         </DashboardSection>
       </Box>
