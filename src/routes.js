@@ -17,7 +17,7 @@ import history from "./history";
 import Auth from "./components/Auth/Auth";
 import Edit from "./components/Edit/Edit";
 import Profile from "./components/Profile/Profile";
-
+import Decisions from "./components/Decisions/Decisions"
 import { GRAPHQL_URL, GRAPHQL_URL_WS } from "./constants";
 
 // Create an http link:
@@ -100,11 +100,11 @@ export const makeMainRoutes = () => {
           <Route
             path="/"
             exact
-            render={props => authenticatedRoute(provideClient(<Report/>))}
+            render={props => authenticatedRoute(provideClient(<Report />))}
           />
           <Route
             path="/edit"
-            render={props => authenticatedRoute(provideClient(<Edit/>))}
+            render={props => authenticatedRoute(provideClient(<Edit />))}
           />
           <Route
             path="/callback"
@@ -115,7 +115,18 @@ export const makeMainRoutes = () => {
           />
           <Route
             path="/profile"
-            render={props => authenticatedRoute(provideClient(<Profile/>))}
+            render={props => {
+              handleAuthentication(props);
+              return <Profile {...props} />;
+            }}
+          />
+          <Route
+            path="/profile"
+            render={props => authenticatedRoute(provideClient(<Profile />))}
+          />
+          <Route
+            path="/decisions"
+            render={props => authenticatedRoute(provideClient(<Decisions />))}
           />
         </div>
       </Grommet>

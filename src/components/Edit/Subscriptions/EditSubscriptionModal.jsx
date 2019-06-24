@@ -6,7 +6,7 @@ import { Dialog } from "../../shared/Dialog";
 
 const EditSubscriptionModal = ({ onClose, edit, subscription }) => {
 
-  if (!subscription) return <div/>;
+  if (!subscription) return <div />;
 
   return (
     <Dialog open={!!subscription} onClose={onClose}>
@@ -46,14 +46,14 @@ const EditSubscriptionModal = ({ onClose, edit, subscription }) => {
               Yearly
             </Heading>
             <CheckBox checked={subscription.yearly}
-                      onChange={({ target }) => edit("yearly")({ target: { value: target.checked } })}/>
+              onChange={({ target }) => edit("yearly")({ target: { value: target.checked } })} />
           </Box>
 
           <Box pad={"small"} gap={"small"}>
             <Heading level={4} margin={"none"}>
               Usefulness
             </Heading>
-            <TextInput type={"number"} value={subscription.usefulness} onChange={edit("usefulness")}/>
+            <TextInput type={"number"} value={subscription.usefulness} onChange={edit("usefulness")} />
           </Box>
         </Box>
       </Box>

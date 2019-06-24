@@ -32,7 +32,7 @@ class Subscriptions extends Component {
           subscription={this.state.subscription}
         />
 
-        <Button onClick={this.newSubscription} label="New"/>
+        <Button onClick={this.newSubscription} label="New" />
 
         <Subscription subscription={GET_SUBSCRIPTIONS}>
           {({ loading, error, data, networkStatus }) => {
@@ -64,13 +64,13 @@ class Subscriptions extends Component {
                 {
                   header: "",
                   render: datum => <Text>
-                    <Anchor onClick={() => this.openModal(datum)} label={<Edit/>}/>
+                    <Anchor onClick={() => this.openModal(datum)} label={<Edit />} />
                   </Text>
                 },
                 {
                   header: "",
                   render: datum => <Text>
-                    <Anchor onClick={() => this.deleteSubscription(datum.id)} label={<Trash/>}/>
+                    <Anchor onClick={() => this.deleteSubscription(datum.id)} label={<Trash />} />
                   </Text>
                 }
               ]}

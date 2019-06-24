@@ -3,7 +3,7 @@ import React from "react";
 import Budget from "./components/Widgit/Budget";
 import Balance from "./components/Widgit/Balance";
 import Bills from "./components/Widgit/Bills";
-import Ask from "./components/Widgit/Ask";
+import Ask from "./components/Decisions/WishHelp/Ask";
 
 import { Box } from "grommet";
 
@@ -16,28 +16,28 @@ import DashboardSection from "./components/shared/DashboardSection";
 const Report = () => {
   return (
     <Box pad="none">
-      <Header/>
+      <Header />
       <Box direction="row-responsive" wrap>
         <DashboardWidget title="Ask" basis="full">
-          <Ask/>
+          <Ask />
         </DashboardWidget>
 
         <DashboardSection direction={"column"} basis={"1/3"}>
           <DashboardWidget title="Budget" basis="1/1">
-            <Budget/>
+            <Budget />
           </DashboardWidget>
 
           <DashboardWidget title="Subscriptions" basis="1/1">
-            <Subscriptions/>
+            <Subscriptions />
           </DashboardWidget>
         </DashboardSection>
 
         <DashboardSection direction={"column"} basis={"2/3"}>
           <DashboardWidget title="Balance" basis="1/1">
-            <Balance/>
+            <Balance />
           </DashboardWidget>
           <DashboardWidget title="Bills" basis="1/1">
-            <Bills/>
+            <Bills />
           </DashboardWidget>
         </DashboardSection>
       </Box>
