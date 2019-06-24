@@ -22,9 +22,14 @@ class Accounts extends Component {
   render = () => {
     return (
       <Box>
-        <EditAccountModal edit={this.edit} onClose={this.closeModal} account={this.state.account}/>
+        <EditAccountModal
+          edit={this.edit}
+          onClose={this.closeModal}
+          account={this.state.account} />
 
-        <Button onClick={this.newAccount} label="New"/>
+        <Button
+          onClick={this.newAccount}
+          label="New" />
 
         <Subscription subscription={GET_SUBSCRIPTIONS}>
           {({ loading, error, data }) => {
@@ -46,13 +51,13 @@ class Accounts extends Component {
                 {
                   header: "",
                   render: datum => <Text>
-                    <Anchor onClick={() => this.openModal(datum)} label={<Edit/>}/>
+                    <Anchor onClick={() => this.openModal(datum)} label={<Edit />} />
                   </Text>
                 },
                 {
                   header: "",
                   render: datum => <Text>
-                    <Anchor onClick={() => this.deleteAccount(datum.id)} label={<Trash/>}/>
+                    <Anchor onClick={() => this.deleteAccount(datum.id)} label={<Trash />} />
                   </Text>
                 }
               ]}
