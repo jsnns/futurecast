@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Box, DataTable, Meter, Tab, Text } from "grommet";
+import { Box, DataTable, Meter } from "grommet";
 import gql from "graphql-tag";
 import PieWithTable from "../shared/PieWithTable";
 import { colors } from "../../constants";
@@ -119,4 +119,4 @@ class Wishlist extends Component {
     };
 }
 
-export default Wishlist;
+export default Wishlist; 
