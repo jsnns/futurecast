@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { Box } from "grommet";
 import Header from "../shared/Header"
 import WishHelp from "./WishHelp/WishHelp";
-import Ask from "./WishHelp/Ask";
+import Ask from "./Ask";
 import DashboardWidget from "../shared/DashboardWidget";
 
 
