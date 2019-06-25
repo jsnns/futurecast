@@ -41,11 +41,19 @@ export const makeMainRoutes = () => {
           <Route
             path="/"
             exact
-            render={props => authenticatedRoute(provideClient(<Report />))}
+            render={() => authenticatedRoute(provideClient(<Report />))}
           />
           <Route
             path="/edit"
-            render={props => authenticatedRoute(provideClient(<Edit />))}
+            render={() => authenticatedRoute(provideClient(<Edit />))}
+          />
+          <Route
+            path="/profile"
+            render={() => authenticatedRoute(provideClient(<Profile />))}
+          />
+          <Route
+            path="/decisions"
+            render={() => authenticatedRoute(provideClient(<Decisions />))}
           />
           <Route
             path="/callback"
@@ -53,21 +61,6 @@ export const makeMainRoutes = () => {
               handleAuthentication(props);
               return <Callback {...props} />;
             }}
-          />
-          <Route
-            path="/profile"
-            render={props => {
-              handleAuthentication(props);
-              return <Profile {...props} />;
-            }}
-          />
-          <Route
-            path="/profile"
-            render={props => authenticatedRoute(provideClient(<Profile />))}
-          />
-          <Route
-            path="/decisions"
-            render={props => authenticatedRoute(provideClient(<Decisions />))}
           />
         </div>
       </Grommet>
