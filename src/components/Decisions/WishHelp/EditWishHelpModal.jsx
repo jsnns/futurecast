@@ -2,8 +2,24 @@ import React from "react";
 // noinspection ES6CheckImport
 import PropTypes from "prop-types";
 
-import { Box, Heading, TextInput } from "grommet";
-import { Dialog } from "../../_shared_/Dialog";
+import { auth } from "../../../routes";
+import { client } from "../../../apollo";
+import gql from "graphql-tag";
+import { Subscription } from "react-apollo";
+
+import { Box, Heading, TextInput, DataTable, CheckBox } from "grommet";
+import { Dialog } from "../../shared/Dialog";
+
+const GET_SUBSCRIPTIONS = gql`
+    subscription {
+        wishes_help_item {
+            id
+            owner
+            category
+        }
+    }
+`;
+
 
 const EditWishHelpModal = ({ onClose, edit, wish }) => {
 
@@ -45,6 +61,9 @@ const EditWishHelpModal = ({ onClose, edit, wish }) => {
                         />
                     </Box>
                 </Box>
+
+
+
                 <Box pad="small" gap="small">
                     <Box flex={"grow"} gap={"small"}>
                         <Heading level={4} margin={"none"}>
@@ -67,6 +86,25 @@ const EditWishHelpModal = ({ onClose, edit, wish }) => {
                         />
                     </Box>
                 </Box>
+
+                <Subscription subscription={GET_SUBSCRIPTIONS}>
+                    {({ loading, error, data }) => {
+                        if (loading) return "Loading...";
+                        if (error) return `Error! ${error.message}`;
+
+                        return <DataTable
+                            primaryKey={"id"}
+                            sortable={true}
+                            columns={[
+                                {
+                                    header: "category",
+                                    property: "category"
+                                }
+                            ]}
+                            data={data.wishes_help_item}
+                        />;
+                    }}
+                </Subscription>
             </Box>
         </Dialog>
     );

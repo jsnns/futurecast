@@ -13,10 +13,10 @@ class Decisions extends Component {
             <Box>
                 <Header></Header>
                 <Box direction="row-responsive">
-                    <DashboardWidget title="Ask" basis="1/2">
+                    <DashboardWidget title="Ask" basis="1/3">
                         <Ask />
                     </DashboardWidget>
-                    <DashboardWidget title="Wish Help" basis="1/2">
+                    <DashboardWidget title="Wish Help" basis="2/3">
                         <WishHelp />
                     </DashboardWidget>
                 </Box>
