@@ -17,27 +17,29 @@ export default class Auth {
   constructor() {
     this.user_id = localStorage.getItem("auth0:id_token:sub");
     if (this.user_id) {
-      const GET_USER = gql`{
-          users(where: {id: {_eq: "${this.user_id}"}}) {
-              id
-          }
-      }`;
-
       client
-      .query({ query: GET_USER })
+      .query({
+        query: gql`
+        {
+          users(where: {id: {_eq: "${this.user_id}"}}) {
+             id
+          }
+        }
+      `
+      })
       .then(({ data }) => {
-        if (data.users.length === 0) {
-          const CREATE_USER = gql`
-              mutation {
-                  insert_users(objects: {id: "${this.user_id}"}) {
-                      returning {
-                          id
-                      }
-                  }
-              }`;
-          client
-            .mutate({ mutation: CREATE_USER })
-            .then(() => console.log("user created"));
+        if (data.users.length === 0) { // if the user exists
+          client.mutate({
+            mutation: gql`
+            mutation {
+              insert_users(objects: {id: "${this.user_id}"}) {
+                returning {
+                  id
+                }
+              }
+            }
+          `
+          });
         }
       })
       .catch(error => console.log(error));
@@ -51,11 +53,9 @@ export default class Auth {
 
   getProfile() {
     return new Promise((resolve, reject) => {
-      this.auth0.client.userInfo(this.accessToken, function(err, profile) {
+      this.auth0.client.userInfo(this.accessToken, (err, profile) => {
         if (err) reject(err);
-        if (profile) {
-          resolve(profile);
-        }
+        if (profile) resolve(profile);
       });
     });
   }
@@ -88,7 +88,7 @@ export default class Auth {
     localStorage.setItem("auth0:expires_at", expiresAt);
     localStorage.setItem("auth0:id_token:sub", authResult.idTokenPayload.sub);
     // navigate to the home route
-    window.location.replace("/")
+    window.location.replace("/");
   }
 
   logout() {
