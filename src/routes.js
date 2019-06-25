@@ -39,8 +39,8 @@ export const makeMainRoutes = () => {
       >
         <div className="container">
           <Route
-            path="/"
             exact
+            path="/"
             render={() => authenticatedRoute(provideClient(<Report />))}
           />
           <Route

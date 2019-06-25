@@ -37,14 +37,3 @@ export const sumArray = array => array.reduce(add, 0);
 export const getMean = array => sumArray(array) / array.length;
 
 export const add = (a, b) => a + b;
-
-export const standardDeviations = array => {
-  let mean = getMean(array);
-  let numerator = 0;
-
-  for (let i in array) {
-    numerator += (array[i] - mean) ^ 2;
-  }
-
-  return Math.sqrt(numerator / array.length);
-};
