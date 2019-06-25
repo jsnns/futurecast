@@ -1,8 +1,9 @@
 import React from "react";
+// noinspection ES6CheckImport
 import PropTypes from "prop-types";
 
 import { Box, Heading, TextInput } from "grommet";
-import { Dialog } from "../shared/Dialog";
+import { Dialog } from "../_shared_/Dialog";
 
 const EditModal = ({ object, onClose, update, fields }) => {
 

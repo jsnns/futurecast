@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Header from "../shared/Header";
+import Header from "../_shared_/Header";
 import { Box } from "grommet";
 import gql from "graphql-tag";
 import { auth } from "../../routes";
@@ -19,7 +19,7 @@ class Profile extends Component {
         <Header/>
         <Box>
           <Query query={this.QUERY}>
-            {({ data, loading, error }) => {
+            {({ data, loading }) => {
               if (loading) return "Loading...";
 
               let user = data.users[0];

@@ -1,4 +1,4 @@
-export default function getInstances(days = 30, transaction) {
+export function getInstances(days = 30, transaction) {
   const instances = [];
 
   const today = new Date();
@@ -22,9 +22,10 @@ export default function getInstances(days = 30, transaction) {
     if (date > endDate) break;
 
     // break if no interval since it would go forever
+    // noinspection JSUnresolvedVariable
     if (!transaction.interval_days && !transaction.interval_months) break;
 
-    // break if the transaction should end
+    // break if the transactions should end
     if (date > new Date(transaction.end) && transaction.end) break;
 
     // only include instances from after today

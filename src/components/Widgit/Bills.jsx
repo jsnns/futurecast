@@ -8,7 +8,7 @@ import { getInstancesArray } from "../../data/logic";
 import { sortAscendingByKey } from "../../data/helpers/array";
 import { toCurrency } from "../../data/helpers/format";
 
-import { client } from "../../apollo";
+import { client } from "../../client";
 import { appendCsvFileType, createCsvFromData } from "../../data/helpers";
 import _ from "lodash";
 
@@ -29,7 +29,7 @@ const GET_TRANSACTIONS = gql`
 const downloadTransactions = () => {
   client
     .query({ query: GET_TRANSACTIONS })
-    .then(({ data, error, loading }) => {
+    .then(({ data }) => {
       let { transactions } = data;
 
       transactions = sortAscendingByKey(

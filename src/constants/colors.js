@@ -1,6 +1,5 @@
 export const minimumBalance = "#F46036";
 export const balance = "#1B998B";
-export const balance2 = "#F8F8F8";
 export const colors = [
   "#F46036",
   "#41387C",

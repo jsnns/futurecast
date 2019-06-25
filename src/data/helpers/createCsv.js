@@ -57,5 +57,3 @@ export function sortKeys(keys) {
     return keyOrder.indexOf(a) - keyOrder.indexOf(b);
   });
 }
-
-export default createCsvFromData;

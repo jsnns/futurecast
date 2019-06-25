@@ -9,10 +9,10 @@ import Wishlist from "./components/Widgit/WishList";
 import { Box } from "grommet";
 
 import "./styles/fonts.css";
-import DashboardWidget from "./components/shared/DashboardWidget";
+import DashboardWidget from "./components/_shared_/DashboardWidget";
 import Subscriptions from "./components/Widgit/Subscriptions";
-import Header from "./components/shared/Header";
-import DashboardSection from "./components/shared/DashboardSection";
+import Header from "./components/_shared_/Header";
+import DashboardSection from "./components/_shared_/DashboardSection";
 
 const Report = () => {
   return (
