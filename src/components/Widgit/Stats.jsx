@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Box, Heading, Text } from "grommet";
 
-import { client } from "../../apollo";
+import { client } from "../../client";
 import { getBalances } from "../../data/logic";
 import gql from "graphql-tag";
 import * as _ from "../../data/helpers";

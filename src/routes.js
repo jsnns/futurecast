@@ -11,7 +11,7 @@ import Auth from "./components/Auth/Auth";
 import Edit from "./components/Edit/Edit";
 import Profile from "./components/Profile/Profile";
 import Decisions from "./components/Decisions/Decisions"
-import client from "./apollo"
+import client from "./client"
 
 export const auth = new Auth();
 

@@ -4,7 +4,7 @@ import gql from "graphql-tag";
 import PieWithTable from "../_shared_/PieWithTable";
 import { colors } from "../../constants";
 import { valueScore } from "../../data/logic";
-import { client } from "../../apollo";
+import { client } from "../../client";
 import _ from "lodash";
 const GET_WISHS = gql`
     {

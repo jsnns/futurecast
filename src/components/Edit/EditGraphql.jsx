@@ -5,7 +5,7 @@ import { Anchor, Box, Button, DataTable } from "grommet";
 import { Edit, Trash } from "grommet-icons";
 
 import { auth } from "../../routes";
-import { client } from "../../apollo";
+import { client } from "../../client";
 import EditModal from "./EditModal";
 
 class EditGraphql extends Component {

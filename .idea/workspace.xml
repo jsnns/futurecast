@@ -2,31 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab9ecbac-0873-4cba-beb6-2c6a18d6260d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/Edit/types/accounts.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Edit/types/subscriptions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Edit/types/transactions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Edit/types/wishes.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Report.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Report.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Decisions/Decisions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Decisions/Decisions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Decisions/WishHelp/EditWishHelpModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Decisions/WishHelp/EditWishHelpModal.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Edit/Edit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Edit/Edit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/apollo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/client.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Auth/Auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Auth/Auth.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Decisions/WishHelp/WishHelp.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Decisions/WishHelp/WishHelp.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Edit/EditGraphql.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Edit/EditGraphql.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Edit/EditModal.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Edit/EditModal.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Profile/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Profile/Profile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Widgit/Balance.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Widgit/Balance.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Widgit/Bills.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Widgit/Bills.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Widgit/Budget.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Widgit/Budget.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Widgit/Stats.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Widgit/Stats.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Widgit/Subscriptions.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Widgit/Subscriptions.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Widgit/WishList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Widgit/WishList.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/shared/AsyncButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/_shared_/AsyncButton.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/shared/DashboardSection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/_shared_/DashboardSection.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/shared/DashboardWidget.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/_shared_/DashboardWidget.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/shared/Dialog.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/_shared_/Dialog.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/shared/Header.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/_shared_/Header.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/shared/InteractiveLineChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/_shared_/InteractiveLineChart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/shared/OutsideClickAlerter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/_shared_/OutsideClickAlerter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/shared/PieWithTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/_shared_/PieWithTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/logic/getInstances.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/logic/getInstances.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -39,11 +25,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Edit/Edit.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="234">
               <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/routes.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
               </folding>
@@ -150,7 +148,6 @@
         <option value="$PROJECT_DIR$/src/components/Edit/Subscriptions/Subscriptions.jsx" />
         <option value="$PROJECT_DIR$/src/components/Edit/Wishlist/Wishlist.jsx" />
         <option value="$PROJECT_DIR$/src/components/Decisions/WishHelp/WishHelp.jsx" />
-        <option value="$PROJECT_DIR$/src/routes.js" />
         <option value="$PROJECT_DIR$/src/components/Auth/Callback/Callback.js" />
         <option value="$PROJECT_DIR$/src/components/Auth/Auth.js" />
         <option value="$PROJECT_DIR$/src/apollo.js" />
@@ -167,6 +164,7 @@
         <option value="$PROJECT_DIR$/src/components/Edit/types/subscriptions.js" />
         <option value="$PROJECT_DIR$/src/components/Edit/types/wishes.js" />
         <option value="$PROJECT_DIR$/src/components/Edit/Edit.js" />
+        <option value="$PROJECT_DIR$/src/routes.js" />
       </list>
     </option>
   </component>
@@ -203,13 +201,6 @@
               <item name="adder" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="adder" type="b2602c69:ProjectViewProjectNode" />
-              <item name="adder" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
-              <item name="Edit" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="adder" type="b2602c69:ProjectViewProjectNode" />
@@ -278,7 +269,7 @@
       <workItem from="1560697795714" duration="13450000" />
       <workItem from="1561410821360" duration="1959000" />
       <workItem from="1561491238989" duration="2485000" />
-      <workItem from="1561494768937" duration="848000" />
+      <workItem from="1561494768937" duration="998000" />
     </task>
     <task id="LOCAL-00001" summary="Change gitlabci to push to heroku on recieve">
       <created>1561410926854</created>
@@ -291,7 +282,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37554000" />
+    <option name="totallyTimeSpent" value="37704000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="824" extended-state="6" />
@@ -521,16 +512,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="236">
-          <caret line="15" column="31" lean-forward="true" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/history.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
@@ -552,7 +533,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/apollo.js">
+    <entry file="file://$PROJECT_DIR$/src/client.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="15" column="27" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
@@ -687,6 +668,16 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>

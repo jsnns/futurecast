@@ -8,7 +8,7 @@ import { getInstancesArray } from "../../data/logic";
 import { sortAscendingByKey } from "../../data/helpers/array";
 import { toCurrency } from "../../data/helpers/format";
 
-import { client } from "../../apollo";
+import { client } from "../../client";
 import { appendCsvFileType, createCsvFromData } from "../../data/helpers";
 import _ from "lodash";
 

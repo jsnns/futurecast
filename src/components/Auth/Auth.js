@@ -1,7 +1,7 @@
 import history from "../../history";
 import auth0 from "auth0-js";
 import { AUTH_CONFIG } from "./auth0-variables";
-import { client } from "../../apollo";
+import { client } from "../../client";
 import gql from "graphql-tag";
 
 export default class Auth {
