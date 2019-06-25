@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { Box, Heading, TextInput } from "grommet";
-import { Dialog } from "../../shared/Dialog";
+import { Dialog } from "../../_shared_/Dialog";
 
 const EditWishHelpModal = ({ onClose, edit, wish }) => {
 

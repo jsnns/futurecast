@@ -24,7 +24,7 @@ export default function getInstances(days = 30, transaction) {
     // break if no interval since it would go forever
     if (!transaction.interval_days && !transaction.interval_months) break;
 
-    // break if the transaction should end
+    // break if the transactions should end
     if (date > new Date(transaction.end) && transaction.end) break;
 
     // only include instances from after today

@@ -5,7 +5,7 @@ import { client } from "../../apollo";
 import { getBalances } from "../../data/logic";
 import * as colors from "../../constants/colors";
 import * as _ from "../../data/helpers";
-import InteractiveLineChart from "../shared/InteractiveLineChart";
+import InteractiveLineChart from "../_shared_/InteractiveLineChart";
 
 const GET_TRANSACTIONS = gql`
     {

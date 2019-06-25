@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Box, DataTable, Meter } from "grommet";
 import gql from "graphql-tag";
-import PieWithTable from "../shared/PieWithTable";
+import PieWithTable from "../_shared_/PieWithTable";
 import { colors } from "../../constants";
 import { valueScore } from "../../data/logic";
 import { client } from "../../apollo";

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
 
-import PieWithTable from "../shared/PieWithTable";
+import PieWithTable from "../_shared_/PieWithTable";
 import { Box } from "grommet";
 import { colors } from "../../constants";
 import { client } from "../../apollo";

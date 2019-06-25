@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
 import { Subscription } from "react-apollo";
-import { Anchor, Box, Button, DataTable, Text } from "grommet";
+import { Anchor, Box, Button, DataTable } from "grommet";
 import { Edit, Trash } from "grommet-icons";
 
 import { auth } from "../../routes";
@@ -9,14 +9,7 @@ import { client } from "../../apollo";
 import EditModal from "./EditModal";
 
 class EditGraphql extends Component {
-  state = {
-    income: [],
-    expenses: [],
-    allIncome: [],
-    allExpenses: [],
-    nullTxs: [],
-    object: null
-  };
+  state = { object: null };
 
   render() {
     const { object } = this.state;
@@ -47,15 +40,11 @@ class EditGraphql extends Component {
                   ...columns,
                   {
                     header: "",
-                    render: datum => <Text>
-                      <Anchor onClick={() => this.openEditModal(datum)} label={<Edit/>}/>
-                    </Text>
+                    render: datum => <Anchor onClick={() => this.openEditModal(datum)} label={<Edit/>}/>
                   },
                   {
                     header: "",
-                    render: datum => <Text>
-                      <Anchor onClick={() => this.delete(datum.id)} label={<Trash/>}/>
-                    </Text>
+                    render: datum => <Anchor onClick={() => this.delete(datum.id)} label={<Trash/>}/>
                   }
                 ]}
                 data={data[table]}
@@ -70,6 +59,16 @@ class EditGraphql extends Component {
   openEditModal = tx => this.setState({ object: tx });
 
   closeModal = () => this.setState({ object: null });
+
+  edit = key => {
+    const { object } = this.state;
+
+    return e => {
+      object[key] = e.target.value;
+      this.setState({ object });
+      this.update(object.id, key, e.target.value);
+    };
+  };
 
   delete = async id => client.mutate({
     mutation: gql`
@@ -94,16 +93,6 @@ class EditGraphql extends Component {
         }
     `
   });
-
-  edit = key => {
-    const { object } = this.state;
-
-    return e => {
-      object[key] = e.target.value;
-      this.setState({ object });
-      this.update(object.id, key, e.target.value);
-    };
-  };
 
   new = () => client.mutate({
     mutation: gql`

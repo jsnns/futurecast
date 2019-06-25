@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
 import { Box } from "grommet";
-import Header from "../shared/Header"
+import Header from "../_shared_/Header"
 import WishHelp from "./WishHelp/WishHelp";
 import Ask from "./Ask";
-import DashboardWidget from "../shared/DashboardWidget";
+import DashboardWidget from "../_shared_/DashboardWidget";
 
 
 class Decisions extends Component {

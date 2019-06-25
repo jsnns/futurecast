@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Header from "../shared/Header";
+import Header from "../_shared_/Header";
 import { Box } from "grommet";
 import gql from "graphql-tag";
 import { auth } from "../../routes";
