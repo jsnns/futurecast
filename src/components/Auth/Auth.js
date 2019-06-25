@@ -91,7 +91,7 @@ export default class Auth {
     window.location.replace("/");
   }
 
-  logout() {
+  static logout() {
     // Clear access token and ID token from local storage
     localStorage.removeItem("auth0:access_token");
     localStorage.removeItem("auth0:id_token");
@@ -101,7 +101,7 @@ export default class Auth {
     history.replace("/");
   }
 
-  isAuthenticated() {
+  static isAuthenticated() {
     // Check whether the current time is past the
     // access token's expiry time
     let expiresAt = JSON.parse(localStorage.getItem("auth0:expires_at"));
