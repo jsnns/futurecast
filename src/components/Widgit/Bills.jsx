@@ -29,7 +29,7 @@ const GET_TRANSACTIONS = gql`
 const downloadTransactions = () => {
   client
     .query({ query: GET_TRANSACTIONS })
-    .then(({ data, error, loading }) => {
+    .then(({ data }) => {
       let { transactions } = data;
 
       transactions = sortAscendingByKey(

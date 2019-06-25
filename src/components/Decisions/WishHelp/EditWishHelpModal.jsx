@@ -1,4 +1,5 @@
 import React from "react";
+// noinspection ES6CheckImport
 import PropTypes from "prop-types";
 
 import { Box, Heading, TextInput } from "grommet";

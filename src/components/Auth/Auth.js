@@ -29,7 +29,7 @@ export default class Auth {
       })
       .then(({ data }) => {
         if (data.users.length === 0) { // if the user exists
-          client.mutate({
+          return client.mutate({
             mutation: gql`
             mutation {
               insert_users(objects: {id: "${this.user_id}"}) {
@@ -44,27 +44,13 @@ export default class Auth {
       })
       .catch(error => console.log(error));
     }
-    this.login = this.login.bind(this);
-    this.logout = this.logout.bind(this);
-    this.getProfile = this.getProfile.bind(this);
-    this.handleAuthentication = this.handleAuthentication.bind(this);
-    this.isAuthenticated = this.isAuthenticated.bind(this);
   }
 
-  getProfile() {
-    return new Promise((resolve, reject) => {
-      this.auth0.client.userInfo(this.accessToken, (err, profile) => {
-        if (err) reject(err);
-        if (profile) resolve(profile);
-      });
-    });
-  }
-
-  login() {
+  login = () => {
     this.auth0.authorize();
-  }
+  };
 
-  handleAuthentication() {
+  handleAuthentication = () => {
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
@@ -75,9 +61,9 @@ export default class Auth {
         alert(`Error: ${err.error}. Check the console for further details.`);
       }
     });
-  }
+  };
 
-  setSession(authResult) {
+  setSession = authResult => {
     // Set the time that the access token will expire at
     let expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime()
@@ -89,9 +75,9 @@ export default class Auth {
     localStorage.setItem("auth0:id_token:sub", authResult.idTokenPayload.sub);
     // navigate to the home route
     window.location.replace("/");
-  }
+  };
 
-  static logout() {
+  static logout = () => {
     // Clear access token and ID token from local storage
     localStorage.removeItem("auth0:access_token");
     localStorage.removeItem("auth0:id_token");
@@ -99,9 +85,9 @@ export default class Auth {
     localStorage.removeItem("auth0:id_token:sub");
     // navigate to the home route
     history.replace("/");
-  }
+  };
 
-  static isAuthenticated() {
+  static isAuthenticated = () => {
     // Check whether the current time is past the
     // access token's expiry time
     let expiresAt = JSON.parse(localStorage.getItem("auth0:expires_at"));

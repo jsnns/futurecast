@@ -19,7 +19,7 @@ class Profile extends Component {
         <Header/>
         <Box>
           <Query query={this.QUERY}>
-            {({ data, loading, error }) => {
+            {({ data, loading }) => {
               if (loading) return "Loading...";
 
               let user = data.users[0];
