@@ -4,7 +4,9 @@ import { Box, Heading, Text } from "grommet";
 import { client } from "../../client";
 import { getBalances } from "../../data/logic";
 import gql from "graphql-tag";
-import * as _ from "../../data/helpers";
+import _ from "lodash";
+import { toCurrency } from "../../data/helpers";
+import Stat from "../_shared_/Stat";
 
 const GET_TRANSACTIONS = gql`
     {
@@ -33,25 +35,7 @@ class StatsTables extends Component {
     return (
       <Box gap={"small"}>
         <Box direction="row" gap={"medium"}>
-          {stats.map(stat => (
-            <Box key={`stat+${stat.label}`} direction="column">
-              <Heading
-                style={{
-                  fontFamily: "Abril Fatface",
-                  fontSize: "21pt"
-                }}
-                level={3}
-                margin="none"
-              >
-                {stat.value}
-              </Heading>
-
-              <Text margin="none" style={{ fontFamily: "Lato" }}>
-                {stat.label}
-              </Text>
-            </Box>
-
-          ))}
+          {stats.map(stat => <Stat label={stat.label} value={stat.value} />)}
         </Box>
       </Box>
     );
@@ -66,28 +50,20 @@ class StatsTables extends Component {
         if (data) {
 
           const { transactions, accounts } = data.users[0];
-          const currentBalance = _.sumArray(_.getKey(accounts, "balance"));
+          const currentBalance = _(accounts).map('balance').sum();
           const balances = getBalances(transactions, currentBalance, 365);
 
-          const stats = [
-            {
-              label: "Minimum Balance",
-              value: _.toCurrency(
-                _.getMinimum(
-                  _.getKey(
-                    balances,
-                    "balance"
-                  )
-                )
-              )
-            },
-            {
-              label: "Current Balance",
-              value: _.toCurrency(currentBalance)
-            }
-          ];
-
-          this.setState({ stats });
+          this.setState({ stats: [
+              {
+                label: "Minimum Balance",
+                value: toCurrency(_(balances).minBy('balance').balance)
+              },
+              {
+                label: "Current Balance",
+                value: toCurrency(currentBalance)
+              }
+            ]
+          });
         }
       });
   };

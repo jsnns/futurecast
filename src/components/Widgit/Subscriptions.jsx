@@ -5,8 +5,8 @@ import PieWithTable from "../_shared_/PieWithTable";
 import { colors } from "../../constants";
 import { valueScore } from "../../data/logic";
 import { client } from "../../client";
-import _ from "lodash";
 import { toCurrency } from "../../data/helpers";
+import _ from "lodash";
 
 const GET_SUBSCRIPTIONS = gql`
     {

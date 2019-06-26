@@ -6,7 +6,8 @@ import { Box } from "grommet";
 import { colors } from "../../constants";
 import { client } from "../../client";
 import { getBudget } from "../../data/logic";
-import { getKey, sumArray } from "../../data/helpers";
+
+import _ from "lodash";
 
 const GET_TRANSACTIONS = gql`
     {
@@ -48,7 +49,8 @@ class Budget extends Component {
 
       if (category === "income") {
         category = "leftover";
-        value = Math.abs(sumArray(getKey(budget, "value")));
+        value = _(budget).map("value").sum();
+        value = Math.abs();
         sliceColors.push("#f8f8f8");
       } else {
         sliceColors.push(colors[i]);

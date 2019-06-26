@@ -5,8 +5,8 @@ import { Box, Button, DataTable, Text } from "grommet";
 import { Download } from "grommet-icons";
 
 import { getInstancesArray } from "../../data/logic";
-import { sortAscendingByKey } from "../../data/helpers/array";
-import { toCurrency } from "../../data/helpers/format";
+
+import { toCurrency } from "../../data/helpers";
 
 import { client } from "../../client";
 import { appendCsvFileType, createCsvFromData } from "../../data/helpers";
@@ -32,10 +32,9 @@ const downloadTransactions = () => {
     .then(({ data }) => {
       let { transactions } = data;
 
-      transactions = sortAscendingByKey(
-        getInstancesArray(transactions, 60),
-        "date"
-      );
+      transactions = getInstancesArray(transactions, 60);
+      transactions = _(transactions).sort(['date']);
+
       const transactionsCsv = appendCsvFileType(
         createCsvFromData(transactions)
       );

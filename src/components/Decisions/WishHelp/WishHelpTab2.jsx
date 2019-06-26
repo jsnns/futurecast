@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { DataTable } from 'grommet';
 import gql from "graphql-tag";
 import { Subscription } from "react-apollo";
-import { Dialog } from "../../shared/Dialog";
+import { Dialog } from "../../_shared_/Dialog";
 
 const GET_SUBSCRIPTIONS = gql`
     subscription {
