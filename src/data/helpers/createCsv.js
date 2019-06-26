@@ -1,20 +1,22 @@
+import _ from "lodash";
+
 /**
- * given a list of data return a list of all keys
+ * given a collection return a unique list of all keys
  * @param {Array<Object>} data
+ * @returns {Array<String>} unique list of keys
  */
+
 export function getCsvKeys(data) {
   if (!(data instanceof Array)) {
     throw Error("getCsvKeys requires an array");
   }
 
-  let keys = [];
-  data.forEach(row => {
-    for (let key in row) {
-      if (keys.includes(key)) return;
-      else keys.push(key);
-    }
-  });
-  return keys;
+  return _(data)
+    .filter(el => el instanceof Object)
+    .map(_.keys)
+    .flatten()
+    .uniq()
+    .value();
 }
 
 /**
@@ -37,15 +39,6 @@ export function createCsvFromData(data) {
 }
 
 /**
- * append the data type string to a csv
- * used to tell the browser to download the csv
- * @param {String} csv
- */
-export function appendCsvFileType(csv) {
-  return "data:text/csv;charset=utf-8," + csv;
-}
-
-/**
  * Sort keys so they make sense when opened in Excel
  * @param {Array<*>} keys
  */
@@ -57,3 +50,10 @@ export function sortKeys(keys) {
     return keyOrder.indexOf(a) - keyOrder.indexOf(b);
   });
 }
+
+/**
+ * append the data type string to a csv
+ * used to tell the browser to download the csv
+ * @param {String} csv
+ */
+export const appendCsvFileType = csv => "data:text/csv;charset=utf-8," + csv;
