@@ -1,24 +1,27 @@
 import React from "react";
 
-import Budget from "./components/Widgit/Budget";
-import Balance from "./components/Widgit/Balance";
-import Bills from "./components/Widgit/Bills";
-import Wishlist from "./components/Widgit/WishList";
+import Budget from "./components/Dashboard/Budget";
+import Balance from "./components/Dashboard/Balance";
+import Bills from "./components/Dashboard/Bills";
+import Wishlist from "./components/Dashboard/WishList";
 
 
 import { Box } from "grommet";
 
 import "./styles/fonts.css";
 import DashboardWidget from "./components/_shared_/DashboardWidget";
-import Subscriptions from "./components/Widgit/Subscriptions";
+import Subscriptions from "./components/Dashboard/Subscriptions";
 import Header from "./components/_shared_/Header";
 import DashboardSection from "./components/_shared_/DashboardSection";
+import DownloadTransactions from "./components/_shared_/DownloadTransactions";
 
 const Report = () => {
   return (
     <Box pad="none">
       <Header/>
       <Box direction="row-responsive" wrap>
+
+        <DownloadTransactions />
 
         <DashboardSection direction={"column"} basis={"1/3"}>
           <DashboardWidget title="Budget" basis="1/1">

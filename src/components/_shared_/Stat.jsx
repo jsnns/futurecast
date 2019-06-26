@@ -5,7 +5,7 @@ import { Box, Heading, Text } from "grommet/es6";
 const Stat = ({ label, value }) => {
   return <Box key={`stat+${label}`} direction="column">
     <Heading
-      style={{ fontFamily: "Abril Fatface", fontSize: "21pt" }}
+      style={{ fontFamily: "Roboto Mono", fontSize: "21pt" }}
       margin="none"
       level={3}
     >

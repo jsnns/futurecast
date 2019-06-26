@@ -1,6 +1,6 @@
 import React from "react";
 
-import Stats from "../Widgit/Stats";
+import Stats from "../Dashboard/Stats";
 
 import { Link } from "react-router-dom";
 import { Box, Button } from "grommet";
