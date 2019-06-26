@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Anchor, Box, Button, DataTable, Text, TextInput } from "grommet";
 import { auth } from "../../../routes";
-import { client } from "../../../apollo";
+import { client } from "../../../client";
 import gql from "graphql-tag";
 import { Subscription } from "react-apollo";
 import EditWishHelpModal from "./EditWishHelpModal";
@@ -17,9 +17,10 @@ const GET_SUBSCRIPTIONS = gql`
             category
             usefulness
             durability
-        }
+        },
     }
 `;
+
 
 class WishHelpTab1 extends Component {
     state = { wish: null };
@@ -144,6 +145,7 @@ class WishHelpTab1 extends Component {
         }
     `
     });
+
 
 }
 
