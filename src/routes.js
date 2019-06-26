@@ -10,8 +10,8 @@ import history from "./history";
 import Auth from "./components/Auth/Auth";
 import Edit from "./components/Edit/Edit";
 import Profile from "./components/Profile/Profile";
-import Decisions from "./components/Decisions/Decisions"
-import client from "./client"
+import Decisions from "./components/Decisions/Decisions";
+import client from "./client";
 
 export const auth = new Auth();
 
@@ -41,19 +41,19 @@ export const makeMainRoutes = () => {
           <Route
             exact
             path="/"
-            render={() => authenticatedRoute(provideClient(<Report />))}
+            render={() => authenticatedRoute(provideClient(<Report/>))}
           />
           <Route
             path="/edit"
-            render={() => authenticatedRoute(provideClient(<Edit />))}
+            render={() => authenticatedRoute(provideClient(<Edit/>))}
           />
           <Route
             path="/profile"
-            render={() => authenticatedRoute(provideClient(<Profile />))}
+            render={() => authenticatedRoute(provideClient(<Profile/>))}
           />
           <Route
             path="/decisions"
-            render={() => authenticatedRoute(provideClient(<Decisions />))}
+            render={() => authenticatedRoute(provideClient(<Decisions/>))}
           />
           <Route
             path="/callback"

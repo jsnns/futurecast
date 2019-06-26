@@ -20,25 +20,25 @@ export default class Auth {
       client
       .query({
         query: gql`
-        {
-          users(where: {id: {_eq: "${this.user_id}"}}) {
-             id
-          }
-        }
-      `
+            {
+                users(where: {id: {_eq: "${this.user_id}"}}) {
+                    id
+                }
+            }
+        `
       })
       .then(({ data }) => {
         if (data.users.length === 0) { // if the user exists
           return client.mutate({
             mutation: gql`
-            mutation {
-              insert_users(objects: {id: "${this.user_id}"}) {
-                returning {
-                  id
+                mutation {
+                    insert_users(objects: {id: "${this.user_id}"}) {
+                        returning {
+                            id
+                        }
+                    }
                 }
-              }
-            }
-          `
+            `
           });
         }
       })
@@ -92,5 +92,5 @@ export default class Auth {
     // access token's expiry time
     let expiresAt = JSON.parse(localStorage.getItem("auth0:expires_at"));
     return new Date().getTime() < expiresAt;
-  }
+  };
 }

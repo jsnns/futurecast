@@ -55,13 +55,13 @@ class Balance extends Component {
   getData = () => {
     const { transactions, accounts, days } = this.state;
 
-    const startingBalance = _(accounts).map('balance').sum();
+    const startingBalance = _(accounts).map("balance").sum();
 
     const data = getBalances(transactions, startingBalance, days);
 
-    const balances = _(data).map('balance').value();
-    const mins = _(data).map('minimum').value();
-    const labels = _(data).map('date').map(date => new Date(date)).value();
+    const balances = _(data).map("balance").value();
+    const mins = _(data).map("minimum").value();
+    const labels = _(data).map("date").map(date => new Date(date)).value();
 
     this.setState({
       data: {

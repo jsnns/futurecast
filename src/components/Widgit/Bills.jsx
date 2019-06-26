@@ -6,10 +6,9 @@ import { Download } from "grommet-icons";
 
 import { getInstancesArray } from "../../data/logic";
 
-import { toCurrency } from "../../data/helpers";
+import { appendCsvFileType, createCsvFromData, toCurrency } from "../../data/helpers";
 
 import { client } from "../../client";
-import { appendCsvFileType, createCsvFromData } from "../../data/helpers";
 import _ from "lodash";
 
 const GET_TRANSACTIONS = gql`
@@ -33,7 +32,7 @@ const downloadTransactions = () => {
       let { transactions } = data;
 
       transactions = getInstancesArray(transactions, 60);
-      transactions = _(transactions).sort(['date']);
+      transactions = _(transactions).sort(["date"]);
 
       const transactionsCsv = appendCsvFileType(
         createCsvFromData(transactions)

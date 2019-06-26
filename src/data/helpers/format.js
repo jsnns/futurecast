@@ -4,14 +4,14 @@
  * @returns {string} with thousands seperators
  */
 export const addCommas = int => {
-  let decimal = int.toString().split('.')[1];
-  let number = int.toString().split('.')[0]
+  let decimal = int.toString().split(".")[1];
+  let number = int.toString().split(".")[0];
   let withCommas = (int > 0 ? "" : "-") + Math.abs(number)
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   if (decimal) return `${withCommas}.${decimal}`;
-  else return withCommas
+  else return withCommas;
 };
 
 

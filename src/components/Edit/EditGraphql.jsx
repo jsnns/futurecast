@@ -6,7 +6,7 @@ import { Edit, Trash } from "grommet-icons";
 
 import { auth } from "../../routes";
 import { client } from "../../client";
-import EditModal from "./EditModal";
+import EditModal from "../_shared_/EditModal";
 
 class EditGraphql extends Component {
   state = { object: null };
@@ -20,7 +20,8 @@ class EditGraphql extends Component {
         <EditModal
           onClose={this.closeModal}
           update={this.edit}
-          onSubmit={() => {}}
+          onSubmit={() => {
+          }}
           object={object}
           fields={fields}
         />
@@ -74,10 +75,10 @@ class EditGraphql extends Component {
     mutation: gql`
         mutation {
             delete_${this.props.table}(where: { id: { _eq: "${id}" } }) {
-                returning {
-                    id
-                }
+            returning {
+                id
             }
+        }
         }
     `
   });
@@ -86,10 +87,10 @@ class EditGraphql extends Component {
     mutation: gql`
         mutation {
             update_${this.props.table}(where: {id: {_eq: "${id}"}}, _set: {${key}: "${value}"}) {
-                returning {
-                    id
-                }
+            returning {
+                id
             }
+        }
         }
     `
   });
@@ -98,10 +99,10 @@ class EditGraphql extends Component {
     mutation: gql`
         mutation {
             insert_${this.props.table}(objects: { owner: "${auth.user_id}" }) {
-                returning {
-                    id
-                }
+            returning {
+                id
             }
+        }
         }
     `
   });

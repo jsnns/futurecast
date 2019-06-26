@@ -13,25 +13,25 @@ const Header = () => {
   return (
     <Box direction={"row-responsive"} pad={"medium"} animation={{ type: "fadeIn", duration: 1000, delay: 0 }}>
       <Box flex={"grow"}>
-        <Stats />
+        <Stats/>
       </Box>
       <Box direction="row" pad={{ top: "small" }} gap={"small"}>
         <Link to={"/"}>
-          <Button primary={currentPath === "/"} icon={<Home />} label="Home" />
+          <Button primary={currentPath === "/"} icon={<Home/>} label="Home"/>
         </Link>
 
         <Link to={"/edit"}>
-          <Button primary={currentPath === "/edit"} icon={<EditIcon />} label="Edit" />
+          <Button primary={currentPath === "/edit"} icon={<EditIcon/>} label="Edit"/>
         </Link>
 
         <Link to={"/profile"}>
-          <Button primary={currentPath === "/profile"} icon={<UserSettings />} label='Profile' />
+          <Button primary={currentPath === "/profile"} icon={<UserSettings/>} label='Profile'/>
         </Link>
         <Link to={"/decisions"}>
-          <Button primary={currentPath === "/decisions"} icon={<UserSettings />} label='Decisions' />
+          <Button primary={currentPath === "/decisions"} icon={<UserSettings/>} label='Decisions'/>
         </Link>
         <Link to={"/"}>
-          <Button primary={false} icon={<Logout />} label='logout' onClick={auth.logout} />
+          <Button primary={false} icon={<Logout/>} label='logout' onClick={auth.logout}/>
         </Link>
       </Box>
     </Box>

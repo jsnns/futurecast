@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { Box, Heading, TextInput } from "grommet";
-import { Dialog } from "../_shared_/Dialog";
+import { Dialog } from "./Dialog";
 
 const EditModal = ({ object, onClose, update, fields }) => {
 
@@ -33,7 +33,7 @@ const EditModal = ({ object, onClose, update, fields }) => {
                 placeholder={field.name}
                 onChange={update(field.property)}
               />
-            </div>
+            </div>;
           })}
         </Box>
 

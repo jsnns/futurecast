@@ -1,18 +1,18 @@
 import gql from "graphql-tag";
 
-export default{
+export default {
   query: gql`
-    subscription {
-      subscriptions {
-        id
-        name
-        price
-        category
-        yearly
-        owner
-        usefulness
+      subscription {
+          subscriptions {
+              id
+              name
+              price
+              category
+              yearly
+              owner
+              usefulness
+          }
       }
-    }
   `,
 
   columns: [
@@ -48,4 +48,4 @@ export default{
       property: "usefulness"
     }
   ]
-}
+};

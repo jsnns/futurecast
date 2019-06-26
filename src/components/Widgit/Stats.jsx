@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Box, Heading, Text } from "grommet";
+import { Box } from "grommet";
 
 import { client } from "../../client";
 import { getBalances } from "../../data/logic";
@@ -35,7 +35,7 @@ class StatsTables extends Component {
     return (
       <Box gap={"small"}>
         <Box direction="row" gap={"medium"}>
-          {stats.map(stat => <Stat label={stat.label} value={stat.value} />)}
+          {stats.map(stat => <Stat label={stat.label} value={stat.value}/>)}
         </Box>
       </Box>
     );
@@ -50,13 +50,14 @@ class StatsTables extends Component {
         if (data) {
 
           const { transactions, accounts } = data.users[0];
-          const currentBalance = _(accounts).map('balance').sum();
+          const currentBalance = _(accounts).map("balance").sum();
           const balances = getBalances(transactions, currentBalance, 365);
 
-          this.setState({ stats: [
+          this.setState({
+            stats: [
               {
                 label: "Minimum Balance",
-                value: toCurrency(_(balances).minBy('balance').balance)
+                value: toCurrency(_(balances).minBy("balance").balance)
               },
               {
                 label: "Current Balance",

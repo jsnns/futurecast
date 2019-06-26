@@ -17,28 +17,28 @@ import DashboardSection from "./components/_shared_/DashboardSection";
 const Report = () => {
   return (
     <Box pad="none">
-      <Header />
+      <Header/>
       <Box direction="row-responsive" wrap>
 
         <DashboardSection direction={"column"} basis={"1/3"}>
           <DashboardWidget title="Budget" basis="1/1">
-            <Budget />
+            <Budget/>
           </DashboardWidget>
 
           <DashboardWidget title="Subscriptions" basis="1/1">
-            <Subscriptions />
+            <Subscriptions/>
           </DashboardWidget>
         </DashboardSection>
 
         <DashboardSection direction={"column"} basis={"2/3"}>
           <DashboardWidget title="Balance" basis="1/1">
-            <Balance />
+            <Balance/>
           </DashboardWidget>
           <DashboardWidget title="Bills" basis="1/1">
-            <Bills />
+            <Bills/>
           </DashboardWidget>
           <DashboardWidget title="WishList" basis="1/1">
-            <Wishlist />
+            <Wishlist/>
           </DashboardWidget>
         </DashboardSection>
       </Box>

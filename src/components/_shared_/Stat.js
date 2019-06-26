@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Box, Heading, Text } from "grommet/es6";
 
-const Stat = ({label, value}) => {
+const Stat = ({ label, value }) => {
   return <Box key={`stat+${label}`} direction="column">
     <Heading
       style={{ fontFamily: "Abril Fatface", fontSize: "21pt" }}
@@ -15,7 +15,7 @@ const Stat = ({label, value}) => {
     <Text margin="none" style={{ fontFamily: "Lato" }}>
       {label}
     </Text>
-  </Box>
+  </Box>;
 };
 
 Stat.propTypes = {

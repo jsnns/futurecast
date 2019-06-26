@@ -1,14 +1,14 @@
 import gql from "graphql-tag";
 
-export default{
+export default {
   query: gql`
-    subscription {
-      accounts {
-        id
-        name
-        balance
+      subscription {
+          accounts {
+              id
+              name
+              balance
+          }
       }
-    }
   `,
 
   columns: [
@@ -28,4 +28,4 @@ export default{
       property: "balance"
     }
   ]
-}
+};

@@ -1,19 +1,19 @@
 import gql from "graphql-tag";
 
-export default{
+export default {
   query: gql`
-    subscription {
-      transactions {
-        id
-        value
-        name
-        start
-        end
-        category
-        interval_days
-        interval_months
+      subscription {
+          transactions {
+              id
+              value
+              name
+              start
+              end
+              category
+              interval_days
+              interval_months
+          }
       }
-    }
   `,
 
   columns: [
@@ -61,4 +61,4 @@ export default{
       property: "interval_days"
     }
   ]
-}
+};
