@@ -1,12 +1,7 @@
-# Directory Structure
-- ADDER
-    - data
-        - holds simulations like "reality" or some other dataset
-    - delta
-        - is the logic library used to make sense of the data
-    - output
-        - is the visuals that show the data really well
-    - performance
-        - is debugger profiles, how to optimize
-    - scratchpad
-        - is like labs and experiments
+# To Launch
+1. `yarn`
+2. `yarn start`
+3. Go to `localhost:3000` in your browser
+
+# To Test
+1. `npm test`
