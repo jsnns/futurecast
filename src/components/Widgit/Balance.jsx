@@ -3,9 +3,9 @@ import gql from "graphql-tag";
 
 import { client } from "../../client";
 import { getBalances } from "../../data/logic";
-import * as colors from "../../constants/colors";
-import * as _ from "../../data/helpers";
 import InteractiveLineChart from "../_shared_/InteractiveLineChart";
+import * as colors from "../../constants/colors";
+import _ from "lodash";
 
 const GET_TRANSACTIONS = gql`
     {
@@ -39,6 +39,7 @@ class Balance extends Component {
       .then(({ data, loading, error }) => {
         if (loading) console.log("Loading...");
         if (error) console.log(`Error! ${error}`);
+
         if (data) {
           // get the first user since it will be the only user
           const { accounts, transactions } = data.users[0];
@@ -54,12 +55,13 @@ class Balance extends Component {
   getData = () => {
     const { transactions, accounts, days } = this.state;
 
-    const startingBalance = _.sumArray(_.getKey(accounts, "balance"));
+    const startingBalance = _(accounts).map('balance').sum();
+
     const data = getBalances(transactions, startingBalance, days);
 
-    const balances = _.getKey(data, "balance");
-    const mins = _.getKey(data, "minimum");
-    const labels = _.getKey(data, "date").map(date => new Date(date));
+    const balances = _(data).map('balance').value();
+    const mins = _(data).map('minimum').value();
+    const labels = _(data).map('date').map(date => new Date(date)).value();
 
     this.setState({
       data: {

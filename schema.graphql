@@ -1,2207 +1,3198 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
 schema {
-  query: query_root
-  mutation: mutation_root
-  subscription: subscription_root
+    query: query_root
+    mutation: mutation_root
+    subscription: subscription_root
 }
+
+"columns and relationships of \"accounts\""
+type accounts {
+    balance: bigint!
+    id: uuid!
+    name: String!
+    owner: String!
+    "An object relationship"
+    user: users!
+}
+
+"aggregated selection of \"accounts\""
+type accounts_aggregate {
+    aggregate: accounts_aggregate_fields
+    nodes: [accounts!]!
+}
+
+"aggregate fields of \"accounts\""
+type accounts_aggregate_fields {
+    avg: accounts_avg_fields
+    count(columns: [accounts_select_column!], distinct: Boolean): Int
+    max: accounts_max_fields
+    min: accounts_min_fields
+    stddev: accounts_stddev_fields
+    stddev_pop: accounts_stddev_pop_fields
+    stddev_samp: accounts_stddev_samp_fields
+    sum: accounts_sum_fields
+    var_pop: accounts_var_pop_fields
+    var_samp: accounts_var_samp_fields
+    variance: accounts_variance_fields
+}
+
+"aggregate avg on columns"
+type accounts_avg_fields {
+    balance: Float
+}
+
+"aggregate max on columns"
+type accounts_max_fields {
+    balance: bigint
+    name: String
+    owner: String
+}
+
+"aggregate min on columns"
+type accounts_min_fields {
+    balance: bigint
+    name: String
+    owner: String
+}
+
+"response of any mutation on the table \"accounts\""
+type accounts_mutation_response {
+    "number of affected rows by the mutation"
+    affected_rows: Int!
+    "data of the affected rows by the mutation"
+    returning: [accounts!]!
+}
+
+"aggregate stddev on columns"
+type accounts_stddev_fields {
+    balance: Float
+}
+
+"aggregate stddev_pop on columns"
+type accounts_stddev_pop_fields {
+    balance: Float
+}
+
+"aggregate stddev_samp on columns"
+type accounts_stddev_samp_fields {
+    balance: Float
+}
+
+"aggregate sum on columns"
+type accounts_sum_fields {
+    balance: bigint
+}
+
+"aggregate var_pop on columns"
+type accounts_var_pop_fields {
+    balance: Float
+}
+
+"aggregate var_samp on columns"
+type accounts_var_samp_fields {
+    balance: Float
+}
+
+"aggregate variance on columns"
+type accounts_variance_fields {
+    balance: Float
+}
+
+"mutation root"
+type mutation_root {
+    "delete data from the table: \"accounts\""
+    delete_accounts(
+        #filter the rows which have to be deleted
+        where: accounts_bool_exp!
+    ): accounts_mutation_response
+    "delete data from the table: \"reports\""
+    delete_reports(
+        #filter the rows which have to be deleted
+        where: reports_bool_exp!
+    ): reports_mutation_response
+    "delete data from the table: \"subscriptions\""
+    delete_subscriptions(
+        #filter the rows which have to be deleted
+        where: subscriptions_bool_exp!
+    ): subscriptions_mutation_response
+    "delete data from the table: \"transactions\""
+    delete_transactions(
+        #filter the rows which have to be deleted
+        where: transactions_bool_exp!
+    ): transactions_mutation_response
+    "delete data from the table: \"user_reports\""
+    delete_user_reports(
+        #filter the rows which have to be deleted
+        where: user_reports_bool_exp!
+    ): user_reports_mutation_response
+    "delete data from the table: \"users\""
+    delete_users(
+        #filter the rows which have to be deleted
+        where: users_bool_exp!
+    ): users_mutation_response
+    "delete data from the table: \"wishes\""
+    delete_wishes(
+        #filter the rows which have to be deleted
+        where: wishes_bool_exp!
+    ): wishes_mutation_response
+    "delete data from the table: \"wishes_help_category\""
+    delete_wishes_help_category(
+        #filter the rows which have to be deleted
+        where: wishes_help_category_bool_exp!
+    ): wishes_help_category_mutation_response
+    "delete data from the table: \"wishes_help_item\""
+    delete_wishes_help_item(
+        #filter the rows which have to be deleted
+        where: wishes_help_item_bool_exp!
+    ): wishes_help_item_mutation_response
+    "insert data into the table: \"accounts\""
+    insert_accounts(
+        #the rows to be inserted
+        objects: [accounts_insert_input!]!,
+        #on conflict condition
+        on_conflict: accounts_on_conflict
+    ): accounts_mutation_response
+    "insert data into the table: \"reports\""
+    insert_reports(
+        #the rows to be inserted
+        objects: [reports_insert_input!]!,
+        #on conflict condition
+        on_conflict: reports_on_conflict
+    ): reports_mutation_response
+    "insert data into the table: \"subscriptions\""
+    insert_subscriptions(
+        #the rows to be inserted
+        objects: [subscriptions_insert_input!]!,
+        #on conflict condition
+        on_conflict: subscriptions_on_conflict
+    ): subscriptions_mutation_response
+    "insert data into the table: \"transactions\""
+    insert_transactions(
+        #the rows to be inserted
+        objects: [transactions_insert_input!]!,
+        #on conflict condition
+        on_conflict: transactions_on_conflict
+    ): transactions_mutation_response
+    "insert data into the table: \"user_reports\""
+    insert_user_reports(
+        #the rows to be inserted
+        objects: [user_reports_insert_input!]!,
+        #on conflict condition
+        on_conflict: user_reports_on_conflict
+    ): user_reports_mutation_response
+    "insert data into the table: \"users\""
+    insert_users(
+        #the rows to be inserted
+        objects: [users_insert_input!]!,
+        #on conflict condition
+        on_conflict: users_on_conflict
+    ): users_mutation_response
+    "insert data into the table: \"wishes\""
+    insert_wishes(
+        #the rows to be inserted
+        objects: [wishes_insert_input!]!,
+        #on conflict condition
+        on_conflict: wishes_on_conflict
+    ): wishes_mutation_response
+    "insert data into the table: \"wishes_help_category\""
+    insert_wishes_help_category(
+        #the rows to be inserted
+        objects: [wishes_help_category_insert_input!]!,
+        #on conflict condition
+        on_conflict: wishes_help_category_on_conflict
+    ): wishes_help_category_mutation_response
+    "insert data into the table: \"wishes_help_item\""
+    insert_wishes_help_item(
+        #the rows to be inserted
+        objects: [wishes_help_item_insert_input!]!,
+        #on conflict condition
+        on_conflict: wishes_help_item_on_conflict
+    ): wishes_help_item_mutation_response
+    "update data of the table: \"accounts\""
+    update_accounts(
+        #increments the integer columns with given value of the filtered values
+        _inc: accounts_inc_input,
+        #sets the columns of the filtered rows to the given values
+        _set: accounts_set_input,
+        #filter the rows which have to be updated
+        where: accounts_bool_exp!
+    ): accounts_mutation_response
+    "update data of the table: \"reports\""
+    update_reports(
+        #sets the columns of the filtered rows to the given values
+        _set: reports_set_input,
+        #filter the rows which have to be updated
+        where: reports_bool_exp!
+    ): reports_mutation_response
+    "update data of the table: \"subscriptions\""
+    update_subscriptions(
+        #sets the columns of the filtered rows to the given values
+        _set: subscriptions_set_input,
+        #filter the rows which have to be updated
+        where: subscriptions_bool_exp!
+    ): subscriptions_mutation_response
+    "update data of the table: \"transactions\""
+    update_transactions(
+        #increments the integer columns with given value of the filtered values
+        _inc: transactions_inc_input,
+        #sets the columns of the filtered rows to the given values
+        _set: transactions_set_input,
+        #filter the rows which have to be updated
+        where: transactions_bool_exp!
+    ): transactions_mutation_response
+    "update data of the table: \"user_reports\""
+    update_user_reports(
+        #sets the columns of the filtered rows to the given values
+        _set: user_reports_set_input,
+        #filter the rows which have to be updated
+        where: user_reports_bool_exp!
+    ): user_reports_mutation_response
+    "update data of the table: \"users\""
+    update_users(
+        #sets the columns of the filtered rows to the given values
+        _set: users_set_input,
+        #filter the rows which have to be updated
+        where: users_bool_exp!
+    ): users_mutation_response
+    "update data of the table: \"wishes\""
+    update_wishes(
+        #increments the integer columns with given value of the filtered values
+        _inc: wishes_inc_input,
+        #sets the columns of the filtered rows to the given values
+        _set: wishes_set_input,
+        #filter the rows which have to be updated
+        where: wishes_bool_exp!
+    ): wishes_mutation_response
+    "update data of the table: \"wishes_help_category\""
+    update_wishes_help_category(
+        #sets the columns of the filtered rows to the given values
+        _set: wishes_help_category_set_input,
+        #filter the rows which have to be updated
+        where: wishes_help_category_bool_exp!
+    ): wishes_help_category_mutation_response
+    "update data of the table: \"wishes_help_item\""
+    update_wishes_help_item(
+        #increments the integer columns with given value of the filtered values
+        _inc: wishes_help_item_inc_input,
+        #sets the columns of the filtered rows to the given values
+        _set: wishes_help_item_set_input,
+        #filter the rows which have to be updated
+        where: wishes_help_item_bool_exp!
+    ): wishes_help_item_mutation_response
+}
+
+"query root"
+type query_root {
+    "fetch data from the table: \"accounts\""
+    accounts(
+        #distinct select on columns
+        distinct_on: [accounts_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [accounts_order_by!],
+        #filter the rows returned
+        where: accounts_bool_exp
+    ): [accounts!]!
+    "fetch aggregated fields from the table: \"accounts\""
+    accounts_aggregate(
+        #distinct select on columns
+        distinct_on: [accounts_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [accounts_order_by!],
+        #filter the rows returned
+        where: accounts_bool_exp
+    ): accounts_aggregate!
+    "fetch data from the table: \"accounts\" using primary key columns"
+    accounts_by_pk(id: uuid!): accounts
+    "fetch data from the table: \"reports\""
+    reports(
+        #distinct select on columns
+        distinct_on: [reports_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [reports_order_by!],
+        #filter the rows returned
+        where: reports_bool_exp
+    ): [reports!]!
+    "fetch aggregated fields from the table: \"reports\""
+    reports_aggregate(
+        #distinct select on columns
+        distinct_on: [reports_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [reports_order_by!],
+        #filter the rows returned
+        where: reports_bool_exp
+    ): reports_aggregate!
+    "fetch data from the table: \"reports\" using primary key columns"
+    reports_by_pk(id: uuid!): reports
+    "fetch data from the table: \"subscriptions\""
+    subscriptions(
+        #distinct select on columns
+        distinct_on: [subscriptions_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [subscriptions_order_by!],
+        #filter the rows returned
+        where: subscriptions_bool_exp
+    ): [subscriptions!]!
+    "fetch aggregated fields from the table: \"subscriptions\""
+    subscriptions_aggregate(
+        #distinct select on columns
+        distinct_on: [subscriptions_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [subscriptions_order_by!],
+        #filter the rows returned
+        where: subscriptions_bool_exp
+    ): subscriptions_aggregate!
+    "fetch data from the table: \"subscriptions\" using primary key columns"
+    subscriptions_by_pk(id: uuid!): subscriptions
+    "fetch data from the table: \"transactions\""
+    transactions(
+        #distinct select on columns
+        distinct_on: [transactions_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [transactions_order_by!],
+        #filter the rows returned
+        where: transactions_bool_exp
+    ): [transactions!]!
+    "fetch aggregated fields from the table: \"transactions\""
+    transactions_aggregate(
+        #distinct select on columns
+        distinct_on: [transactions_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [transactions_order_by!],
+        #filter the rows returned
+        where: transactions_bool_exp
+    ): transactions_aggregate!
+    "fetch data from the table: \"transactions\" using primary key columns"
+    transactions_by_pk(id: uuid!): transactions
+    "fetch data from the table: \"user_reports\""
+    user_reports(
+        #distinct select on columns
+        distinct_on: [user_reports_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [user_reports_order_by!],
+        #filter the rows returned
+        where: user_reports_bool_exp
+    ): [user_reports!]!
+    "fetch aggregated fields from the table: \"user_reports\""
+    user_reports_aggregate(
+        #distinct select on columns
+        distinct_on: [user_reports_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [user_reports_order_by!],
+        #filter the rows returned
+        where: user_reports_bool_exp
+    ): user_reports_aggregate!
+    "fetch data from the table: \"user_reports\" using primary key columns"
+    user_reports_by_pk(id: uuid!): user_reports
+    "fetch data from the table: \"users\""
+    users(
+        #distinct select on columns
+        distinct_on: [users_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [users_order_by!],
+        #filter the rows returned
+        where: users_bool_exp
+    ): [users!]!
+    "fetch aggregated fields from the table: \"users\""
+    users_aggregate(
+        #distinct select on columns
+        distinct_on: [users_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [users_order_by!],
+        #filter the rows returned
+        where: users_bool_exp
+    ): users_aggregate!
+    "fetch data from the table: \"users\" using primary key columns"
+    users_by_pk(id: String!): users
+    "fetch data from the table: \"wishes\""
+    wishes(
+        #distinct select on columns
+        distinct_on: [wishes_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [wishes_order_by!],
+        #filter the rows returned
+        where: wishes_bool_exp
+    ): [wishes!]!
+    "fetch aggregated fields from the table: \"wishes\""
+    wishes_aggregate(
+        #distinct select on columns
+        distinct_on: [wishes_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [wishes_order_by!],
+        #filter the rows returned
+        where: wishes_bool_exp
+    ): wishes_aggregate!
+    "fetch data from the table: \"wishes\" using primary key columns"
+    wishes_by_pk(id: uuid!): wishes
+    "fetch data from the table: \"wishes_help_category\""
+    wishes_help_category(
+        #distinct select on columns
+        distinct_on: [wishes_help_category_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [wishes_help_category_order_by!],
+        #filter the rows returned
+        where: wishes_help_category_bool_exp
+    ): [wishes_help_category!]!
+    "fetch aggregated fields from the table: \"wishes_help_category\""
+    wishes_help_category_aggregate(
+        #distinct select on columns
+        distinct_on: [wishes_help_category_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [wishes_help_category_order_by!],
+        #filter the rows returned
+        where: wishes_help_category_bool_exp
+    ): wishes_help_category_aggregate!
+    "fetch data from the table: \"wishes_help_category\" using primary key columns"
+    wishes_help_category_by_pk(id: uuid!): wishes_help_category
+    "fetch data from the table: \"wishes_help_item\""
+    wishes_help_item(
+        #distinct select on columns
+        distinct_on: [wishes_help_item_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [wishes_help_item_order_by!],
+        #filter the rows returned
+        where: wishes_help_item_bool_exp
+    ): [wishes_help_item!]!
+    "fetch aggregated fields from the table: \"wishes_help_item\""
+    wishes_help_item_aggregate(
+        #distinct select on columns
+        distinct_on: [wishes_help_item_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [wishes_help_item_order_by!],
+        #filter the rows returned
+        where: wishes_help_item_bool_exp
+    ): wishes_help_item_aggregate!
+    "fetch data from the table: \"wishes_help_item\" using primary key columns"
+    wishes_help_item_by_pk(id: uuid!): wishes_help_item
+}
+
+"columns and relationships of \"reports\""
+type reports {
+    accounts: uuid!
+    id: uuid!
+    interest_rate: numeric!
+    name: String!
+    transactions: uuid!
+    "An array relationship"
+    user_reports(
+        #distinct select on columns
+        distinct_on: [user_reports_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [user_reports_order_by!],
+        #filter the rows returned
+        where: user_reports_bool_exp
+    ): [user_reports!]!
+    "An aggregated array relationship"
+    user_reports_aggregate(
+        #distinct select on columns
+        distinct_on: [user_reports_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [user_reports_order_by!],
+        #filter the rows returned
+        where: user_reports_bool_exp
+    ): user_reports_aggregate!
+}
+
+"aggregated selection of \"reports\""
+type reports_aggregate {
+    aggregate: reports_aggregate_fields
+    nodes: [reports!]!
+}
+
+"aggregate fields of \"reports\""
+type reports_aggregate_fields {
+    avg: reports_avg_fields
+    count(columns: [reports_select_column!], distinct: Boolean): Int
+    max: reports_max_fields
+    min: reports_min_fields
+    stddev: reports_stddev_fields
+    stddev_pop: reports_stddev_pop_fields
+    stddev_samp: reports_stddev_samp_fields
+    sum: reports_sum_fields
+    var_pop: reports_var_pop_fields
+    var_samp: reports_var_samp_fields
+    variance: reports_variance_fields
+}
+
+"aggregate avg on columns"
+type reports_avg_fields {
+    interest_rate: Float
+}
+
+"aggregate max on columns"
+type reports_max_fields {
+    interest_rate: numeric
+    name: String
+}
+
+"aggregate min on columns"
+type reports_min_fields {
+    interest_rate: numeric
+    name: String
+}
+
+"response of any mutation on the table \"reports\""
+type reports_mutation_response {
+    "number of affected rows by the mutation"
+    affected_rows: Int!
+    "data of the affected rows by the mutation"
+    returning: [reports!]!
+}
+
+"aggregate stddev on columns"
+type reports_stddev_fields {
+    interest_rate: Float
+}
+
+"aggregate stddev_pop on columns"
+type reports_stddev_pop_fields {
+    interest_rate: Float
+}
+
+"aggregate stddev_samp on columns"
+type reports_stddev_samp_fields {
+    interest_rate: Float
+}
+
+"aggregate sum on columns"
+type reports_sum_fields {
+    interest_rate: numeric
+}
+
+"aggregate var_pop on columns"
+type reports_var_pop_fields {
+    interest_rate: Float
+}
+
+"aggregate var_samp on columns"
+type reports_var_samp_fields {
+    interest_rate: Float
+}
+
+"aggregate variance on columns"
+type reports_variance_fields {
+    interest_rate: Float
+}
+
+"subscription root"
+type subscription_root {
+    "fetch data from the table: \"accounts\""
+    accounts(
+        #distinct select on columns
+        distinct_on: [accounts_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [accounts_order_by!],
+        #filter the rows returned
+        where: accounts_bool_exp
+    ): [accounts!]!
+    "fetch aggregated fields from the table: \"accounts\""
+    accounts_aggregate(
+        #distinct select on columns
+        distinct_on: [accounts_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [accounts_order_by!],
+        #filter the rows returned
+        where: accounts_bool_exp
+    ): accounts_aggregate!
+    "fetch data from the table: \"accounts\" using primary key columns"
+    accounts_by_pk(id: uuid!): accounts
+    "fetch data from the table: \"reports\""
+    reports(
+        #distinct select on columns
+        distinct_on: [reports_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [reports_order_by!],
+        #filter the rows returned
+        where: reports_bool_exp
+    ): [reports!]!
+    "fetch aggregated fields from the table: \"reports\""
+    reports_aggregate(
+        #distinct select on columns
+        distinct_on: [reports_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [reports_order_by!],
+        #filter the rows returned
+        where: reports_bool_exp
+    ): reports_aggregate!
+    "fetch data from the table: \"reports\" using primary key columns"
+    reports_by_pk(id: uuid!): reports
+    "fetch data from the table: \"subscriptions\""
+    subscriptions(
+        #distinct select on columns
+        distinct_on: [subscriptions_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [subscriptions_order_by!],
+        #filter the rows returned
+        where: subscriptions_bool_exp
+    ): [subscriptions!]!
+    "fetch aggregated fields from the table: \"subscriptions\""
+    subscriptions_aggregate(
+        #distinct select on columns
+        distinct_on: [subscriptions_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [subscriptions_order_by!],
+        #filter the rows returned
+        where: subscriptions_bool_exp
+    ): subscriptions_aggregate!
+    "fetch data from the table: \"subscriptions\" using primary key columns"
+    subscriptions_by_pk(id: uuid!): subscriptions
+    "fetch data from the table: \"transactions\""
+    transactions(
+        #distinct select on columns
+        distinct_on: [transactions_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [transactions_order_by!],
+        #filter the rows returned
+        where: transactions_bool_exp
+    ): [transactions!]!
+    "fetch aggregated fields from the table: \"transactions\""
+    transactions_aggregate(
+        #distinct select on columns
+        distinct_on: [transactions_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [transactions_order_by!],
+        #filter the rows returned
+        where: transactions_bool_exp
+    ): transactions_aggregate!
+    "fetch data from the table: \"transactions\" using primary key columns"
+    transactions_by_pk(id: uuid!): transactions
+    "fetch data from the table: \"user_reports\""
+    user_reports(
+        #distinct select on columns
+        distinct_on: [user_reports_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [user_reports_order_by!],
+        #filter the rows returned
+        where: user_reports_bool_exp
+    ): [user_reports!]!
+    "fetch aggregated fields from the table: \"user_reports\""
+    user_reports_aggregate(
+        #distinct select on columns
+        distinct_on: [user_reports_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [user_reports_order_by!],
+        #filter the rows returned
+        where: user_reports_bool_exp
+    ): user_reports_aggregate!
+    "fetch data from the table: \"user_reports\" using primary key columns"
+    user_reports_by_pk(id: uuid!): user_reports
+    "fetch data from the table: \"users\""
+    users(
+        #distinct select on columns
+        distinct_on: [users_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [users_order_by!],
+        #filter the rows returned
+        where: users_bool_exp
+    ): [users!]!
+    "fetch aggregated fields from the table: \"users\""
+    users_aggregate(
+        #distinct select on columns
+        distinct_on: [users_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [users_order_by!],
+        #filter the rows returned
+        where: users_bool_exp
+    ): users_aggregate!
+    "fetch data from the table: \"users\" using primary key columns"
+    users_by_pk(id: String!): users
+    "fetch data from the table: \"wishes\""
+    wishes(
+        #distinct select on columns
+        distinct_on: [wishes_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [wishes_order_by!],
+        #filter the rows returned
+        where: wishes_bool_exp
+    ): [wishes!]!
+    "fetch aggregated fields from the table: \"wishes\""
+    wishes_aggregate(
+        #distinct select on columns
+        distinct_on: [wishes_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [wishes_order_by!],
+        #filter the rows returned
+        where: wishes_bool_exp
+    ): wishes_aggregate!
+    "fetch data from the table: \"wishes\" using primary key columns"
+    wishes_by_pk(id: uuid!): wishes
+    "fetch data from the table: \"wishes_help_category\""
+    wishes_help_category(
+        #distinct select on columns
+        distinct_on: [wishes_help_category_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [wishes_help_category_order_by!],
+        #filter the rows returned
+        where: wishes_help_category_bool_exp
+    ): [wishes_help_category!]!
+    "fetch aggregated fields from the table: \"wishes_help_category\""
+    wishes_help_category_aggregate(
+        #distinct select on columns
+        distinct_on: [wishes_help_category_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [wishes_help_category_order_by!],
+        #filter the rows returned
+        where: wishes_help_category_bool_exp
+    ): wishes_help_category_aggregate!
+    "fetch data from the table: \"wishes_help_category\" using primary key columns"
+    wishes_help_category_by_pk(id: uuid!): wishes_help_category
+    "fetch data from the table: \"wishes_help_item\""
+    wishes_help_item(
+        #distinct select on columns
+        distinct_on: [wishes_help_item_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [wishes_help_item_order_by!],
+        #filter the rows returned
+        where: wishes_help_item_bool_exp
+    ): [wishes_help_item!]!
+    "fetch aggregated fields from the table: \"wishes_help_item\""
+    wishes_help_item_aggregate(
+        #distinct select on columns
+        distinct_on: [wishes_help_item_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [wishes_help_item_order_by!],
+        #filter the rows returned
+        where: wishes_help_item_bool_exp
+    ): wishes_help_item_aggregate!
+    "fetch data from the table: \"wishes_help_item\" using primary key columns"
+    wishes_help_item_by_pk(id: uuid!): wishes_help_item
+}
+
+"columns and relationships of \"subscriptions\""
+type subscriptions {
+    category: String!
+    id: uuid!
+    name: String
+    owner: String!
+    price: numeric!
+    usefulness: numeric
+    "An object relationship"
+    user: users!
+    yearly: Boolean!
+}
+
+"aggregated selection of \"subscriptions\""
+type subscriptions_aggregate {
+    aggregate: subscriptions_aggregate_fields
+    nodes: [subscriptions!]!
+}
+
+"aggregate fields of \"subscriptions\""
+type subscriptions_aggregate_fields {
+    avg: subscriptions_avg_fields
+    count(columns: [subscriptions_select_column!], distinct: Boolean): Int
+    max: subscriptions_max_fields
+    min: subscriptions_min_fields
+    stddev: subscriptions_stddev_fields
+    stddev_pop: subscriptions_stddev_pop_fields
+    stddev_samp: subscriptions_stddev_samp_fields
+    sum: subscriptions_sum_fields
+    var_pop: subscriptions_var_pop_fields
+    var_samp: subscriptions_var_samp_fields
+    variance: subscriptions_variance_fields
+}
+
+"aggregate avg on columns"
+type subscriptions_avg_fields {
+    price: Float
+    usefulness: Float
+}
+
+"aggregate max on columns"
+type subscriptions_max_fields {
+    category: String
+    name: String
+    owner: String
+    price: numeric
+    usefulness: numeric
+}
+
+"aggregate min on columns"
+type subscriptions_min_fields {
+    category: String
+    name: String
+    owner: String
+    price: numeric
+    usefulness: numeric
+}
+
+"response of any mutation on the table \"subscriptions\""
+type subscriptions_mutation_response {
+    "number of affected rows by the mutation"
+    affected_rows: Int!
+    "data of the affected rows by the mutation"
+    returning: [subscriptions!]!
+}
+
+"aggregate stddev on columns"
+type subscriptions_stddev_fields {
+    price: Float
+    usefulness: Float
+}
+
+"aggregate stddev_pop on columns"
+type subscriptions_stddev_pop_fields {
+    price: Float
+    usefulness: Float
+}
+
+"aggregate stddev_samp on columns"
+type subscriptions_stddev_samp_fields {
+    price: Float
+    usefulness: Float
+}
+
+"aggregate sum on columns"
+type subscriptions_sum_fields {
+    price: numeric
+    usefulness: numeric
+}
+
+"aggregate var_pop on columns"
+type subscriptions_var_pop_fields {
+    price: Float
+    usefulness: Float
+}
+
+"aggregate var_samp on columns"
+type subscriptions_var_samp_fields {
+    price: Float
+    usefulness: Float
+}
+
+"aggregate variance on columns"
+type subscriptions_variance_fields {
+    price: Float
+    usefulness: Float
+}
+
+"columns and relationships of \"transactions\""
+type transactions {
+    category: String!
+    end: date
+    id: uuid!
+    interval_days: Int!
+    interval_months: Int!
+    monthly_occurrences: Int!
+    name: String
+    owner: String!
+    start: date!
+    "An object relationship"
+    user: users!
+    value: numeric
+}
+
+"aggregated selection of \"transactions\""
+type transactions_aggregate {
+    aggregate: transactions_aggregate_fields
+    nodes: [transactions!]!
+}
+
+"aggregate fields of \"transactions\""
+type transactions_aggregate_fields {
+    avg: transactions_avg_fields
+    count(columns: [transactions_select_column!], distinct: Boolean): Int
+    max: transactions_max_fields
+    min: transactions_min_fields
+    stddev: transactions_stddev_fields
+    stddev_pop: transactions_stddev_pop_fields
+    stddev_samp: transactions_stddev_samp_fields
+    sum: transactions_sum_fields
+    var_pop: transactions_var_pop_fields
+    var_samp: transactions_var_samp_fields
+    variance: transactions_variance_fields
+}
+
+"aggregate avg on columns"
+type transactions_avg_fields {
+    interval_days: Float
+    interval_months: Float
+    monthly_occurrences: Float
+    value: Float
+}
+
+"aggregate max on columns"
+type transactions_max_fields {
+    category: String
+    end: date
+    interval_days: Int
+    interval_months: Int
+    monthly_occurrences: Int
+    name: String
+    owner: String
+    start: date
+    value: numeric
+}
+
+"aggregate min on columns"
+type transactions_min_fields {
+    category: String
+    end: date
+    interval_days: Int
+    interval_months: Int
+    monthly_occurrences: Int
+    name: String
+    owner: String
+    start: date
+    value: numeric
+}
+
+"response of any mutation on the table \"transactions\""
+type transactions_mutation_response {
+    "number of affected rows by the mutation"
+    affected_rows: Int!
+    "data of the affected rows by the mutation"
+    returning: [transactions!]!
+}
+
+"aggregate stddev on columns"
+type transactions_stddev_fields {
+    interval_days: Float
+    interval_months: Float
+    monthly_occurrences: Float
+    value: Float
+}
+
+"aggregate stddev_pop on columns"
+type transactions_stddev_pop_fields {
+    interval_days: Float
+    interval_months: Float
+    monthly_occurrences: Float
+    value: Float
+}
+
+"aggregate stddev_samp on columns"
+type transactions_stddev_samp_fields {
+    interval_days: Float
+    interval_months: Float
+    monthly_occurrences: Float
+    value: Float
+}
+
+"aggregate sum on columns"
+type transactions_sum_fields {
+    interval_days: Int
+    interval_months: Int
+    monthly_occurrences: Int
+    value: numeric
+}
+
+"aggregate var_pop on columns"
+type transactions_var_pop_fields {
+    interval_days: Float
+    interval_months: Float
+    monthly_occurrences: Float
+    value: Float
+}
+
+"aggregate var_samp on columns"
+type transactions_var_samp_fields {
+    interval_days: Float
+    interval_months: Float
+    monthly_occurrences: Float
+    value: Float
+}
+
+"aggregate variance on columns"
+type transactions_variance_fields {
+    interval_days: Float
+    interval_months: Float
+    monthly_occurrences: Float
+    value: Float
+}
+
+"columns and relationships of \"user_reports\""
+type user_reports {
+    id: uuid!
+    report: uuid!
+    user: String!
+}
+
+"aggregated selection of \"user_reports\""
+type user_reports_aggregate {
+    aggregate: user_reports_aggregate_fields
+    nodes: [user_reports!]!
+}
+
+"aggregate fields of \"user_reports\""
+type user_reports_aggregate_fields {
+    count(columns: [user_reports_select_column!], distinct: Boolean): Int
+    max: user_reports_max_fields
+    min: user_reports_min_fields
+}
+
+"aggregate max on columns"
+type user_reports_max_fields {
+    user: String
+}
+
+"aggregate min on columns"
+type user_reports_min_fields {
+    user: String
+}
+
+"response of any mutation on the table \"user_reports\""
+type user_reports_mutation_response {
+    "number of affected rows by the mutation"
+    affected_rows: Int!
+    "data of the affected rows by the mutation"
+    returning: [user_reports!]!
+}
+
+"columns and relationships of \"users\""
+type users {
+    "An array relationship"
+    accounts(
+        #distinct select on columns
+        distinct_on: [accounts_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [accounts_order_by!],
+        #filter the rows returned
+        where: accounts_bool_exp
+    ): [accounts!]!
+    "An aggregated array relationship"
+    accounts_aggregate(
+        #distinct select on columns
+        distinct_on: [accounts_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [accounts_order_by!],
+        #filter the rows returned
+        where: accounts_bool_exp
+    ): accounts_aggregate!
+    email: String
+    id: String!
+    "An array relationship"
+    transactions(
+        #distinct select on columns
+        distinct_on: [transactions_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [transactions_order_by!],
+        #filter the rows returned
+        where: transactions_bool_exp
+    ): [transactions!]!
+    "An aggregated array relationship"
+    transactions_aggregate(
+        #distinct select on columns
+        distinct_on: [transactions_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [transactions_order_by!],
+        #filter the rows returned
+        where: transactions_bool_exp
+    ): transactions_aggregate!
+    "An array relationship"
+    user_reports(
+        #distinct select on columns
+        distinct_on: [user_reports_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [user_reports_order_by!],
+        #filter the rows returned
+        where: user_reports_bool_exp
+    ): [user_reports!]!
+    "An aggregated array relationship"
+    user_reports_aggregate(
+        #distinct select on columns
+        distinct_on: [user_reports_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [user_reports_order_by!],
+        #filter the rows returned
+        where: user_reports_bool_exp
+    ): user_reports_aggregate!
+}
+
+"aggregated selection of \"users\""
+type users_aggregate {
+    aggregate: users_aggregate_fields
+    nodes: [users!]!
+}
+
+"aggregate fields of \"users\""
+type users_aggregate_fields {
+    count(columns: [users_select_column!], distinct: Boolean): Int
+    max: users_max_fields
+    min: users_min_fields
+}
+
+"aggregate max on columns"
+type users_max_fields {
+    email: String
+    id: String
+}
+
+"aggregate min on columns"
+type users_min_fields {
+    email: String
+    id: String
+}
+
+"response of any mutation on the table \"users\""
+type users_mutation_response {
+    "number of affected rows by the mutation"
+    affected_rows: Int!
+    "data of the affected rows by the mutation"
+    returning: [users!]!
+}
+
+"columns and relationships of \"wishes\""
+type wishes {
+    category: String!
+    date: date
+    id: uuid!
+    name: String
+    owner: String!
+    price: numeric!
+    usefulness: Int!
+    "An object relationship"
+    user: users!
+}
+
+"aggregated selection of \"wishes\""
+type wishes_aggregate {
+    aggregate: wishes_aggregate_fields
+    nodes: [wishes!]!
+}
+
+"aggregate fields of \"wishes\""
+type wishes_aggregate_fields {
+    avg: wishes_avg_fields
+    count(columns: [wishes_select_column!], distinct: Boolean): Int
+    max: wishes_max_fields
+    min: wishes_min_fields
+    stddev: wishes_stddev_fields
+    stddev_pop: wishes_stddev_pop_fields
+    stddev_samp: wishes_stddev_samp_fields
+    sum: wishes_sum_fields
+    var_pop: wishes_var_pop_fields
+    var_samp: wishes_var_samp_fields
+    variance: wishes_variance_fields
+}
+
+"aggregate avg on columns"
+type wishes_avg_fields {
+    price: Float
+    usefulness: Float
+}
+
+"columns and relationships of \"wishes_help_category\""
+type wishes_help_category {
+    id: uuid!
+    "An array relationship"
+    items(
+        #distinct select on columns
+        distinct_on: [wishes_help_item_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [wishes_help_item_order_by!],
+        #filter the rows returned
+        where: wishes_help_item_bool_exp
+    ): [wishes_help_item!]!
+    "An aggregated array relationship"
+    items_aggregate(
+        #distinct select on columns
+        distinct_on: [wishes_help_item_select_column!],
+        #limit the nuber of rows returned
+        limit: Int,
+        #skip the first n rows. Use only with order_by
+        offset: Int,
+        #sort the rows by one or more columns
+        order_by: [wishes_help_item_order_by!],
+        #filter the rows returned
+        where: wishes_help_item_bool_exp
+    ): wishes_help_item_aggregate!
+    name: String
+    owner: String!
+    "An object relationship"
+    user: users!
+}
+
+"aggregated selection of \"wishes_help_category\""
+type wishes_help_category_aggregate {
+    aggregate: wishes_help_category_aggregate_fields
+    nodes: [wishes_help_category!]!
+}
+
+"aggregate fields of \"wishes_help_category\""
+type wishes_help_category_aggregate_fields {
+    count(columns: [wishes_help_category_select_column!], distinct: Boolean): Int
+    max: wishes_help_category_max_fields
+    min: wishes_help_category_min_fields
+}
+
+"aggregate max on columns"
+type wishes_help_category_max_fields {
+    name: String
+    owner: String
+}
+
+"aggregate min on columns"
+type wishes_help_category_min_fields {
+    name: String
+    owner: String
+}
+
+"response of any mutation on the table \"wishes_help_category\""
+type wishes_help_category_mutation_response {
+    "number of affected rows by the mutation"
+    affected_rows: Int!
+    "data of the affected rows by the mutation"
+    returning: [wishes_help_category!]!
+}
+
+"columns and relationships of \"wishes_help_item\""
+type wishes_help_item {
+    category: String!
+    durability: Int!
+    id: uuid!
+    name: String
+    owner: String
+    parent: uuid!
+    price: numeric!
+    usefulness: Int!
+    "An object relationship"
+    user: users
+}
+
+"aggregated selection of \"wishes_help_item\""
+type wishes_help_item_aggregate {
+    aggregate: wishes_help_item_aggregate_fields
+    nodes: [wishes_help_item!]!
+}
+
+"aggregate fields of \"wishes_help_item\""
+type wishes_help_item_aggregate_fields {
+    avg: wishes_help_item_avg_fields
+    count(columns: [wishes_help_item_select_column!], distinct: Boolean): Int
+    max: wishes_help_item_max_fields
+    min: wishes_help_item_min_fields
+    stddev: wishes_help_item_stddev_fields
+    stddev_pop: wishes_help_item_stddev_pop_fields
+    stddev_samp: wishes_help_item_stddev_samp_fields
+    sum: wishes_help_item_sum_fields
+    var_pop: wishes_help_item_var_pop_fields
+    var_samp: wishes_help_item_var_samp_fields
+    variance: wishes_help_item_variance_fields
+}
+
+"aggregate avg on columns"
+type wishes_help_item_avg_fields {
+    durability: Float
+    price: Float
+    usefulness: Float
+}
+
+"aggregate max on columns"
+type wishes_help_item_max_fields {
+    category: String
+    durability: Int
+    name: String
+    owner: String
+    price: numeric
+    usefulness: Int
+}
+
+"aggregate min on columns"
+type wishes_help_item_min_fields {
+    category: String
+    durability: Int
+    name: String
+    owner: String
+    price: numeric
+    usefulness: Int
+}
+
+"response of any mutation on the table \"wishes_help_item\""
+type wishes_help_item_mutation_response {
+    "number of affected rows by the mutation"
+    affected_rows: Int!
+    "data of the affected rows by the mutation"
+    returning: [wishes_help_item!]!
+}
+
+"aggregate stddev on columns"
+type wishes_help_item_stddev_fields {
+    durability: Float
+    price: Float
+    usefulness: Float
+}
+
+"aggregate stddev_pop on columns"
+type wishes_help_item_stddev_pop_fields {
+    durability: Float
+    price: Float
+    usefulness: Float
+}
+
+"aggregate stddev_samp on columns"
+type wishes_help_item_stddev_samp_fields {
+    durability: Float
+    price: Float
+    usefulness: Float
+}
+
+"aggregate sum on columns"
+type wishes_help_item_sum_fields {
+    durability: Int
+    price: numeric
+    usefulness: Int
+}
+
+"aggregate var_pop on columns"
+type wishes_help_item_var_pop_fields {
+    durability: Float
+    price: Float
+    usefulness: Float
+}
+
+"aggregate var_samp on columns"
+type wishes_help_item_var_samp_fields {
+    durability: Float
+    price: Float
+    usefulness: Float
+}
+
+"aggregate variance on columns"
+type wishes_help_item_variance_fields {
+    durability: Float
+    price: Float
+    usefulness: Float
+}
+
+"aggregate max on columns"
+type wishes_max_fields {
+    category: String
+    date: date
+    name: String
+    owner: String
+    price: numeric
+    usefulness: Int
+}
+
+"aggregate min on columns"
+type wishes_min_fields {
+    category: String
+    date: date
+    name: String
+    owner: String
+    price: numeric
+    usefulness: Int
+}
+
+"response of any mutation on the table \"wishes\""
+type wishes_mutation_response {
+    "number of affected rows by the mutation"
+    affected_rows: Int!
+    "data of the affected rows by the mutation"
+    returning: [wishes!]!
+}
+
+"aggregate stddev on columns"
+type wishes_stddev_fields {
+    price: Float
+    usefulness: Float
+}
+
+"aggregate stddev_pop on columns"
+type wishes_stddev_pop_fields {
+    price: Float
+    usefulness: Float
+}
+
+"aggregate stddev_samp on columns"
+type wishes_stddev_samp_fields {
+    price: Float
+    usefulness: Float
+}
+
+"aggregate sum on columns"
+type wishes_sum_fields {
+    price: numeric
+    usefulness: Int
+}
+
+"aggregate var_pop on columns"
+type wishes_var_pop_fields {
+    price: Float
+    usefulness: Float
+}
+
+"aggregate var_samp on columns"
+type wishes_var_samp_fields {
+    price: Float
+    usefulness: Float
+}
+
+"aggregate variance on columns"
+type wishes_variance_fields {
+    price: Float
+    usefulness: Float
+}
+
+"unique or primary key constraints on table \"accounts\""
+enum accounts_constraint {
+    #unique or primary key constraint
+    accounts_pkey
+}
+
+"select columns of table \"accounts\""
+enum accounts_select_column {
+    #column name
+    balance
+    #column name
+    id
+    #column name
+    name
+    #column name
+    owner
+}
+
+"update columns of table \"accounts\""
+enum accounts_update_column {
+    #column name
+    balance
+    #column name
+    id
+    #column name
+    name
+    #column name
+    owner
+}
+
+"conflict action"
+enum conflict_action {
+    #ignore the insert on this row
+    ignore
+    #update the row with the given values
+    update
+}
+
+"column ordering options"
+enum order_by {
+    #in the ascending order, nulls last
+    asc
+    #in the ascending order, nulls first
+    asc_nulls_first
+    #in the ascending order, nulls last
+    asc_nulls_last
+    #in the descending order, nulls first
+    desc
+    #in the descending order, nulls first
+    desc_nulls_first
+    #in the descending order, nulls last
+    desc_nulls_last
+}
+
+"unique or primary key constraints on table \"reports\""
+enum reports_constraint {
+    #unique or primary key constraint
+    reports_pkey
+}
+
+"select columns of table \"reports\""
+enum reports_select_column {
+    #column name
+    accounts
+    #column name
+    id
+    #column name
+    interest_rate
+    #column name
+    name
+    #column name
+    transactions
+}
+
+"update columns of table \"reports\""
+enum reports_update_column {
+    #column name
+    accounts
+    #column name
+    id
+    #column name
+    interest_rate
+    #column name
+    name
+    #column name
+    transactions
+}
+
+"unique or primary key constraints on table \"subscriptions\""
+enum subscriptions_constraint {
+    #unique or primary key constraint
+    subscriptions_pkey
+}
+
+"select columns of table \"subscriptions\""
+enum subscriptions_select_column {
+    #column name
+    category
+    #column name
+    id
+    #column name
+    name
+    #column name
+    owner
+    #column name
+    price
+    #column name
+    usefulness
+    #column name
+    yearly
+}
+
+"update columns of table \"subscriptions\""
+enum subscriptions_update_column {
+    #column name
+    category
+    #column name
+    id
+    #column name
+    name
+    #column name
+    owner
+    #column name
+    price
+    #column name
+    usefulness
+    #column name
+    yearly
+}
+
+"unique or primary key constraints on table \"transactions\""
+enum transactions_constraint {
+    #unique or primary key constraint
+    transactions_pkey
+}
+
+"select columns of table \"transactions\""
+enum transactions_select_column {
+    #column name
+    category
+    #column name
+    end
+    #column name
+    id
+    #column name
+    interval_days
+    #column name
+    interval_months
+    #column name
+    monthly_occurrences
+    #column name
+    name
+    #column name
+    owner
+    #column name
+    start
+    #column name
+    value
+}
+
+"update columns of table \"transactions\""
+enum transactions_update_column {
+    #column name
+    category
+    #column name
+    end
+    #column name
+    id
+    #column name
+    interval_days
+    #column name
+    interval_months
+    #column name
+    monthly_occurrences
+    #column name
+    name
+    #column name
+    owner
+    #column name
+    start
+    #column name
+    value
+}
+
+"unique or primary key constraints on table \"user_reports\""
+enum user_reports_constraint {
+    #unique or primary key constraint
+    user_reports_pkey
+}
+
+"select columns of table \"user_reports\""
+enum user_reports_select_column {
+    #column name
+    id
+    #column name
+    report
+    #column name
+    user
+}
+
+"update columns of table \"user_reports\""
+enum user_reports_update_column {
+    #column name
+    id
+    #column name
+    report
+    #column name
+    user
+}
+
+"unique or primary key constraints on table \"users\""
+enum users_constraint {
+    #unique or primary key constraint
+    users_email_key
+    #unique or primary key constraint
+    users_pkey
+}
+
+"select columns of table \"users\""
+enum users_select_column {
+    #column name
+    email
+    #column name
+    id
+}
+
+"update columns of table \"users\""
+enum users_update_column {
+    #column name
+    email
+    #column name
+    id
+}
+
+"unique or primary key constraints on table \"wishes\""
+enum wishes_constraint {
+    #unique or primary key constraint
+    wish_pkey
+}
+
+"unique or primary key constraints on table \"wishes_help_category\""
+enum wishes_help_category_constraint {
+    #unique or primary key constraint
+    wishes_help_category_pkey
+}
+
+"select columns of table \"wishes_help_category\""
+enum wishes_help_category_select_column {
+    #column name
+    id
+    #column name
+    name
+    #column name
+    owner
+}
+
+"update columns of table \"wishes_help_category\""
+enum wishes_help_category_update_column {
+    #column name
+    id
+    #column name
+    name
+    #column name
+    owner
+}
+
+"unique or primary key constraints on table \"wishes_help_item\""
+enum wishes_help_item_constraint {
+    #unique or primary key constraint
+    wishes_help_id_key
+    #unique or primary key constraint
+    wishes_help_pkey
+}
+
+"select columns of table \"wishes_help_item\""
+enum wishes_help_item_select_column {
+    #column name
+    category
+    #column name
+    durability
+    #column name
+    id
+    #column name
+    name
+    #column name
+    owner
+    #column name
+    parent
+    #column name
+    price
+    #column name
+    usefulness
+}
+
+"update columns of table \"wishes_help_item\""
+enum wishes_help_item_update_column {
+    #column name
+    category
+    #column name
+    durability
+    #column name
+    id
+    #column name
+    name
+    #column name
+    owner
+    #column name
+    parent
+    #column name
+    price
+    #column name
+    usefulness
+}
+
+"select columns of table \"wishes\""
+enum wishes_select_column {
+    #column name
+    category
+    #column name
+    date
+    #column name
+    id
+    #column name
+    name
+    #column name
+    owner
+    #column name
+    price
+    #column name
+    usefulness
+}
+
+"update columns of table \"wishes\""
+enum wishes_update_column {
+    #column name
+    category
+    #column name
+    date
+    #column name
+    id
+    #column name
+    name
+    #column name
+    owner
+    #column name
+    price
+    #column name
+    usefulness
+}
+
+"order by aggregate values of table \"accounts\""
+input accounts_aggregate_order_by {
+    avg: accounts_avg_order_by
+    count: order_by
+    max: accounts_max_order_by
+    min: accounts_min_order_by
+    stddev: accounts_stddev_order_by
+    stddev_pop: accounts_stddev_pop_order_by
+    stddev_samp: accounts_stddev_samp_order_by
+    sum: accounts_sum_order_by
+    var_pop: accounts_var_pop_order_by
+    var_samp: accounts_var_samp_order_by
+    variance: accounts_variance_order_by
+}
+
+"input type for inserting array relation for remote table \"accounts\""
+input accounts_arr_rel_insert_input {
+    data: [accounts_insert_input!]!
+    on_conflict: accounts_on_conflict
+}
+
+"order by avg() on columns of table \"accounts\""
+input accounts_avg_order_by {
+    balance: order_by
+}
+
+"Boolean expression to filter rows from the table \"accounts\". All fields are combined with a logical 'AND'."
+input accounts_bool_exp {
+    _and: [accounts_bool_exp]
+    _not: accounts_bool_exp
+    _or: [accounts_bool_exp]
+    balance: bigint_comparison_exp
+    id: uuid_comparison_exp
+    name: text_comparison_exp
+    owner: text_comparison_exp
+    user: users_bool_exp
+}
+
+"input type for incrementing integer columne in table \"accounts\""
+input accounts_inc_input {
+    balance: bigint
+}
+
+"input type for inserting data into table \"accounts\""
+input accounts_insert_input {
+    balance: bigint
+    id: uuid
+    name: String
+    owner: String
+    user: users_obj_rel_insert_input
+}
+
+"order by max() on columns of table \"accounts\""
+input accounts_max_order_by {
+    balance: order_by
+    name: order_by
+    owner: order_by
+}
+
+"order by min() on columns of table \"accounts\""
+input accounts_min_order_by {
+    balance: order_by
+    name: order_by
+    owner: order_by
+}
+
+"input type for inserting object relation for remote table \"accounts\""
+input accounts_obj_rel_insert_input {
+    data: accounts_insert_input!
+    on_conflict: accounts_on_conflict
+}
+
+"on conflict condition type for table \"accounts\""
+input accounts_on_conflict {
+    constraint: accounts_constraint!
+    update_columns: [accounts_update_column!]!
+}
+
+"ordering options when selecting data from \"accounts\""
+input accounts_order_by {
+    balance: order_by
+    id: order_by
+    name: order_by
+    owner: order_by
+    user: users_order_by
+}
+
+"input type for updating data in table \"accounts\""
+input accounts_set_input {
+    balance: bigint
+    id: uuid
+    name: String
+    owner: String
+}
+
+"order by stddev() on columns of table \"accounts\""
+input accounts_stddev_order_by {
+    balance: order_by
+}
+
+"order by stddev_pop() on columns of table \"accounts\""
+input accounts_stddev_pop_order_by {
+    balance: order_by
+}
+
+"order by stddev_samp() on columns of table \"accounts\""
+input accounts_stddev_samp_order_by {
+    balance: order_by
+}
+
+"order by sum() on columns of table \"accounts\""
+input accounts_sum_order_by {
+    balance: order_by
+}
+
+"order by var_pop() on columns of table \"accounts\""
+input accounts_var_pop_order_by {
+    balance: order_by
+}
+
+"order by var_samp() on columns of table \"accounts\""
+input accounts_var_samp_order_by {
+    balance: order_by
+}
+
+"order by variance() on columns of table \"accounts\""
+input accounts_variance_order_by {
+    balance: order_by
+}
+
+"expression to compare columns of type bigint. All fields are combined with logical 'AND'."
+input bigint_comparison_exp {
+    _eq: bigint
+    _gt: bigint
+    _gte: bigint
+    _in: [bigint]
+    _is_null: Boolean
+    _lt: bigint
+    _lte: bigint
+    _neq: bigint
+    _nin: [bigint]
+}
+
+"expression to compare columns of type boolean. All fields are combined with logical 'AND'."
+input boolean_comparison_exp {
+    _eq: Boolean
+    _gt: Boolean
+    _gte: Boolean
+    _in: [Boolean]
+    _is_null: Boolean
+    _lt: Boolean
+    _lte: Boolean
+    _neq: Boolean
+    _nin: [Boolean]
+}
+
+"expression to compare columns of type date. All fields are combined with logical 'AND'."
+input date_comparison_exp {
+    _eq: date
+    _gt: date
+    _gte: date
+    _in: [date]
+    _is_null: Boolean
+    _lt: date
+    _lte: date
+    _neq: date
+    _nin: [date]
+}
+
+"expression to compare columns of type integer. All fields are combined with logical 'AND'."
+input integer_comparison_exp {
+    _eq: Int
+    _gt: Int
+    _gte: Int
+    _in: [Int]
+    _is_null: Boolean
+    _lt: Int
+    _lte: Int
+    _neq: Int
+    _nin: [Int]
+}
+
+"expression to compare columns of type numeric. All fields are combined with logical 'AND'."
+input numeric_comparison_exp {
+    _eq: numeric
+    _gt: numeric
+    _gte: numeric
+    _in: [numeric]
+    _is_null: Boolean
+    _lt: numeric
+    _lte: numeric
+    _neq: numeric
+    _nin: [numeric]
+}
+
+"order by aggregate values of table \"reports\""
+input reports_aggregate_order_by {
+    avg: reports_avg_order_by
+    count: order_by
+    max: reports_max_order_by
+    min: reports_min_order_by
+    stddev: reports_stddev_order_by
+    stddev_pop: reports_stddev_pop_order_by
+    stddev_samp: reports_stddev_samp_order_by
+    sum: reports_sum_order_by
+    var_pop: reports_var_pop_order_by
+    var_samp: reports_var_samp_order_by
+    variance: reports_variance_order_by
+}
+
+"input type for inserting array relation for remote table \"reports\""
+input reports_arr_rel_insert_input {
+    data: [reports_insert_input!]!
+    on_conflict: reports_on_conflict
+}
+
+"order by avg() on columns of table \"reports\""
+input reports_avg_order_by {
+    interest_rate: order_by
+}
+
+"Boolean expression to filter rows from the table \"reports\". All fields are combined with a logical 'AND'."
+input reports_bool_exp {
+    _and: [reports_bool_exp]
+    _not: reports_bool_exp
+    _or: [reports_bool_exp]
+    accounts: uuid_comparison_exp
+    id: uuid_comparison_exp
+    interest_rate: numeric_comparison_exp
+    name: text_comparison_exp
+    transactions: uuid_comparison_exp
+    user_reports: user_reports_bool_exp
+}
+
+"input type for inserting data into table \"reports\""
+input reports_insert_input {
+    accounts: uuid
+    id: uuid
+    interest_rate: numeric
+    name: String
+    transactions: uuid
+    user_reports: user_reports_arr_rel_insert_input
+}
+
+"order by max() on columns of table \"reports\""
+input reports_max_order_by {
+    interest_rate: order_by
+    name: order_by
+}
+
+"order by min() on columns of table \"reports\""
+input reports_min_order_by {
+    interest_rate: order_by
+    name: order_by
+}
+
+"input type for inserting object relation for remote table \"reports\""
+input reports_obj_rel_insert_input {
+    data: reports_insert_input!
+    on_conflict: reports_on_conflict
+}
+
+"on conflict condition type for table \"reports\""
+input reports_on_conflict {
+    constraint: reports_constraint!
+    update_columns: [reports_update_column!]!
+}
+
+"ordering options when selecting data from \"reports\""
+input reports_order_by {
+    accounts: order_by
+    id: order_by
+    interest_rate: order_by
+    name: order_by
+    transactions: order_by
+    user_reports_aggregate: user_reports_aggregate_order_by
+}
+
+"input type for updating data in table \"reports\""
+input reports_set_input {
+    accounts: uuid
+    id: uuid
+    interest_rate: numeric
+    name: String
+    transactions: uuid
+}
+
+"order by stddev() on columns of table \"reports\""
+input reports_stddev_order_by {
+    interest_rate: order_by
+}
+
+"order by stddev_pop() on columns of table \"reports\""
+input reports_stddev_pop_order_by {
+    interest_rate: order_by
+}
+
+"order by stddev_samp() on columns of table \"reports\""
+input reports_stddev_samp_order_by {
+    interest_rate: order_by
+}
+
+"order by sum() on columns of table \"reports\""
+input reports_sum_order_by {
+    interest_rate: order_by
+}
+
+"order by var_pop() on columns of table \"reports\""
+input reports_var_pop_order_by {
+    interest_rate: order_by
+}
+
+"order by var_samp() on columns of table \"reports\""
+input reports_var_samp_order_by {
+    interest_rate: order_by
+}
+
+"order by variance() on columns of table \"reports\""
+input reports_variance_order_by {
+    interest_rate: order_by
+}
+
+"order by aggregate values of table \"subscriptions\""
+input subscriptions_aggregate_order_by {
+    avg: subscriptions_avg_order_by
+    count: order_by
+    max: subscriptions_max_order_by
+    min: subscriptions_min_order_by
+    stddev: subscriptions_stddev_order_by
+    stddev_pop: subscriptions_stddev_pop_order_by
+    stddev_samp: subscriptions_stddev_samp_order_by
+    sum: subscriptions_sum_order_by
+    var_pop: subscriptions_var_pop_order_by
+    var_samp: subscriptions_var_samp_order_by
+    variance: subscriptions_variance_order_by
+}
+
+"input type for inserting array relation for remote table \"subscriptions\""
+input subscriptions_arr_rel_insert_input {
+    data: [subscriptions_insert_input!]!
+    on_conflict: subscriptions_on_conflict
+}
+
+"order by avg() on columns of table \"subscriptions\""
+input subscriptions_avg_order_by {
+    price: order_by
+    usefulness: order_by
+}
+
+"Boolean expression to filter rows from the table \"subscriptions\". All fields are combined with a logical 'AND'."
+input subscriptions_bool_exp {
+    _and: [subscriptions_bool_exp]
+    _not: subscriptions_bool_exp
+    _or: [subscriptions_bool_exp]
+    category: text_comparison_exp
+    id: uuid_comparison_exp
+    name: text_comparison_exp
+    owner: text_comparison_exp
+    price: numeric_comparison_exp
+    usefulness: numeric_comparison_exp
+    user: users_bool_exp
+    yearly: boolean_comparison_exp
+}
+
+"input type for inserting data into table \"subscriptions\""
+input subscriptions_insert_input {
+    category: String
+    id: uuid
+    name: String
+    owner: String
+    price: numeric
+    usefulness: numeric
+    user: users_obj_rel_insert_input
+    yearly: Boolean
+}
+
+"order by max() on columns of table \"subscriptions\""
+input subscriptions_max_order_by {
+    category: order_by
+    name: order_by
+    owner: order_by
+    price: order_by
+    usefulness: order_by
+}
+
+"order by min() on columns of table \"subscriptions\""
+input subscriptions_min_order_by {
+    category: order_by
+    name: order_by
+    owner: order_by
+    price: order_by
+    usefulness: order_by
+}
+
+"input type for inserting object relation for remote table \"subscriptions\""
+input subscriptions_obj_rel_insert_input {
+    data: subscriptions_insert_input!
+    on_conflict: subscriptions_on_conflict
+}
+
+"on conflict condition type for table \"subscriptions\""
+input subscriptions_on_conflict {
+    constraint: subscriptions_constraint!
+    update_columns: [subscriptions_update_column!]!
+}
+
+"ordering options when selecting data from \"subscriptions\""
+input subscriptions_order_by {
+    category: order_by
+    id: order_by
+    name: order_by
+    owner: order_by
+    price: order_by
+    usefulness: order_by
+    user: users_order_by
+    yearly: order_by
+}
+
+"input type for updating data in table \"subscriptions\""
+input subscriptions_set_input {
+    category: String
+    id: uuid
+    name: String
+    owner: String
+    price: numeric
+    usefulness: numeric
+    yearly: Boolean
+}
+
+"order by stddev() on columns of table \"subscriptions\""
+input subscriptions_stddev_order_by {
+    price: order_by
+    usefulness: order_by
+}
+
+"order by stddev_pop() on columns of table \"subscriptions\""
+input subscriptions_stddev_pop_order_by {
+    price: order_by
+    usefulness: order_by
+}
+
+"order by stddev_samp() on columns of table \"subscriptions\""
+input subscriptions_stddev_samp_order_by {
+    price: order_by
+    usefulness: order_by
+}
+
+"order by sum() on columns of table \"subscriptions\""
+input subscriptions_sum_order_by {
+    price: order_by
+    usefulness: order_by
+}
+
+"order by var_pop() on columns of table \"subscriptions\""
+input subscriptions_var_pop_order_by {
+    price: order_by
+    usefulness: order_by
+}
+
+"order by var_samp() on columns of table \"subscriptions\""
+input subscriptions_var_samp_order_by {
+    price: order_by
+    usefulness: order_by
+}
+
+"order by variance() on columns of table \"subscriptions\""
+input subscriptions_variance_order_by {
+    price: order_by
+    usefulness: order_by
+}
+
+"expression to compare columns of type text. All fields are combined with logical 'AND'."
+input text_comparison_exp {
+    _eq: String
+    _gt: String
+    _gte: String
+    _ilike: String
+    _in: [String]
+    _is_null: Boolean
+    _like: String
+    _lt: String
+    _lte: String
+    _neq: String
+    _nilike: String
+    _nin: [String]
+    _nlike: String
+    _nsimilar: String
+    _similar: String
+}
+
+"order by aggregate values of table \"transactions\""
+input transactions_aggregate_order_by {
+    avg: transactions_avg_order_by
+    count: order_by
+    max: transactions_max_order_by
+    min: transactions_min_order_by
+    stddev: transactions_stddev_order_by
+    stddev_pop: transactions_stddev_pop_order_by
+    stddev_samp: transactions_stddev_samp_order_by
+    sum: transactions_sum_order_by
+    var_pop: transactions_var_pop_order_by
+    var_samp: transactions_var_samp_order_by
+    variance: transactions_variance_order_by
+}
+
+"input type for inserting array relation for remote table \"transactions\""
+input transactions_arr_rel_insert_input {
+    data: [transactions_insert_input!]!
+    on_conflict: transactions_on_conflict
+}
+
+"order by avg() on columns of table \"transactions\""
+input transactions_avg_order_by {
+    interval_days: order_by
+    interval_months: order_by
+    monthly_occurrences: order_by
+    value: order_by
+}
+
+"Boolean expression to filter rows from the table \"transactions\". All fields are combined with a logical 'AND'."
+input transactions_bool_exp {
+    _and: [transactions_bool_exp]
+    _not: transactions_bool_exp
+    _or: [transactions_bool_exp]
+    category: text_comparison_exp
+    end: date_comparison_exp
+    id: uuid_comparison_exp
+    interval_days: integer_comparison_exp
+    interval_months: integer_comparison_exp
+    monthly_occurrences: integer_comparison_exp
+    name: text_comparison_exp
+    owner: text_comparison_exp
+    start: date_comparison_exp
+    user: users_bool_exp
+    value: numeric_comparison_exp
+}
+
+"input type for incrementing integer columne in table \"transactions\""
+input transactions_inc_input {
+    interval_days: Int
+    interval_months: Int
+    monthly_occurrences: Int
+}
+
+"input type for inserting data into table \"transactions\""
+input transactions_insert_input {
+    category: String
+    end: date
+    id: uuid
+    interval_days: Int
+    interval_months: Int
+    monthly_occurrences: Int
+    name: String
+    owner: String
+    start: date
+    user: users_obj_rel_insert_input
+    value: numeric
+}
+
+"order by max() on columns of table \"transactions\""
+input transactions_max_order_by {
+    category: order_by
+    end: order_by
+    interval_days: order_by
+    interval_months: order_by
+    monthly_occurrences: order_by
+    name: order_by
+    owner: order_by
+    start: order_by
+    value: order_by
+}
+
+"order by min() on columns of table \"transactions\""
+input transactions_min_order_by {
+    category: order_by
+    end: order_by
+    interval_days: order_by
+    interval_months: order_by
+    monthly_occurrences: order_by
+    name: order_by
+    owner: order_by
+    start: order_by
+    value: order_by
+}
+
+"input type for inserting object relation for remote table \"transactions\""
+input transactions_obj_rel_insert_input {
+    data: transactions_insert_input!
+    on_conflict: transactions_on_conflict
+}
+
+"on conflict condition type for table \"transactions\""
+input transactions_on_conflict {
+    constraint: transactions_constraint!
+    update_columns: [transactions_update_column!]!
+}
+
+"ordering options when selecting data from \"transactions\""
+input transactions_order_by {
+    category: order_by
+    end: order_by
+    id: order_by
+    interval_days: order_by
+    interval_months: order_by
+    monthly_occurrences: order_by
+    name: order_by
+    owner: order_by
+    start: order_by
+    user: users_order_by
+    value: order_by
+}
+
+"input type for updating data in table \"transactions\""
+input transactions_set_input {
+    category: String
+    end: date
+    id: uuid
+    interval_days: Int
+    interval_months: Int
+    monthly_occurrences: Int
+    name: String
+    owner: String
+    start: date
+    value: numeric
+}
+
+"order by stddev() on columns of table \"transactions\""
+input transactions_stddev_order_by {
+    interval_days: order_by
+    interval_months: order_by
+    monthly_occurrences: order_by
+    value: order_by
+}
+
+"order by stddev_pop() on columns of table \"transactions\""
+input transactions_stddev_pop_order_by {
+    interval_days: order_by
+    interval_months: order_by
+    monthly_occurrences: order_by
+    value: order_by
+}
+
+"order by stddev_samp() on columns of table \"transactions\""
+input transactions_stddev_samp_order_by {
+    interval_days: order_by
+    interval_months: order_by
+    monthly_occurrences: order_by
+    value: order_by
+}
+
+"order by sum() on columns of table \"transactions\""
+input transactions_sum_order_by {
+    interval_days: order_by
+    interval_months: order_by
+    monthly_occurrences: order_by
+    value: order_by
+}
+
+"order by var_pop() on columns of table \"transactions\""
+input transactions_var_pop_order_by {
+    interval_days: order_by
+    interval_months: order_by
+    monthly_occurrences: order_by
+    value: order_by
+}
+
+"order by var_samp() on columns of table \"transactions\""
+input transactions_var_samp_order_by {
+    interval_days: order_by
+    interval_months: order_by
+    monthly_occurrences: order_by
+    value: order_by
+}
+
+"order by variance() on columns of table \"transactions\""
+input transactions_variance_order_by {
+    interval_days: order_by
+    interval_months: order_by
+    monthly_occurrences: order_by
+    value: order_by
+}
+
+"order by aggregate values of table \"user_reports\""
+input user_reports_aggregate_order_by {
+    count: order_by
+    max: user_reports_max_order_by
+    min: user_reports_min_order_by
+}
+
+"input type for inserting array relation for remote table \"user_reports\""
+input user_reports_arr_rel_insert_input {
+    data: [user_reports_insert_input!]!
+    on_conflict: user_reports_on_conflict
+}
+
+"Boolean expression to filter rows from the table \"user_reports\". All fields are combined with a logical 'AND'."
+input user_reports_bool_exp {
+    _and: [user_reports_bool_exp]
+    _not: user_reports_bool_exp
+    _or: [user_reports_bool_exp]
+    id: uuid_comparison_exp
+    report: uuid_comparison_exp
+    user: text_comparison_exp
+}
+
+"input type for inserting data into table \"user_reports\""
+input user_reports_insert_input {
+    id: uuid
+    report: uuid
+    user: String
+}
+
+"order by max() on columns of table \"user_reports\""
+input user_reports_max_order_by {
+    user: order_by
+}
+
+"order by min() on columns of table \"user_reports\""
+input user_reports_min_order_by {
+    user: order_by
+}
+
+"input type for inserting object relation for remote table \"user_reports\""
+input user_reports_obj_rel_insert_input {
+    data: user_reports_insert_input!
+    on_conflict: user_reports_on_conflict
+}
+
+"on conflict condition type for table \"user_reports\""
+input user_reports_on_conflict {
+    constraint: user_reports_constraint!
+    update_columns: [user_reports_update_column!]!
+}
+
+"ordering options when selecting data from \"user_reports\""
+input user_reports_order_by {
+    id: order_by
+    report: order_by
+    user: order_by
+}
+
+"input type for updating data in table \"user_reports\""
+input user_reports_set_input {
+    id: uuid
+    report: uuid
+    user: String
+}
+
+"order by aggregate values of table \"users\""
+input users_aggregate_order_by {
+    count: order_by
+    max: users_max_order_by
+    min: users_min_order_by
+}
+
+"input type for inserting array relation for remote table \"users\""
+input users_arr_rel_insert_input {
+    data: [users_insert_input!]!
+    on_conflict: users_on_conflict
+}
+
+"Boolean expression to filter rows from the table \"users\". All fields are combined with a logical 'AND'."
+input users_bool_exp {
+    _and: [users_bool_exp]
+    _not: users_bool_exp
+    _or: [users_bool_exp]
+    accounts: accounts_bool_exp
+    email: text_comparison_exp
+    id: text_comparison_exp
+    transactions: transactions_bool_exp
+    user_reports: user_reports_bool_exp
+}
+
+"input type for inserting data into table \"users\""
+input users_insert_input {
+    accounts: accounts_arr_rel_insert_input
+    email: String
+    id: String
+    transactions: transactions_arr_rel_insert_input
+    user_reports: user_reports_arr_rel_insert_input
+}
+
+"order by max() on columns of table \"users\""
+input users_max_order_by {
+    email: order_by
+    id: order_by
+}
+
+"order by min() on columns of table \"users\""
+input users_min_order_by {
+    email: order_by
+    id: order_by
+}
+
+"input type for inserting object relation for remote table \"users\""
+input users_obj_rel_insert_input {
+    data: users_insert_input!
+    on_conflict: users_on_conflict
+}
+
+"on conflict condition type for table \"users\""
+input users_on_conflict {
+    constraint: users_constraint!
+    update_columns: [users_update_column!]!
+}
+
+"ordering options when selecting data from \"users\""
+input users_order_by {
+    accounts_aggregate: accounts_aggregate_order_by
+    email: order_by
+    id: order_by
+    transactions_aggregate: transactions_aggregate_order_by
+    user_reports_aggregate: user_reports_aggregate_order_by
+}
+
+"input type for updating data in table \"users\""
+input users_set_input {
+    email: String
+    id: String
+}
+
+"expression to compare columns of type uuid. All fields are combined with logical 'AND'."
+input uuid_comparison_exp {
+    _eq: uuid
+    _gt: uuid
+    _gte: uuid
+    _in: [uuid]
+    _is_null: Boolean
+    _lt: uuid
+    _lte: uuid
+    _neq: uuid
+    _nin: [uuid]
+}
+
+"order by aggregate values of table \"wishes\""
+input wishes_aggregate_order_by {
+    avg: wishes_avg_order_by
+    count: order_by
+    max: wishes_max_order_by
+    min: wishes_min_order_by
+    stddev: wishes_stddev_order_by
+    stddev_pop: wishes_stddev_pop_order_by
+    stddev_samp: wishes_stddev_samp_order_by
+    sum: wishes_sum_order_by
+    var_pop: wishes_var_pop_order_by
+    var_samp: wishes_var_samp_order_by
+    variance: wishes_variance_order_by
+}
+
+"input type for inserting array relation for remote table \"wishes\""
+input wishes_arr_rel_insert_input {
+    data: [wishes_insert_input!]!
+    on_conflict: wishes_on_conflict
+}
+
+"order by avg() on columns of table \"wishes\""
+input wishes_avg_order_by {
+    price: order_by
+    usefulness: order_by
+}
+
+"Boolean expression to filter rows from the table \"wishes\". All fields are combined with a logical 'AND'."
+input wishes_bool_exp {
+    _and: [wishes_bool_exp]
+    _not: wishes_bool_exp
+    _or: [wishes_bool_exp]
+    category: text_comparison_exp
+    date: date_comparison_exp
+    id: uuid_comparison_exp
+    name: text_comparison_exp
+    owner: text_comparison_exp
+    price: numeric_comparison_exp
+    usefulness: integer_comparison_exp
+    user: users_bool_exp
+}
+
+"order by aggregate values of table \"wishes_help_category\""
+input wishes_help_category_aggregate_order_by {
+    count: order_by
+    max: wishes_help_category_max_order_by
+    min: wishes_help_category_min_order_by
+}
+
+"input type for inserting array relation for remote table \"wishes_help_category\""
+input wishes_help_category_arr_rel_insert_input {
+    data: [wishes_help_category_insert_input!]!
+    on_conflict: wishes_help_category_on_conflict
+}
+
+"Boolean expression to filter rows from the table \"wishes_help_category\". All fields are combined with a logical 'AND'."
+input wishes_help_category_bool_exp {
+    _and: [wishes_help_category_bool_exp]
+    _not: wishes_help_category_bool_exp
+    _or: [wishes_help_category_bool_exp]
+    id: uuid_comparison_exp
+    items: wishes_help_item_bool_exp
+    name: text_comparison_exp
+    owner: text_comparison_exp
+    user: users_bool_exp
+}
+
+"input type for inserting data into table \"wishes_help_category\""
+input wishes_help_category_insert_input {
+    id: uuid
+    items: wishes_help_item_arr_rel_insert_input
+    name: String
+    owner: String
+    user: users_obj_rel_insert_input
+}
+
+"order by max() on columns of table \"wishes_help_category\""
+input wishes_help_category_max_order_by {
+    name: order_by
+    owner: order_by
+}
+
+"order by min() on columns of table \"wishes_help_category\""
+input wishes_help_category_min_order_by {
+    name: order_by
+    owner: order_by
+}
+
+"input type for inserting object relation for remote table \"wishes_help_category\""
+input wishes_help_category_obj_rel_insert_input {
+    data: wishes_help_category_insert_input!
+    on_conflict: wishes_help_category_on_conflict
+}
+
+"on conflict condition type for table \"wishes_help_category\""
+input wishes_help_category_on_conflict {
+    constraint: wishes_help_category_constraint!
+    update_columns: [wishes_help_category_update_column!]!
+}
+
+"ordering options when selecting data from \"wishes_help_category\""
+input wishes_help_category_order_by {
+    id: order_by
+    items_aggregate: wishes_help_item_aggregate_order_by
+    name: order_by
+    owner: order_by
+    user: users_order_by
+}
+
+"input type for updating data in table \"wishes_help_category\""
+input wishes_help_category_set_input {
+    id: uuid
+    name: String
+    owner: String
+}
+
+"order by aggregate values of table \"wishes_help_item\""
+input wishes_help_item_aggregate_order_by {
+    avg: wishes_help_item_avg_order_by
+    count: order_by
+    max: wishes_help_item_max_order_by
+    min: wishes_help_item_min_order_by
+    stddev: wishes_help_item_stddev_order_by
+    stddev_pop: wishes_help_item_stddev_pop_order_by
+    stddev_samp: wishes_help_item_stddev_samp_order_by
+    sum: wishes_help_item_sum_order_by
+    var_pop: wishes_help_item_var_pop_order_by
+    var_samp: wishes_help_item_var_samp_order_by
+    variance: wishes_help_item_variance_order_by
+}
+
+"input type for inserting array relation for remote table \"wishes_help_item\""
+input wishes_help_item_arr_rel_insert_input {
+    data: [wishes_help_item_insert_input!]!
+    on_conflict: wishes_help_item_on_conflict
+}
+
+"order by avg() on columns of table \"wishes_help_item\""
+input wishes_help_item_avg_order_by {
+    durability: order_by
+    price: order_by
+    usefulness: order_by
+}
+
+"Boolean expression to filter rows from the table \"wishes_help_item\". All fields are combined with a logical 'AND'."
+input wishes_help_item_bool_exp {
+    _and: [wishes_help_item_bool_exp]
+    _not: wishes_help_item_bool_exp
+    _or: [wishes_help_item_bool_exp]
+    category: text_comparison_exp
+    durability: integer_comparison_exp
+    id: uuid_comparison_exp
+    name: text_comparison_exp
+    owner: text_comparison_exp
+    parent: uuid_comparison_exp
+    price: numeric_comparison_exp
+    usefulness: integer_comparison_exp
+    user: users_bool_exp
+}
+
+"input type for incrementing integer columne in table \"wishes_help_item\""
+input wishes_help_item_inc_input {
+    durability: Int
+    usefulness: Int
+}
+
+"input type for inserting data into table \"wishes_help_item\""
+input wishes_help_item_insert_input {
+    category: String
+    durability: Int
+    id: uuid
+    name: String
+    owner: String
+    parent: uuid
+    price: numeric
+    usefulness: Int
+    user: users_obj_rel_insert_input
+}
+
+"order by max() on columns of table \"wishes_help_item\""
+input wishes_help_item_max_order_by {
+    category: order_by
+    durability: order_by
+    name: order_by
+    owner: order_by
+    price: order_by
+    usefulness: order_by
+}
+
+"order by min() on columns of table \"wishes_help_item\""
+input wishes_help_item_min_order_by {
+    category: order_by
+    durability: order_by
+    name: order_by
+    owner: order_by
+    price: order_by
+    usefulness: order_by
+}
+
+"input type for inserting object relation for remote table \"wishes_help_item\""
+input wishes_help_item_obj_rel_insert_input {
+    data: wishes_help_item_insert_input!
+    on_conflict: wishes_help_item_on_conflict
+}
+
+"on conflict condition type for table \"wishes_help_item\""
+input wishes_help_item_on_conflict {
+    constraint: wishes_help_item_constraint!
+    update_columns: [wishes_help_item_update_column!]!
+}
+
+"ordering options when selecting data from \"wishes_help_item\""
+input wishes_help_item_order_by {
+    category: order_by
+    durability: order_by
+    id: order_by
+    name: order_by
+    owner: order_by
+    parent: order_by
+    price: order_by
+    usefulness: order_by
+    user: users_order_by
+}
+
+"input type for updating data in table \"wishes_help_item\""
+input wishes_help_item_set_input {
+    category: String
+    durability: Int
+    id: uuid
+    name: String
+    owner: String
+    parent: uuid
+    price: numeric
+    usefulness: Int
+}
+
+"order by stddev() on columns of table \"wishes_help_item\""
+input wishes_help_item_stddev_order_by {
+    durability: order_by
+    price: order_by
+    usefulness: order_by
+}
+
+"order by stddev_pop() on columns of table \"wishes_help_item\""
+input wishes_help_item_stddev_pop_order_by {
+    durability: order_by
+    price: order_by
+    usefulness: order_by
+}
+
+"order by stddev_samp() on columns of table \"wishes_help_item\""
+input wishes_help_item_stddev_samp_order_by {
+    durability: order_by
+    price: order_by
+    usefulness: order_by
+}
+
+"order by sum() on columns of table \"wishes_help_item\""
+input wishes_help_item_sum_order_by {
+    durability: order_by
+    price: order_by
+    usefulness: order_by
+}
+
+"order by var_pop() on columns of table \"wishes_help_item\""
+input wishes_help_item_var_pop_order_by {
+    durability: order_by
+    price: order_by
+    usefulness: order_by
+}
+
+"order by var_samp() on columns of table \"wishes_help_item\""
+input wishes_help_item_var_samp_order_by {
+    durability: order_by
+    price: order_by
+    usefulness: order_by
+}
+
+"order by variance() on columns of table \"wishes_help_item\""
+input wishes_help_item_variance_order_by {
+    durability: order_by
+    price: order_by
+    usefulness: order_by
+}
+
+"input type for incrementing integer columne in table \"wishes\""
+input wishes_inc_input {
+    usefulness: Int
+}
+
+"input type for inserting data into table \"wishes\""
+input wishes_insert_input {
+    category: String
+    date: date
+    id: uuid
+    name: String
+    owner: String
+    price: numeric
+    usefulness: Int
+    user: users_obj_rel_insert_input
+}
+
+"order by max() on columns of table \"wishes\""
+input wishes_max_order_by {
+    category: order_by
+    date: order_by
+    name: order_by
+    owner: order_by
+    price: order_by
+    usefulness: order_by
+}
+
+"order by min() on columns of table \"wishes\""
+input wishes_min_order_by {
+    category: order_by
+    date: order_by
+    name: order_by
+    owner: order_by
+    price: order_by
+    usefulness: order_by
+}
+
+"input type for inserting object relation for remote table \"wishes\""
+input wishes_obj_rel_insert_input {
+    data: wishes_insert_input!
+    on_conflict: wishes_on_conflict
+}
+
+"on conflict condition type for table \"wishes\""
+input wishes_on_conflict {
+    constraint: wishes_constraint!
+    update_columns: [wishes_update_column!]!
+}
+
+"ordering options when selecting data from \"wishes\""
+input wishes_order_by {
+    category: order_by
+    date: order_by
+    id: order_by
+    name: order_by
+    owner: order_by
+    price: order_by
+    usefulness: order_by
+    user: users_order_by
+}
+
+"input type for updating data in table \"wishes\""
+input wishes_set_input {
+    category: String
+    date: date
+    id: uuid
+    name: String
+    owner: String
+    price: numeric
+    usefulness: Int
+}
+
+"order by stddev() on columns of table \"wishes\""
+input wishes_stddev_order_by {
+    price: order_by
+    usefulness: order_by
+}
+
+"order by stddev_pop() on columns of table \"wishes\""
+input wishes_stddev_pop_order_by {
+    price: order_by
+    usefulness: order_by
+}
+
+"order by stddev_samp() on columns of table \"wishes\""
+input wishes_stddev_samp_order_by {
+    price: order_by
+    usefulness: order_by
+}
+
+"order by sum() on columns of table \"wishes\""
+input wishes_sum_order_by {
+    price: order_by
+    usefulness: order_by
+}
+
+"order by var_pop() on columns of table \"wishes\""
+input wishes_var_pop_order_by {
+    price: order_by
+    usefulness: order_by
+}
+
+"order by var_samp() on columns of table \"wishes\""
+input wishes_var_samp_order_by {
+    price: order_by
+    usefulness: order_by
+}
+
+"order by variance() on columns of table \"wishes\""
+input wishes_variance_order_by {
+    price: order_by
+    usefulness: order_by
+}
+
 
 scalar bigint
 
-# expression to compare columns of type bigint. All fields are combined with logical 'AND'.
-input bigint_comparison_exp {
-  _eq: bigint
-  _gt: bigint
-  _gte: bigint
-  _in: [bigint]
-  _is_null: Boolean
-  _lt: bigint
-  _lte: bigint
-  _neq: bigint
-  _nin: [bigint]
-}
-
-# conflict action
-enum conflict_action {
-  # ignore the insert on this row
-  ignore
-
-  # update the row with the given values
-  update
-}
-
 scalar date
-
-# expression to compare columns of type date. All fields are combined with logical 'AND'.
-input date_comparison_exp {
-  _eq: date
-  _gt: date
-  _gte: date
-  _in: [date]
-  _is_null: Boolean
-  _lt: date
-  _lte: date
-  _neq: date
-  _nin: [date]
-}
-
-# columns and relationships of "exceptions"
-type exceptions {
-  date: date
-  id: uuid!
-  name: String
-}
-
-# aggregated selection of "exceptions"
-type exceptions_aggregate {
-  aggregate: exceptions_aggregate_fields
-  nodes: [exceptions!]!
-}
-
-# aggregate fields of "exceptions"
-type exceptions_aggregate_fields {
-  count(columns: [exceptions_select_column!], distinct: Boolean): Int
-  max: exceptions_max_fields
-  min: exceptions_min_fields
-}
-
-# order by aggregate values of table "exceptions"
-input exceptions_aggregate_order_by {
-  count: order_by
-  max: exceptions_max_order_by
-  min: exceptions_min_order_by
-}
-
-# input type for inserting array relation for remote table "exceptions"
-input exceptions_arr_rel_insert_input {
-  data: [exceptions_insert_input!]!
-  on_conflict: exceptions_on_conflict
-}
-
-# Boolean expression to filter rows from the table "exceptions". All fields are combined with a logical 'AND'.
-input exceptions_bool_exp {
-  _and: [exceptions_bool_exp]
-  _not: exceptions_bool_exp
-  _or: [exceptions_bool_exp]
-  date: date_comparison_exp
-  id: uuid_comparison_exp
-  name: text_comparison_exp
-}
-
-# unique or primary key constraints on table "exceptions"
-enum exceptions_constraint {
-  # unique or primary key constraint
-  exceptions_pkey
-}
-
-# input type for inserting data into table "exceptions"
-input exceptions_insert_input {
-  date: date
-  id: uuid
-  name: String
-}
-
-# aggregate max on columns
-type exceptions_max_fields {
-  date: date
-  name: String
-}
-
-# order by max() on columns of table "exceptions"
-input exceptions_max_order_by {
-  date: order_by
-  name: order_by
-}
-
-# aggregate min on columns
-type exceptions_min_fields {
-  date: date
-  name: String
-}
-
-# order by min() on columns of table "exceptions"
-input exceptions_min_order_by {
-  date: order_by
-  name: order_by
-}
-
-# response of any mutation on the table "exceptions"
-type exceptions_mutation_response {
-  # number of affected rows by the mutation
-  affected_rows: Int!
-
-  # data of the affected rows by the mutation
-  returning: [exceptions!]!
-}
-
-# input type for inserting object relation for remote table "exceptions"
-input exceptions_obj_rel_insert_input {
-  data: exceptions_insert_input!
-  on_conflict: exceptions_on_conflict
-}
-
-# on conflict condition type for table "exceptions"
-input exceptions_on_conflict {
-  constraint: exceptions_constraint!
-  update_columns: [exceptions_update_column!]!
-}
-
-# ordering options when selecting data from "exceptions"
-input exceptions_order_by {
-  date: order_by
-  id: order_by
-  name: order_by
-}
-
-# select columns of table "exceptions"
-enum exceptions_select_column {
-  # column name
-  date
-
-  # column name
-  id
-
-  # column name
-  name
-}
-
-# input type for updating data in table "exceptions"
-input exceptions_set_input {
-  date: date
-  id: uuid
-  name: String
-}
-
-# update columns of table "exceptions"
-enum exceptions_update_column {
-  # column name
-  date
-
-  # column name
-  id
-
-  # column name
-  name
-}
-
-# expression to compare columns of type integer. All fields are combined with logical 'AND'.
-input integer_comparison_exp {
-  _eq: Int
-  _gt: Int
-  _gte: Int
-  _in: [Int]
-  _is_null: Boolean
-  _lt: Int
-  _lte: Int
-  _neq: Int
-  _nin: [Int]
-}
-
-# mutation root
-type mutation_root {
-  # delete data from the table: "exceptions"
-  delete_exceptions(
-    # filter the rows which have to be deleted
-    where: exceptions_bool_exp!
-  ): exceptions_mutation_response
-
-  # delete data from the table: "sansbury_money.accounts"
-  delete_sansbury_money_accounts(
-    # filter the rows which have to be deleted
-    where: sansbury_money_accounts_bool_exp!
-  ): sansbury_money_accounts_mutation_response
-
-  # delete data from the table: "sansbury_money.reports"
-  delete_sansbury_money_reports(
-    # filter the rows which have to be deleted
-    where: sansbury_money_reports_bool_exp!
-  ): sansbury_money_reports_mutation_response
-
-  # delete data from the table: "sansbury_money.transactions"
-  delete_sansbury_money_transactions(
-    # filter the rows which have to be deleted
-    where: sansbury_money_transactions_bool_exp!
-  ): sansbury_money_transactions_mutation_response
-
-  # delete data from the table: "sansbury_money.user_reports"
-  delete_sansbury_money_user_reports(
-    # filter the rows which have to be deleted
-    where: sansbury_money_user_reports_bool_exp!
-  ): sansbury_money_user_reports_mutation_response
-
-  # delete data from the table: "sansbury_money.users"
-  delete_sansbury_money_users(
-    # filter the rows which have to be deleted
-    where: sansbury_money_users_bool_exp!
-  ): sansbury_money_users_mutation_response
-
-  # insert data into the table: "exceptions"
-  insert_exceptions(
-    # the rows to be inserted
-    objects: [exceptions_insert_input!]!
-
-    # on conflict condition
-    on_conflict: exceptions_on_conflict
-  ): exceptions_mutation_response
-
-  # insert data into the table: "sansbury_money.accounts"
-  insert_sansbury_money_accounts(
-    # the rows to be inserted
-    objects: [sansbury_money_accounts_insert_input!]!
-
-    # on conflict condition
-    on_conflict: sansbury_money_accounts_on_conflict
-  ): sansbury_money_accounts_mutation_response
-
-  # insert data into the table: "sansbury_money.reports"
-  insert_sansbury_money_reports(
-    # the rows to be inserted
-    objects: [sansbury_money_reports_insert_input!]!
-
-    # on conflict condition
-    on_conflict: sansbury_money_reports_on_conflict
-  ): sansbury_money_reports_mutation_response
-
-  # insert data into the table: "sansbury_money.transactions"
-  insert_sansbury_money_transactions(
-    # the rows to be inserted
-    objects: [sansbury_money_transactions_insert_input!]!
-
-    # on conflict condition
-    on_conflict: sansbury_money_transactions_on_conflict
-  ): sansbury_money_transactions_mutation_response
-
-  # insert data into the table: "sansbury_money.user_reports"
-  insert_sansbury_money_user_reports(
-    # the rows to be inserted
-    objects: [sansbury_money_user_reports_insert_input!]!
-
-    # on conflict condition
-    on_conflict: sansbury_money_user_reports_on_conflict
-  ): sansbury_money_user_reports_mutation_response
-
-  # insert data into the table: "sansbury_money.users"
-  insert_sansbury_money_users(
-    # the rows to be inserted
-    objects: [sansbury_money_users_insert_input!]!
-
-    # on conflict condition
-    on_conflict: sansbury_money_users_on_conflict
-  ): sansbury_money_users_mutation_response
-
-  # update data of the table: "exceptions"
-  update_exceptions(
-    # sets the columns of the filtered rows to the given values
-    _set: exceptions_set_input
-
-    # filter the rows which have to be updated
-    where: exceptions_bool_exp!
-  ): exceptions_mutation_response
-
-  # update data of the table: "sansbury_money.accounts"
-  update_sansbury_money_accounts(
-    # increments the integer columns with given value of the filtered values
-    _inc: sansbury_money_accounts_inc_input
-
-    # sets the columns of the filtered rows to the given values
-    _set: sansbury_money_accounts_set_input
-
-    # filter the rows which have to be updated
-    where: sansbury_money_accounts_bool_exp!
-  ): sansbury_money_accounts_mutation_response
-
-  # update data of the table: "sansbury_money.reports"
-  update_sansbury_money_reports(
-    # sets the columns of the filtered rows to the given values
-    _set: sansbury_money_reports_set_input
-
-    # filter the rows which have to be updated
-    where: sansbury_money_reports_bool_exp!
-  ): sansbury_money_reports_mutation_response
-
-  # update data of the table: "sansbury_money.transactions"
-  update_sansbury_money_transactions(
-    # increments the integer columns with given value of the filtered values
-    _inc: sansbury_money_transactions_inc_input
-
-    # sets the columns of the filtered rows to the given values
-    _set: sansbury_money_transactions_set_input
-
-    # filter the rows which have to be updated
-    where: sansbury_money_transactions_bool_exp!
-  ): sansbury_money_transactions_mutation_response
-
-  # update data of the table: "sansbury_money.user_reports"
-  update_sansbury_money_user_reports(
-    # sets the columns of the filtered rows to the given values
-    _set: sansbury_money_user_reports_set_input
-
-    # filter the rows which have to be updated
-    where: sansbury_money_user_reports_bool_exp!
-  ): sansbury_money_user_reports_mutation_response
-
-  # update data of the table: "sansbury_money.users"
-  update_sansbury_money_users(
-    # sets the columns of the filtered rows to the given values
-    _set: sansbury_money_users_set_input
-
-    # filter the rows which have to be updated
-    where: sansbury_money_users_bool_exp!
-  ): sansbury_money_users_mutation_response
-}
 
 scalar numeric
 
-# expression to compare columns of type numeric. All fields are combined with logical 'AND'.
-input numeric_comparison_exp {
-  _eq: numeric
-  _gt: numeric
-  _gte: numeric
-  _in: [numeric]
-  _is_null: Boolean
-  _lt: numeric
-  _lte: numeric
-  _neq: numeric
-  _nin: [numeric]
-}
-
-# column ordering options
-enum order_by {
-  # in the ascending order, nulls last
-  asc
-
-  # in the ascending order, nulls first
-  asc_nulls_first
-
-  # in the ascending order, nulls last
-  asc_nulls_last
-
-  # in the descending order, nulls first
-  desc
-
-  # in the descending order, nulls first
-  desc_nulls_first
-
-  # in the descending order, nulls last
-  desc_nulls_last
-}
-
-# query root
-type query_root {
-  # fetch data from the table: "exceptions"
-  exceptions(
-    # distinct select on columns
-    distinct_on: [exceptions_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [exceptions_order_by!]
-
-    # filter the rows returned
-    where: exceptions_bool_exp
-  ): [exceptions!]!
-
-  # fetch aggregated fields from the table: "exceptions"
-  exceptions_aggregate(
-    # distinct select on columns
-    distinct_on: [exceptions_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [exceptions_order_by!]
-
-    # filter the rows returned
-    where: exceptions_bool_exp
-  ): exceptions_aggregate!
-
-  # fetch data from the table: "exceptions" using primary key columns
-  exceptions_by_pk(id: uuid!): exceptions
-
-  # fetch data from the table: "sansbury_money.accounts"
-  sansbury_money_accounts(
-    # distinct select on columns
-    distinct_on: [sansbury_money_accounts_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_accounts_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_accounts_bool_exp
-  ): [sansbury_money_accounts!]!
-
-  # fetch aggregated fields from the table: "sansbury_money.accounts"
-  sansbury_money_accounts_aggregate(
-    # distinct select on columns
-    distinct_on: [sansbury_money_accounts_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_accounts_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_accounts_bool_exp
-  ): sansbury_money_accounts_aggregate!
-
-  # fetch data from the table: "sansbury_money.accounts" using primary key columns
-  sansbury_money_accounts_by_pk(id: uuid!): sansbury_money_accounts
-
-  # fetch data from the table: "sansbury_money.reports"
-  sansbury_money_reports(
-    # distinct select on columns
-    distinct_on: [sansbury_money_reports_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_reports_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_reports_bool_exp
-  ): [sansbury_money_reports!]!
-
-  # fetch aggregated fields from the table: "sansbury_money.reports"
-  sansbury_money_reports_aggregate(
-    # distinct select on columns
-    distinct_on: [sansbury_money_reports_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_reports_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_reports_bool_exp
-  ): sansbury_money_reports_aggregate!
-
-  # fetch data from the table: "sansbury_money.reports" using primary key columns
-  sansbury_money_reports_by_pk(id: uuid!): sansbury_money_reports
-
-  # fetch data from the table: "sansbury_money.transactions"
-  sansbury_money_transactions(
-    # distinct select on columns
-    distinct_on: [sansbury_money_transactions_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_transactions_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_transactions_bool_exp
-  ): [sansbury_money_transactions!]!
-
-  # fetch aggregated fields from the table: "sansbury_money.transactions"
-  sansbury_money_transactions_aggregate(
-    # distinct select on columns
-    distinct_on: [sansbury_money_transactions_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_transactions_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_transactions_bool_exp
-  ): sansbury_money_transactions_aggregate!
-
-  # fetch data from the table: "sansbury_money.transactions" using primary key columns
-  sansbury_money_transactions_by_pk(id: uuid!): sansbury_money_transactions
-
-  # fetch data from the table: "sansbury_money.user_reports"
-  sansbury_money_user_reports(
-    # distinct select on columns
-    distinct_on: [sansbury_money_user_reports_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_user_reports_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_user_reports_bool_exp
-  ): [sansbury_money_user_reports!]!
-
-  # fetch aggregated fields from the table: "sansbury_money.user_reports"
-  sansbury_money_user_reports_aggregate(
-    # distinct select on columns
-    distinct_on: [sansbury_money_user_reports_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_user_reports_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_user_reports_bool_exp
-  ): sansbury_money_user_reports_aggregate!
-
-  # fetch data from the table: "sansbury_money.user_reports" using primary key columns
-  sansbury_money_user_reports_by_pk(id: uuid!): sansbury_money_user_reports
-
-  # fetch data from the table: "sansbury_money.users"
-  sansbury_money_users(
-    # distinct select on columns
-    distinct_on: [sansbury_money_users_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_users_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_users_bool_exp
-  ): [sansbury_money_users!]!
-
-  # fetch aggregated fields from the table: "sansbury_money.users"
-  sansbury_money_users_aggregate(
-    # distinct select on columns
-    distinct_on: [sansbury_money_users_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_users_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_users_bool_exp
-  ): sansbury_money_users_aggregate!
-
-  # fetch data from the table: "sansbury_money.users" using primary key columns
-  sansbury_money_users_by_pk(id: uuid!): sansbury_money_users
-}
-
-# columns and relationships of "sansbury_money.accounts"
-type sansbury_money_accounts {
-  balance: bigint!
-  id: uuid!
-  name: String!
-  owner: uuid!
-
-  # An object relationship
-  user: sansbury_money_users!
-}
-
-# aggregated selection of "sansbury_money.accounts"
-type sansbury_money_accounts_aggregate {
-  aggregate: sansbury_money_accounts_aggregate_fields
-  nodes: [sansbury_money_accounts!]!
-}
-
-# aggregate fields of "sansbury_money.accounts"
-type sansbury_money_accounts_aggregate_fields {
-  avg: sansbury_money_accounts_avg_fields
-  count(
-    columns: [sansbury_money_accounts_select_column!]
-    distinct: Boolean
-  ): Int
-  max: sansbury_money_accounts_max_fields
-  min: sansbury_money_accounts_min_fields
-  stddev: sansbury_money_accounts_stddev_fields
-  stddev_pop: sansbury_money_accounts_stddev_pop_fields
-  stddev_samp: sansbury_money_accounts_stddev_samp_fields
-  sum: sansbury_money_accounts_sum_fields
-  var_pop: sansbury_money_accounts_var_pop_fields
-  var_samp: sansbury_money_accounts_var_samp_fields
-  variance: sansbury_money_accounts_variance_fields
-}
-
-# order by aggregate values of table "sansbury_money.accounts"
-input sansbury_money_accounts_aggregate_order_by {
-  avg: sansbury_money_accounts_avg_order_by
-  count: order_by
-  max: sansbury_money_accounts_max_order_by
-  min: sansbury_money_accounts_min_order_by
-  stddev: sansbury_money_accounts_stddev_order_by
-  stddev_pop: sansbury_money_accounts_stddev_pop_order_by
-  stddev_samp: sansbury_money_accounts_stddev_samp_order_by
-  sum: sansbury_money_accounts_sum_order_by
-  var_pop: sansbury_money_accounts_var_pop_order_by
-  var_samp: sansbury_money_accounts_var_samp_order_by
-  variance: sansbury_money_accounts_variance_order_by
-}
-
-# input type for inserting array relation for remote table "sansbury_money.accounts"
-input sansbury_money_accounts_arr_rel_insert_input {
-  data: [sansbury_money_accounts_insert_input!]!
-  on_conflict: sansbury_money_accounts_on_conflict
-}
-
-# aggregate avg on columns
-type sansbury_money_accounts_avg_fields {
-  balance: Float
-}
-
-# order by avg() on columns of table "sansbury_money.accounts"
-input sansbury_money_accounts_avg_order_by {
-  balance: order_by
-}
-
-# Boolean expression to filter rows from the table "sansbury_money.accounts". All fields are combined with a logical 'AND'.
-input sansbury_money_accounts_bool_exp {
-  _and: [sansbury_money_accounts_bool_exp]
-  _not: sansbury_money_accounts_bool_exp
-  _or: [sansbury_money_accounts_bool_exp]
-  balance: bigint_comparison_exp
-  id: uuid_comparison_exp
-  name: text_comparison_exp
-  owner: uuid_comparison_exp
-  user: sansbury_money_users_bool_exp
-}
-
-# unique or primary key constraints on table "sansbury_money.accounts"
-enum sansbury_money_accounts_constraint {
-  # unique or primary key constraint
-  accounts_pkey
-}
-
-# input type for incrementing integer columne in table "sansbury_money.accounts"
-input sansbury_money_accounts_inc_input {
-  balance: bigint
-}
-
-# input type for inserting data into table "sansbury_money.accounts"
-input sansbury_money_accounts_insert_input {
-  balance: bigint
-  id: uuid
-  name: String
-  owner: uuid
-  user: sansbury_money_users_obj_rel_insert_input
-}
-
-# aggregate max on columns
-type sansbury_money_accounts_max_fields {
-  balance: bigint
-  name: String
-}
-
-# order by max() on columns of table "sansbury_money.accounts"
-input sansbury_money_accounts_max_order_by {
-  balance: order_by
-  name: order_by
-}
-
-# aggregate min on columns
-type sansbury_money_accounts_min_fields {
-  balance: bigint
-  name: String
-}
-
-# order by min() on columns of table "sansbury_money.accounts"
-input sansbury_money_accounts_min_order_by {
-  balance: order_by
-  name: order_by
-}
-
-# response of any mutation on the table "sansbury_money.accounts"
-type sansbury_money_accounts_mutation_response {
-  # number of affected rows by the mutation
-  affected_rows: Int!
-
-  # data of the affected rows by the mutation
-  returning: [sansbury_money_accounts!]!
-}
-
-# input type for inserting object relation for remote table "sansbury_money.accounts"
-input sansbury_money_accounts_obj_rel_insert_input {
-  data: sansbury_money_accounts_insert_input!
-  on_conflict: sansbury_money_accounts_on_conflict
-}
-
-# on conflict condition type for table "sansbury_money.accounts"
-input sansbury_money_accounts_on_conflict {
-  constraint: sansbury_money_accounts_constraint!
-  update_columns: [sansbury_money_accounts_update_column!]!
-}
-
-# ordering options when selecting data from "sansbury_money.accounts"
-input sansbury_money_accounts_order_by {
-  balance: order_by
-  id: order_by
-  name: order_by
-  owner: order_by
-  user: sansbury_money_users_order_by
-}
-
-# select columns of table "sansbury_money.accounts"
-enum sansbury_money_accounts_select_column {
-  # column name
-  balance
-
-  # column name
-  id
-
-  # column name
-  name
-
-  # column name
-  owner
-}
-
-# input type for updating data in table "sansbury_money.accounts"
-input sansbury_money_accounts_set_input {
-  balance: bigint
-  id: uuid
-  name: String
-  owner: uuid
-}
-
-# aggregate stddev on columns
-type sansbury_money_accounts_stddev_fields {
-  balance: Float
-}
-
-# order by stddev() on columns of table "sansbury_money.accounts"
-input sansbury_money_accounts_stddev_order_by {
-  balance: order_by
-}
-
-# aggregate stddev_pop on columns
-type sansbury_money_accounts_stddev_pop_fields {
-  balance: Float
-}
-
-# order by stddev_pop() on columns of table "sansbury_money.accounts"
-input sansbury_money_accounts_stddev_pop_order_by {
-  balance: order_by
-}
-
-# aggregate stddev_samp on columns
-type sansbury_money_accounts_stddev_samp_fields {
-  balance: Float
-}
-
-# order by stddev_samp() on columns of table "sansbury_money.accounts"
-input sansbury_money_accounts_stddev_samp_order_by {
-  balance: order_by
-}
-
-# aggregate sum on columns
-type sansbury_money_accounts_sum_fields {
-  balance: bigint
-}
-
-# order by sum() on columns of table "sansbury_money.accounts"
-input sansbury_money_accounts_sum_order_by {
-  balance: order_by
-}
-
-# update columns of table "sansbury_money.accounts"
-enum sansbury_money_accounts_update_column {
-  # column name
-  balance
-
-  # column name
-  id
-
-  # column name
-  name
-
-  # column name
-  owner
-}
-
-# aggregate var_pop on columns
-type sansbury_money_accounts_var_pop_fields {
-  balance: Float
-}
-
-# order by var_pop() on columns of table "sansbury_money.accounts"
-input sansbury_money_accounts_var_pop_order_by {
-  balance: order_by
-}
-
-# aggregate var_samp on columns
-type sansbury_money_accounts_var_samp_fields {
-  balance: Float
-}
-
-# order by var_samp() on columns of table "sansbury_money.accounts"
-input sansbury_money_accounts_var_samp_order_by {
-  balance: order_by
-}
-
-# aggregate variance on columns
-type sansbury_money_accounts_variance_fields {
-  balance: Float
-}
-
-# order by variance() on columns of table "sansbury_money.accounts"
-input sansbury_money_accounts_variance_order_by {
-  balance: order_by
-}
-
-# columns and relationships of "sansbury_money.reports"
-type sansbury_money_reports {
-  accounts: uuid!
-  id: uuid!
-  interest_rate: numeric!
-  name: String!
-  transactions: uuid!
-
-  # An array relationship
-  user_reports(
-    # distinct select on columns
-    distinct_on: [sansbury_money_user_reports_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_user_reports_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_user_reports_bool_exp
-  ): [sansbury_money_user_reports!]!
-
-  # An aggregated array relationship
-  user_reports_aggregate(
-    # distinct select on columns
-    distinct_on: [sansbury_money_user_reports_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_user_reports_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_user_reports_bool_exp
-  ): sansbury_money_user_reports_aggregate!
-}
-
-# aggregated selection of "sansbury_money.reports"
-type sansbury_money_reports_aggregate {
-  aggregate: sansbury_money_reports_aggregate_fields
-  nodes: [sansbury_money_reports!]!
-}
-
-# aggregate fields of "sansbury_money.reports"
-type sansbury_money_reports_aggregate_fields {
-  avg: sansbury_money_reports_avg_fields
-  count(
-    columns: [sansbury_money_reports_select_column!]
-    distinct: Boolean
-  ): Int
-  max: sansbury_money_reports_max_fields
-  min: sansbury_money_reports_min_fields
-  stddev: sansbury_money_reports_stddev_fields
-  stddev_pop: sansbury_money_reports_stddev_pop_fields
-  stddev_samp: sansbury_money_reports_stddev_samp_fields
-  sum: sansbury_money_reports_sum_fields
-  var_pop: sansbury_money_reports_var_pop_fields
-  var_samp: sansbury_money_reports_var_samp_fields
-  variance: sansbury_money_reports_variance_fields
-}
-
-# order by aggregate values of table "sansbury_money.reports"
-input sansbury_money_reports_aggregate_order_by {
-  avg: sansbury_money_reports_avg_order_by
-  count: order_by
-  max: sansbury_money_reports_max_order_by
-  min: sansbury_money_reports_min_order_by
-  stddev: sansbury_money_reports_stddev_order_by
-  stddev_pop: sansbury_money_reports_stddev_pop_order_by
-  stddev_samp: sansbury_money_reports_stddev_samp_order_by
-  sum: sansbury_money_reports_sum_order_by
-  var_pop: sansbury_money_reports_var_pop_order_by
-  var_samp: sansbury_money_reports_var_samp_order_by
-  variance: sansbury_money_reports_variance_order_by
-}
-
-# input type for inserting array relation for remote table "sansbury_money.reports"
-input sansbury_money_reports_arr_rel_insert_input {
-  data: [sansbury_money_reports_insert_input!]!
-  on_conflict: sansbury_money_reports_on_conflict
-}
-
-# aggregate avg on columns
-type sansbury_money_reports_avg_fields {
-  interest_rate: Float
-}
-
-# order by avg() on columns of table "sansbury_money.reports"
-input sansbury_money_reports_avg_order_by {
-  interest_rate: order_by
-}
-
-# Boolean expression to filter rows from the table "sansbury_money.reports". All fields are combined with a logical 'AND'.
-input sansbury_money_reports_bool_exp {
-  _and: [sansbury_money_reports_bool_exp]
-  _not: sansbury_money_reports_bool_exp
-  _or: [sansbury_money_reports_bool_exp]
-  accounts: uuid_comparison_exp
-  id: uuid_comparison_exp
-  interest_rate: numeric_comparison_exp
-  name: text_comparison_exp
-  transactions: uuid_comparison_exp
-  user_reports: sansbury_money_user_reports_bool_exp
-}
-
-# unique or primary key constraints on table "sansbury_money.reports"
-enum sansbury_money_reports_constraint {
-  # unique or primary key constraint
-  reports_pkey
-}
-
-# input type for inserting data into table "sansbury_money.reports"
-input sansbury_money_reports_insert_input {
-  accounts: uuid
-  id: uuid
-  interest_rate: numeric
-  name: String
-  transactions: uuid
-  user_reports: sansbury_money_user_reports_arr_rel_insert_input
-}
-
-# aggregate max on columns
-type sansbury_money_reports_max_fields {
-  interest_rate: numeric
-  name: String
-}
-
-# order by max() on columns of table "sansbury_money.reports"
-input sansbury_money_reports_max_order_by {
-  interest_rate: order_by
-  name: order_by
-}
-
-# aggregate min on columns
-type sansbury_money_reports_min_fields {
-  interest_rate: numeric
-  name: String
-}
-
-# order by min() on columns of table "sansbury_money.reports"
-input sansbury_money_reports_min_order_by {
-  interest_rate: order_by
-  name: order_by
-}
-
-# response of any mutation on the table "sansbury_money.reports"
-type sansbury_money_reports_mutation_response {
-  # number of affected rows by the mutation
-  affected_rows: Int!
-
-  # data of the affected rows by the mutation
-  returning: [sansbury_money_reports!]!
-}
-
-# input type for inserting object relation for remote table "sansbury_money.reports"
-input sansbury_money_reports_obj_rel_insert_input {
-  data: sansbury_money_reports_insert_input!
-  on_conflict: sansbury_money_reports_on_conflict
-}
-
-# on conflict condition type for table "sansbury_money.reports"
-input sansbury_money_reports_on_conflict {
-  constraint: sansbury_money_reports_constraint!
-  update_columns: [sansbury_money_reports_update_column!]!
-}
-
-# ordering options when selecting data from "sansbury_money.reports"
-input sansbury_money_reports_order_by {
-  accounts: order_by
-  id: order_by
-  interest_rate: order_by
-  name: order_by
-  transactions: order_by
-  user_reports_aggregate: sansbury_money_user_reports_aggregate_order_by
-}
-
-# select columns of table "sansbury_money.reports"
-enum sansbury_money_reports_select_column {
-  # column name
-  accounts
-
-  # column name
-  id
-
-  # column name
-  interest_rate
-
-  # column name
-  name
-
-  # column name
-  transactions
-}
-
-# input type for updating data in table "sansbury_money.reports"
-input sansbury_money_reports_set_input {
-  accounts: uuid
-  id: uuid
-  interest_rate: numeric
-  name: String
-  transactions: uuid
-}
-
-# aggregate stddev on columns
-type sansbury_money_reports_stddev_fields {
-  interest_rate: Float
-}
-
-# order by stddev() on columns of table "sansbury_money.reports"
-input sansbury_money_reports_stddev_order_by {
-  interest_rate: order_by
-}
-
-# aggregate stddev_pop on columns
-type sansbury_money_reports_stddev_pop_fields {
-  interest_rate: Float
-}
-
-# order by stddev_pop() on columns of table "sansbury_money.reports"
-input sansbury_money_reports_stddev_pop_order_by {
-  interest_rate: order_by
-}
-
-# aggregate stddev_samp on columns
-type sansbury_money_reports_stddev_samp_fields {
-  interest_rate: Float
-}
-
-# order by stddev_samp() on columns of table "sansbury_money.reports"
-input sansbury_money_reports_stddev_samp_order_by {
-  interest_rate: order_by
-}
-
-# aggregate sum on columns
-type sansbury_money_reports_sum_fields {
-  interest_rate: numeric
-}
-
-# order by sum() on columns of table "sansbury_money.reports"
-input sansbury_money_reports_sum_order_by {
-  interest_rate: order_by
-}
-
-# update columns of table "sansbury_money.reports"
-enum sansbury_money_reports_update_column {
-  # column name
-  accounts
-
-  # column name
-  id
-
-  # column name
-  interest_rate
-
-  # column name
-  name
-
-  # column name
-  transactions
-}
-
-# aggregate var_pop on columns
-type sansbury_money_reports_var_pop_fields {
-  interest_rate: Float
-}
-
-# order by var_pop() on columns of table "sansbury_money.reports"
-input sansbury_money_reports_var_pop_order_by {
-  interest_rate: order_by
-}
-
-# aggregate var_samp on columns
-type sansbury_money_reports_var_samp_fields {
-  interest_rate: Float
-}
-
-# order by var_samp() on columns of table "sansbury_money.reports"
-input sansbury_money_reports_var_samp_order_by {
-  interest_rate: order_by
-}
-
-# aggregate variance on columns
-type sansbury_money_reports_variance_fields {
-  interest_rate: Float
-}
-
-# order by variance() on columns of table "sansbury_money.reports"
-input sansbury_money_reports_variance_order_by {
-  interest_rate: order_by
-}
-
-# columns and relationships of "sansbury_money.transactions"
-type sansbury_money_transactions {
-  category: String!
-  end: date
-  id: uuid!
-  interval_days: Int!
-  interval_months: Int!
-  monthly_occurrences: Int!
-  name: String
-  owner: uuid!
-  start: date!
-
-  # An object relationship
-  user: sansbury_money_users!
-}
-
-# aggregated selection of "sansbury_money.transactions"
-type sansbury_money_transactions_aggregate {
-  aggregate: sansbury_money_transactions_aggregate_fields
-  nodes: [sansbury_money_transactions!]!
-}
-
-# aggregate fields of "sansbury_money.transactions"
-type sansbury_money_transactions_aggregate_fields {
-  avg: sansbury_money_transactions_avg_fields
-  count(
-    columns: [sansbury_money_transactions_select_column!]
-    distinct: Boolean
-  ): Int
-  max: sansbury_money_transactions_max_fields
-  min: sansbury_money_transactions_min_fields
-  stddev: sansbury_money_transactions_stddev_fields
-  stddev_pop: sansbury_money_transactions_stddev_pop_fields
-  stddev_samp: sansbury_money_transactions_stddev_samp_fields
-  sum: sansbury_money_transactions_sum_fields
-  var_pop: sansbury_money_transactions_var_pop_fields
-  var_samp: sansbury_money_transactions_var_samp_fields
-  variance: sansbury_money_transactions_variance_fields
-}
-
-# order by aggregate values of table "sansbury_money.transactions"
-input sansbury_money_transactions_aggregate_order_by {
-  avg: sansbury_money_transactions_avg_order_by
-  count: order_by
-  max: sansbury_money_transactions_max_order_by
-  min: sansbury_money_transactions_min_order_by
-  stddev: sansbury_money_transactions_stddev_order_by
-  stddev_pop: sansbury_money_transactions_stddev_pop_order_by
-  stddev_samp: sansbury_money_transactions_stddev_samp_order_by
-  sum: sansbury_money_transactions_sum_order_by
-  var_pop: sansbury_money_transactions_var_pop_order_by
-  var_samp: sansbury_money_transactions_var_samp_order_by
-  variance: sansbury_money_transactions_variance_order_by
-}
-
-# input type for inserting array relation for remote table "sansbury_money.transactions"
-input sansbury_money_transactions_arr_rel_insert_input {
-  data: [sansbury_money_transactions_insert_input!]!
-  on_conflict: sansbury_money_transactions_on_conflict
-}
-
-# aggregate avg on columns
-type sansbury_money_transactions_avg_fields {
-  interval_days: Float
-  interval_months: Float
-  monthly_occurrences: Float
-}
-
-# order by avg() on columns of table "sansbury_money.transactions"
-input sansbury_money_transactions_avg_order_by {
-  interval_days: order_by
-  interval_months: order_by
-  monthly_occurrences: order_by
-}
-
-# Boolean expression to filter rows from the table "sansbury_money.transactions".
-# All fields are combined with a logical 'AND'.
-input sansbury_money_transactions_bool_exp {
-  _and: [sansbury_money_transactions_bool_exp]
-  _not: sansbury_money_transactions_bool_exp
-  _or: [sansbury_money_transactions_bool_exp]
-  category: text_comparison_exp
-  end: date_comparison_exp
-  id: uuid_comparison_exp
-  interval_days: integer_comparison_exp
-  interval_months: integer_comparison_exp
-  monthly_occurrences: integer_comparison_exp
-  name: text_comparison_exp
-  owner: uuid_comparison_exp
-  start: date_comparison_exp
-  user: sansbury_money_users_bool_exp
-}
-
-# unique or primary key constraints on table "sansbury_money.transactions"
-enum sansbury_money_transactions_constraint {
-  # unique or primary key constraint
-  transactions_pkey
-}
-
-# input type for incrementing integer columne in table "sansbury_money.transactions"
-input sansbury_money_transactions_inc_input {
-  interval_days: Int
-  interval_months: Int
-  monthly_occurrences: Int
-}
-
-# input type for inserting data into table "sansbury_money.transactions"
-input sansbury_money_transactions_insert_input {
-  category: String
-  end: date
-  id: uuid
-  interval_days: Int
-  interval_months: Int
-  monthly_occurrences: Int
-  name: String
-  owner: uuid
-  start: date
-  user: sansbury_money_users_obj_rel_insert_input
-}
-
-# aggregate max on columns
-type sansbury_money_transactions_max_fields {
-  category: String
-  end: date
-  interval_days: Int
-  interval_months: Int
-  monthly_occurrences: Int
-  name: String
-  start: date
-}
-
-# order by max() on columns of table "sansbury_money.transactions"
-input sansbury_money_transactions_max_order_by {
-  category: order_by
-  end: order_by
-  interval_days: order_by
-  interval_months: order_by
-  monthly_occurrences: order_by
-  name: order_by
-  start: order_by
-}
-
-# aggregate min on columns
-type sansbury_money_transactions_min_fields {
-  category: String
-  end: date
-  interval_days: Int
-  interval_months: Int
-  monthly_occurrences: Int
-  name: String
-  start: date
-}
-
-# order by min() on columns of table "sansbury_money.transactions"
-input sansbury_money_transactions_min_order_by {
-  category: order_by
-  end: order_by
-  interval_days: order_by
-  interval_months: order_by
-  monthly_occurrences: order_by
-  name: order_by
-  start: order_by
-}
-
-# response of any mutation on the table "sansbury_money.transactions"
-type sansbury_money_transactions_mutation_response {
-  # number of affected rows by the mutation
-  affected_rows: Int!
-
-  # data of the affected rows by the mutation
-  returning: [sansbury_money_transactions!]!
-}
-
-# input type for inserting object relation for remote table "sansbury_money.transactions"
-input sansbury_money_transactions_obj_rel_insert_input {
-  data: sansbury_money_transactions_insert_input!
-  on_conflict: sansbury_money_transactions_on_conflict
-}
-
-# on conflict condition type for table "sansbury_money.transactions"
-input sansbury_money_transactions_on_conflict {
-  constraint: sansbury_money_transactions_constraint!
-  update_columns: [sansbury_money_transactions_update_column!]!
-}
-
-# ordering options when selecting data from "sansbury_money.transactions"
-input sansbury_money_transactions_order_by {
-  category: order_by
-  end: order_by
-  id: order_by
-  interval_days: order_by
-  interval_months: order_by
-  monthly_occurrences: order_by
-  name: order_by
-  owner: order_by
-  start: order_by
-  user: sansbury_money_users_order_by
-}
-
-# select columns of table "sansbury_money.transactions"
-enum sansbury_money_transactions_select_column {
-  # column name
-  category
-
-  # column name
-  end
-
-  # column name
-  id
-
-  # column name
-  interval_days
-
-  # column name
-  interval_months
-
-  # column name
-  monthly_occurrences
-
-  # column name
-  name
-
-  # column name
-  owner
-
-  # column name
-  start
-}
-
-# input type for updating data in table "sansbury_money.transactions"
-input sansbury_money_transactions_set_input {
-  category: String
-  end: date
-  id: uuid
-  interval_days: Int
-  interval_months: Int
-  monthly_occurrences: Int
-  name: String
-  owner: uuid
-  start: date
-}
-
-# aggregate stddev on columns
-type sansbury_money_transactions_stddev_fields {
-  interval_days: Float
-  interval_months: Float
-  monthly_occurrences: Float
-}
-
-# order by stddev() on columns of table "sansbury_money.transactions"
-input sansbury_money_transactions_stddev_order_by {
-  interval_days: order_by
-  interval_months: order_by
-  monthly_occurrences: order_by
-}
-
-# aggregate stddev_pop on columns
-type sansbury_money_transactions_stddev_pop_fields {
-  interval_days: Float
-  interval_months: Float
-  monthly_occurrences: Float
-}
-
-# order by stddev_pop() on columns of table "sansbury_money.transactions"
-input sansbury_money_transactions_stddev_pop_order_by {
-  interval_days: order_by
-  interval_months: order_by
-  monthly_occurrences: order_by
-}
-
-# aggregate stddev_samp on columns
-type sansbury_money_transactions_stddev_samp_fields {
-  interval_days: Float
-  interval_months: Float
-  monthly_occurrences: Float
-}
-
-# order by stddev_samp() on columns of table "sansbury_money.transactions"
-input sansbury_money_transactions_stddev_samp_order_by {
-  interval_days: order_by
-  interval_months: order_by
-  monthly_occurrences: order_by
-}
-
-# aggregate sum on columns
-type sansbury_money_transactions_sum_fields {
-  interval_days: Int
-  interval_months: Int
-  monthly_occurrences: Int
-}
-
-# order by sum() on columns of table "sansbury_money.transactions"
-input sansbury_money_transactions_sum_order_by {
-  interval_days: order_by
-  interval_months: order_by
-  monthly_occurrences: order_by
-}
-
-# update columns of table "sansbury_money.transactions"
-enum sansbury_money_transactions_update_column {
-  # column name
-  category
-
-  # column name
-  end
-
-  # column name
-  id
-
-  # column name
-  interval_days
-
-  # column name
-  interval_months
-
-  # column name
-  monthly_occurrences
-
-  # column name
-  name
-
-  # column name
-  owner
-
-  # column name
-  start
-}
-
-# aggregate var_pop on columns
-type sansbury_money_transactions_var_pop_fields {
-  interval_days: Float
-  interval_months: Float
-  monthly_occurrences: Float
-}
-
-# order by var_pop() on columns of table "sansbury_money.transactions"
-input sansbury_money_transactions_var_pop_order_by {
-  interval_days: order_by
-  interval_months: order_by
-  monthly_occurrences: order_by
-}
-
-# aggregate var_samp on columns
-type sansbury_money_transactions_var_samp_fields {
-  interval_days: Float
-  interval_months: Float
-  monthly_occurrences: Float
-}
-
-# order by var_samp() on columns of table "sansbury_money.transactions"
-input sansbury_money_transactions_var_samp_order_by {
-  interval_days: order_by
-  interval_months: order_by
-  monthly_occurrences: order_by
-}
-
-# aggregate variance on columns
-type sansbury_money_transactions_variance_fields {
-  interval_days: Float
-  interval_months: Float
-  monthly_occurrences: Float
-}
-
-# order by variance() on columns of table "sansbury_money.transactions"
-input sansbury_money_transactions_variance_order_by {
-  interval_days: order_by
-  interval_months: order_by
-  monthly_occurrences: order_by
-}
-
-# columns and relationships of "sansbury_money.user_reports"
-type sansbury_money_user_reports {
-  id: uuid!
-  report: uuid!
-
-  # An object relationship
-  reportByReport: sansbury_money_reports!
-  user: uuid!
-
-  # An object relationship
-  userByUser: sansbury_money_users!
-}
-
-# aggregated selection of "sansbury_money.user_reports"
-type sansbury_money_user_reports_aggregate {
-  aggregate: sansbury_money_user_reports_aggregate_fields
-  nodes: [sansbury_money_user_reports!]!
-}
-
-# aggregate fields of "sansbury_money.user_reports"
-type sansbury_money_user_reports_aggregate_fields {
-  count(
-    columns: [sansbury_money_user_reports_select_column!]
-    distinct: Boolean
-  ): Int
-}
-
-# order by aggregate values of table "sansbury_money.user_reports"
-input sansbury_money_user_reports_aggregate_order_by {
-  count: order_by
-}
-
-# input type for inserting array relation for remote table "sansbury_money.user_reports"
-input sansbury_money_user_reports_arr_rel_insert_input {
-  data: [sansbury_money_user_reports_insert_input!]!
-  on_conflict: sansbury_money_user_reports_on_conflict
-}
-
-# Boolean expression to filter rows from the table "sansbury_money.user_reports".
-# All fields are combined with a logical 'AND'.
-input sansbury_money_user_reports_bool_exp {
-  _and: [sansbury_money_user_reports_bool_exp]
-  _not: sansbury_money_user_reports_bool_exp
-  _or: [sansbury_money_user_reports_bool_exp]
-  id: uuid_comparison_exp
-  report: uuid_comparison_exp
-  reportByReport: sansbury_money_reports_bool_exp
-  user: uuid_comparison_exp
-  userByUser: sansbury_money_users_bool_exp
-}
-
-# unique or primary key constraints on table "sansbury_money.user_reports"
-enum sansbury_money_user_reports_constraint {
-  # unique or primary key constraint
-  user_reports_pkey
-}
-
-# input type for inserting data into table "sansbury_money.user_reports"
-input sansbury_money_user_reports_insert_input {
-  id: uuid
-  report: uuid
-  reportByReport: sansbury_money_reports_obj_rel_insert_input
-  user: uuid
-  userByUser: sansbury_money_users_obj_rel_insert_input
-}
-
-# response of any mutation on the table "sansbury_money.user_reports"
-type sansbury_money_user_reports_mutation_response {
-  # number of affected rows by the mutation
-  affected_rows: Int!
-
-  # data of the affected rows by the mutation
-  returning: [sansbury_money_user_reports!]!
-}
-
-# input type for inserting object relation for remote table "sansbury_money.user_reports"
-input sansbury_money_user_reports_obj_rel_insert_input {
-  data: sansbury_money_user_reports_insert_input!
-  on_conflict: sansbury_money_user_reports_on_conflict
-}
-
-# on conflict condition type for table "sansbury_money.user_reports"
-input sansbury_money_user_reports_on_conflict {
-  constraint: sansbury_money_user_reports_constraint!
-  update_columns: [sansbury_money_user_reports_update_column!]!
-}
-
-# ordering options when selecting data from "sansbury_money.user_reports"
-input sansbury_money_user_reports_order_by {
-  id: order_by
-  report: order_by
-  reportByReport: sansbury_money_reports_order_by
-  user: order_by
-  userByUser: sansbury_money_users_order_by
-}
-
-# select columns of table "sansbury_money.user_reports"
-enum sansbury_money_user_reports_select_column {
-  # column name
-  id
-
-  # column name
-  report
-
-  # column name
-  user
-}
-
-# input type for updating data in table "sansbury_money.user_reports"
-input sansbury_money_user_reports_set_input {
-  id: uuid
-  report: uuid
-  user: uuid
-}
-
-# update columns of table "sansbury_money.user_reports"
-enum sansbury_money_user_reports_update_column {
-  # column name
-  id
-
-  # column name
-  report
-
-  # column name
-  user
-}
-
-# columns and relationships of "sansbury_money.users"
-type sansbury_money_users {
-  # An array relationship
-  accounts(
-    # distinct select on columns
-    distinct_on: [sansbury_money_accounts_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_accounts_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_accounts_bool_exp
-  ): [sansbury_money_accounts!]!
-
-  # An aggregated array relationship
-  accounts_aggregate(
-    # distinct select on columns
-    distinct_on: [sansbury_money_accounts_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_accounts_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_accounts_bool_exp
-  ): sansbury_money_accounts_aggregate!
-  email: String!
-  id: uuid!
-  password: String!
-
-  # An array relationship
-  transactions(
-    # distinct select on columns
-    distinct_on: [sansbury_money_transactions_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_transactions_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_transactions_bool_exp
-  ): [sansbury_money_transactions!]!
-
-  # An aggregated array relationship
-  transactions_aggregate(
-    # distinct select on columns
-    distinct_on: [sansbury_money_transactions_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_transactions_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_transactions_bool_exp
-  ): sansbury_money_transactions_aggregate!
-
-  # An array relationship
-  user_reports(
-    # distinct select on columns
-    distinct_on: [sansbury_money_user_reports_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_user_reports_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_user_reports_bool_exp
-  ): [sansbury_money_user_reports!]!
-
-  # An aggregated array relationship
-  user_reports_aggregate(
-    # distinct select on columns
-    distinct_on: [sansbury_money_user_reports_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_user_reports_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_user_reports_bool_exp
-  ): sansbury_money_user_reports_aggregate!
-}
-
-# aggregated selection of "sansbury_money.users"
-type sansbury_money_users_aggregate {
-  aggregate: sansbury_money_users_aggregate_fields
-  nodes: [sansbury_money_users!]!
-}
-
-# aggregate fields of "sansbury_money.users"
-type sansbury_money_users_aggregate_fields {
-  count(columns: [sansbury_money_users_select_column!], distinct: Boolean): Int
-  max: sansbury_money_users_max_fields
-  min: sansbury_money_users_min_fields
-}
-
-# order by aggregate values of table "sansbury_money.users"
-input sansbury_money_users_aggregate_order_by {
-  count: order_by
-  max: sansbury_money_users_max_order_by
-  min: sansbury_money_users_min_order_by
-}
-
-# input type for inserting array relation for remote table "sansbury_money.users"
-input sansbury_money_users_arr_rel_insert_input {
-  data: [sansbury_money_users_insert_input!]!
-  on_conflict: sansbury_money_users_on_conflict
-}
-
-# Boolean expression to filter rows from the table "sansbury_money.users". All fields are combined with a logical 'AND'.
-input sansbury_money_users_bool_exp {
-  _and: [sansbury_money_users_bool_exp]
-  _not: sansbury_money_users_bool_exp
-  _or: [sansbury_money_users_bool_exp]
-  accounts: sansbury_money_accounts_bool_exp
-  email: text_comparison_exp
-  id: uuid_comparison_exp
-  password: text_comparison_exp
-  transactions: sansbury_money_transactions_bool_exp
-  user_reports: sansbury_money_user_reports_bool_exp
-}
-
-# unique or primary key constraints on table "sansbury_money.users"
-enum sansbury_money_users_constraint {
-  # unique or primary key constraint
-  users_email_key
-
-  # unique or primary key constraint
-  users_pkey
-}
-
-# input type for inserting data into table "sansbury_money.users"
-input sansbury_money_users_insert_input {
-  accounts: sansbury_money_accounts_arr_rel_insert_input
-  email: String
-  id: uuid
-  password: String
-  transactions: sansbury_money_transactions_arr_rel_insert_input
-  user_reports: sansbury_money_user_reports_arr_rel_insert_input
-}
-
-# aggregate max on columns
-type sansbury_money_users_max_fields {
-  email: String
-  password: String
-}
-
-# order by max() on columns of table "sansbury_money.users"
-input sansbury_money_users_max_order_by {
-  email: order_by
-  password: order_by
-}
-
-# aggregate min on columns
-type sansbury_money_users_min_fields {
-  email: String
-  password: String
-}
-
-# order by min() on columns of table "sansbury_money.users"
-input sansbury_money_users_min_order_by {
-  email: order_by
-  password: order_by
-}
-
-# response of any mutation on the table "sansbury_money.users"
-type sansbury_money_users_mutation_response {
-  # number of affected rows by the mutation
-  affected_rows: Int!
-
-  # data of the affected rows by the mutation
-  returning: [sansbury_money_users!]!
-}
-
-# input type for inserting object relation for remote table "sansbury_money.users"
-input sansbury_money_users_obj_rel_insert_input {
-  data: sansbury_money_users_insert_input!
-  on_conflict: sansbury_money_users_on_conflict
-}
-
-# on conflict condition type for table "sansbury_money.users"
-input sansbury_money_users_on_conflict {
-  constraint: sansbury_money_users_constraint!
-  update_columns: [sansbury_money_users_update_column!]!
-}
-
-# ordering options when selecting data from "sansbury_money.users"
-input sansbury_money_users_order_by {
-  accounts_aggregate: sansbury_money_accounts_aggregate_order_by
-  email: order_by
-  id: order_by
-  password: order_by
-  transactions_aggregate: sansbury_money_transactions_aggregate_order_by
-  user_reports_aggregate: sansbury_money_user_reports_aggregate_order_by
-}
-
-# select columns of table "sansbury_money.users"
-enum sansbury_money_users_select_column {
-  # column name
-  email
-
-  # column name
-  id
-
-  # column name
-  password
-}
-
-# input type for updating data in table "sansbury_money.users"
-input sansbury_money_users_set_input {
-  email: String
-  id: uuid
-  password: String
-}
-
-# update columns of table "sansbury_money.users"
-enum sansbury_money_users_update_column {
-  # column name
-  email
-
-  # column name
-  id
-
-  # column name
-  password
-}
-
-# subscription root
-type subscription_root {
-  # fetch data from the table: "exceptions"
-  exceptions(
-    # distinct select on columns
-    distinct_on: [exceptions_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [exceptions_order_by!]
-
-    # filter the rows returned
-    where: exceptions_bool_exp
-  ): [exceptions!]!
-
-  # fetch aggregated fields from the table: "exceptions"
-  exceptions_aggregate(
-    # distinct select on columns
-    distinct_on: [exceptions_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [exceptions_order_by!]
-
-    # filter the rows returned
-    where: exceptions_bool_exp
-  ): exceptions_aggregate!
-
-  # fetch data from the table: "exceptions" using primary key columns
-  exceptions_by_pk(id: uuid!): exceptions
-
-  # fetch data from the table: "sansbury_money.accounts"
-  sansbury_money_accounts(
-    # distinct select on columns
-    distinct_on: [sansbury_money_accounts_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_accounts_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_accounts_bool_exp
-  ): [sansbury_money_accounts!]!
-
-  # fetch aggregated fields from the table: "sansbury_money.accounts"
-  sansbury_money_accounts_aggregate(
-    # distinct select on columns
-    distinct_on: [sansbury_money_accounts_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_accounts_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_accounts_bool_exp
-  ): sansbury_money_accounts_aggregate!
-
-  # fetch data from the table: "sansbury_money.accounts" using primary key columns
-  sansbury_money_accounts_by_pk(id: uuid!): sansbury_money_accounts
-
-  # fetch data from the table: "sansbury_money.reports"
-  sansbury_money_reports(
-    # distinct select on columns
-    distinct_on: [sansbury_money_reports_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_reports_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_reports_bool_exp
-  ): [sansbury_money_reports!]!
-
-  # fetch aggregated fields from the table: "sansbury_money.reports"
-  sansbury_money_reports_aggregate(
-    # distinct select on columns
-    distinct_on: [sansbury_money_reports_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_reports_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_reports_bool_exp
-  ): sansbury_money_reports_aggregate!
-
-  # fetch data from the table: "sansbury_money.reports" using primary key columns
-  sansbury_money_reports_by_pk(id: uuid!): sansbury_money_reports
-
-  # fetch data from the table: "sansbury_money.transactions"
-  sansbury_money_transactions(
-    # distinct select on columns
-    distinct_on: [sansbury_money_transactions_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_transactions_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_transactions_bool_exp
-  ): [sansbury_money_transactions!]!
-
-  # fetch aggregated fields from the table: "sansbury_money.transactions"
-  sansbury_money_transactions_aggregate(
-    # distinct select on columns
-    distinct_on: [sansbury_money_transactions_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_transactions_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_transactions_bool_exp
-  ): sansbury_money_transactions_aggregate!
-
-  # fetch data from the table: "sansbury_money.transactions" using primary key columns
-  sansbury_money_transactions_by_pk(id: uuid!): sansbury_money_transactions
-
-  # fetch data from the table: "sansbury_money.user_reports"
-  sansbury_money_user_reports(
-    # distinct select on columns
-    distinct_on: [sansbury_money_user_reports_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_user_reports_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_user_reports_bool_exp
-  ): [sansbury_money_user_reports!]!
-
-  # fetch aggregated fields from the table: "sansbury_money.user_reports"
-  sansbury_money_user_reports_aggregate(
-    # distinct select on columns
-    distinct_on: [sansbury_money_user_reports_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_user_reports_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_user_reports_bool_exp
-  ): sansbury_money_user_reports_aggregate!
-
-  # fetch data from the table: "sansbury_money.user_reports" using primary key columns
-  sansbury_money_user_reports_by_pk(id: uuid!): sansbury_money_user_reports
-
-  # fetch data from the table: "sansbury_money.users"
-  sansbury_money_users(
-    # distinct select on columns
-    distinct_on: [sansbury_money_users_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_users_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_users_bool_exp
-  ): [sansbury_money_users!]!
-
-  # fetch aggregated fields from the table: "sansbury_money.users"
-  sansbury_money_users_aggregate(
-    # distinct select on columns
-    distinct_on: [sansbury_money_users_select_column!]
-
-    # limit the nuber of rows returned
-    limit: Int
-
-    # skip the first n rows. Use only with order_by
-    offset: Int
-
-    # sort the rows by one or more columns
-    order_by: [sansbury_money_users_order_by!]
-
-    # filter the rows returned
-    where: sansbury_money_users_bool_exp
-  ): sansbury_money_users_aggregate!
-
-  # fetch data from the table: "sansbury_money.users" using primary key columns
-  sansbury_money_users_by_pk(id: uuid!): sansbury_money_users
-}
-
-# expression to compare columns of type text. All fields are combined with logical 'AND'.
-input text_comparison_exp {
-  _eq: String
-  _gt: String
-  _gte: String
-  _ilike: String
-  _in: [String]
-  _is_null: Boolean
-  _like: String
-  _lt: String
-  _lte: String
-  _neq: String
-  _nilike: String
-  _nin: [String]
-  _nlike: String
-  _nsimilar: String
-  _similar: String
-}
-
 scalar uuid
-
-# expression to compare columns of type uuid. All fields are combined with logical 'AND'.
-input uuid_comparison_exp {
-  _eq: uuid
-  _gt: uuid
-  _gte: uuid
-  _in: [uuid]
-  _is_null: Boolean
-  _lt: uuid
-  _lte: uuid
-  _neq: uuid
-  _nin: [uuid]
-}
