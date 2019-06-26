@@ -1,6 +1,0 @@
-heroku:
-   script:
-      - git remote add heroku https://heroku:$HEROKU_API_KEY@git.heroku.com/secure-plains-49647.git
-      - git push -f heroku HEAD:master
-   only:
-      - master
