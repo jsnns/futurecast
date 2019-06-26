@@ -3,11 +3,11 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { auth } from "../../../routes";
-import client from "../../../client";
+import { client } from "../../../client";
 import gql from "graphql-tag";
 import { Subscription } from "react-apollo";
 
-import { Box, Heading, TextInput, DataTable } from "grommet";
+import { Box, Heading, TextInput, DataTable, CheckBox } from "grommet";
 import { Dialog } from "../../_shared_/Dialog";
 
 const GET_SUBSCRIPTIONS = gql`

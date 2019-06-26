@@ -17,9 +17,10 @@ const GET_SUBSCRIPTIONS = gql`
             category
             usefulness
             durability
-        }
+        },
     }
 `;
+
 
 class WishHelpTab1 extends Component {
     state = { wish: null };
@@ -144,6 +145,7 @@ class WishHelpTab1 extends Component {
         }
     `
     });
+
 
 }
 
