@@ -1,16 +1,15 @@
 import _ from "lodash";
 
-const normalize = (value, maximum) => value / maximum;
+export const normalize = (value, maximum) => value / maximum;
 
-const normalizeOn = (array, key) => {
-  const max = _(array).map("relative_value").max();
+export const normalizeOn = (array, key) => {
+  const max = _(array).map(key).max();
+  const normalizeEl = el => normalize(el[key], max);
 
-  return _(array).map(el =>
-    _(el).set(key, normalize(el[key], max)).value()
-  ).value();
+  return _(array).setKey(key, normalizeEl).value()
 };
 
-const setKey = (array, key, f) => {
+export const setKey = (array, key, f) => {
   return array.map(el => {
     el[key] = f(el);
     return el;
