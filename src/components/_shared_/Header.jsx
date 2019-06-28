@@ -4,8 +4,8 @@ import Stats from "../Dashboard/Stats";
 
 import { Link } from "react-router-dom";
 import { Box, Button } from "grommet";
-import { Edit as EditIcon, Home, Logout, UserSettings } from "grommet-icons/es6";
 import { auth } from "../../routes";
+import { Edit as EditIcon, Home, Logout, UserSettings } from "grommet-icons";
 
 const Header = () => {
   const currentPath = window.location.pathname;
@@ -15,7 +15,7 @@ const Header = () => {
       <Box flex={"grow"}>
         <Stats/>
       </Box>
-      <Box direction="row" pad={{ top: "small" }} gap={"small"}>
+      <Box direction="row-responsive" pad={{ top: "small" }} gap={"small"}>
         <Link to={"/"}>
           <Button primary={currentPath === "/"} icon={<Home/>} label="Home"/>
         </Link>

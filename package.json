@@ -25,6 +25,7 @@
     "grommet-icons": "^4.2.0",
     "grommet-styles": "^0.2.0",
     "history": "latest",
+    "jest-fetch-mock": "^2.1.2",
     "lodash": "^4.17.11",
     "material-ui": "^0.20.2",
     "polished": "^3.0.3",
@@ -59,9 +60,15 @@
     "@babel/plugin-proposal-class-properties": "^7.4.4",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
+    "@testing-library/react": "^8.0.4",
+    "@testing-library/react-hooks": "^1.0.4",
     "babel-preset-react-app": "^9.0.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
     "graphql": "^14.3.0",
     "jest": "^24.8.0",
-    "react-test-renderer": "^16.8.6"
+    "jest-localstorage-mock": "^2.4.0",
+    "react-test-renderer": "^16.8.6",
+    "react-testing-library": "^8.0.1"
   }
 }

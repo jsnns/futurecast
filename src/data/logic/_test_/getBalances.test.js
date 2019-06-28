@@ -23,16 +23,26 @@ const transactions = [{
   value: -5
 }];
 
+const expectedValue = [
+  { balance: 0, date: getString(0), minimum: 0 },
+  { balance: 10, date: getString(1), minimum: 10 },
+  { balance: 15, date: getString(2), minimum: 15 },
+  { balance: 25, date: getString(3), minimum: 25 },
+  { balance: 30, date: getString(4), minimum: 30 }
+];
+
 test("it returns all balances", () => {
   const bals = getBalances(transactions, 0, 5);
 
-  const expectedValue = [
-    { balance: 0, date: getString(0), minimum: 0 },
-    { balance: 10, date: getString(1), minimum: 10 },
-    { balance: 15, date: getString(2), minimum: 15 },
-    { balance: 25, date: getString(3), minimum: 25 },
-    { balance: 30, date: getString(4), minimum: 30 }
-  ];
+  expect(bals).toEqual(expectedValue)
+});
+
+test("handles a number-like string for days", () => {
+  const bals = getBalances(transactions, 0, "5");
 
   expect(bals).toEqual(expectedValue)
+});
+
+test("throws error with a word-like string for days", () => {
+  expect(() => getBalances(transactions, 0, "words")).toThrow()
 });

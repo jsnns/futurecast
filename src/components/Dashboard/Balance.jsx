@@ -3,9 +3,10 @@ import gql from "graphql-tag";
 
 import { client } from "../../client";
 import { getBalances } from "../../data/logic";
-import InteractiveLineChart from "../_shared_/InteractiveLineChart";
+import Linechart from "../_shared_/Linechart";
 import * as colors from "../../constants/colors";
 import _ from "lodash";
+import InputWithRange from "../_shared_/InputWithRange";
 
 const GET_TRANSACTIONS = gql`
     {
@@ -27,10 +28,8 @@ const GET_TRANSACTIONS = gql`
 
 class Balance extends Component {
   state = {
-    data: {},
     transactions: [],
-    accounts: [],
-    days: 30
+    accounts: []
   };
 
   componentDidMount = async () => {
@@ -43,24 +42,23 @@ class Balance extends Component {
         if (data) {
           // get the first user since it will be the only user
           const { accounts, transactions } = data.users[0];
-          this.setState({ accounts, transactions }, this.getData);
+          return this.setState({ accounts, transactions });
         }
+      })
+      .then(() => {
+        this.getData(30);
       });
   };
 
-  updateData = e => {
-    this.setState({ days: Number(e.target.value) }, this.getData);
-  };
-
-  getData = () => {
-    const { transactions, accounts, days } = this.state;
+  getData = days => {
+    days = Number(days);
+    const { transactions, accounts } = this.state;
 
     const startingBalance = _(accounts).map("balance").sum();
-
     const data = getBalances(transactions, startingBalance, days);
 
     const balances = _(data).map("balance").value();
-    const mins = _(data).map("minimum").value();
+    const minimums = _(data).map("minimum").value();
     const labels = _(data).map("date").map(date => new Date(date)).value();
 
     this.setState({
@@ -74,7 +72,7 @@ class Balance extends Component {
             lineTension: 0,
             pointRadius: 1,
             pointHitRadius: 5,
-            data: mins
+            data: minimums
           },
           {
             label: "Balance",
@@ -90,15 +88,18 @@ class Balance extends Component {
     });
   };
 
+
   render() {
-    const { data, days } = this.state;
+    const { data } = this.state;
 
     return (
-      <InteractiveLineChart
-        data={data}
-        value={days}
-        updateValue={this.updateData}
-      />
+      <div>
+        <InputWithRange onChange={this.getData}/>
+        <Linechart
+          data={data}
+          updateValue={this.getData}
+        />
+      </div>
     );
   }
 }

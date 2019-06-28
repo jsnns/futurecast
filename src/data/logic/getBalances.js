@@ -1,9 +1,17 @@
 import { mapGetInstances } from "./";
 
 export function getBalances(transactions, startingBalance, days) {
+  if (typeof(days) === "string") {
+    days = Number(days);
+    if (isNaN(days)) {
+      throw Error("Days must be a number.")
+    }
+  }
+
+
   let currentDate = new Date();
   let endDate = new Date();
-  days += 30
+  days += 30;
   endDate = endDate.setDate(endDate.getDate() + days);
   let balance = startingBalance;
   let instances = transactions.flatMap(mapGetInstances(days));
