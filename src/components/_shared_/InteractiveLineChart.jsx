@@ -1,6 +1,6 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
-import { Box, RangeInput, Text } from "grommet";
+import { Box, RangeInput, Text, TextInput } from "grommet";
 import { toCurrency } from "../../data/helpers";
 
 const InteractiveLineChart = ({ value, updateValue, data }) => (
@@ -12,10 +12,14 @@ const InteractiveLineChart = ({ value, updateValue, data }) => (
     <Box pad="small">
       <Text>Number of Days</Text>
       <Box pad="small">
+        <TextInput
+          value={value}
+          onChange={updateValue}
+        />
         <RangeInput
-          min={2}
+          min={14}
           max={356 * 2}
-          step={5}
+          step={1}
           value={value}
           onChange={updateValue}
         />

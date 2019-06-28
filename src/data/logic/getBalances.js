@@ -3,9 +3,10 @@ import { mapGetInstances } from "./";
 export function getBalances(transactions, startingBalance, days) {
   let currentDate = new Date();
   let endDate = new Date();
-  endDate = endDate.setDate(endDate.getDate() + 365);
+  days += 30
+  endDate = endDate.setDate(endDate.getDate() + days);
   let balance = startingBalance;
-  let instances = transactions.flatMap(mapGetInstances(365));
+  let instances = transactions.flatMap(mapGetInstances(days));
 
   let balances = [];
 
@@ -36,5 +37,5 @@ export function getBalances(transactions, startingBalance, days) {
     balances[i].minimum = justFuture[0];
   }
 
-  return balances.slice(0, days);
+  return balances.slice(0, days - 30);
 }

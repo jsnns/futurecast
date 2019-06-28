@@ -2,7 +2,6 @@ import React from "react";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { Box, DataTable } from "grommet";
-import _ from "lodash";
 
 import RedOrGreen from "../_shared_/RedOrGreen";
 import { getInstancesArray } from "../../data/logic";
@@ -33,9 +32,14 @@ const Bills = () => {
           let { transactions } = data;
           let instances = getInstancesArray(transactions, 45);
 
-          transactions = _(instances)
-            .sortBy(["date", "value"])
-            .value();
+          transactions = instances
+            .sort((a, b) => {
+              if (a.date > b.date) return 1;
+              if (b.date > a.date) return -1;
+              if (a.value > b.value) return -1;
+              if (b.value > a.value) return 1;
+              return 0;
+            });
 
           return <DataTable
             data={transactions}
