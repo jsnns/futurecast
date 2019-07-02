@@ -3,7 +3,22 @@ import gql from "graphql-tag";
 export default {
   query: gql`
       subscription {
-          transactions {
+          transactions(where: {category: {_neq: "once"}}) {
+              id
+              value
+              name
+              start
+              end
+              category
+              interval_days
+              interval_months
+          }
+      }
+  `,
+
+  query_once: gql`
+      subscription {
+          transactions(where: {category: {_eq: "once"}}) {
               id
               value
               name
