@@ -8,6 +8,7 @@ import { client } from "../../client";
 import { getBudget } from "../../data/logic";
 
 import _ from "lodash";
+import Stat from "../_shared_/Stat";
 
 const GET_TRANSACTIONS = gql`
     {
@@ -22,14 +23,16 @@ const GET_TRANSACTIONS = gql`
 `;
 
 class Budget extends Component {
-  state = {
-    data: {},
-    table: []
-  };
+  state = { data: {}, table: [], stats: { income: 0, expenses: 0 } };
 
   render() {
-    const { data, table } = this.state;
+    const { data, table, stats } = this.state;
+
     return <Box>
+      <Box direction={"row"} gap={"medium"}>
+        <Stat label={"Total Expenses"} value={stats.expenses} />
+        <Stat label={"Total Income"} value={stats.income} />
+      </Box>
       <PieWithTable pieData={data} tableData={table}/>
     </Box>;
   }
@@ -44,13 +47,17 @@ class Budget extends Component {
     let table = [];
     let sliceColors = [];
 
+    let stats = {
+      expenses: _(budget).map('value').filter(a => a < 0).sum(),
+      income: _(budget).map('value').filter(a => a > 0).sum()
+    };
+
     for (let i in budget) {
       let { value, category } = budget[i];
 
       if (category === "income") {
         category = "leftover";
         value = _(budget).map("value").sum();
-        value = Math.abs();
         sliceColors.push("#f8f8f8");
       } else {
         sliceColors.push(colors[i]);
@@ -62,6 +69,7 @@ class Budget extends Component {
     }
 
     this.setState({
+      stats,
       data: {
         labels,
         datasets: [

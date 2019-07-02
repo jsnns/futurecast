@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import { Box, DataTable } from "grommet";
 
-import RedOrGreen from "../_shared_/RedOrGreen";
+import Currency from "../_shared_/Currency";
 import { getInstancesArray } from "../../data/logic";
 import { toCurrency } from "../../data/helpers";
 
@@ -52,9 +52,8 @@ const Bills = () => {
               {
                 property: "value",
                 header: "Value",
-                render: datum => <RedOrGreen
-                  red={datum.value < 0}
-                  value={toCurrency(datum.value)}
+                render: datum => <Currency
+                  value={datum.value}
                 />
               },
               {

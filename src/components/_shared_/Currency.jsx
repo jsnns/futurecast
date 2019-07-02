@@ -1,19 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types"
 import { Text } from "grommet";
+import { toCurrency } from "../../data/helpers";
 
-const RedOrGreen = ({ red, value }) => {
+const Currency = ({ value }) => {
   return  <Text
-    color={red ? "status-critical" : "status-ok"}
+    color={value < 0 ? "status-critical" : "status-ok"}
     style={{ fontFamily: "Roboto Mono" }}
   >
-    {value}
+    {toCurrency(value)}
   </Text>
 };
 
-RedOrGreen.propTypes = {
-  red: PropTypes.bool,
+Currency.propTypes = {
   value: PropTypes.any
 };
 
-export default RedOrGreen;
+export default Currency;

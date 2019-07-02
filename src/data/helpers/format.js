@@ -27,5 +27,5 @@ export const addSign = int => `$${int}`;
  * @param {number} int
  * @returns {string} currency formatted string
  */
-export const toCurrency = int => addSign(addCommas(int.toFixed(2)));
+export const toCurrency = int => addSign(addCommas(Number(int).toFixed(2)));
 

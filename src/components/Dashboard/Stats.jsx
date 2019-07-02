@@ -57,11 +57,11 @@ class StatsTables extends Component {
             stats: [
               {
                 label: "Minimum Balance",
-                value: toCurrency(_(balances).minBy("balance").balance)
+                value: _(balances).minBy("balance").balance
               },
               {
                 label: "Current Balance",
-                value: toCurrency(currentBalance)
+                value: currentBalance
               }
             ]
           });
