@@ -5,6 +5,7 @@ export function getBudget(transactions) {
 
   transactions.forEach(transaction => {
     let category = transaction.category;
+    if (category === "once") return;
 
     if (!budget[category]) budget[category] = 0;
 
@@ -28,6 +29,7 @@ export function getBudget(transactions) {
 
 export function getStats(transactions) {
   const budget = getBudget(transactions);
+
   return {
     expenses: _(budget).map('value').filter(a => a < 0).sum(),
     income: _(budget).map('value').filter(a => a > 0).sum()

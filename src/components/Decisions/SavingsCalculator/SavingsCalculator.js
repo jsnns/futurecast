@@ -15,6 +15,7 @@ let query = gql`
             name
             start
             end
+            category
             interval_days
             interval_months
         }
@@ -32,7 +33,7 @@ const SavingsCalculator = () => {
         if (loading) return `Loading...`;
 
         const { income, expenses } = getStats(data.transactions);
-        const dif = income - expenses;
+        const dif = income + expenses;
 
         const retirement = dif > max401k ? max401k : dif;
         const savings = savingsRate * (dif - max401k);
