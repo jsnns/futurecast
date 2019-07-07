@@ -40,9 +40,10 @@ const Report = () => {
           <DashboardWidget title="Bills" basis="1/1">
             <Bills/>
           </DashboardWidget>
-          <DashboardWidget title="WishList" basis="1/1">
-            <Wishlist/>
-          </DashboardWidget>
+          {/* Currently not finished, waiting for @beccabott to finish Wishlist */}
+          {/*<DashboardWidget title="WishList" basis="1/1">*/}
+          {/*  <Wishlist/>*/}
+          {/*</DashboardWidget>*/}
         </DashboardSection>
       </Box>
     </Box>

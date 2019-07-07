@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 export function getBudget(transactions) {
   let budget = {};
 
@@ -22,4 +24,12 @@ export function getBudget(transactions) {
       value: budget[category]
     }
   ));
+}
+
+export function getStats(transactions) {
+  const budget = getBudget(transactions);
+  return {
+    expenses: _(budget).map('value').filter(a => a < 0).sum(),
+    income: _(budget).map('value').filter(a => a > 0).sum()
+  };
 }

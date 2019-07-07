@@ -5,6 +5,7 @@ import Header from "../_shared_/Header";
 import WishHelp from "./WishHelp/WishHelp";
 import Ask from "./Ask";
 import DashboardWidget from "../_shared_/DashboardWidget";
+import SavingsCalculator from "./SavingsCalculator/SavingsCalculator";
 
 
 class Decisions extends Component {
@@ -18,6 +19,11 @@ class Decisions extends Component {
           </DashboardWidget>
           <DashboardWidget title="Wish Help" basis="2/3">
             <WishHelp/>
+          </DashboardWidget>
+        </Box>
+        <Box direction="row-responsive">
+          <DashboardWidget title="Savings Calculator" basis="2/3">
+            <SavingsCalculator/>
           </DashboardWidget>
         </Box>
       </Box>

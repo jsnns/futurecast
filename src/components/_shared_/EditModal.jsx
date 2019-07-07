@@ -2,8 +2,9 @@ import React from "react";
 // noinspection ES6CheckImport
 import PropTypes from "prop-types";
 
-import { Box, Heading, TextInput } from "grommet";
+import { Box, TextInput } from "grommet";
 import { Dialog } from "./Dialog";
+import Input from "./Input";
 
 const EditModal = ({ object, onClose, update, fields }) => {
 
@@ -25,14 +26,7 @@ const EditModal = ({ object, onClose, update, fields }) => {
         <Box flex={"grow"} gap={"small"}>
           {fields.map(field => {
             return <div>
-              <Heading level={4} margin={"none"}>
-                {field.name}
-              </Heading>
-              <TextInput
-                value={object[field.property]}
-                placeholder={field.name}
-                onChange={update(field.property)}
-              />
+              <Input name={field.name} value={object[field.property]} onChange={update(field.property)}/>
             </div>;
           })}
         </Box>
