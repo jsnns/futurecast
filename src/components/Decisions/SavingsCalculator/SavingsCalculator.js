@@ -4,7 +4,6 @@ import { Query } from "react-apollo";
 import gql from "graphql-tag";
 import { getStats } from "../../../data/logic";
 import Stat from "../../_shared_/Stat";
-import Input from "../../_shared_/Input";
 import Currency from "../../_shared_/Currency";
 
 let query = gql`
