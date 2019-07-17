@@ -26,7 +26,7 @@ class EditGraphql extends Component {
           fields={fields}
         />
 
-        <Button label={"New"} onClick={this.new}/>
+        <Button label={"New"} onClick={this.new} />
 
         <Box pad={"none"} margin={"none"}>
           <Subscription subscription={subscription}>
@@ -41,11 +41,11 @@ class EditGraphql extends Component {
                   ...columns,
                   {
                     header: "",
-                    render: datum => <Anchor onClick={() => this.openEditModal(datum)} label={<Edit/>}/>
+                    render: datum => <Anchor onClick={() => this.openEditModal(datum)} label={<Edit />} />
                   },
                   {
                     header: "",
-                    render: datum => <Anchor onClick={() => this.delete(datum.id)} label={<Trash/>}/>
+                    render: datum => <Anchor onClick={() => this.delete(datum.id)} label={<Trash />} />
                   }
                 ]}
                 data={data[table]}
@@ -95,17 +95,23 @@ class EditGraphql extends Component {
     `
   });
 
-  new = () => client.mutate({
-    mutation: gql`
-        mutation {
-            insert_${this.props.table}(objects: { owner: "${auth.user_id}" }) {
-            returning {
-                id
-            }
-        }
-        }
-    `
-  });
+  new = () => {
+    return client.mutate({
+      mutation: gql`
+          mutation {
+              insert_${this.props.table}(objects: { owner: "${auth.user_id}" }) {
+              returning {
+                  id
+              }
+          }
+          }
+      `
+    }).then(({ data }) => {
+      let key = `insert_${this.props.table}`;
+      let tx = data[key].returning[0];
+      this.openEditModal(tx);
+    })
+  }
 }
 
 export default EditGraphql;
