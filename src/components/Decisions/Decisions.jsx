@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { Box } from "grommet";
 import Header from "../_shared_/Header";
-import WishHelp from "./WishHelp/WishHelp";
+import WishHelp from "./Wishes/Wishes";
 import Ask from "./Ask";
 import DashboardWidget from "../_shared_/DashboardWidget";
 import SavingsCalculator from "./SavingsCalculator/SavingsCalculator";
