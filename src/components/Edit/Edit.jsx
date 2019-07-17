@@ -14,18 +14,12 @@ import wishes from "./types/wishes";
 
 const Edit = () => (
   <Box>
-    <Header/>
+    <Header />
     <Box direction="row-responsive">
       <DashboardWidget title="Transactions" basis="1/2">
         <EditGraphql
           table="transactions"
           subscription={transactions.query}
-          columns={transactions.columns}
-          fields={transactions.fields}
-        />
-        <EditGraphql
-          table="transactions"
-          subscription={transactions.query_once}
           columns={transactions.columns}
           fields={transactions.fields}
         />
