@@ -44,9 +44,12 @@ class Subscriptions extends Component {
                 tableData={table}
                 tabs={[
                     <Tab key={"value-analysis-tab-subs"} title="Value Analysis">
-                        <Text margin={{top: "medium", bottom: "medium"}}>
-                            If you remove the bottom 30% you will save {toCurrency(totalSaved)}/mo.
-                        </Text>
+                        <Box margin={"medium"}>
+                            <Text>
+                                If you cancel subscriptions with a score less than 30% you will
+                                save {toCurrency(totalSaved)}/mo.
+                            </Text>
+                        </Box>
                         <DataTable
                             primaryKey={"id"}
                             columns={[
