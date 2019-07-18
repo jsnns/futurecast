@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import gql from "graphql-tag";
-import {Query} from "react-apollo";
+import {Subscription} from "react-apollo";
 import {Box, DataTable, Meter, Select, Text} from "grommet";
 import Currency from "../../_shared_/Currency";
 import {valueScore} from "../../../data/logic";
@@ -8,7 +8,7 @@ import _ from "lodash";
 
 class Wishes extends Component {
     query = gql`
-        {
+        subscription {
             wishes {
                 id
                 name
@@ -25,7 +25,7 @@ class Wishes extends Component {
     render() {
         return (
             <Box>
-                <Query query={this.query}>
+                <Subscription subscription={this.query}>
                     {({error, loading, data}) => {
                         if (loading) return 'Loading...';
                         if (error) return `Error! ${error.message}`;
@@ -39,18 +39,22 @@ class Wishes extends Component {
 
                         categories = _(categories).sort().value();
 
+                        let wishes = data.wishes;
+
                         if (this.state.category) {
-                            data.wishes = data.wishes.filter(wish => wish.category === this.state.category);
+                            wishes = wishes.filter(wish => wish.category === this.state.category);
                         }
 
                         // score wishes after removing category to normalize against the category
-                        let wishes = this.parseWishes(data.wishes);
+                        wishes = this.parseWishes(wishes);
 
                         return <Box>
-                            <Select options={categories}
-                                    onChange={e => this.setState({category: e.value})}
-                                    value={this.state.category || ""}
-                            />
+                            <Box pad={"small"}>
+                                <Select options={categories}
+                                        onChange={e => this.setState({category: e.value})}
+                                        value={this.state.category || ""}
+                                />
+                            </Box>
                             <DataTable
                                 primaryKey={"id"}
                                 columns={[
@@ -84,7 +88,7 @@ class Wishes extends Component {
                             />
                         </Box>
                     }}
-                </Query>
+                </Subscription>
             </Box>
         );
     }

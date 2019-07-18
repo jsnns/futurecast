@@ -7,6 +7,7 @@ import { Edit, Trash } from "grommet-icons";
 import { auth } from "../../routes";
 import { client } from "../../client";
 import EditModal from "../_shared_/EditModal";
+import { Add } from "grommet-icons"
 
 class EditGraphql extends Component {
   state = { object: null };
@@ -26,7 +27,9 @@ class EditGraphql extends Component {
           fields={fields}
         />
 
-        <Button label={"New"} onClick={this.new} />
+        <Box direction={"row"} alignSelf={"end"} style={{ position: "relative", top: -40}}>
+            <Button icon={<Add />} label={"New"} onClick={this.new} />
+        </Box>
 
         <Box pad={"none"} margin={"none"}>
           <Subscription subscription={subscription}>

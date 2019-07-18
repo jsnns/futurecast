@@ -26,7 +26,8 @@ export default {
         },
         {
             header: "Category",
-            property: "category"
+            property: "category",
+            search: true
         },
         {
             header: "Impact",
