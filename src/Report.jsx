@@ -3,8 +3,6 @@ import React from "react";
 import Budget from "./components/Dashboard/Budget";
 import Balance from "./components/Dashboard/Balance";
 import Bills from "./components/Dashboard/Bills";
-import Wishlist from "./components/Dashboard/WishList";
-
 
 import { Box } from "grommet";
 
@@ -40,10 +38,6 @@ const Report = () => {
           <DashboardWidget title="Bills" basis="1/1">
             <Bills/>
           </DashboardWidget>
-          {/* Currently not finished, waiting for @beccabott to finish Wishlist */}
-          {/*<DashboardWidget title="WishList" basis="1/1">*/}
-          {/*  <Wishlist/>*/}
-          {/*</DashboardWidget>*/}
         </DashboardSection>
       </Box>
     </Box>
