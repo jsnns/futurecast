@@ -93,7 +93,7 @@ class Balance extends Component {
     const { data } = this.state;
 
     return (
-      <div>
+      <div style={{maxWidth: "95vw"}}>
         <InputWithRange onChange={this.getData}/>
         <Linechart
           data={data}

@@ -58,7 +58,7 @@ class Budget extends Component {
       if (category === "income") {
         category = "leftover";
         value = _(budget).map("value").sum();
-        sliceColors.push("#f8f8f8");
+        sliceColors.push("rgba(0, 0, 0, 0)");
       } else {
         sliceColors.push(colors[i]);
       }

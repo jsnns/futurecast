@@ -6,8 +6,7 @@ function DashboardWidget({ children, title, color, basis }) {
     <Box pad="small" direction="row" basis={basis}>
       <Box
         color={color || "light-2"}
-        elevation="small"
-        background="light-1"
+        background={"dark-2"}
         pad={"small"}
         flex={"grow"}
         animation={{

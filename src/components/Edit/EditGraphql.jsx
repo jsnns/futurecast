@@ -7,6 +7,7 @@ import { Edit, Trash } from "grommet-icons";
 import { auth } from "../../routes";
 import { client } from "../../client";
 import EditModal from "../_shared_/EditModal";
+import { Add } from "grommet-icons"
 
 class EditGraphql extends Component {
   state = { object: null };
@@ -26,7 +27,9 @@ class EditGraphql extends Component {
           fields={fields}
         />
 
-        <Button label={"New"} onClick={this.new}/>
+        <Box direction={"row"} alignSelf={"end"} style={{ position: "relative", top: -40}}>
+            <Button icon={<Add />} label={"New"} onClick={this.new} />
+        </Box>
 
         <Box pad={"none"} margin={"none"}>
           <Subscription subscription={subscription}>
@@ -41,11 +44,11 @@ class EditGraphql extends Component {
                   ...columns,
                   {
                     header: "",
-                    render: datum => <Anchor onClick={() => this.openEditModal(datum)} label={<Edit/>}/>
+                    render: datum => <Anchor onClick={() => this.openEditModal(datum)} label={<Edit />} />
                   },
                   {
                     header: "",
-                    render: datum => <Anchor onClick={() => this.delete(datum.id)} label={<Trash/>}/>
+                    render: datum => <Anchor onClick={() => this.delete(datum.id)} label={<Trash />} />
                   }
                 ]}
                 data={data[table]}
@@ -95,17 +98,23 @@ class EditGraphql extends Component {
     `
   });
 
-  new = () => client.mutate({
-    mutation: gql`
-        mutation {
-            insert_${this.props.table}(objects: { owner: "${auth.user_id}" }) {
-            returning {
-                id
-            }
-        }
-        }
-    `
-  });
+  new = () => {
+    return client.mutate({
+      mutation: gql`
+          mutation {
+              insert_${this.props.table}(objects: { owner: "${auth.user_id}" }) {
+              returning {
+                  id
+              }
+          }
+          }
+      `
+    }).then(({ data }) => {
+      let key = `insert_${this.props.table}`;
+      let tx = data[key].returning[0];
+      this.openEditModal(tx);
+    })
+  }
 }
 
 export default EditGraphql;
