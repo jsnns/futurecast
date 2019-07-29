@@ -13,7 +13,6 @@ export const Dialog = ({ children, open, onClose }) => {
       }}
       pad="small"
       background="dark-2"
-      elevation="large"
       gap="small"
     >
       {children}
