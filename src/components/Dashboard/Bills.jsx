@@ -52,7 +52,7 @@ const Bills = () => {
                     }));
 
                     return <Calendar
-                        style={{height: 750}}
+                        style={{minHeight: 750}}
                         localizer={localizer}
                         defaultView="agenda"
                         defaultDate={new Date()}

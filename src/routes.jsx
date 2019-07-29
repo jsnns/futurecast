@@ -9,7 +9,6 @@ import Report from "./Report";
 import history from "./history";
 import Auth from "./components/Auth/Auth";
 import Edit from "./components/Edit/Edit";
-import Profile from "./components/Profile/Profile";
 import Decisions from "./components/Decisions/Decisions";
 import client from "./client";
 
@@ -46,10 +45,6 @@ export const makeMainRoutes = () => {
                     <Route
                         path="/edit"
                         render={() => authenticatedRoute(provideClient(<Edit/>))}
-                    />
-                    <Route
-                        path="/profile"
-                        render={() => authenticatedRoute(provideClient(<Profile/>))}
                     />
                     <Route
                         path="/decisions"

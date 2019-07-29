@@ -5,7 +5,6 @@ import { client } from "../../client";
 import { getBalances } from "../../data/logic";
 import gql from "graphql-tag";
 import _ from "lodash";
-import { toCurrency } from "../../data/helpers";
 import Stat from "../_shared_/Stat";
 
 const GET_TRANSACTIONS = gql`
