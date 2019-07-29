@@ -12,7 +12,7 @@ export const Dialog = ({ children, open, onClose }) => {
         right: "xlarge"
       }}
       pad="small"
-      background="light-2"
+      background="dark-2"
       elevation="large"
       gap="small"
     >
