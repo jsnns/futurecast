@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 function Input({name, value, onChange}) {
   return <div>
-    <Heading level={4} margin={"none"}>
+    <Heading level={4} margin={"none"} style={{fontFamily: "Lato"}}>
       {name}
     </Heading>
     <TextInput

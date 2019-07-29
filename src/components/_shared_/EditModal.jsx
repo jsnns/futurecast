@@ -2,7 +2,7 @@ import React from "react";
 // noinspection ES6CheckImport
 import PropTypes from "prop-types";
 
-import { Box, TextInput } from "grommet";
+import { Box, TextInput, Calendar } from "grommet";
 import { Dialog } from "./Dialog";
 import Input from "./Input";
 
@@ -25,9 +25,18 @@ const EditModal = ({ object, onClose, update, fields }) => {
 
         <Box flex={"grow"} gap={"small"}>
           {fields.map(field => {
-            return <div>
-              <Input name={field.name} value={object[field.property]} onChange={update(field.property)}/>
-            </div>;
+            switch (field.type) {
+              case 'date':
+                return <Calendar
+                    size="small"
+                    date={object[field.property]}
+                    onSelect={date => update(field.property)({target: {value: date}})}
+                />;
+              default:
+                return <div>
+                  <Input name={field.name} value={object[field.property]} onChange={update(field.property)}/>
+                </div>
+            }
           })}
         </Box>
 
