@@ -24,12 +24,10 @@ const Header = () => {
           <Button primary={currentPath === "/edit"} icon={<EditIcon/>} label="Edit"/>
         </Link>
 
-        <Link to={"/profile"}>
-          <Button primary={currentPath === "/profile"} icon={<UserSettings/>} label='Profile'/>
-        </Link>
         <Link to={"/decisions"}>
           <Button primary={currentPath === "/decisions"} icon={<UserSettings/>} label='Decisions'/>
         </Link>
+
         <Link to={"/"}>
           <Button primary={false} icon={<Logout/>} label='logout' onClick={auth.logout}/>
         </Link>
