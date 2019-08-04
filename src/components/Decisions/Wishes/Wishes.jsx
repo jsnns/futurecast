@@ -73,12 +73,14 @@ class Wishes extends Component {
                                             <Box pad={{vertical: "xsmall"}} direction={"row"} gap={"small"}>
                                                 <Meter
                                                     margin={"xsmall"}
-                                                    values={[{value: datum.relative_value * 100}]}
+                                                    values={[{
+                                                        value: (datum.relative_value * 100).toFixed(2)
+                                                    }]}
                                                     thickness="small"
                                                     size="small"
                                                 />
                                                 <Text>
-                                                    {datum.relative_value.toFixed(2) * 100}%
+                                                    {(datum.relative_value * 100).toFixed(0)}%
                                                 </Text>
                                             </Box>
                                         )
