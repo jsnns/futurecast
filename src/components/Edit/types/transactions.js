@@ -3,22 +3,7 @@ import gql from "graphql-tag";
 export default {
     query: gql`
         subscription {
-            transactions(where: {category: {_neq: "once"}}) {
-                id
-                value
-                name
-                start
-                end
-                category
-                interval_days
-                interval_months
-            }
-        }
-    `,
-
-    query_once: gql`
-        subscription {
-            transactions(where: {category: {_eq: "once"}}) {
+            transactions {
                 id
                 value
                 name
@@ -33,6 +18,10 @@ export default {
 
     columns: [
         {
+            header: "Category",
+            property: "category"
+        },
+        {
             header: "Name",
             property: "name"
         },
@@ -40,10 +29,6 @@ export default {
             header: "Value",
             property: "value"
         },
-        {
-            header: "Category",
-            property: "category"
-        }
     ],
 
     fields: [
@@ -70,12 +55,12 @@ export default {
             type: "date"
         },
         {
-            name: "Interval Months",
-            property: "interval_months"
+            name: "Repeat Every (days)",
+            property: "interval_days"
         },
         {
-            name: "Interval Days",
-            property: "interval_days"
-        }
+            name: "Repeat Every (months)",
+            property: "interval_months"
+        },
     ]
 };

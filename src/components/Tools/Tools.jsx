@@ -9,14 +9,13 @@ import EditGraphql from "../Edit/EditGraphql";
 import wishes from "../Edit/types/wishes";
 
 
-class Decisions extends Component {
+class Tools extends Component {
     render() {
         return (
             <Box>
                 <Header/>
                 <Box direction="row-responsive">
-
-                    <DashboardWidget title="Wish Help" basis="2/3">
+                    <DashboardWidget title="Wish Help" basis="2/3" raised>
                         <Tabs>
                             <Tab title="Edit">
                                 <Box pad={"small"}>
@@ -36,7 +35,7 @@ class Decisions extends Component {
                         </Tabs>
                     </DashboardWidget>
 
-                    <DashboardWidget title="Savings Calculator" basis="2/3">
+                    <DashboardWidget title="Savings Calculator" basis="2/3" raised>
                         <SavingsCalculator/>
                     </DashboardWidget>
                 </Box>
@@ -45,4 +44,4 @@ class Decisions extends Component {
     }
 }
 
-export default Decisions;
+export default Tools;

@@ -6,7 +6,6 @@ import Bills from "./components/Dashboard/Bills";
 
 import { Box } from "grommet";
 
-import "./styles/fonts.css";
 import DashboardWidget from "./components/_shared_/DashboardWidget";
 import Subscriptions from "./components/Dashboard/Subscriptions";
 import Header from "./components/_shared_/Header";

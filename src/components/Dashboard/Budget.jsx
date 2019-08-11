@@ -5,7 +5,7 @@ import PieWithTable from "../_shared_/PieWithTable";
 import { Box } from "grommet";
 import { colors } from "../../constants";
 import { client } from "../../client";
-import { getBudget } from "../../data/logic";
+import {getBudget, getBudgetStats} from "../../data/logic";
 
 import _ from "lodash";
 import Stat from "../_shared_/Stat";
@@ -23,21 +23,23 @@ const GET_TRANSACTIONS = gql`
 `;
 
 class Budget extends Component {
-  state = { data: {}, table: [], stats: { income: 0, expenses: 0 } };
+  state = { data: {}, table: [], stats: { income: 0, expenses: 0, savings: 0 } };
 
   render() {
     const { data, table, stats } = this.state;
 
     return <Box>
       <Box direction={"row"} gap={"medium"}>
-        <Stat label={"Total Expenses"} value={stats.expenses} />
-        <Stat label={"Total Income"} value={stats.income} />
+
+        <Stat label={"Expenses"} value={stats.expenses} />
+        <Stat label={"Income"} value={stats.income} />
+        <Stat label={"Savings"} value={stats.savings} />
       </Box>
       <PieWithTable pieData={data} tableData={table}/>
     </Box>;
   }
 
-  chartDataFromBudget = budget => {
+  chartDataFromBudget = (budget, transactions) => {
     budget = budget
       .sort((a, b) => a.value - b.value)
       .filter(a => a.category !== "once");
@@ -47,10 +49,7 @@ class Budget extends Component {
     let table = [];
     let sliceColors = [];
 
-    let stats = {
-      expenses: _(budget).map('value').filter(a => a < 0).sum(),
-      income: _(budget).map('value').filter(a => a > 0).sum()
-    };
+    let stats = getBudgetStats(transactions);
 
     for (let i in budget) {
       let { value, category } = budget[i];
@@ -91,7 +90,7 @@ class Budget extends Component {
         if (loading) return "loading...";
         if (error) return `Error! ${error}`;
 
-        this.chartDataFromBudget(getBudget(data.transactions));
+        this.chartDataFromBudget(getBudget(data.transactions), data.transactions);
       });
   };
 

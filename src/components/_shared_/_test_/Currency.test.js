@@ -8,7 +8,7 @@ test('has currency formatted children', () => {
     <Currency value={100.0} />
   );
 
-  expect(component.find(Text).props().children).toBe('$100.00');
+  expect(component.find(Text).props().children).toBe('$100');
 });
 
 test('has green color for positive value', () => {

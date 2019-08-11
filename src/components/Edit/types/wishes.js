@@ -41,12 +41,12 @@ export default {
 
     fields: [
         {
-            name: "Price",
-            property: "price"
-        },
-        {
             name: "Category",
             property: "category"
+        },
+        {
+            name: "Price",
+            property: "price"
         },
         {
             name: "Impact",

@@ -9,8 +9,10 @@ import Report from "./Report";
 import history from "./history";
 import Auth from "./components/Auth/Auth";
 import Edit from "./components/Edit/Edit";
-import Decisions from "./components/Decisions/Decisions";
+import Tools from "./components/Tools/Tools";
 import client from "./client";
+
+import "./styles/fonts.css";
 
 export const auth = new Auth();
 
@@ -33,7 +35,17 @@ export const makeMainRoutes = () => {
         <Router history={history}>
             <Grommet
                 theme={{
-                    global: {colors: {brand: "#000"}, font: {family: "Lato"}}
+                    global: {
+                        colors: {
+                            brand: "rgba(68, 3, 129, 1)",
+                            "accent-1": "rgba(6, 141, 157, 1)",
+                            "dark-1": "rgb(36, 41, 46)",
+                            "dark-2": "rgb(31, 36, 41)",
+                            "status-critical": "#EE6C4D",
+                            "status-ok": "rgba(111, 255, 233, 1);"
+                        },
+                        font: {family: "Lato"}
+                    }
                 }}
             >
                 <Box background={"dark-1"} style={{minHeight: "100vh"}}>
@@ -48,7 +60,7 @@ export const makeMainRoutes = () => {
                     />
                     <Route
                         path="/decisions"
-                        render={() => authenticatedRoute(provideClient(<Decisions/>))}
+                        render={() => authenticatedRoute(provideClient(<Tools/>))}
                     />
                     <Route
                         path="/callback"

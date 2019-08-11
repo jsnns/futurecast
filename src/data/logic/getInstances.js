@@ -1,7 +1,10 @@
-export function getInstances(days = 30, transaction) {
+export function getInstances(days = 30, transaction, backwards = 0) {
   const instances = [];
 
   const today = new Date();
+  if (backwards > 0) {
+    today.setDate(today.getDate() - backwards);
+  }
   const endDate = new Date();
   endDate.setDate(endDate.getDate() + days);
 
@@ -41,10 +44,10 @@ export function getInstances(days = 30, transaction) {
 }
 
 // used in .flatMap and .map on an array of transactions
-export function mapGetInstances(days) {
-  return transaction => getInstances(days, transaction);
+export function mapGetInstances(days, backwards) {
+  return transaction => getInstances(days, transaction, backwards);
 }
 
-export function getInstancesArray(transactions, days) {
-  return transactions.flatMap(mapGetInstances(days));
+export function getInstancesArray(transactions, days, backwards) {
+  return transactions.flatMap(mapGetInstances(days, backwards));
 }

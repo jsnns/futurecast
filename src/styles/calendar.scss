@@ -1,9 +1,13 @@
-$today-highlight-bg: #1B998B;
+$today-highlight-bg: lighten(rgb(31, 36, 41), 15);
 
-$event-bg: #333;
+$event-bg: lighten(rgba(68, 3, 129, 1), 10);
 $event-border-radius: 0;
-$out-of-range-color: #000;
-$out-of-range-bg-color: lighten(#333, 25);
+
+$out-of-range-bg-color: rgb(31, 36, 41);
+$out-of-range-color: lighten(rgb(31, 36, 41), 18);
+
+$active-background: lighten(rgb(36, 41, 46), 25);
+
 @import '../../node_modules/react-big-calendar/lib/sass/styles';
 
 .rbc-btn-group button {
