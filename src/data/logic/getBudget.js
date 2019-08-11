@@ -27,11 +27,12 @@ export function getBudget(transactions) {
   ));
 }
 
-export function getStats(transactions) {
+export function getBudgetStats(transactions) {
   const budget = getBudget(transactions);
 
   return {
-    expenses: _(budget).map('value').filter(a => a < 0).sum(),
-    income: _(budget).map('value').filter(a => a > 0).sum()
+    expenses: _(budget).filter(cat => cat.category !== 'savings').map('value').filter(a => a < 0).sum(),
+    income: _(budget).map('value').filter(a => a > 0).sum(),
+    savings: Math.abs(_(budget).filter(cat => cat.category === 'savings').map('value').sum())
   };
 }

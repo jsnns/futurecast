@@ -5,7 +5,7 @@ import Stats from "../Dashboard/Stats";
 import { Link } from "react-router-dom";
 import { Box, Button } from "grommet";
 import { auth } from "../../routes";
-import { Edit as EditIcon, Home, Logout, UserSettings } from "grommet-icons";
+import { Edit as EditIcon, Home, Logout, Tools } from "grommet-icons";
 
 const Header = () => {
   const currentPath = window.location.pathname;
@@ -16,16 +16,16 @@ const Header = () => {
         <Stats/>
       </Box>
       <Box direction="row-responsive" pad={{ top: "small" }} gap={"small"}>
-        <Link to={"/"}>
+        <a href={"/"}>
           <Button primary={currentPath === "/"} icon={<Home/>} label="Home"/>
-        </Link>
+        </a>
 
         <Link to={"/edit"}>
           <Button primary={currentPath === "/edit"} icon={<EditIcon/>} label="Edit"/>
         </Link>
 
         <Link to={"/decisions"}>
-          <Button primary={currentPath === "/decisions"} icon={<UserSettings/>} label='Decisions'/>
+          <Button primary={currentPath === "/decisions"} icon={<Tools />} label='Tools'/>
         </Link>
 
         <Link to={"/"}>

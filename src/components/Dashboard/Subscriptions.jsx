@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Box, DataTable, Meter, Tab, Text} from "grommet";
+import {Box, DataTable, Meter, Text} from "grommet";
 import gql from "graphql-tag";
 import PieWithTable from "../_shared_/PieWithTable";
 import {colors} from "../../constants";
@@ -34,53 +34,47 @@ class Subscriptions extends Component {
         let {
             totalSaved,
             valueTableData,
-            table,
             pie
         } = this.state;
 
         return <Box>
             <PieWithTable
                 pieData={pie}
-                tableData={table}
-                tabs={[
-                    <Tab key={"value-analysis-tab-subs"} title="Value Analysis">
-                        <Box margin={"medium"}>
-                            <Text>
-                                If you cancel subscriptions with a score less than 30% you will
-                                save {toCurrency(totalSaved)}/mo.
-                            </Text>
-                        </Box>
-                        <DataTable
-                            primaryKey={"id"}
-                            columns={[
-                                {
-                                    header: "Name",
-                                    property: "name"
-                                },
-                                {
-                                    header: "Value",
-                                    render: datum => <Text>
-                                        {(datum.relative_value * 100).toFixed(2)}%
-                                    </Text>
-                                },
-                                {
-                                    header: "Value",
-                                    property: "relative_value",
-                                    render: datum => (
-                                        <Box pad={{vertical: "xsmall"}}>
-                                            <Meter
-                                                values={[{value: datum.relative_value * 100}]}
-                                                thickness="small"
-                                                size="small"
-                                            />
-                                        </Box>
-                                    )
-                                }
-                            ]}
-                            data={valueTableData}
-                        />
-                    </Tab>
+            />
+            <Box margin={"medium"}>
+                <Text>
+                    If you cancel subscriptions with a score less than 30% you will
+                    save {toCurrency(totalSaved)}/mo.
+                </Text>
+            </Box>
+            <DataTable
+                primaryKey={"id"}
+                columns={[
+                    {
+                        header: "Name",
+                        property: "name"
+                    },
+                    {
+                        header: "Value",
+                        render: datum => <Text>
+                            {(datum.relative_value * 100).toFixed(2)}%
+                        </Text>
+                    },
+                    {
+                        header: "Value",
+                        property: "relative_value",
+                        render: datum => (
+                            <Box pad={{vertical: "xsmall"}}>
+                                <Meter
+                                    values={[{value: datum.relative_value * 100}]}
+                                    thickness="small"
+                                    size="small"
+                                />
+                            </Box>
+                        )
+                    }
                 ]}
+                data={valueTableData}
             />
         </Box>;
     };

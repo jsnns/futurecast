@@ -41,14 +41,6 @@ const Edit = () => (
                     fields={subscriptions.fields}
                 />
             </DashboardWidget>
-            <DashboardWidget title="Once" basis={"1/2"}>
-                <EditGraphql
-                    table="transactions"
-                    subscription={transactions.query_once}
-                    columns={transactions.columns}
-                    fields={transactions.fields}
-                />
-            </DashboardWidget>
         </Box>
     </Box>
 );

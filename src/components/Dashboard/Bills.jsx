@@ -34,7 +34,7 @@ const Bills = () => {
                     if (error) return `Error! ${error.message}`;
 
                     let {transactions} = data;
-                    let instances = getInstancesArray(transactions, 45);
+                    let instances = getInstancesArray(transactions, 45, 35);
 
                     transactions = instances
                         .sort((a, b) => {
@@ -47,14 +47,14 @@ const Bills = () => {
 
                     const events = transactions.map(tx => ({
                         start: tx.date,
-                        title: tx.name,
+                        title: `${tx.name} ${tx.value}`,
                         end: tx.date
                     }));
 
                     return <Calendar
                         style={{minHeight: 750}}
                         localizer={localizer}
-                        defaultView="agenda"
+                        defaultView="month"
                         defaultDate={new Date()}
                         events={events}
                         startAccessor="start"

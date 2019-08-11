@@ -17,16 +17,16 @@ export default {
 
   columns: [
     {
+      header: "Category",
+      property: "category"
+    },
+    {
       header: "Name",
       property: "name"
     },
     {
       header: "Price",
       property: "price"
-    },
-    {
-      header: "Category",
-      property: "category"
     },
     {
       header: "Usefulness",

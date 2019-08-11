@@ -1,12 +1,12 @@
 import React from "react";
 import { Box, Heading } from "grommet";
 
-function DashboardWidget({ children, title, color, basis }) {
+function DashboardWidget({ children, title, color, basis, raised }) {
   return (
     <Box pad="small" direction="row" basis={basis}>
       <Box
         color={color || "light-2"}
-        background={"dark-1"}
+        background={raised ? "dark-2" : "dark-1"}
         pad={"small"}
         flex={"grow"}
         animation={{
