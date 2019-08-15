@@ -18,6 +18,7 @@ const GET_TRANSACTIONS = gql`
                 end
                 interval_days
                 interval_months
+                category
             }
             accounts {
                 balance
