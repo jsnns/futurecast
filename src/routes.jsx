@@ -2,6 +2,7 @@ import React from "react";
 import {Route, Router} from "react-router-dom";
 import {ApolloProvider} from "react-apollo";
 import {Grommet, Box} from "grommet";
+import { PDFViewer } from "@react-pdf/renderer";
 
 import AuthenticatedRoute from "./components/Auth/AuthenticatedRoute/AuthenticatedRoute";
 import Callback from "./components/Auth/Callback/Callback";
@@ -11,9 +12,12 @@ import Auth from "./components/Auth/Auth";
 import Edit from "./components/Edit/Edit";
 import Tools from "./components/Tools/Tools";
 import client from "./client";
+import PDF from "./components/PDF/PDF";
 
+// import fonts for global use
 import "./styles/fonts.css";
 
+// create a new Auth0 instance
 export const auth = new Auth();
 
 const authenticatedRoute = component => {
@@ -49,6 +53,11 @@ export const makeMainRoutes = () => {
                 }}
             >
                 <Box background={"dark-1"} style={{minHeight: "100vh"}}>
+                    <Route
+                        exact
+                        path="/pdf"
+                        render={() => <PDFViewer style={{height: "100vh"}}><PDF/></PDFViewer>}
+                    />
                     <Route
                         exact
                         path="/"
