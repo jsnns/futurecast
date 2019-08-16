@@ -14,11 +14,11 @@ const Header = () => {
   return (
     <Box style={{width: "100vw"}} animation={{ type: "fadeIn", duration: 1000, delay: 0 }}>
       <Navbar expand="lg" bg="dark" variant="dark">
-        <Navbar.Brand href="#home">Futurecast</Navbar.Brand>
+        <Navbar.Brand href="/home">Futurecast</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/">Dashboard</Nav.Link>
             <Nav.Link href="/decisions">Tools</Nav.Link>
             <Nav.Link href="/edit">Edit</Nav.Link>
           </Nav>
