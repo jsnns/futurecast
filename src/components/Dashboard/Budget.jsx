@@ -9,6 +9,7 @@ import {getBudget, getBudgetStats} from "../../data/logic";
 
 import _ from "lodash";
 import Stat from "../_shared_/Stat";
+import {getSavingsRate} from "../../data/logic/getStats";
 
 const GET_TRANSACTIONS = gql`
     {
@@ -34,6 +35,7 @@ class Budget extends Component {
                     <Stat label={"Expenses"} value={stats.expenses} currency/>
                     <Stat label={"Income"} value={stats.income} currency/>
                     <Stat label={"Savings"} value={stats.savings} currency/>
+                    <Stat label={"Savings Rate"} value={getSavingsRate(stats.income, stats.expenses)} percentage />
                 </Box>
             </Box>
             <PieWithTable pieData={data} tableData={table}/>

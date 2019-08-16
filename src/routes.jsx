@@ -12,6 +12,9 @@ import Edit from "./components/Edit/Edit";
 import Tools from "./components/Tools/Tools";
 import client from "./client";
 
+import * as colors from "./constants/colors"
+
+// import fonts
 import "./styles/fonts.css";
 
 export const auth = new Auth();
@@ -36,14 +39,7 @@ export const makeMainRoutes = () => {
             <Grommet
                 theme={{
                     global: {
-                        colors: {
-                            brand: "rgba(68, 3, 129, 1)",
-                            "accent-1": "rgba(6, 141, 157, 1)",
-                            "dark-1": "rgb(36, 41, 46)",
-                            "dark-2": "rgb(31, 36, 41)",
-                            "status-critical": "#EE6C4D",
-                            "status-ok": "rgba(111, 255, 233, 1);"
-                        },
+                        colors: colors.theme,
                         font: {family: "Lato"}
                     }
                 }}

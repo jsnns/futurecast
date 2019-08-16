@@ -31,7 +31,7 @@ const SavingsCalculator = () => {
                 if (error) return `Error! ${error.message}`;
                 if (loading) return `Loading...`;
 
-                const {income, expenses} = getBudgetStats(data.transactions);
+                let {income, expenses, savings} = getBudgetStats(data.transactions);
                 const moneyAfterExpenses = income + expenses;
 
                 let current401kTransactions = _(data.transactions).filter(tx => tx.name === "401k").value();
@@ -46,17 +46,28 @@ const SavingsCalculator = () => {
                     }
                 }
 
+                savings = savings - current401kSpending;
+
+                const currentSavingsRate = savings/income;
+
+                if (savingsRate !== currentSavingsRate) {
+                    setSavingsRate(currentSavingsRate);
+                }
+
                 const retirement = current401kSpending;
-                const savings = savingsRate * moneyAfterExpenses;
-                const spending = (1 - savingsRate) * moneyAfterExpenses;
+                const spending = moneyAfterExpenses - savings;
 
                 return <Box pad={"small"}>
-                    <Box pad={"small"}>
+                    <Heading level={4} margin={"small"}>
+                        Parameters
+                    </Heading>
+                    <Box pad={"small"} background={"dark-1"}>
                         <Heading level={4} margin={"none"}>
                             Savings Rate
                         </Heading>
                         <RangeInput
                             margin={"none"}
+                            value={savingsRate}
                             min={0}
                             max={1}
                             step={0.05}
@@ -66,10 +77,10 @@ const SavingsCalculator = () => {
                     </Box>
 
 
-                    <Box pad={"small"}>
-                        <Heading level={4} margin={"none"}>
-                            Monthly Allowances
-                        </Heading>
+                    <Heading level={4} margin={"small"}>
+                        Monthly Allowances
+                    </Heading>
+                    <Box pad={"small"} background={"dark-1"}>
                         <Table margin={"none"} cellPadding={"none"}>
                             <TableBody>
                                 <TableRow>

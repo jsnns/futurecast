@@ -1,3 +1,12 @@
+export const theme = {
+  brand: "rgba(68, 3, 129, 1)",
+  "accent-1": "rgba(6, 141, 157, 1)",
+  "dark-1": "rgb(36, 41, 46)",
+  "dark-2": "rgb(31, 36, 41)",
+  "status-critical": "#EE6C4D",
+  "status-ok": "rgba(111, 255, 233, 1);"
+};
+
 export const minimumBalance = "#F46036";
 export const balance = "#1B998B";
 export const colors = [
