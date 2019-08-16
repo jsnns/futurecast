@@ -21,6 +21,7 @@ export function getInstances(days = 30, transaction, backwards = 0) {
 
   // generate list of instances
   while (true) {
+
     // break if past requested days
     if (date > endDate) break;
 

@@ -15,7 +15,7 @@ class Tools extends Component {
             <Box>
                 <Header/>
                 <Box direction="row-responsive">
-                    <DashboardWidget title="Wish Help" basis="2/3" raised>
+                    <DashboardWidget title="Wishlist" basis="2/3" raised>
                         <Tabs>
                             <Tab title="Edit">
                                 <Box pad={"small"}>

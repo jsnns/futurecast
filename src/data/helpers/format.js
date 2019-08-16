@@ -14,21 +14,32 @@ export const addCommas = int => {
     else return withCommas;
 };
 
-function moneyFormat(labelValue) {
+/**
+ * Round a number to a precision of 3
+ * add suffix of [b, m, k] for billions, millions, thousands
+ * @param number {number}
+ * @returns {string}
+ */
+function moneyFormat(number) {
     // Nine Zeroes for Billions
-    let value = Math.abs(Number(labelValue));
-    return value >= 1.0e+9
-        ? (value / 1.0e+9).toPrecision(3) + "b"
+    let value = Math.abs(Number(number));
 
-        // Six Zeroes for Millions
-        : value >= 1.0e+6
+    // billions
+    if (value >= 1.0e+9) {
+        return (value / 1.0e+9).toPrecision(3) + "b";
+    }
 
-            ? (value / 1.0e+6).toPrecision(3) + "m"
-            // Three Zeroes for Thousands
+    // millions
+    if (value >= 1.0e+6) {
+        return (value / 1.0e+6).toPrecision(3) + "m"
+    }
 
-            : value >= 1.0e+3
-                ? (value / 1.0e+3).toPrecision(3) + "k"
-                : value;
+    // thousands
+    if (value >= 1.0e+3) {
+        return (value / 1.0e+3).toPrecision(3) + "k"
+    }
+
+    return String(value)
 }
 
 /**
