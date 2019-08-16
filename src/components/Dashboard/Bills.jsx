@@ -1,7 +1,7 @@
 import React from "react";
 import gql from "graphql-tag";
 import {Query} from "react-apollo";
-import {Box} from "grommet";
+import {Box, ResponsiveContext} from "grommet";
 
 import {getInstancesArray} from "../../data/logic";
 import {Calendar, momentLocalizer} from "react-big-calendar";
@@ -51,15 +51,17 @@ const Bills = () => {
                         end: tx.date
                     }));
 
-                    return <Calendar
-                        style={{minHeight: 750}}
-                        localizer={localizer}
-                        defaultView="month"
-                        defaultDate={new Date()}
-                        events={events}
-                        startAccessor="start"
-                        endAccessor="end"
-                    />
+                    return <ResponsiveContext.Consumer>
+                        {(size) => <Calendar
+                            style={{minHeight: 750}}
+                            localizer={localizer}
+                            defaultView={size === "small" ? "agenda" : "month"}
+                            defaultDate={new Date()}
+                            events={events}
+                            startAccessor="start"
+                            endAccessor="end"
+                        />}
+                    </ResponsiveContext.Consumer>
                 }}
             </Query>
         </Box>

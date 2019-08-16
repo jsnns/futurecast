@@ -1,6 +1,7 @@
 import React from "react";
-import {Box} from "grommet";
+import {Box, Table, TableBody, TableCell, TableRow} from "grommet";
 import {Pie} from "react-chartjs-2";
+import {toCurrency} from "../../data/helpers";
 
 const PieWithTable = ({pieData, tableData, tabs}) => (
     <Box animation={{
@@ -23,7 +24,36 @@ const PieWithTable = ({pieData, tableData, tabs}) => (
                     }}
                 />
             )}
+
         </Box>
+        {tableData && (
+            <Table>
+                <TableBody>
+                    {tableData.map(row => (
+                        <TableRow key={row.value + row.category}>
+                            <TableCell
+                                style={{
+                                    fontFamily: "Lato",
+                                    fontSize: "12pt",
+                                    textTransform: "uppercase",
+                                    opacity: 0.6
+                                }}
+                            >
+                                {row.category}
+                            </TableCell>
+                            <TableCell
+                                style={{
+                                    fontFamily: "Roboto Mono",
+                                    fontSize: "14pt"
+                                }}
+                            >
+                                {toCurrency(Math.abs(row.value))}
+                            </TableCell>
+                        </TableRow>
+                    ))}
+                </TableBody>
+            </Table>
+        )}
     </Box>
 );
 
