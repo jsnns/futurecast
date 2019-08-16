@@ -3,37 +3,56 @@ import React from "react";
 import Stats from "../Dashboard/Stats";
 
 import { Link } from "react-router-dom";
-import { Box, Button } from "grommet";
+import { Box, Button, ResponsiveContext } from "grommet";
 import { auth } from "../../routes";
 import { Edit as EditIcon, Home, Logout, Tools } from "grommet-icons";
+import { Navbar, NavDropdown, Nav } from "react-bootstrap";
 
 const Header = () => {
   const currentPath = window.location.pathname;
 
   return (
-    <Box direction={"row-responsive"} pad={"medium"} animation={{ type: "fadeIn", duration: 1000, delay: 0 }}>
-      <Box flex={"grow"}>
-        <Stats/>
-      </Box>
-      <Box direction="row-responsive" pad={{ top: "small" }} gap={"small"}>
-        <a href={"/"}>
-          <Button primary={currentPath === "/"} icon={<Home/>} label="Home"/>
-        </a>
-
-        <Link to={"/edit"}>
-          <Button primary={currentPath === "/edit"} icon={<EditIcon/>} label="Edit"/>
-        </Link>
-
-        <Link to={"/decisions"}>
-          <Button primary={currentPath === "/decisions"} icon={<Tools />} label='Tools'/>
-        </Link>
-
-        <Link to={"/"}>
-          <Button primary={false} icon={<Logout/>} label='logout' onClick={auth.logout}/>
-        </Link>
-      </Box>
+    <Box style={{width: "100vw"}} animation={{ type: "fadeIn", duration: 1000, delay: 0 }}>
+      <Navbar expand="lg" bg="dark" variant="dark">
+        <Navbar.Brand href="#home">Futurecast</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link href="/">Home</Nav.Link>
+            <Nav.Link href="/decisions">Tools</Nav.Link>
+            <Nav.Link href="/edit">Edit</Nav.Link>
+          </Nav>
+          <ResponsiveContext.Consumer>
+            {(size) => (
+                <div>
+                  {size !== "small" && <Stats/>}
+                </div>
+            )}
+          </ResponsiveContext.Consumer>
+        </Navbar.Collapse>
+      </Navbar>
     </Box>
   );
 };
 
+      // {/*<Box flex={"grow"}>*/}
+      // {/*  */}
+      // {/*</Box>*/}
+      // {/*<Box direction="row-responsive" pad={{ top: "small" }} gap={"small"}>*/}
+      // {/*  <a href={"/"}>*/}
+      // {/*    <Button primary={currentPath === "/"} icon={<Home/>} label="Home"/>*/}
+      // {/*  </a>*/}
+      //
+      // {/*  <Link to={"/edit"}>*/}
+      // {/*    <Button primary={currentPath === "/edit"} icon={<EditIcon/>} label="Edit"/>*/}
+      // {/*  </Link>*/}
+      //
+      // {/*  <Link to={"/decisions"}>*/}
+      // {/*    <Button primary={currentPath === "/decisions"} icon={<Tools />} label='Tools'/>*/}
+      // {/*  </Link>*/}
+      //
+      // {/*  <Link to={"/"}>*/}
+      // {/*    <Button primary={false} icon={<Logout/>} label='logout' onClick={auth.logout}/>*/}
+      // {/*  </Link>*/}
+      // {/*</Box>*/}
 export default Header;
