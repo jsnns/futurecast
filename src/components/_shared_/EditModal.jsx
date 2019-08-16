@@ -48,7 +48,7 @@ const EditModal = ({object, onClose, update, fields}) => {
                         </Box>
                     }
 
-                    return <Box basis={full ? "full" : "1/2"} pad={"small"}>
+                    return <Box basis={full ? "100%": "1/2"} pad={"small"}>
                         {fieldElement}
                     </Box>
                 })}

@@ -20,15 +20,6 @@ const Report = () => {
 
         <DownloadTransactions />
 
-        <DashboardSection direction={"column"} basis={"1/3"}>
-          <DashboardWidget title="Budget" basis="1/1">
-            <Budget/>
-          </DashboardWidget>
-
-          <DashboardWidget title="Subscriptions" basis="1/1">
-            <Subscriptions/>
-          </DashboardWidget>
-        </DashboardSection>
 
         <DashboardSection direction={"column"} basis={"2/3"}>
           <DashboardWidget title="Balance" basis="1/1">
@@ -36,6 +27,15 @@ const Report = () => {
           </DashboardWidget>
           <DashboardWidget title="Bills" basis="1/1">
             <Bills/>
+          </DashboardWidget>
+        </DashboardSection>
+
+        <DashboardSection direction={"column"} basis={"1/3"}>
+          <DashboardWidget title="Budget" basis="1/1">
+            <Budget/>
+          </DashboardWidget>
+          <DashboardWidget title="Subscriptions" basis="1/1">
+            <Subscriptions/>
           </DashboardWidget>
         </DashboardSection>
       </Box>

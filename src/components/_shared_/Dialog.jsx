@@ -1,21 +1,24 @@
 import React from "react";
-import { Modal } from "@material-ui/core";
-import { Box } from "grommet/es6";
+import {Box} from "grommet/es6";
+import {Modal} from "react-bootstrap";
+import {Button} from "grommet";
 
-export const Dialog = ({ children, open, onClose }) => {
-  return <Modal open={open} onClose={onClose}>
-    <Box
-      margin={{
+export const Dialog = ({children, open, onClose}) => {
+    return <Box margin={{
         top: "medium",
         bottom: "medium",
         left: "xlarge",
         right: "xlarge"
-      }}
-      pad="small"
-      background="dark-2"
-      gap="small"
-    >
-      {children}
-    </Box>
-  </Modal>;
+    }}>
+        <Modal show={open} onHide={onClose} variant={"dark"} bg={"dark"}>
+            <Modal.Body>
+                <Box
+                    gap="small"
+                >
+                    {children}
+                    <Button onClick={onClose} label={"Done"} title={"Done"} style={{color: "black"}} />
+                </Box>
+            </Modal.Body>
+        </Modal>
+    </Box>;
 };

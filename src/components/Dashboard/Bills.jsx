@@ -27,7 +27,7 @@ const GET_TRANSACTIONS = gql`
 
 const Bills = () => {
     return (
-        <Box style={{minHeight: 800}}>
+        <Box>
             <Query query={GET_TRANSACTIONS}>
                 {({loading, error, data}) => {
                     if (loading) return "Loading...";
@@ -53,8 +53,9 @@ const Bills = () => {
 
                     return <ResponsiveContext.Consumer>
                         {(size) => <Calendar
-                            style={{minHeight: 750}}
+                            style={{minHeight: 800}}
                             localizer={localizer}
+                            views={["month", "agenda"]}
                             defaultView={size === "small" ? "agenda" : "month"}
                             defaultDate={new Date()}
                             events={events}
