@@ -1,6 +1,14 @@
+# Cache modules in between jobs
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+  - node_modules/
+
+before_script:
+  - npm install -D --progress=false
+
 unit test:
   image: node:6
   stage: test
   script:
-    - npm install -D --progress=false
     - npm run test
