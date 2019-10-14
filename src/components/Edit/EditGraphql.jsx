@@ -40,7 +40,7 @@ class EditGraphql extends Component {
                             return <div style={{width: "100%"}}>
                                 <DataTable
                                     style={{backgroundColor: "rgba(0, 0, 0, 0)"}}
-                                    groupBy={"category"}
+                                    sortable
                                     primaryKey={"id"}
                                     columns={[
                                         ...columns,
