@@ -1,4 +1,5 @@
 import { getBalances } from "../getBalances";
+import "@babel/polyfill";
 
 let today = new Date();
 let getDate = days => {
