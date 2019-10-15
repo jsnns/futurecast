@@ -12,17 +12,21 @@ import "../../styles/calendar.scss";
 const localizer = momentLocalizer(moment);
 
 const GET_TRANSACTIONS = gql`
-    {
-        transactions {
-            category
-            name
-            value
-            start
-            end
-            interval_days
-            interval_months
-        }
-    }
+query {
+	user_reports(where: {id: {_eq: "${window.localStorage.getItem('session:user_report')}"}}) {
+		  reportByReport {
+				transactions {
+					category
+            	name
+					value
+					start
+					end
+					interval_days
+					interval_months
+				}
+		  }
+	 }
+}
 `;
 
 const Bills = () => {
@@ -33,8 +37,9 @@ const Bills = () => {
                     if (loading) return "Loading...";
                     if (error) return `Error! ${error.message}`;
 
-                    let {transactions} = data;
-                    let instances = getInstancesArray(transactions, 45, 35);
+                    let {transactions} = data.user_reports[0].reportByReport;
+
+						  let instances = getInstancesArray(transactions, 45, 35);
 
                     transactions = instances
                         .sort((a, b) => {
