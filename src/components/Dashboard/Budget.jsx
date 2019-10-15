@@ -13,13 +13,17 @@ import {getSavingsRate} from "../../data/logic/getStats";
 
 const GET_TRANSACTIONS = gql`
     {
-        transactions {
-            id
-            category
-            value
-            interval_days
-            interval_months
-        }
+		user_reports(where: {id: {_eq: "${window.localStorage.getItem('session:user_report')}"}}) {
+			reportByReport {
+				transactions {
+						id
+						category
+						value
+						interval_days
+						interval_months
+				}
+			}
+		}
     }
 `;
 
@@ -91,7 +95,9 @@ class Budget extends Component {
             .query({query: GET_TRANSACTIONS})
             .then(({data, error, loading}) => {
                 if (loading) return "loading...";
-                if (error) return `Error! ${error}`;
+					 if (error) return `Error! ${error}`;
+
+					 data = data.user_reports[0].reportByReport
 
                 this.chartDataFromBudget(getBudget(data.transactions), data.transactions);
             });
