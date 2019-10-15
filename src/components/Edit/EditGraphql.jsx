@@ -2,12 +2,11 @@ import React, {Component} from "react";
 import gql from "graphql-tag";
 import {Subscription} from "react-apollo";
 import {Anchor, Box, Button, DataTable} from "grommet";
-import {Edit, Trash} from "grommet-icons";
+import {Add, Edit, Trash} from "grommet-icons";
 
 import {auth} from "../../routes";
 import {client} from "../../client";
 import EditModal from "../_shared_/EditModal";
-import {Add} from "grommet-icons"
 
 class EditGraphql extends Component {
     state = {object: null};
@@ -37,6 +36,13 @@ class EditGraphql extends Component {
                             if (loading) return "Loading...";
                             if (error) return `Error! ${error.message}`;
 
+                            let tableData = [];
+                            try {
+                                tableData = data.user_reports[0].reportByReport[table]
+                            } catch (error) {
+                                tableData = data[table];
+                            }
+
                             return <div style={{width: "100%"}}>
                                 <DataTable
                                     style={{backgroundColor: "rgba(0, 0, 0, 0)"}}
@@ -49,7 +55,7 @@ class EditGraphql extends Component {
                                             render: datum => <div style={{height: 25}}>
                                                 {datum.id && <Anchor
                                                     onClick={() => this.openEditModal(datum)}
-                                                    label={<Edit />}
+                                                    label={<Edit/>}
                                                 />}
                                             </div>
                                         },
@@ -58,12 +64,12 @@ class EditGraphql extends Component {
                                             render: datum => <div style={{height: 25}}>
                                                 {datum.id && <Anchor
                                                     onClick={() => this.delete(datum.id)}
-                                                    label={<Trash />}
+                                                    label={<Trash/>}
                                                 />}
                                             </div>
                                         }
                                     ]}
-                                    data={data[table]}
+                                    data={tableData}
                                 />
                             </div>;
                         }}
@@ -112,21 +118,34 @@ class EditGraphql extends Component {
     });
 
     new = () => {
-        return client.mutate({
+        let selectedReport = window.localStorage.getItem('session:user_report');
+
+        return client.query({
+            query: gql`
+                {
+                    user_reports(where: {id: {_eq: "${selectedReport}"}}) {
+                        reportByReport {
+                            id
+                        }
+                    }
+                }
+            `
+        })
+        .then(({data}) => client.mutate({
             mutation: gql`
                 mutation {
-                    insert_${this.props.table}(objects: { owner: "${auth.user_id}" }) {
+                    insert_${this.props.table}(objects: { owner: "${auth.user_id}", report: "${data.user_reports[0].reportByReport.id}" }) {
                     returning {
                         id
                     }
                 }
                 }
             `
-        }).then(({data}) => {
+        })).then(({data}) => {
             let key = `insert_${this.props.table}`;
             let tx = data[key].returning[0];
             this.openEditModal(tx);
-        })
+        });
     }
 }
 

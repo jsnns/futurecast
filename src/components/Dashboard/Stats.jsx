@@ -8,20 +8,22 @@ import {getStats} from "../../data/logic/getStats";
 
 const GET_TRANSACTIONS = gql`
     {
-        users {
-            transactions {
-                id
-                value
-                start
-                end
-                interval_days
-                interval_months
-                category
-            }
-            accounts {
-                balance
-            }
-        }
+		user_reports(where: {id: {_eq: "${window.localStorage.getItem('session:user_report')}"}}) {
+			reportByReport {
+				transactions {
+					id
+					value
+					start
+					end
+					interval_days
+					interval_months
+					category
+				}
+				accounts {
+					balance
+				}
+			}
+		}
     }
 `;
 
@@ -48,7 +50,7 @@ class StatsTables extends Component {
                 if (error) console.log(`Error! ${error}`);
 
                 if (data) {
-                    const {transactions, accounts} = data.users[0];
+                    const {transactions, accounts} = data.user_reports[0].reportByReport;
                     this.setState({
                         stats: getStats(accounts, transactions, 365)
                     });

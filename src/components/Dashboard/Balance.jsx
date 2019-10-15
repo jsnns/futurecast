@@ -9,23 +9,26 @@ import _ from "lodash";
 import InputWithRange from "../_shared_/InputWithRange";
 
 const GET_TRANSACTIONS = gql`
-    {
-        users {
-            transactions {
-                id
-                value
-                start
-                end
-                interval_days
-                interval_months
-                category
-            }
-            accounts {
-                balance
-            }
-        }
-    }
-`;
+query {
+	 user_reports(where: {id: {_eq: "${window.localStorage.getItem('session:user_report')}"}}) {
+		  reportByReport {
+				transactions {
+					 id
+					 value
+					 name
+					 start
+					 end
+					 category
+					 interval_days
+					 interval_months
+				}
+
+				accounts {
+					balance
+				}
+		  }
+	 }
+}`
 
 class Balance extends Component {
   state = {
@@ -42,7 +45,7 @@ class Balance extends Component {
 
         if (data) {
           // get the first user since it will be the only user
-          const { accounts, transactions } = data.users[0];
+          const { accounts, transactions } = data.user_reports[0].reportByReport;
           return this.setState({ accounts, transactions });
         }
       })
