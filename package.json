@@ -28,7 +28,7 @@
     "grommet-styles": "^0.2.0",
     "history": "latest",
     "jest-fetch-mock": "^2.1.2",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "material-ui": "^0.20.2",
     "moment": "^2.24.0",
     "node-sass": "^4.12.0",
